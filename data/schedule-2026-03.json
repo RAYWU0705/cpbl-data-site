@@ -1,0 +1,48 @@
+[
+  {
+    "date": "2026-03-28",
+    "type": "regular",
+    "status": "scheduled",
+    "isOpeningDay": true,
+    "home": "樂天桃猿",
+    "away": "中信兄弟",
+    "time": "",
+    "venue": {
+      "stadium": "臺北大巨蛋",
+      "city": "臺北市"
+    }
+  },
+  {
+    "date": "2026-03-29",
+    "type": "regular",
+    "status": "scheduled",
+    "home": "樂天桃猿",
+    "away": "味全龍",
+    "venue": {
+      "stadium": "樂天桃園棒球場",
+      "city": "桃園市"
+    }
+  },
+  {
+    "date": "2026-03-29",
+    "type": "regular",
+    "status": "scheduled",
+    "home": "中信兄弟",
+    "away": "富邦悍將",
+    "venue": {
+      "stadium": "洲際棒球場",
+      "city": "臺中市"
+    }
+  },
+  {
+    "date": "2026-03-29",
+    "type": "regular",
+    "status": "scheduled",
+    "home": "統一7-ELEVEn獅",
+    "away": "台鋼雄鷹",
+    "venue": {
+      "stadium": "亞太成棒主球場",
+      "city": "臺南市"
+    }
+  }
+]

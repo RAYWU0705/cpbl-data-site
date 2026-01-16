@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>CPBL 賽程</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">CPBL</a>
+    <a class="nav-link" href="index.html">首頁</a>
+    <a class="nav-link active" href="schedule.html">賽程</a>
+    <a class="nav-link" href="standings.html">戰績</a>
+    <a class="nav-link" href="teams.html">球隊</a>
+  </div>
+</nav>
+
+<header>
+  <h1>完整賽程</h1>
+  <p>（可依月份、賽事類型、球隊與日期篩選）</p>
+</header>
+
+<main>
+  <!-- 篩選區 -->
+  <div style="margin-bottom:20px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+
+    <label>月份：</label>
+    <select id="monthSelect">
+      <option value="2026-03">2026-03</option>
+      <option value="2026-04">2026-04</option>
+      <option value="2026-05">2026-05</option>
+      <option value="2026-06">2026-06</option>
+      <option value="2026-07">2026-07</option>
+    </select>
+
+    <label>賽事：</label>
+    <select id="typeSelect">
+      <option value="ALL">全部</option>
+      <option value="preseason">熱身賽</option>
+      <option value="regular">例行賽</option>
+      <option value="allstar">明星賽</option>
+      <option value="playoff">季後賽</option>
+      <option value="finals">總冠軍賽</option>
+    </select>
+
+    <label>球隊：</label>
+    <select id="teamSelect">
+      <option value="ALL">全部球隊</option>
+      <option value="中信兄弟">中信兄弟</option>
+      <option value="統一7-ELEVEn獅">統一7-ELEVEn獅</option>
+      <option value="樂天桃猿">樂天桃猿</option>
+      <option value="味全龍">味全龍</option>
+      <option value="富邦悍將">富邦悍將</option>
+      <option value="台鋼雄鷹">台鋼雄鷹</option>
+    </select>
+
+    <label>日期：</label>
+    <input type="date" id="dateSelect">
+    <button id="clearDate">清除日期</button>
+
+    <label>
+      <input type="checkbox" id="completeOnly">
+      只看資料完整
+    </label>
+
+    <span id="statusText" style="color:#666;"></span>
+    <span id="missingSummary" style="color:#666;"></span>
+  </div>
+
+  <!-- 賽程列表 -->
+  <div id="scheduleList"></div>
+</main>
+
+<footer>© 2026 CPBL Data Site｜明叡 × ChatGPT</footer>
+
+<script>
+console.log("🔥 script start");
+
+/* ========= 隊徽 ========= */
+function teamLogo(teamName) {
+  const map = {
+    "中信兄弟": "brothers",
+    "統一7-ELEVEn獅": "lions",
+    "樂天桃猿": "monkeys",
+    "味全龍": "dragons",
+    "富邦悍將": "guardians",
+    "台鋼雄鷹": "hawks"
+  };
+  const id = map[teamName];
+  return id ? `<img src="assets/logo/${id}.png" class="team-logo">` : "";
+}
+
+console.log("BASE URI =", document.baseURI);
+
+/* ========= DOM ========= */
+const monthSelect   = document.getElementById("monthSelect");
+const typeSelect    = document.getElementById("typeSelect");
+const teamSelect    = document.getElementById("teamSelect");
+const dateInput     = document.getElementById("dateSelect");
+const clearBtn      = document.getElementById("clearDate");
+const list          = document.getElementById("scheduleList");
+const statusText    = document.getElementById("statusText");
+const completeOnly  = document.getElementById("completeOnly");
+const missingSummary= document.getElementById("missingSummary");
+
+/* ========= 資料 ========= */
+let allGames = [];
+
+/* ========= 工具 ========= */
+function setStatus(msg){ statusText.textContent = msg; }
+
+/* ========= 狀態顯示 ========= */
+function renderStatus(g) {
+  if (g.status === "live") {
+    return `<span class="game-status live">🔴 進行中</span>`;
+  }
+  if (g.status === "final") {
+    if (typeof g.homeScore === "number" && typeof g.awayScore === "number") {
+      return `<span class="game-status final">✅ 比賽結束｜${g.awayScore} : ${g.homeScore}</span>`;
+    }
+    return `<span class="game-status final">✅ 比賽結束</span>`;
+  }
+  return `<span class="game-status scheduled">🕒 未開打</span>`;
+}
+
+/* ========= 載入 JSON ========= */
+function loadMonth(month){
+  const url = `data/schedule-${month}.json`;
+  setStatus(`載入中：${url}`);
+  list.innerHTML = "";
+
+  fetch(url)
+    .then(res => {
+      if (!res.ok) throw new Error(res.status);
+      return res.json();
+    })
+    .then(data => {
+      allGames = Array.isArray(data) ? data : [];
+      setStatus(`✅ 已載入 ${month}（${allGames.length} 場）`);
+      applyFilter();
+    })
+    .catch(() => {
+      setStatus(`❌ 載入失敗：${url}`);
+      list.innerHTML = "<p style='color:red;'>此月份尚未建立賽程 JSON</p>";
+    });
+}
+
+/* ========= 渲染 ========= */
+function render(games){
+  list.innerHTML = "";
+
+  if (!games.length){
+    list.innerHTML = "<p style='color:#666;'>目前沒有符合條件的賽程</p>";
+    return;
+  }
+
+  const grouped = {};
+  games.forEach(g => {
+    if (!grouped[g.date]) grouped[g.date] = [];
+    grouped[g.date].push(g);
+  });
+
+  Object.keys(grouped).sort().forEach(date => {
+    const h3 = document.createElement("h3");
+    h3.textContent = `📅 ${date}`;
+    list.appendChild(h3);
+
+    const row = document.createElement("div");
+    row.className = "game-row";
+
+    grouped[date].forEach(g => {
+      const card = document.createElement("div");
+      card.className = "game-card";
+
+      const city = g.venue?.city || "待補";
+      const stadium = g.venue?.stadium || "待補";
+
+      card.innerHTML = `
+        <div class="teams">
+          ${teamLogo(g.away)} ${g.away}
+          <span style="margin:0 6px;">vs</span>
+          ${teamLogo(g.home)} ${g.home}
+        </div>
+        ${renderStatus(g)}
+        <div class="info">📍 ${city}｜${stadium}</div>
+      `;
+
+      row.appendChild(card);
+    });
+
+    list.appendChild(row);
+  });
+}
+
+/* ========= 篩選 ========= */
+function applyFilter(){
+  let filtered = [...allGames];
+
+  if (typeSelect.value !== "ALL"){
+    filtered = filtered.filter(g => (g.type || "regular") === typeSelect.value);
+  }
+
+  if (teamSelect.value !== "ALL"){
+    filtered = filtered.filter(g => g.home === teamSelect.value || g.away === teamSelect.value);
+  }
+
+  if (dateInput.value){
+    filtered = filtered.filter(g => g.date === dateInput.value);
+  }
+
+  if (completeOnly.checked){
+    filtered = filtered.filter(g => g.venue?.city && g.venue?.stadium && g.time);
+  }
+
+  renderMissingSummary(allGames);
+  render(filtered);
+}
+
+/* ========= 缺漏統計 ========= */
+function renderMissingSummary(games){
+  let mc=0, ms=0, mt=0;
+  games.forEach(g=>{
+    if(!g.venue?.city) mc++;
+    if(!g.venue?.stadium) ms++;
+    if(!g.time) mt++;
+  });
+  missingSummary.textContent =
+    games.length ? `｜待補：城市 ${mc}、球場 ${ms}、時間 ${mt}` : "";
+}
+
+/* ========= 事件 ========= */
+monthSelect.addEventListener("change", ()=>loadMonth(monthSelect.value));
+typeSelect.addEventListener("change", applyFilter);
+teamSelect.addEventListener("change", applyFilter);
+dateInput.addEventListener("change", applyFilter);
+clearBtn.addEventListener("click", ()=>{ dateInput.value=""; applyFilter(); });
+completeOnly.addEventListener("change", applyFilter);
+
+/* ========= 啟動 ========= */
+loadMonth(monthSelect.value);
+</script>
+
+
+</body>
+</html>

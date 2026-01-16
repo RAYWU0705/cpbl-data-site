@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>CPBL 球隊詳細</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">CPBL</a>
+    <a class="nav-link" href="index.html">首頁</a>
+    <a class="nav-link" href="schedule.html">賽程</a>
+    <a class="nav-link" href="standings.html">戰績</a>
+    <a class="nav-link active" href="teams.html">球隊</a>
+  </div>
+</nav>
+
+<header>
+  <h1 id="pageTitle">球隊詳細</h1>
+  <p id="pageSub" style="opacity:.9;">讀取中…</p>
+</header>
+
+<main>
+  <div id="wrap"></div>
+</main>
+
+<footer>© 2026 CPBL Data Site｜明叡 × ChatGPT</footer>
+
+<script>
+console.log("team.html 開始");
+
+// 1️⃣ 讀取網址參數
+const params = new URLSearchParams(location.search);
+const teamId = params.get("team");
+console.log("URL teamId =", teamId);
+
+// 2️⃣ 取得 DOM
+const pageTitle = document.getElementById("pageTitle");
+const pageSub   = document.getElementById("pageSub");
+const wrap      = document.getElementById("wrap");
+
+// 3️⃣ 沒帶 team 參數
+if (!teamId) {
+  pageSub.textContent = "找不到球隊";
+  wrap.innerHTML = `
+    <div class="error-card">
+      <h2>找不到球隊</h2>
+      <p>網址缺少 ?team=</p>
+      <a href="teams.html">回球隊列表</a>
+    </div>
+  `;
+  throw new Error("沒有 team 參數");
+}
+
+// 4️⃣ 讀取 teams.json
+console.log("準備 fetch teams.json");
+
+fetch("data/teams.json")
+  .then(r => {
+    console.log("fetch 狀態", r.status);
+    return r.json();
+  })
+  .then(teams => {
+    console.log("讀到 teams.json", teams);
+
+    const team = teams.find(t => t.id === teamId);
+    console.log("找到的 team =", team);
+
+    if (!team) {
+      pageSub.textContent = "找不到球隊";
+      wrap.innerHTML = `
+        <div class="error-card">
+          <h2>找不到球隊</h2>
+          <p>teams.json 裡沒有 id = ${teamId}</p>
+          <a href="teams.html">回球隊列表</a>
+        </div>
+      `;
+      return;
+    }
+
+    // 5️⃣ 正常顯示
+    pageTitle.textContent = team.name;
+    pageSub.textContent = team.short;
+
+    wrap.innerHTML = `
+      <div class="team-card">
+        <img src="assets/logo/${team.id}.png" class="team-logo-lg">
+        <h2>${team.name}</h2>
+        <p>${team.intro}</p>
+        <ul>
+          <li>📍 城市：${team.city}</li>
+          <li>🏟️ 主場：${team.home}</li>
+          <li>📅 創立：${team.founded}</li>
+        </ul>
+      </div>
+    `;
+  })
+  .catch(err => {
+    console.error("讀取失敗", err);
+    pageSub.textContent = "讀取失敗";
+    wrap.innerHTML = `<p style="color:red;">資料載入失敗</p>`;
+  });
+</script>
+
+
+
+
+
+</body>
+</html>

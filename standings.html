@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>CPBL 戰績</title>
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">CPBL</a>
+    <a class="nav-link" href="index.html">首頁</a>
+    <a class="nav-link" href="schedule.html">賽程</a>
+    <a class="nav-link active" href="standings.html">戰績</a>
+    <a class="nav-link" href="teams.html">球隊</a>
+  </div>
+</nav>
+
+<header>
+  <h1>戰績</h1>
+  <p>（目前為手動戰績表；未來可升級自動計算）</p>
+</header>
+
+<main>
+  <div style="margin-bottom:16px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+    <label for="seasonSelect">賽季：</label>
+    <select id="seasonSelect">
+      <option value="2026">2026</option>
+    </select>
+    <label for="splitSelect">區段：</label>
+<select id="splitSelect">
+  <option value="full">全年</option>
+  <option value="first">上半季</option>
+  <option value="second">下半季</option>
+</select>
+
+<label for="teamSearch">搜尋球隊：</label>
+<input id="teamSearch" type="text" placeholder="例如：中信 / 兄弟 / 猿" style="padding:6px 10px;">
+
+    <button id="reloadBtn">重新讀取</button>
+
+    <span id="statusText" style="color:#666;"></span>
+  </div>
+
+  <div id="standingsWrap"></div>
+
+  <hr style="margin:24px 0; opacity:.25;">
+
+  <details>
+    <summary style="cursor:pointer;">📌 未來升級：自動計算戰績（需要比分）</summary>
+    <div style="margin-top:10px; color:#444; line-height:1.7;">
+      <p>如果你之後在賽程 JSON 加上比分欄位，例如：</p>
+      <pre style="background:#fff; padding:12px; border-radius:8px; overflow:auto; border:1px solid rgba(0,0,0,0.1);">
+{"date":"2026-04-01","away":"味全龍","home":"中信兄弟","awayScore":3,"homeScore":5}
+      </pre>
+      <p>那我可以幫你在這頁加「一鍵從賽程自動計算」按鈕。</p>
+    </div>
+  </details>
+</main>
+
+<footer>© 2026 CPBL Data Site｜明叡 × ChatGPT</footer>
+<script>
+const TEAM_LOGOS = {
+  "中信兄弟": "./assets/logo/brothers.png",
+  "統一7-ELEVEn獅": "./assets/logo/lions.png",
+  "樂天桃猿": "./assets/logo/monkeys.png",
+  "味全龍": "./assets/logo/dragons.png",
+  "富邦悍將": "./assets/logo/guardians.png",
+  "台鋼雄鷹": "./assets/logo/hawks.png"
+};
+const TEAM_KEYS = {
+  "中信兄弟": "brothers",
+  "統一7-ELEVEn獅": "lions",
+  "樂天桃猿": "monkeys",
+  "味全龍": "dragons",
+  "富邦悍將": "guardians",
+  "台鋼雄鷹": "hawks"
+};
+
+
+
+function getTeamLogo(team) {
+  return TEAM_LOGOS[team] || "";
+}
+</script>
+
+<script>
+  /* ========= DOM ========= */
+const standingsWrap = document.getElementById("standingsWrap");
+const seasonSelect  = document.getElementById("seasonSelect");
+const splitSelect   = document.getElementById("splitSelect");
+const reloadBtn     = document.getElementById("reloadBtn");
+const statusText    = document.getElementById("statusText");
+const teamSearch    = document.getElementById("teamSearch");
+
+/* ========= 常數 ========= */
+const TEAMS = [
+  "中信兄弟",
+  "統一7-ELEVEn獅",
+  "樂天桃猿",
+  "味全龍",
+  "富邦悍將",
+  "台鋼雄鷹"
+];
+
+/* ========= 狀態 ========= */
+let rawRows = [];
+
+/* ========= 工具 ========= */
+function setStatus(msg) {
+  statusText.textContent = msg;
+}
+
+/* ========= 核心：計算戰績 ========= */
+function calculateStandings(games) {
+  const table = {};
+  TEAMS.forEach(t => {
+    table[t] = { team: t, games: 0, wins: 0, losses: 0, ties: 0 };
+  });
+
+  games.forEach(g => {
+    if (typeof g.homeScore !== "number" || typeof g.awayScore !== "number") return;
+
+    const home = table[g.home];
+    const away = table[g.away];
+    if (!home || !away) return;
+
+    home.games++;
+    away.games++;
+
+    if (g.homeScore > g.awayScore) {
+      home.wins++; away.losses++;
+    } else if (g.homeScore < g.awayScore) {
+      away.wins++; home.losses++;
+    } else {
+      home.ties++; away.ties++;
+    }
+  });
+
+  return Object.values(table).map(r => {
+    const denom = r.wins + r.losses;
+    const winPct = denom === 0 ? 0 : r.wins / denom;
+    return { ...r, winPct: winPct.toFixed(3) };
+  });
+}
+
+/* ========= 顯示 ========= */
+function renderStandings(rows) {
+  if (!rows.length) {
+    standingsWrap.innerHTML = "<p>尚無戰績資料</p>";
+    return;
+  }
+
+  rows.sort((a,b) => b.winPct - a.winPct || b.wins - a.wins);
+  rawRows = rows;
+
+  standingsWrap.innerHTML = `
+    <table class="standings-table">
+      <thead>
+        <tr>
+          <th>#</th><th>球隊</th><th>場</th><th>勝</th><th>敗</th><th>和</th><th>勝率</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows.map((r,i)=>`
+          <tr>
+            <td>${i+1}</td>
+            <td class="team-cell">
+  <a href="team.html?team=${TEAM_KEYS[r.team]}"
+     style="display:flex; align-items:center; gap:8px; text-decoration:none; color:inherit;">
+
+    <img src="${getTeamLogo(r.team)}"
+         class="team-logo"
+         alt="${r.team}">
+
+    <span style="font-weight:700;">${r.team}</span>
+  </a>
+</td>
+
+
+            <td>${r.games}</td>
+            <td>${r.wins}</td>
+            <td>${r.losses}</td>
+            <td>${r.ties}</td>
+            <td>${r.winPct}</td>
+          </tr>
+        `).join("")}
+      </tbody>
+    </table>
+  `;
+}
+
+/* ========= 從賽程讀取 ========= */
+async function loadStandingsFromSchedule() {
+  setStatus("計算中…");
+
+  const months = ["2026-03","2026-04","2026-05","2026-06","2026-07"];
+  let allGames = [];
+
+  for (const m of months) {
+    try {
+      const res = await fetch(`data/schedule-${m}.json`);
+      if (!res.ok) continue;
+      const data = await res.json();
+      allGames = allGames.concat(data);
+    } catch {}
+  }
+
+  const rows = calculateStandings(allGames);
+  setStatus(`✅ 已計算（${rows.length} 隊）`);
+  renderStandings(rows);
+}
+
+/* ========= 事件 ========= */
+reloadBtn.addEventListener("click", loadStandingsFromSchedule);
+seasonSelect.addEventListener("change", loadStandingsFromSchedule);
+splitSelect.addEventListener("change", loadStandingsFromSchedule);
+
+teamSearch.addEventListener("input", () => {
+  const q = teamSearch.value.trim();
+  if (!q) return renderStandings(rawRows);
+  renderStandings(rawRows.filter(r => r.team.includes(q)));
+});
+
+/* ========= 啟動 ========= */
+loadStandingsFromSchedule();
+
+</script>
+
+</body>
+</html>
+
