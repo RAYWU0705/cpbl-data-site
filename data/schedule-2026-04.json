@@ -1,296 +1,88 @@
 [
-  {
-    "date": "2026-04-01",
-    "status": "scheduled",
-    "away": "味全龍",
-    "home": "中信兄弟"
-  },
-  {
-    "date": "2026-04-01",
-    "status": "scheduled",
-    "away": "台鋼雄鷹",
-    "home": "樂天桃猿"
-  },
-  {
-    "date": "2026-04-01",
-    "status": "scheduled",
-    "away": "富邦悍將",
-    "home": "統一7-ELEVEn獅"
-  },
-  {
-    "date": "2026-04-03",
-    "status": "scheduled",
-    "away": "統一7-ELEVEn獅",
-    "home": "中信兄弟"
-  },
-  {
-    "date": "2026-04-03",
-    "status": "scheduled",
-    "away": "樂天桃猿",
-    "home": "富邦悍將"
-  },
-  {
-    "date": "2026-04-03",
-    "status": "scheduled",
-    "away": "台鋼雄鷹",
-    "home": "味全龍"
-  },
-  {
-    "date": "2026-04-04",
-    "status": "scheduled",
-    "away": "統一7-ELEVEn獅",
-    "home": "中信兄弟"
-  },
-  {
-    "date": "2026-04-04",
-    "status": "scheduled",
-    "away": "樂天桃猿",
-    "home": "富邦悍將"
-  },
-  {
-    "date": "2026-04-04",
-    "status": "scheduled",
-    "away": "台鋼雄鷹",
-    "home": "味全龍"
-  },
-  {
-    "date": "2026-04-05",
-    "status": "scheduled",
-    "away": "統一7-ELEVEn獅",
-    "home": "中信兄弟"
-  },
-  {
-    "date": "2026-04-05",
-    "status": "scheduled",
-    "away": "樂天桃猿",
-    "home": "富邦悍將"
-  },
-  {
-    "date": "2026-04-05",
-    "status": "scheduled",
-    "away": "台鋼雄鷹",
-    "home": "味全龍"
-  },
-  {
-    "date": "2026-04-06",
-    "status": "scheduled",
-    "away": "樂天桃猿",
-    "home": "台鋼雄鷹"
-  },
-  {
-    "date": "2026-04-06",
-    "status": "scheduled",
-    "away": "中信兄弟",
-    "home": "富邦悍將"
-  },
-  {
-    "date": "2026-04-07",
-    "status": "scheduled",
-    "away": "樂天桃猿",
-    "home": "台鋼雄鷹"
-  },
-  {
-    "date": "2026-04-07",
-    "status": "scheduled",
-    "away": "中信兄弟",
-    "home": "富邦悍將"
-  },
-  {
-    "date": "2026-04-10",
-    "status": "scheduled",
-    "away": "富邦悍將",
-    "home": "台鋼雄鷹"
-  },
-  {
-    "date": "2026-04-10",
-    "status": "scheduled",
-    "away": "統一7-ELEVEn獅",
-    "home": "樂天桃猿"
-  },
-  {
-    "date": "2026-04-11",
-    "status": "scheduled",
-    "away": "富邦悍將",
-    "home": "台鋼雄鷹"
-  },
-  {
-    "date": "2026-04-11",
-    "status": "scheduled",
-    "away": "統一7-ELEVEn獅",
-    "home": "樂天桃猿"
-  },
-  {
-    "date": "2026-04-12",
-    "status": "scheduled",
-    "away": "富邦悍將",
-    "home": "台鋼雄鷹"
-  },
-  {
-    "date": "2026-04-12",
-    "status": "scheduled",
-    "away": "統一7-ELEVEn獅",
-    "home": "樂天桃猿"
-  },
-  {
-    "date": "2026-04-14",
-    "status": "scheduled",
-    "away": "味全龍",
-    "home": "富邦悍將"
-  },
-  {
-    "date": "2026-04-14",
-    "status": "scheduled",
-    "away": "台鋼雄鷹",
-    "home": "中信兄弟"
-  },
-  {
-    "date": "2026-04-15",
-    "status": "scheduled",
-    "away": "味全龍",
-    "home": "富邦悍將"
-  },
-  {
-    "date": "2026-04-15",
-    "status": "scheduled",
-    "away": "台鋼雄鷹",
-    "home": "中信兄弟"
-  },
-  {
-    "date": "2026-04-15",
-    "status": "scheduled",
-    "away": "統一7-ELEVEn獅",
-    "home": "樂天桃猿"
-  },
-  {
-    "date": "2026-04-16",
-    "status": "scheduled",
-    "away": "統一7-ELEVEn獅",
-    "home": "樂天桃猿"
-  },
-  {
-    "date": "2026-04-17",
-    "status": "scheduled",
-    "away": "樂天桃猿",
-    "home": "富邦悍將"
-  },
-  {
-    "date": "2026-04-17",
-    "status": "scheduled",
-    "away": "中信兄弟",
-    "home": "味全龍"
-  },
-  {
-    "date": "2026-04-18",
-    "status": "scheduled",
-    "away": "樂天桃猿",
-    "home": "富邦悍將"
-  },
-  {
-    "date": "2026-04-18",
-    "status": "scheduled",
-    "away": "中信兄弟",
-    "home": "味全龍"
-  },
-  {
-    "date": "2026-04-19",
-    "status": "scheduled",
-    "away": "樂天桃猿",
-    "home": "富邦悍將"
-  },
-  {
-    "date": "2026-04-19",
-    "status": "scheduled",
-    "away": "中信兄弟",
-    "home": "味全龍"
-  },
-  {
-    "date": "2026-04-21",
-    "status": "scheduled",
-    "away": "中信兄弟",
-    "home": "樂天桃猿"
-  },
-  {
-    "date": "2026-04-22",
-    "status": "scheduled",
-    "away": "中信兄弟",
-    "home": "樂天桃猿"
-  },
-  {
-    "date": "2026-04-22",
-    "status": "scheduled",
-    "away": "味全龍",
-    "home": "台鋼雄鷹"
-  },
-  {
-    "date": "2026-04-23",
-    "status": "scheduled",
-    "away": "味全龍",
-    "home": "台鋼雄鷹"
-  },
-  {
-    "date": "2026-04-24",
-    "status": "scheduled",
-    "away": "台鋼雄鷹",
-    "home": "樂天桃猿"
-  },
-  {
-    "date": "2026-04-24",
-    "status": "scheduled",
-    "away": "富邦悍將",
-    "home": "中信兄弟"
-  },
-  {
-    "date": "2026-04-25",
-    "status": "scheduled",
-    "away": "台鋼雄鷹",
-    "home": "樂天桃猿"
-  },
-  {
-    "date": "2026-04-25",
-    "status": "scheduled",
-    "away": "富邦悍將",
-    "home": "中信兄弟"
-  },
-  {
-    "date": "2026-04-26",
-    "status": "scheduled",
-    "away": "台鋼雄鷹",
-    "home": "樂天桃猿"
-  },
-  {
-    "date": "2026-04-26",
-    "status": "scheduled",
-    "away": "富邦悍將",
-    "home": "中信兄弟"
-  },
-  {
-    "date": "2026-04-28",
-    "status": "scheduled",
-    "away": "樂天桃猿",
-    "home": "味全龍"
-  },
-  {
-    "date": "2026-04-28",
-    "status": "scheduled",
-    "away": "台鋼雄鷹",
-    "home": "富邦悍將"
-  },
-  {
-    "date": "2026-04-29",
-    "status": "scheduled",
-    "away": "樂天桃猿",
-    "home": "味全龍"
-  },
-  {
-    "date": "2026-04-29",
-    "status": "scheduled",
-    "away": "台鋼雄鷹",
-    "home": "富邦悍將"
-  },
-  {
-    "date": "2026-04-30",
-    "status": "scheduled",
-    "away": "樂天桃猿",
-    "home": "中信兄弟"
-  }
+  { "date":"2026-04-01","teams":{"home":"中信兄弟","away":"味全龍"},"type":"regular","status":"scheduled","time":"18:35","venue":"洲際"},
+  { "date":"2026-04-01","teams":{"home":"樂天桃猿","away":"台鋼雄鷹"},"type":"regular","status":"scheduled","time":"18:35","venue":"桃園"},
+  { "date":"2026-04-01","teams":{"home":"統一7-ELEVEn獅","away":"富邦悍將"},"type":"regular","status":"scheduled","time":"18:35","venue":"亞太主"},
+
+  { "date":"2026-04-03","teams":{"home":"中信兄弟","away":"統一7-ELEVEn獅"},"type":"regular","status":"scheduled","time":"17:05","venue":"洲際"},
+  { "date":"2026-04-03","teams":{"home":"富邦悍將","away":"樂天桃猿"},"type":"regular","status":"scheduled","time":"17:05","venue":"新莊"},
+  { "date":"2026-04-03","teams":{"home":"味全龍","away":"台鋼雄鷹"},"type":"regular","status":"scheduled","time":"17:05","venue":"天母"},
+
+  { "date":"2026-04-04","teams":{"home":"中信兄弟","away":"統一7-ELEVEn獅"},"type":"regular","status":"scheduled","time":"17:05","venue":"洲際"},
+  { "date":"2026-04-04","teams":{"home":"富邦悍將","away":"樂天桃猿"},"type":"regular","status":"scheduled","time":"17:05","venue":"新莊"},
+  { "date":"2026-04-04","teams":{"home":"味全龍","away":"台鋼雄鷹"},"type":"regular","status":"scheduled","time":"17:05","venue":"天母"},
+
+  { "date":"2026-04-05","teams":{"home":"中信兄弟","away":"統一7-ELEVEn獅"},"type":"regular","status":"scheduled","time":"17:05","venue":"洲際"},
+  { "date":"2026-04-05","teams":{"home":"富邦悍將","away":"樂天桃猿"},"type":"regular","status":"scheduled","time":"17:05","venue":"新莊"},
+  { "date":"2026-04-05","teams":{"home":"味全龍","away":"台鋼雄鷹"},"type":"regular","status":"scheduled","time":"16:05","venue":"天母"},
+
+  { "date":"2026-04-06","teams":{"home":"台鋼雄鷹","away":"統一7-ELEVEn獅"},"type":"regular","status":"scheduled","time":"16:05","venue":"澄清湖"},
+  { "date":"2026-04-06","teams":{"home":"味全龍","away":"樂天桃猿"},"type":"regular","status":"scheduled","time":"16:05","venue":"天母"},
+  { "date":"2026-04-06","teams":{"home":"富邦悍將","away":"中信兄弟"},"type":"regular","status":"scheduled","time":"17:05","venue":"新莊"},
+
+  { "date":"2026-04-07","teams":{"home":"台鋼雄鷹","away":"統一7-ELEVEn獅"},"type":"regular","status":"scheduled","time":"18:35","venue":"澄清湖"},
+  { "date":"2026-04-07","teams":{"home":"味全龍","away":"樂天桃猿"},"type":"regular","status":"scheduled","time":"18:35","venue":"天母"},
+  { "date":"2026-04-07","teams":{"home":"富邦悍將","away":"中信兄弟"},"type":"regular","status":"scheduled","time":"18:35","venue":"新莊"},
+
+  { "date":"2026-04-10","teams":{"home":"台鋼雄鷹","away":"富邦悍將"},"type":"regular","status":"scheduled","time":"18:35","venue":"澄清湖"},
+  { "date":"2026-04-10","teams":{"home":"統一7-ELEVEn獅","away":"味全龍"},"type":"regular","status":"scheduled","time":"18:35","venue":"亞太主"},
+  { "date":"2026-04-10","teams":{"home":"樂天桃猿","away":"中信兄弟"},"type":"regular","status":"scheduled","time":"18:35","venue":"桃園"},
+
+  { "date":"2026-04-11","teams":{"home":"台鋼雄鷹","away":"富邦悍將"},"type":"regular","status":"scheduled","time":"16:05","venue":"澄清湖"},
+  { "date":"2026-04-11","teams":{"home":"統一7-ELEVEn獅","away":"味全龍"},"type":"regular","status":"scheduled","time":"16:05","venue":"亞太主"},
+  { "date":"2026-04-11","teams":{"home":"樂天桃猿","away":"中信兄弟"},"type":"regular","status":"scheduled","time":"17:05","venue":"桃園"},
+
+  { "date":"2026-04-12","teams":{"home":"台鋼雄鷹","away":"富邦悍將"},"type":"regular","status":"scheduled","time":"16:05","venue":"澄清湖"},
+  { "date":"2026-04-12","teams":{"home":"統一7-ELEVEn獅","away":"味全龍"},"type":"regular","status":"scheduled","time":"16:05","venue":"亞太主"},
+  { "date":"2026-04-12","teams":{"home":"樂天桃猿","away":"中信兄弟"},"type":"regular","status":"scheduled","time":"17:05","venue":"桃園"}
+,
+  { "date":"2026-04-14","teams":{"home":"富邦悍將","away":"味全龍"},"type":"regular","status":"scheduled","time":"18:35","venue":"新莊"},
+  { "date":"2026-04-14","teams":{"home":"中信兄弟","away":"台鋼雄鷹"},"type":"regular","status":"scheduled","time":"18:35","venue":"洲際"},
+
+  { "date":"2026-04-15","teams":{"home":"富邦悍將","away":"味全龍"},"type":"regular","status":"scheduled","time":"18:35","venue":"新莊"},
+  { "date":"2026-04-15","teams":{"home":"中信兄弟","away":"台鋼雄鷹"},"type":"regular","status":"scheduled","time":"18:35","venue":"洲際"},
+  { "date":"2026-04-15","teams":{"home":"樂天桃猿","away":"統一7-ELEVEn獅"},"type":"regular","status":"scheduled","time":"18:35","venue":"桃園"},
+
+  { "date":"2026-04-16","teams":{"home":"樂天桃猿","away":"統一7-ELEVEn獅"},"type":"regular","status":"scheduled","time":"18:35","venue":"桃園"},
+
+  { "date":"2026-04-17","teams":{"home":"富邦悍將","away":"統一7-ELEVEn獅"},"type":"regular","status":"scheduled","time":"18:35","venue":"新莊"},
+  { "date":"2026-04-17","teams":{"home":"味全龍","away":"中信兄弟"},"type":"regular","status":"scheduled","time":"18:35","venue":"天母"},
+  { "date":"2026-04-17","teams":{"home":"台鋼雄鷹","away":"樂天桃猿"},"type":"regular","status":"scheduled","time":"18:35","venue":"澄清湖"},
+
+  { "date":"2026-04-18","teams":{"home":"富邦悍將","away":"統一7-ELEVEn獅"},"type":"regular","status":"scheduled","time":"17:05","venue":"新莊"},
+  { "date":"2026-04-18","teams":{"home":"味全龍","away":"中信兄弟"},"type":"regular","status":"scheduled","time":"17:05","venue":"天母"},
+  { "date":"2026-04-18","teams":{"home":"台鋼雄鷹","away":"樂天桃猿"},"type":"regular","status":"scheduled","time":"16:05","venue":"澄清湖"},
+
+  { "date":"2026-04-19","teams":{"home":"富邦悍將","away":"統一7-ELEVEn獅"},"type":"regular","status":"scheduled","time":"17:05","venue":"新莊"},
+  { "date":"2026-04-19","teams":{"home":"味全龍","away":"中信兄弟"},"type":"regular","status":"scheduled","time":"16:05","venue":"天母"},
+  { "date":"2026-04-19","teams":{"home":"台鋼雄鷹","away":"樂天桃猿"},"type":"regular","status":"scheduled","time":"16:05","venue":"澄清湖"},
+
+  { "date":"2026-04-21","teams":{"home":"統一7-ELEVEn獅","away":"中信兄弟"},"type":"regular","status":"scheduled","time":"18:35","venue":"亞太主"},
+  { "date":"2026-04-21","teams":{"home":"樂天桃猿","away":"富邦悍將"},"type":"regular","status":"scheduled","time":"18:35","venue":"桃園"},
+
+  { "date":"2026-04-22","teams":{"home":"統一7-ELEVEn獅","away":"中信兄弟"},"type":"regular","status":"scheduled","time":"18:35","venue":"亞太主"},
+  { "date":"2026-04-22","teams":{"home":"樂天桃猿","away":"富邦悍將"},"type":"regular","status":"scheduled","time":"18:35","venue":"桃園"},
+  { "date":"2026-04-22","teams":{"home":"台鋼雄鷹","away":"味全龍"},"type":"regular","status":"scheduled","time":"18:35","venue":"嘉義市"},
+
+  { "date":"2026-04-23","teams":{"home":"台鋼雄鷹","away":"味全龍"},"type":"regular","status":"scheduled","time":"18:35","venue":"澄清湖"},
+
+  { "date":"2026-04-24","teams":{"home":"統一7-ELEVEn獅","away":"台鋼雄鷹"},"type":"regular","status":"scheduled","time":"18:35","venue":"亞太主"},
+  { "date":"2026-04-24","teams":{"home":"中信兄弟","away":"富邦悍將"},"type":"regular","status":"scheduled","time":"18:35","venue":"洲際"},
+  { "date":"2026-04-24","teams":{"home":"樂天桃猿","away":"味全龍"},"type":"regular","status":"scheduled","time":"18:35","venue":"桃園"},
+
+  { "date":"2026-04-25","teams":{"home":"統一7-ELEVEn獅","away":"台鋼雄鷹"},"type":"regular","status":"scheduled","time":"16:05","venue":"亞太主"},
+  { "date":"2026-04-25","teams":{"home":"中信兄弟","away":"富邦悍將"},"type":"regular","status":"scheduled","time":"17:05","venue":"洲際"},
+  { "date":"2026-04-25","teams":{"home":"樂天桃猿","away":"味全龍"},"type":"regular","status":"scheduled","time":"17:05","venue":"桃園"},
+
+  { "date":"2026-04-26","teams":{"home":"統一7-ELEVEn獅","away":"台鋼雄鷹"},"type":"regular","status":"scheduled","time":"16:05","venue":"亞太主"},
+  { "date":"2026-04-26","teams":{"home":"中信兄弟","away":"富邦悍將"},"type":"regular","status":"scheduled","time":"17:05","venue":"洲際"},
+  { "date":"2026-04-26","teams":{"home":"樂天桃猿","away":"味全龍"},"type":"regular","status":"scheduled","time":"17:05","venue":"桃園"},
+
+  { "date":"2026-04-28","teams":{"home":"味全龍","away":"統一7-ELEVEn獅"},"type":"regular","status":"scheduled","time":"18:35","venue":"天母"},
+  { "date":"2026-04-28","teams":{"home":"富邦悍將","away":"台鋼雄鷹"},"type":"regular","status":"scheduled","time":"18:35","venue":"新莊"},
+
+  { "date":"2026-04-29","teams":{"home":"味全龍","away":"統一7-ELEVEn獅"},"type":"regular","status":"scheduled","time":"18:35","venue":"天母"},
+  { "date":"2026-04-29","teams":{"home":"富邦悍將","away":"台鋼雄鷹"},"type":"regular","status":"scheduled","time":"18:35","venue":"新莊"},
+  { "date":"2026-04-29","teams":{"home":"中信兄弟","away":"樂天桃猿"},"type":"regular","status":"scheduled","time":"18:35","venue":"洲際"},
+
+  { "date":"2026-04-30","teams":{"home":"中信兄弟","away":"樂天桃猿"},"type":"regular","status":"scheduled","time":"18:35","venue":"洲際"}
 ]

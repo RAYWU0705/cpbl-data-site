@@ -14,6 +14,7 @@
     <a class="nav-link active" href="schedule.html">賽程</a>
     <a class="nav-link" href="standings.html">戰績</a>
     <a class="nav-link" href="teams.html">球隊</a>
+    <a class="nav-link" href="season.html">賽季</a>
   </div>
 </nav>
 
@@ -23,9 +24,15 @@
 </header>
 
 <main>
-  <!-- 篩選區 -->
-  <div style="margin-bottom:20px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
 
+  <!-- 🔥 今日焦點 -->
+  <section id="todayFocus" style="margin-bottom:24px;"></section>
+
+  <!-- 📅 本週賽程 -->
+  <section id="weekPreview" style="margin-bottom:24px;"></section>
+
+  <!-- 篩選 -->
+  <div style="margin-bottom:20px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
     <label>月份：</label>
     <select id="monthSelect">
       <option value="2026-03">2026-03</option>
@@ -33,16 +40,8 @@
       <option value="2026-05">2026-05</option>
       <option value="2026-06">2026-06</option>
       <option value="2026-07">2026-07</option>
-    </select>
-
-    <label>賽事：</label>
-    <select id="typeSelect">
-      <option value="ALL">全部</option>
-      <option value="preseason">熱身賽</option>
-      <option value="regular">例行賽</option>
-      <option value="allstar">明星賽</option>
-      <option value="playoff">季後賽</option>
-      <option value="finals">總冠軍賽</option>
+      <option value="2026-08">2026-08</option>
+      <option value="2026-09">2026-09</option>
     </select>
 
     <label>球隊：</label>
@@ -55,193 +54,302 @@
       <option value="富邦悍將">富邦悍將</option>
       <option value="台鋼雄鷹">台鋼雄鷹</option>
     </select>
-
-    <label>日期：</label>
-    <input type="date" id="dateSelect">
-    <button id="clearDate">清除日期</button>
-
-    <label>
-      <input type="checkbox" id="completeOnly">
-      只看資料完整
-    </label>
-
-    <span id="statusText" style="color:#666;"></span>
-    <span id="missingSummary" style="color:#666;"></span>
+    <label>賽事：</label>
+    <select id="typeSelect">
+      <option value="ALL">全部賽事</option>
+      <option value="exhibition">熱身賽</option>
+      <option value="regular">例行賽</option>
+      <option value="allstar">明星賽</option>
+      <option value="postseason">季後賽</option>
+      <option value="taiwan">台灣大賽</option>
+    </select>
   </div>
 
-  <!-- 賽程列表 -->
+  
+<!-- 模式切換 -->
+  <div style="margin-bottom:20px;">
+    <button id="listBtn">📋 列表模式</button>
+    <button id="calendarBtn">🗓 月曆模式</button>
+  </div>
+
+  <!-- 月曆 -->
+  <div id="calendarView" style="display:none;"></div>
+
+  <!-- 列表 -->
   <div id="scheduleList"></div>
+
 </main>
 
-<footer>© 2026 CPBL Data Site｜明叡 × ChatGPT</footer>
+<footer>
+ © 2026 CPBL Data Site ｜ 
+ <span class="site-version"></span> ｜ 
+ 明叡 × ChatGPT
+</footer>
 
-<script>
-console.log("🔥 script start");
+<script type="module">
 
-/* ========= 隊徽 ========= */
-function teamLogo(teamName) {
-  const map = {
-    "中信兄弟": "brothers",
-    "統一7-ELEVEn獅": "lions",
-    "樂天桃猿": "monkeys",
-    "味全龍": "dragons",
-    "富邦悍將": "guardians",
-    "台鋼雄鷹": "hawks"
-  };
-  const id = map[teamName];
-  return id ? `<img src="assets/logo/${id}.png" class="team-logo">` : "";
+// =========================
+// v5 Schedule Engine
+// =========================
+
+import { loadGames, filterGames } from "./js/games-data.js";
+
+const state = {
+  month: "2026-03",
+  team: "ALL",
+  type: "ALL",
+  mode: "list"
+};
+
+const monthSelect = document.getElementById("monthSelect");
+const teamSelect = document.getElementById("teamSelect");
+const scheduleList = document.getElementById("scheduleList");
+const calendarView = document.getElementById("calendarView");
+const listBtn = document.getElementById("listBtn");
+const calendarBtn = document.getElementById("calendarBtn");
+const typeSelect = document.getElementById("typeSelect");
+
+// =========================
+// 初始化
+// =========================
+
+init();
+
+async function init(){
+  await loadGames(state.month);
+  render();
 }
 
-console.log("BASE URI =", document.baseURI);
+// =========================
+// 統一 render
+// =========================
 
-/* ========= DOM ========= */
-const monthSelect   = document.getElementById("monthSelect");
-const typeSelect    = document.getElementById("typeSelect");
-const teamSelect    = document.getElementById("teamSelect");
-const dateInput     = document.getElementById("dateSelect");
-const clearBtn      = document.getElementById("clearDate");
-const list          = document.getElementById("scheduleList");
-const statusText    = document.getElementById("statusText");
-const completeOnly  = document.getElementById("completeOnly");
-const missingSummary= document.getElementById("missingSummary");
+function render(){
 
-/* ========= 資料 ========= */
-let allGames = [];
+  const games = filterGames({
+  month: state.month,
+  team: state.team,
+  type: state.type
+});
 
-/* ========= 工具 ========= */
-function setStatus(msg){ statusText.textContent = msg; }
-
-/* ========= 狀態顯示 ========= */
-function renderStatus(g) {
-  if (g.status === "live") {
-    return `<span class="game-status live">🔴 進行中</span>`;
+  if (state.mode === "list"){
+    scheduleList.style.display = "block";
+    calendarView.style.display = "none";
+    renderList(games);
+  } else {
+    scheduleList.style.display = "none";
+    calendarView.style.display = "block";
+    renderCalendar(games);
   }
-  if (g.status === "final") {
-    if (typeof g.homeScore === "number" && typeof g.awayScore === "number") {
-      return `<span class="game-status final">✅ 比賽結束｜${g.awayScore} : ${g.homeScore}</span>`;
-    }
-    return `<span class="game-status final">✅ 比賽結束</span>`;
-  }
-  return `<span class="game-status scheduled">🕒 未開打</span>`;
 }
 
-/* ========= 載入 JSON ========= */
-function loadMonth(month){
-  const url = `data/schedule-${month}.json`;
-  setStatus(`載入中：${url}`);
-  list.innerHTML = "";
+// =========================
+// 列表模式
+// =========================
+function renderList(games){
 
-  fetch(url)
-    .then(res => {
-      if (!res.ok) throw new Error(res.status);
-      return res.json();
-    })
-    .then(data => {
-      allGames = Array.isArray(data) ? data : [];
-      setStatus(`✅ 已載入 ${month}（${allGames.length} 場）`);
-      applyFilter();
-    })
-    .catch(() => {
-      setStatus(`❌ 載入失敗：${url}`);
-      list.innerHTML = "<p style='color:red;'>此月份尚未建立賽程 JSON</p>";
-    });
-}
-
-/* ========= 渲染 ========= */
-function render(games){
-  list.innerHTML = "";
+  scheduleList.innerHTML = "";
 
   if (!games.length){
-    list.innerHTML = "<p style='color:#666;'>目前沒有符合條件的賽程</p>";
+    scheduleList.innerHTML = "<p>本月無賽程</p>";
     return;
   }
 
   const grouped = {};
-  games.forEach(g => {
+
+  games.forEach(g=>{
     if (!grouped[g.date]) grouped[g.date] = [];
     grouped[g.date].push(g);
   });
 
-  Object.keys(grouped).sort().forEach(date => {
+  Object.keys(grouped).sort().forEach(date=>{
+
+    const first = grouped[date][0];
+
     const h3 = document.createElement("h3");
-    h3.textContent = `📅 ${date}`;
-    list.appendChild(h3);
+    h3.textContent = `📅 ${date} ${first.weekday}`;
+    scheduleList.appendChild(h3);
 
-    const row = document.createElement("div");
-    row.className = "game-row";
+    grouped[date].forEach(g=>{
 
-    grouped[date].forEach(g => {
+      const scoreText = g.score
+        ? `<strong style="font-size:18px;">
+            ${g.score.away} : ${g.score.home}
+           </strong>`
+        : `<strong>VS</strong>`;
+
+      const statusText =
+        g.status === "final" ? "已結束" :
+        g.status === "live" ? "進行中" :
+        "未開賽";
+
+      const typeLabel = getTypeLabel(g.type);
+
+      const isMyTeam =
+        g.home === "中信兄弟" || g.away === "中信兄弟";
+
+      const myMark =
+        g.home === "中信兄弟" ? "🏠 主場" :
+        g.away === "中信兄弟" ? "✈️ 客場" :
+        "";
+
       const card = document.createElement("div");
       card.className = "game-card";
-
-      const city = g.venue?.city || "待補";
-      const stadium = g.venue?.stadium || "待補";
+      card.style.cursor = "pointer";
 
       card.innerHTML = `
-        <div class="teams">
-          ${teamLogo(g.away)} ${g.away}
-          <span style="margin:0 6px;">vs</span>
-          ${teamLogo(g.home)} ${g.home}
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            ${g.away} ${scoreText} ${g.home}
+          </div>
+          <div>
+            ${typeLabel}
+          </div>
         </div>
-        ${renderStatus(g)}
-        <div class="info">📍 ${city}｜${stadium}</div>
+
+        <div style="font-size:13px;color:#666;margin-top:6px;">
+          🏟 ${g.venue} ｜ ⏰ ${g.time}
+        </div>
+
+        <div style="font-size:12px;color:#999;margin-top:4px;">
+          ${statusText} ${isMyTeam ? "｜ "+myMark : ""}
+        </div>
       `;
 
-      row.appendChild(card);
+      card.onclick = ()=>{
+        location.href =
+          `match.html?date=${g.date}&home=${g.home}&away=${g.away}`;
+      };
+
+      scheduleList.appendChild(card);
     });
-
-    list.appendChild(row);
   });
 }
+function getTypeLabel(type){
 
-/* ========= 篩選 ========= */
-function applyFilter(){
-  let filtered = [...allGames];
+  const map = {
+    exhibition: "🟠 熱身賽",
+    regular: "🔵 例行賽",
+    allstar: "⭐ 明星賽",
+    postseason: "🟣 季後賽",
+    taiwan: "🏆 台灣大賽"
+  };
 
-  if (typeSelect.value !== "ALL"){
-    filtered = filtered.filter(g => (g.type || "regular") === typeSelect.value);
-  }
+  if (!type || !map[type]) return "";
 
-  if (teamSelect.value !== "ALL"){
-    filtered = filtered.filter(g => g.home === teamSelect.value || g.away === teamSelect.value);
-  }
-
-  if (dateInput.value){
-    filtered = filtered.filter(g => g.date === dateInput.value);
-  }
-
-  if (completeOnly.checked){
-    filtered = filtered.filter(g => g.venue?.city && g.venue?.stadium && g.time);
-  }
-
-  renderMissingSummary(allGames);
-  render(filtered);
+  return `<span style="
+    background:#eee;
+    padding:4px 8px;
+    border-radius:8px;
+    font-size:12px;
+  ">${map[type]}</span>`;
 }
 
-/* ========= 缺漏統計 ========= */
-function renderMissingSummary(games){
-  let mc=0, ms=0, mt=0;
-  games.forEach(g=>{
-    if(!g.venue?.city) mc++;
-    if(!g.venue?.stadium) ms++;
-    if(!g.time) mt++;
-  });
-  missingSummary.textContent =
-    games.length ? `｜待補：城市 ${mc}、球場 ${ms}、時間 ${mt}` : "";
+// =========================
+// 月曆模式
+// =========================
+function renderCalendar(games){
+
+  const year = parseInt(state.month.slice(0,4));
+  const m = parseInt(state.month.slice(5,7)) - 1;
+
+  const firstDay = new Date(year, m, 1).getDay();
+  const daysInMonth = new Date(year, m + 1, 0).getDate();
+
+  const weekHeader = ["日","一","二","三","四","五","六"]
+    .map(d=>`<div class="cal-header">${d}</div>`)
+    .join("");
+
+  let cells = [];
+
+  for (let i = 0; i < firstDay; i++) {
+    cells.push(`<div class="cal-cell empty"></div>`);
+  }
+
+  for (let d = 1; d <= daysInMonth; d++){
+
+    const dayStr = d.toString().padStart(2,"0");
+    const dateStr = `${state.month}-${dayStr}`;
+
+    const dayGames = games.filter(g=>g.date===dateStr);
+
+    cells.push(`
+      <div class="cal-cell">
+        <div class="cal-date">${d}</div>
+
+        ${dayGames.map(g=>{
+
+          const scoreText = g.score
+            ? `${g.score.away}:${g.score.home}`
+            : "VS";
+
+          const typeIcon =
+            g.type === "exhibition" ? "🟠" :
+            g.type === "allstar" ? "⭐" :
+            g.type === "postseason" ? "🟣" :
+            g.type === "taiwan" ? "🏆" :
+            "🔵";
+
+          const isMy =
+            g.home === "中信兄弟" ||
+            g.away === "中信兄弟";
+
+          return `
+            <div class="cal-game ${isMy ? "my-cal-game" : ""}"
+              onclick="location.href='match.html?date=${g.date}&home=${g.home}&away=${g.away}'">
+              ${typeIcon}
+              ${g.away} ${scoreText} ${g.home}
+              <div style="font-size:11px;color:#777;">
+                ⏰ ${g.time}
+              </div>
+            </div>
+          `;
+        }).join("")}
+
+      </div>
+    `);
+  }
+
+  calendarView.innerHTML = `
+    <div class="calendar-grid">
+      ${weekHeader}
+      ${cells.join("")}
+    </div>
+  `;
 }
+// =========================
+// 篩選
+// =========================
 
-/* ========= 事件 ========= */
-monthSelect.addEventListener("change", ()=>loadMonth(monthSelect.value));
-typeSelect.addEventListener("change", applyFilter);
-teamSelect.addEventListener("change", applyFilter);
-dateInput.addEventListener("change", applyFilter);
-clearBtn.addEventListener("click", ()=>{ dateInput.value=""; applyFilter(); });
-completeOnly.addEventListener("change", applyFilter);
+monthSelect.addEventListener("change", async ()=>{
+  state.month = monthSelect.value;
+  await loadGames(state.month);
+  render();
+});
 
-/* ========= 啟動 ========= */
-loadMonth(monthSelect.value);
+teamSelect.addEventListener("change", ()=>{
+  state.team = teamSelect.value;
+  render();
+});
+
+// =========================
+// 模式切換
+// =========================
+
+listBtn.addEventListener("click", ()=>{
+  state.mode = "list";
+  render();
+});
+
+calendarBtn.addEventListener("click", ()=>{
+  state.mode = "calendar";
+  render();
+});
+typeSelect.addEventListener("change", ()=>{
+  state.type = typeSelect.value;
+  render();
+});
 </script>
-
-
+<script src="js/version.js"></script>
 </body>
 </html>

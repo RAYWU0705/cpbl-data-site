@@ -1,0 +1,82 @@
+[
+  { "date":"2026-09-01","type":"regular","away":"統一 7-ELEVEN 獅","home":"富邦悍將","stadium":"台北大巨蛋","time":"18:35"},
+  { "date":"2026-09-01","type":"regular","away":"中信兄弟","home":"台鋼雄鷹","stadium":"澄清湖","time":"18:35"},
+
+  { "date":"2026-09-02","type":"regular","away":"統一 7-ELEVEN 獅","home":"富邦悍將","stadium":"台北大巨蛋","time":"18:35"},
+  { "date":"2026-09-02","type":"regular","away":"中信兄弟","home":"台鋼雄鷹","stadium":"澄清湖","time":"18:35"},
+  { "date":"2026-09-02","type":"regular","away":"味全龍","home":"樂天桃猿","stadium":"桃園","time":"18:35"},
+
+  { "date":"2026-09-04","type":"regular","away":"樂天桃猿","home":"富邦悍將","stadium":"台北大巨蛋","time":"18:35"},
+  { "date":"2026-09-04","type":"regular","away":"台鋼雄鷹","home":"統一 7-ELEVEN 獅","stadium":"亞太主","time":"18:35"},
+  { "date":"2026-09-04","type":"regular","away":"味全龍","home":"中信兄弟","stadium":"洲際","time":"18:35"},
+
+  { "date":"2026-09-05","type":"regular","away":"台鋼雄鷹","home":"統一 7-ELEVEN 獅","stadium":"亞太主","time":"16:05"},
+  { "date":"2026-09-05","type":"regular","away":"樂天桃猿","home":"富邦悍將","stadium":"台北大巨蛋","time":"17:05"},
+  { "date":"2026-09-05","type":"regular","away":"味全龍","home":"中信兄弟","stadium":"洲際","time":"17:05"},
+
+  { "date":"2026-09-06","type":"regular","away":"樂天桃猿","home":"富邦悍將","stadium":"台北大巨蛋","time":"16:05"},
+  { "date":"2026-09-06","type":"regular","away":"台鋼雄鷹","home":"統一 7-ELEVEN 獅","stadium":"亞太主","time":"16:05"},
+  { "date":"2026-09-06","type":"regular","away":"味全龍","home":"中信兄弟","stadium":"洲際","time":"17:05"},
+
+  { "date":"2026-09-08","type":"regular","away":"富邦悍將","home":"味全龍","stadium":"台北大巨蛋","time":"18:35"},
+  { "date":"2026-09-08","type":"regular","away":"台鋼雄鷹","home":"樂天桃猿","stadium":"桃園","time":"18:35"},
+
+  { "date":"2026-09-09","type":"regular","away":"富邦悍將","home":"味全龍","stadium":"台北大巨蛋","time":"18:35"},
+  { "date":"2026-09-09","type":"regular","away":"台鋼雄鷹","home":"樂天桃猿","stadium":"桃園","time":"18:35"},
+  { "date":"2026-09-09","type":"regular","away":"統一 7-ELEVEN 獅","home":"中信兄弟","stadium":"洲際","time":"18:35"},
+
+  { "date":"2026-09-10","type":"regular","away":"統一 7-ELEVEN 獅","home":"中信兄弟","stadium":"洲際","time":"18:35"},
+
+  { "date":"2026-09-11","type":"regular","away":"統一 7-ELEVEN 獅","home":"味全龍","stadium":"天母","time":"18:35"},
+  { "date":"2026-09-11","type":"regular","away":"中信兄弟","home":"樂天桃猿","stadium":"桃園","time":"18:35"},
+  { "date":"2026-09-11","type":"regular","away":"富邦悍將","home":"台鋼雄鷹","stadium":"嘉義市","time":"18:35"},
+
+  { "date":"2026-09-12","type":"regular","away":"富邦悍將","home":"台鋼雄鷹","stadium":"澄清湖","time":"16:05"},
+  { "date":"2026-09-12","type":"regular","away":"統一 7-ELEVEN 獅","home":"味全龍","stadium":"天母","time":"17:05"},
+  { "date":"2026-09-12","type":"regular","away":"中信兄弟","home":"樂天桃猿","stadium":"桃園","time":"17:05"},
+
+  { "date":"2026-09-13","type":"regular","away":"富邦悍將","home":"台鋼雄鷹","stadium":"澄清湖","time":"16:05"},
+  { "date":"2026-09-13","type":"regular","away":"統一 7-ELEVEN 獅","home":"味全龍","stadium":"天母","time":"16:05"},
+  { "date":"2026-09-13","type":"regular","away":"中信兄弟","home":"樂天桃猿","stadium":"桃園","time":"17:05"},
+
+  { "date":"2026-09-15","type":"regular","away":"中信兄弟","home":"台鋼雄鷹","stadium":"澄清湖","time":"18:35"},
+  { "date":"2026-09-15","type":"regular","away":"樂天桃猿","home":"統一 7-ELEVEN 獅","stadium":"嘉義市","time":"18:35"},
+
+  { "date":"2026-09-16","type":"regular","away":"味全龍","home":"富邦悍將","stadium":"天母","time":"18:35"},
+
+  { "date":"2026-09-17","type":"regular","away":"統一 7-ELEVEN 獅","home":"中信兄弟","stadium":"洲際","time":"18:35"},
+  { "date":"2026-09-17","type":"regular","away":"樂天桃猿","home":"富邦悍將","stadium":"新莊","time":"18:35"},
+  { "date":"2026-09-17","type":"regular","away":"台鋼雄鷹","home":"味全龍","stadium":"天母","time":"18:35"},
+
+  { "date":"2026-09-18","type":"regular","away":"統一 7-ELEVEN 獅","home":"中信兄弟","stadium":"台北大巨蛋","time":"18:35"},
+  { "date":"2026-09-18","type":"regular","away":"樂天桃猿","home":"富邦悍將","stadium":"新莊","time":"18:35"},
+  { "date":"2026-09-18","type":"regular","away":"台鋼雄鷹","home":"味全龍","stadium":"天母","time":"18:35"},
+
+  { "date":"2026-09-19","type":"regular","away":"富邦悍將","home":"統一 7-ELEVEN 獅","stadium":"亞太主","time":"16:05"},
+  { "date":"2026-09-19","type":"regular","away":"味全龍","home":"中信兄弟","stadium":"台北大巨蛋","time":"17:05"},
+  { "date":"2026-09-19","type":"regular","away":"台鋼雄鷹","home":"樂天桃猿","stadium":"桃園","time":"17:05"},
+
+  { "date":"2026-09-20","type":"regular","away":"味全龍","home":"中信兄弟","stadium":"台北大巨蛋","time":"15:05"},
+  { "date":"2026-09-20","type":"regular","away":"富邦悍將","home":"統一 7-ELEVEN 獅","stadium":"亞太主","time":"16:05"},
+  { "date":"2026-09-20","type":"regular","away":"台鋼雄鷹","home":"樂天桃猿","stadium":"桃園","time":"17:05"},
+
+  { "date":"2026-09-24","type":"regular","away":"富邦悍將","home":"台鋼雄鷹","stadium":"台北大巨蛋","time":"18:35"},
+  { "date":"2026-09-24","type":"regular","away":"中信兄弟","home":"樂天桃猿","stadium":"桃園","time":"18:35"},
+  { "date":"2026-09-24","type":"regular","away":"味全龍","home":"統一 7-ELEVEN 獅","stadium":"亞太主","time":"18:35"},
+
+  { "date":"2026-09-25","type":"regular","away":"富邦悍將","home":"台鋼雄鷹","stadium":"台北大巨蛋","time":"16:05"},
+  { "date":"2026-09-25","type":"regular","away":"中信兄弟","home":"樂天桃猿","stadium":"桃園","time":"17:05"},
+  { "date":"2026-09-25","type":"regular","away":"味全龍","home":"統一 7-ELEVEN 獅","stadium":"亞太主","time":"16:05"},
+
+  { "date":"2026-09-26","type":"regular","away":"統一 7-ELEVEN 獅","home":"台鋼雄鷹","stadium":"台北大巨蛋","time":"16:05"},
+  { "date":"2026-09-26","type":"regular","away":"樂天桃猿","home":"味全龍","stadium":"天母","time":"17:05"},
+  { "date":"2026-09-26","type":"regular","away":"中信兄弟","home":"富邦悍將","stadium":"新莊","time":"17:05"},
+
+  { "date":"2026-09-27","type":"regular","away":"統一 7-ELEVEN 獅","home":"台鋼雄鷹","stadium":"台北大巨蛋","time":"15:05"},
+  { "date":"2026-09-27","type":"regular","away":"樂天桃猿","home":"味全龍","stadium":"天母","time":"16:05"},
+  { "date":"2026-09-27","type":"regular","away":"中信兄弟","home":"富邦悍將","stadium":"新莊","time":"17:05"},
+
+  { "date":"2026-09-28","type":"regular","away":"台鋼雄鷹","home":"中信兄弟","stadium":"洲際","time":"17:05"},
+  { "date":"2026-09-28","type":"regular","away":"統一 7-ELEVEN 獅","home":"樂天桃猿","stadium":"桃園","time":"17:05"},
+  { "date":"2026-09-28","type":"regular","away":"味全龍","home":"富邦悍將","stadium":"新莊","time":"17:05"}
+]

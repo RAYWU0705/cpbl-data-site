@@ -2,234 +2,741 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-
   <title>CPBL 賽程與數據站</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-  <nav class="nav">
+
+<!-- ========= 導覽列 ========= -->
+<nav class="nav">
   <div class="nav-inner">
-    <a class="brand" href="index.html">CPBL</a>
-    <a class="nav-link active" href="index.html">首頁</a>
-    <a class="nav-link" href="schedule.html">賽程</a>
-    <a class="nav-link" href="standings.html">戰績</a>
-    <a class="nav-link" href="teams.html">球隊</a>
+
+    <div class="nav-left">
+      <a class="brand" href="index.html">CPBL</a>
+      <a class="nav-link" href="index.html">首頁</a>
+      <a class="nav-link" href="schedule.html">賽程</a>
+      <a class="nav-link" href="standings.html">戰績</a>
+      <a class="nav-link" href="teams.html">球隊</a>
+      <a class="nav-link" href="season.html">賽季</a>
+    </div>
+
+    <!-- 🔥 球隊快速入口 -->
+    <div class="nav-teams">
+      <a href="team.html?team=brothers">
+        <img src="assets/logo/brothers.png" alt="中信兄弟">
+      </a>
+      <a href="team.html?team=lions">
+        <img src="assets/logo/lions.png" alt="統一獅">
+      </a>
+      <a href="team.html?team=monkeys">
+        <img src="assets/logo/monkeys.png" alt="樂天桃猿">
+      </a>
+      <a href="team.html?team=dragons">
+        <img src="assets/logo/dragons.png" alt="味全龍">
+      </a>
+      <a href="team.html?team=guardians">
+        <img src="assets/logo/guardians.png" alt="富邦悍將">
+      </a>
+      <a href="team.html?team=hawks">
+        <img src="assets/logo/hawks.png" alt="台鋼雄鷹">
+      </a>
+    </div>
+
   </div>
 </nav>
 
 
-<header>
-    <h1>中華職棒賽程與數據站</h1>
-    <p>今日賽程</p>
+<!-- ========= 首頁主視覺 ========= -->
+<header class="hero">
+  <h1>中華職棒賽程與數據站</h1>
+  <p>Today's Games · Standings · Teams</p>
 </header>
-<section class="home-features">
-  <div class="feature-card">
-    <h3>📅 賽程</h3>
-    <p>查看每日與整月中職賽程，支援球隊與日期篩選。</p>
-    <a href="schedule.html">前往賽程 →</a>
+<!-- 🔥 日期切換列 -->
+<div class="date-switch-bar">
+  <button id="prevDate">‹</button>
+  <div class="date-info">
+    <div id="currentDateText"></div>
+    <div id="gameCountText" class="muted"></div>
   </div>
+  <button id="nextDate">›</button>
+</div>
 
-  <div class="feature-card">
-    <h3>📊 戰績</h3>
-    <p>即時查看各隊勝敗、勝率與排名走勢。</p>
-    <a href="standings.html">查看戰績 →</a>
-  </div>
+<!-- 🔥 首頁比分橫條 -->
+<div class="score-strip-wrap">
+<button class="score-nav left">‹</button>
+<button class="score-nav right">›</button>
 
-  <div class="feature-card">
-    <h3>🏟️ 球隊</h3>
-    <p>認識中華職棒六支球隊的基本資料與特色。</p>
-    <a href="teams.html">瀏覽球隊 →</a>
-  </div>
-</section>
+  
 
-<main>
-  <section class="quick-links">
-    <section class="home-panels" style="margin-top:16px;">
-  <div class="panel">
-    <h2>🏆 戰績 TOP 3</h2>
-    <div id="top3"></div>
-  </div>
-
-  <div class="panel">
-    <h2>📌 站內狀態</h2>
-    <p style="color:#555; line-height:1.7;">
-      目前：賽程已支援月份/球隊/日期篩選；戰績可搜尋；球隊頁製作中。<br>
-      目標：補上球場/時間、加上比分→自動算戰績。
-    </p>
-  </div>
-</section>
-
-  <a class="quick-btn" id="goMonth" href="#">📅 前往本月賽程</a>
-
-  <a class="quick-btn" href="standings.html">📊 前往戰績</a>
-  <a class="quick-btn" href="teams.html">🏟️ 前往球隊</a>
-</section>
-
-  <section class="home-panels">
-
-    <div class="panel">
-      <h2>今日賽程</h2>
-      <div id="today"></div>
+  <div class="score-strip">
+    <div id="scoreTrack">
+      <!-- JS 產生的 score-card 都在這 -->
     </div>
+  </div>
 
-    <div class="panel">
-      <h2>本週賽程</h2>
-      <div id="week"></div>
-    </div>
+  
 
-  </section>
+</div>
+
+
+
+  <section class="home-grid">
+
+  <div class="home-card primary">
+  <h2>🔥 最近賽程焦點</h2>
+
+  <div class="focus-slider">
+    <div id="focusTrack"></div>
+  </div>
+
+  <div class="focus-dots" id="focusDots"></div>
+</div>
+
+
+  <div class="home-card primary">
+  <h2>🏆 目前排名（TOP 6）</h2>
+
+  <!-- ✅ 只留這一個，給 JS 用 -->
+  <ul class="top6-list" id="top6List"></ul>
+
+  <a href="standings.html" class="card-link">👉 查看完整排行榜</a>
+</div>
+
+
+  <div class="home-card secondary" id="focusGameCard">
+  <h2>⭐ 本週焦點對戰</h2>
+  <div id="focusGameContent" class="muted">載入中…</div>
+  </div>
+
+
+  <div class="home-card">
+    <h2>📅 重要賽事</h2>
+    <ul>
+      <li>🔥 開幕戰｜2026/03/28</li>
+      <li>⭐ 明星賽｜2026/07/18–19</li>
+    </ul>
+  </div>
+
+  
+
+</section>
+
 </main>
 
+
+<!-- ========= 頁尾 ========= -->
+<footer>
+ © 2026 CPBL Data Site ｜ 
+ <span class="site-version"></span> ｜ 
+ 明叡 × ChatGPT
+</footer>
+
 <script>
-  function ymd(d) {
-    const y = d.getFullYear();
-    const m = String(d.getMonth() + 1).padStart(2, "0");
-    const day = String(d.getDate()).padStart(2, "0");
-    return `${y}-${m}-${day}`;
-  }
+const TEAM_NAME_MAP = {
+  brothers: "中信兄弟",
+  lions: "統一7-ELEVEn獅",
+  monkeys: "樂天桃猿",
+  dragons: "味全龍",
+  guardians: "富邦悍將",
+  hawks: "台鋼雄鷹"
+};
 
-  function startOfWeek(d) {
-    // 以週一為一週開始
-    const copy = new Date(d);
-    const day = copy.getDay(); // 0(日)~6(六)
-    const diff = (day === 0 ? -6 : 1 - day);
-    copy.setDate(copy.getDate() + diff);
-    copy.setHours(0,0,0,0);
-    return copy;
-  }
-
-  function addDays(d, n) {
-    const copy = new Date(d);
-    copy.setDate(copy.getDate() + n);
-    return copy;
-  }
-
-  function renderGames(containerId, games, titleIfEmpty) {
-  const el = document.getElementById(containerId);
-  el.innerHTML = "";
-
-  if (!games.length) {
-    el.innerHTML = `<p style="color:#666;">${titleIfEmpty}</p>`;
-    return;
-  }
-
-  // ① 依日期分組
-  const grouped = {};
-  games.forEach(g => {
-    if (!grouped[g.date]) grouped[g.date] = [];
-    grouped[g.date].push(g);
-  });
-
-  // ② 按日期排序顯示
-  Object.keys(grouped).sort().forEach(date => {
-    const dateTitle = document.createElement("h3");
-    dateTitle.className = "date-title";
-    dateTitle.textContent = `📅 ${date}`;
-    el.appendChild(dateTitle);
-
-    const row = document.createElement("div");
-    row.className = "game-row";
-
-    grouped[date].forEach(g => {
-      const card = document.createElement("div");
-      card.className = "mini-game-card";
-
-      const warn = g.needsConfirm ? " ⚠️(待確認)" : "";
-
-      card.innerHTML = `
-        <div class="mini-teams">${g.away} vs ${g.home}${warn}</div>
-        <div class="mini-meta">📍 球場：待補</div>
-        <div class="mini-meta">🕕 時間：待補</div>
-      `;
-      row.appendChild(card);
-    });
-
-    el.appendChild(row);
-  });
+/* =========================
+   首頁：戰績 TOP 3（2026）
+   ========================= */
+function getHome(g) {
+  return g.teams?.home ?? "（未知）";
 }
 
-    
+function getAway(g) {
+  return g.teams?.away ?? "（未知）";
+}
 
-  fetch("data/schedule-2026-04.json")
-    .then(r => r.json())
-    .then(allGames => {
-      const today = new Date();
-      const todayStr = ymd(today);
-
-      const weekStart = startOfWeek(today);
-      const weekEnd = addDays(weekStart, 6);
-      const weekStartStr = ymd(weekStart);
-      const weekEndStr = ymd(weekEnd);
-
-      const todayGames = allGames.filter(g => g.date === todayStr);
-
-      const weekGames = allGames
-        .filter(g => g.date >= weekStartStr && g.date <= weekEndStr)
-        .sort((a, b) => a.date.localeCompare(b.date));
-
-      renderGames("today", todayGames, "今天沒有比賽（或不在這個月份資料內）");
-      renderGames("week", weekGames, `本週（${weekStartStr} ~ ${weekEndStr}）沒有比賽（或不在這個月份資料內）`);
-    })
-    .catch(err => {
-      console.error(err);
-      document.getElementById("today").innerHTML = `<p style="color:red;">讀取失敗：${err.message}</p>`;
-      document.getElementById("week").innerHTML = `<p style="color:red;">讀取失敗：${err.message}</p>`;
-    });
-    // ====== 首頁：讀取戰績 Top 3 ======
 fetch("data/standings-2026.json")
-  .then(r => r.json())
+  .then(res => {
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    return res.json();
+  })
   .then(rows => {
-    // 計算勝率（和局不算勝敗）
-    const normalized = rows.map(r => {
-      const wins = Number(r.wins ?? 0);
-      const losses = Number(r.losses ?? 0);
-      const ties = Number(r.ties ?? 0);
-      const winPct = (wins + losses) === 0 ? 0 : wins / (wins + losses);
-      return { ...r, wins, losses, ties, winPct };
+    if (!Array.isArray(rows)) {
+      throw new Error("JSON 格式錯誤");
+    }
+
+    // 計算勝率（避免除以 0）
+    rows.forEach(t => {
+      const total = t.wins + t.losses + t.ties;
+      t.winPct = total > 0 ? (t.wins / total) : 0;
     });
 
-    normalized.sort((a,b) => b.winPct - a.winPct || b.wins - a.wins);
+    // 排序：勝率 → 勝場
+    const sorted = rows
+      .slice()
+      .sort((a, b) => {
+        if (b.winPct !== a.winPct) {
+          return b.winPct - a.winPct;
+        }
+        return b.wins - a.wins;
+      })
+      .slice(0, 6);
 
-    const top3 = normalized.slice(0,3);
-    const el = document.getElementById("top3");
-    if (!el) return;
+    const list = document.getElementById("top3List");
+    list.innerHTML = "";
 
-    el.innerHTML = top3.map((t, i) => {
-      const medal = i===0?"🥇":i===1?"🥈":"🥉";
-      const pct = t.winPct.toFixed(3);
-      return `
-        <div class="top3-card">
-          <div class="top3-rank">${medal} 第${i+1}</div>
-          <div class="top3-team">${t.team}</div>
-          <div class="top3-meta">勝 ${t.wins}｜敗 ${t.losses}｜和 ${t.ties}｜勝率 ${pct}</div>
-        </div>
-      `;
-    }).join("");
+    sorted.forEach((t, idx) => {
+  const li = document.createElement("li");
+
+  // 對應 teamId（跟 teams.json 一致）
+  const teamMap = {
+    "中信兄弟": "brothers",
+    "統一7-ELEVEn獅": "lions",
+    "樂天桃猿": "monkeys",
+    "味全龍": "dragons",
+    "富邦悍將": "fubon",
+    "台鋼雄鷹": "hawks"
+  };
+
+  const teamId = teamMap[t.team] || "";
+
+  li.innerHTML = `
+  <span class="rank">${idx + 1}</span>
+  <a class="team" href="team.html?team=${teamId}">
+    ${t.team}
+  </a>
+  <span class="record">
+    ${t.wins}-${t.losses}-${t.ties}
+    (${t.winPct.toFixed(3)})
+  </span>
+`;
+// 連勝 / 連敗文字
+let streakText = "";
+let streakClass = "";
+
+if (t.streak) {
+  if (t.streak.startsWith("W")) {
+    streakText = `${t.streak.slice(1)} 連勝`;
+    streakClass = "streak-win";
+  } else if (t.streak.startsWith("L")) {
+    streakText = `${t.streak.slice(1)} 連敗`;
+    streakClass = "streak-lose";
+  }
+}
+
+li.innerHTML = `
+  <span class="rank">${idx + 1}</span>
+
+  <a class="team" href="team.html?team=${teamId}">
+    ${t.team}
+  </a>
+
+  <span class="record">
+    ${t.wins}-${t.losses}-${t.ties}
+    (${t.winPct.toFixed(3)})
+  </span>
+
+  ${streakText ? `<span class="streak ${streakClass}">${streakText}</span>` : ""}
+`;
+
+
+  list.appendChild(li);
+});
+
   })
   .catch(err => {
-    const el = document.getElementById("top3");
-    if (el) el.innerHTML = `<p style="color:#c00;">戰績讀取失敗：${err.message}</p>`;
+    const list = document.getElementById("top3List");
+    if (!list) return;
+    list.innerHTML = "";
+
   });
-// ====== 首頁：快速前往「本月賽程」 ======
-(function setGoMonth(){
-  const a = document.getElementById("goMonth");
-  if (!a) return;
+</script>
+<script>
+/* =========================
+   首頁：今日賽程（強化版）
+   ========================= */
+(function () {
+  const box = document.getElementById("todayGames");
+  if (!box) return;
 
-  const d = new Date();
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const month = `${y}-${m}`; // 例如 2026-01
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, "0");
+  const dd = String(today.getDate()).padStart(2, "0");
+  const todayStr = `${yyyy}-${mm}-${dd}`;
 
-  a.href = `schedule.html?month=${month}`;
-  a.textContent = `📅 前往 ${y}/${m} 賽程`;
+  const months = ["2026-03", "2026-04","2026-06","2026-07","2026-08"].filter(m => m >= "2026-03");
+
+  Promise.all(
+    months.map(m =>
+      fetch(`data/schedule-${m}.json`)
+        .then(r => r.ok ? r.json() : [])
+        .catch(() => [])
+    )
+  ).then(results => {
+    const games = results.flat().filter(g => g.date);
+
+    // 今天的比賽
+    const todayGames = games.filter(g => g.date === todayStr);
+
+    if (todayGames.length) {
+      box.innerHTML = todayGames.map(g => `
+        <div class="mini-game-card">
+         <strong>${getAway(g)} vs ${getHome(g)}</strong>
+
+          ⏰ ${g.time || "時間未定"}
+        </div>
+      `).join("");
+      return;
+    }
+
+    // 👉 沒有今天 → 找最近一場未來比賽
+    const upcoming = games
+      .filter(g => g.date > todayStr)
+      .sort((a,b) => a.date.localeCompare(b.date))[0];
+
+    if (!upcoming) {
+      box.innerHTML = `<p class="muted">近期沒有賽程</p>`;
+      return;
+    }
+
+    box.innerHTML = `
+      <p class="muted">今日無賽程</p>
+      <p><strong>🔜 最近賽事</strong></p>
+      <p>📅 ${upcoming.date}</p>
+      <p>⚔️ ${getAway(upcoming)} vs ${getHome(upcoming)}</p>
+
+    `;
+  }).catch(() => {
+    box.innerHTML = `<p class="muted">賽程載入失敗</p>`;
+  });
 })();
+</script>
 
+<script>
+/* =========================
+   首頁比分橫條 v4 穩定完整版
+========================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const scoreTrack = document.getElementById("scoreTrack");
+  const strip      = document.querySelector(".score-strip");
+  const leftBtn    = document.querySelector(".score-nav.left");
+  const rightBtn   = document.querySelector(".score-nav.right");
+
+  if (!scoreTrack || !strip) return;
+
+  const TEAM_ID_MAP = {
+    "中信兄弟": "brothers",
+    "統一7-ELEVEn獅": "lions",
+    "樂天桃猿": "monkeys",
+    "味全龍": "dragons",
+    "富邦悍將": "guardians",
+    "台鋼雄鷹": "hawks"
+  };
+
+  const months = [
+    "2026-03","2026-04","2026-05",
+    "2026-06","2026-07","2026-08"
+  ];
+
+  /* =========================
+     載入賽程
+  ========================= */
+
+  Promise.all(
+    months.map(m =>
+      fetch(`data/schedule-${m}.json`)
+        .then(r => r.ok ? r.json() : [])
+        .catch(() => [])
+    )
+  ).then(results => {
+
+    const games = results
+      .flat()
+      .filter(g => g?.date && g?.teams?.home && g?.teams?.away)
+      .sort((a,b)=>a.date.localeCompare(b.date));
+
+    if (!games.length) {
+      scoreTrack.innerHTML =
+        `<div class="score-loading">賽程載入中…</div>`;
+      return;
+    }
+
+    const upcoming = games.slice(0,7);
+
+    scoreTrack.innerHTML = upcoming.map(g => {
+
+      const homeName = g.teams.home;
+      const awayName = g.teams.away;
+
+      const homeId = TEAM_ID_MAP[homeName];
+      const awayId = TEAM_ID_MAP[awayName];
+
+      const hasScore =
+        typeof g.homeScore === "number" &&
+        typeof g.awayScore === "number";
+
+      const gameId =
+        g.date.replaceAll("-", "") +
+        "_" +
+        homeId +
+        "_" +
+        awayId;
+      
+      return `
+         
+
+    
+    <div class="score-date">${g.date}</div>
+        <a class="score-card"
+           href="match.html?gameId=${gameId}&date=${encodeURIComponent(g.date)}&home=${encodeURIComponent(homeName)}&away=${encodeURIComponent(awayName)}">
+
+          <div class="score-date">${g.date}</div>
+
+          <div class="score-team-row away">
+            <img src="assets/logo/${awayId}.png"
+                 onerror="this.style.display='none'">
+            <span>${awayName}</span>
+            ${hasScore ? `<span class="score">${g.awayScore}</span>` : ""}
+          </div>
+
+          <div class="score-team-row home">
+            <img src="assets/logo/${homeId}.png"
+                 onerror="this.style.display='none'">
+            <span>${homeName}</span>
+            ${hasScore ? `<span class="score">${g.homeScore}</span>` : ""}
+          </div>
+
+          <div class="score-status">
+            ${hasScore ? "FINAL" : "SCHEDULED"}
+          </div>
+
+        </a>
+      `;
+    }).join("");
+
+  });
+
+
+  /* =========================
+     左右滑動控制
+  ========================= */
+
+  const scrollAmount = 320;
+
+  if (leftBtn) {
+    leftBtn.addEventListener("click", () => {
+      strip.scrollBy({
+        left: -scrollAmount,
+        behavior: "smooth"
+      });
+    });
+  }
+
+  if (rightBtn) {
+    rightBtn.addEventListener("click", () => {
+      strip.scrollBy({
+        left: scrollAmount,
+        behavior: "smooth"
+      });
+    });
+  }
+
+});
 </script>
 
 
-<footer>
-    © 2026 CPBL Data Site｜明叡X Chatgpt網站
-</footer>
+<script>
+/* =========================
+   首頁：本週焦點對戰（可點擊版）
+========================= */
+
+(function () {
+
+  const box = document.getElementById("focusGameContent");
+  if (!box) return;
+
+  const TEAM_ID_MAP = {
+    "中信兄弟": "brothers",
+    "統一7-ELEVEn獅": "lions",
+    "樂天桃猿": "monkeys",
+    "味全龍": "dragons",
+    "富邦悍將": "guardians",
+    "台鋼雄鷹": "hawks"
+  };
+
+  const TICKET_LINKS = {
+    "中信兄弟": "https://tix.brothers.tw/",
+    "統一7-ELEVEn獅": "https://ticket.uni-lions.com.tw/",
+    "樂天桃猿": "https://www.rakuteneagles.com.tw/ticket",
+    "味全龍": "https://ticket.dragon-baseball.com.tw/",
+    "富邦悍將": "https://www.fubon-guardians.com/ticket",
+    "台鋼雄鷹": "https://www.tsghawks.com/ticket"
+  };
+
+  const today = new Date().toISOString().slice(0,10);
+  const months = ["2026-03","2026-04","2026-05","2026-06","2026-07","2026-08"];
+
+  Promise.all(
+    months.map(m =>
+      fetch(`data/schedule-${m}.json`)
+        .then(r => r.ok ? r.json() : [])
+        .catch(()=>[])
+    )
+  ).then(results => {
+
+    const games = results.flat()
+      .filter(g => g?.date && g?.teams?.home && g?.teams?.away)
+      .sort((a,b)=>a.date.localeCompare(b.date));
+
+    const nextGame = games.find(g => g.date >= today);
+
+    if (!nextGame) {
+      box.innerHTML = "近期沒有賽程";
+      return;
+    }
+
+    const home = nextGame.teams.home;
+    const away = nextGame.teams.away;
+
+    const homeId = TEAM_ID_MAP[home];
+    const awayId = TEAM_ID_MAP[away];
+
+    const link =
+      `match.html?date=${nextGame.date}` +
+      `&home=${encodeURIComponent(home)}` +
+      `&away=${encodeURIComponent(away)}`;
+
+    const hasScore =
+      typeof nextGame.homeScore === "number" &&
+      typeof nextGame.awayScore === "number";
+
+    let status = "⏳ 未開打";
+    if (nextGame.status === "live") status = "🔴 LIVE";
+    if (nextGame.status === "final") status = "✅ FINAL";
+
+    box.innerHTML = `
+      <a href="${link}" style="text-decoration:none;color:inherit;">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:10px;">
+          <img src="assets/logo/${awayId}.png" width="40">
+          <strong>${away}</strong>
+          <span>VS</span>
+          <strong>${home}</strong>
+          <img src="assets/logo/${homeId}.png" width="40">
+        </div>
+
+        <div style="margin-bottom:6px;">
+          📅 ${nextGame.date}
+        </div>
+
+        <div style="margin-bottom:10px;font-weight:700;">
+          ${status}
+          ${hasScore ? `｜ ${nextGame.awayScore} : ${nextGame.homeScore}` : ""}
+        </div>
+      </a>
+
+      ${TICKET_LINKS[home] && nextGame.status !== "final"
+        ? `<a href="${TICKET_LINKS[home]}" target="_blank"
+             class="card-link">🎟 主場購票</a>`
+        : ""
+      }
+    `;
+
+  });
+
+})();
+</script>
+
+<script>
+/* =========================
+   今日焦點自動輪播（可點擊版）
+========================= */
+
+(function () {
+
+  const track = document.getElementById("focusTrack");
+  const dotsBox = document.getElementById("focusDots");
+  if (!track) return;
+
+  const TEAM_ID_MAP = {
+    "中信兄弟": "brothers",
+    "統一7-ELEVEn獅": "lions",
+    "樂天桃猿": "monkeys",
+    "味全龍": "dragons",
+    "富邦悍將": "guardians",
+    "台鋼雄鷹": "hawks"
+  };
+
+  const today = new Date().toISOString().slice(0,10);
+  const months = ["2026-03","2026-04","2026-05","2026-06","2026-07","2026-08"];
+
+  Promise.all(
+    months.map(m =>
+      fetch(`data/schedule-${m}.json`)
+        .then(r => r.ok ? r.json() : [])
+        .catch(()=>[])
+    )
+  ).then(results => {
+
+    const games = results.flat()
+      .filter(g => g?.date && g?.teams?.home && g?.teams?.away);
+
+    let targetGames = games.filter(g => g.date === today);
+
+    if (!targetGames.length) {
+      targetGames = games
+        .filter(g => g.date > today)
+        .sort((a,b)=>a.date.localeCompare(b.date))
+        .slice(0,3);
+    }
+
+    if (!targetGames.length) {
+      track.innerHTML = `<div class="focus-slide">近期沒有賽程</div>`;
+      return;
+    }
+
+    track.innerHTML = targetGames.map(g => {
+
+      const home = g.teams.home;
+      const away = g.teams.away;
+
+      const homeId = TEAM_ID_MAP[home];
+      const awayId = TEAM_ID_MAP[away];
+
+      const link =
+        `match.html?date=${g.date}` +
+        `&home=${encodeURIComponent(home)}` +
+        `&away=${encodeURIComponent(away)}`;
+
+      const hasScore =
+        typeof g.homeScore === "number" &&
+        typeof g.awayScore === "number";
+
+      let status = "⏳ 未開打";
+      if (g.status === "live") status = "🔴 LIVE";
+      if (g.status === "final") status = "✅ FINAL";
+
+      return `
+        <a href="${link}" class="focus-slide"
+           style="text-decoration:none;color:inherit;">
+          <div style="display:flex;align-items:center;justify-content:center;gap:14px;">
+            <img src="assets/logo/${awayId}.png" width="36">
+            <strong>${away}</strong>
+            <span>VS</span>
+            <strong>${home}</strong>
+            <img src="assets/logo/${homeId}.png" width="36">
+          </div>
+
+          <div style="margin-top:8px;font-weight:700;text-align:center;">
+            ${status}
+            ${hasScore ? `｜ ${g.awayScore} : ${g.homeScore}` : ""}
+          </div>
+
+          <div style="margin-top:6px;text-align:center;">
+            📅 ${g.date}
+          </div>
+        </a>
+      `;
+    }).join("");
+
+    dotsBox.innerHTML = targetGames.map((_,i)=>
+      `<span class="focus-dot ${i===0?"active":""}" data-index="${i}"></span>`
+    ).join("");
+
+    let current = 0;
+    const total = targetGames.length;
+
+    function goToSlide(index) {
+      track.style.transform = `translateX(-${index * 100}%)`;
+      document.querySelectorAll(".focus-dot")
+        .forEach(d=>d.classList.remove("active"));
+      document.querySelector(`.focus-dot[data-index="${index}"]`)
+        ?.classList.add("active");
+      current = index;
+    }
+
+    document.querySelectorAll(".focus-dot").forEach(dot=>{
+      dot.addEventListener("click",()=>{
+        goToSlide(parseInt(dot.dataset.index));
+      });
+    });
+
+    if (total > 1) {
+      setInterval(()=>{
+        let next = (current + 1) % total;
+        goToSlide(next);
+      }, 4000);
+    }
+
+  });
+
+})();
+</script>
+<script>
+/* =========================
+   日期切換功能
+========================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const currentDateText = document.getElementById("currentDateText");
+  const gameCountText = document.getElementById("gameCountText");
+  const prevBtn = document.getElementById("prevDate");
+  const nextBtn = document.getElementById("nextDate");
+
+  if (!currentDateText) return;
+
+  let currentDate = new Date();
+
+  const months = ["2026-03","2026-04","2026-05","2026-06","2026-07","2026-08"];
+
+  function formatDate(d) {
+    return d.toISOString().slice(0,10);
+  }
+
+  function renderDateInfo() {
+
+    const dateStr = formatDate(currentDate);
+    currentDateText.textContent = dateStr;
+
+    const month = dateStr.slice(0,7);
+
+    fetch(`data/schedule-${month}.json`)
+      .then(r => r.ok ? r.json() : [])
+      .then(games => {
+        const todayGames = games.filter(g => g.date === dateStr);
+        if (todayGames.length) {
+          gameCountText.textContent = `今日有 ${todayGames.length} 場比賽`;
+        } else {
+          gameCountText.textContent = "今日沒有比賽";
+        }
+      })
+      .catch(() => {
+        gameCountText.textContent = "賽程資料讀取失敗";
+      });
+
+  }
+
+  prevBtn.onclick = () => {
+    currentDate.setDate(currentDate.getDate() - 1);
+    renderDateInfo();
+  };
+
+  nextBtn.onclick = () => {
+    currentDate.setDate(currentDate.getDate() + 1);
+    renderDateInfo();
+  };
+
+  renderDateInfo();
+
+});
+</script>
+
+<script src="js/standings-data.js"></script>
+<script src="js/pages/index.js" type="module"></script>
+
+<script src="js/version.js"></script>
+
 
 </body>
 </html>

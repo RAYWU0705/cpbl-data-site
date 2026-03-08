@@ -14,47 +14,57 @@
     <a class="nav-link" href="schedule.html">賽程</a>
     <a class="nav-link" href="standings.html">戰績</a>
     <a class="nav-link active" href="teams.html">球隊</a>
+    <a class="nav-link" href="season.html">賽季</a>
+
   </div>
 </nav>
 
 <header>
-  <h1>球隊</h1>
-  <p>（搜尋球隊，點一下看詳細資訊）</p>
+  <h1>球隊列表</h1>
+  <p style="opacity:.85;">點擊球隊查看詳細介紹或數據分析</p>
 </header>
 
-<main>
-  <div style="margin-bottom:14px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
-    <label for="teamSearch">搜尋：</label>
-    <input id="teamSearch" type="text" placeholder="例如：兄弟 / 獅 / 新莊" style="padding:6px 10px;">
-    <button id="reloadBtn">重新讀取</button>
+<main style="max-width:1100px; margin:auto; padding:24px;">
+
+  <!-- 搜尋 -->
+  <div style="margin-bottom:20px; display:flex; gap:12px; align-items:center;">
+    <input id="teamSearch"
+           type="text"
+           placeholder="搜尋球隊（兄弟 / 獅 / 桃猿…）"
+           style="padding:8px 12px; flex:1;">
+    <button id="reloadBtn">重新載入</button>
     <span id="statusText" style="color:#666;"></span>
   </div>
 
-  <div class="teams-layout">
-    <div id="teamList" class="team-list"></div>
-    <div id="teamDetail" class="team-detail">
-      <div style="color:#666;">點左邊一支球隊，這裡會顯示詳細資料。</div>
-    </div>
-  </div>
+  <!-- 球隊卡片區 -->
+  <div id="teamList" class="team-grid"></div>
+  
+
 </main>
 
-<footer>© 2026 CPBL Data Site｜明叡 × ChatGPT</footer>
+<footer>
+ © 2026 CPBL Data Site ｜ 
+ <span class="site-version"></span> ｜ 
+ 明叡 × ChatGPT
+</footer>
+
 
 <script>
+/* ========= DOM ========= */
 const teamList   = document.getElementById("teamList");
-const teamDetail = document.getElementById("teamDetail");
 const teamSearch = document.getElementById("teamSearch");
 const reloadBtn  = document.getElementById("reloadBtn");
 const statusText = document.getElementById("statusText");
 
+/* ========= 狀態 ========= */
 let teams = [];
 
-function setStatus(msg){ statusText.textContent = msg; }
-
-function colorDot(hex){
-  return `<span class="color-dot" style="background:${hex};"></span>`;
+/* ========= 工具 ========= */
+function setStatus(msg){
+  statusText.textContent = msg;
 }
 
+/* ========= 渲染球隊列表 ========= */
 function renderList(rows){
   teamList.innerHTML = "";
 
@@ -64,87 +74,82 @@ function renderList(rows){
   }
 
   rows.forEach(t => {
-    const card = document.createElement("button");
-    card.type = "button";
+    const card = document.createElement("div");
     card.className = "team-card";
+
     card.innerHTML = `
-      <div class="team-card-title">${t.name}</div>
-      <div class="team-card-sub">主場：${t.home}</div>
-      <div class="team-card-colors">
-        ${(t.colors || []).slice(0,2).map(colorDot).join("")}
+      <img src="assets/logo/${t.id}.png"
+           alt="${t.name}"
+           class="team-logo-lg">
+
+      <h3>${t.name}</h3>
+      <p style="opacity:.8;">主場：${t.home}</p>
+
+      <div style="margin-top:12px; display:flex; gap:8px;">
+        <a href="team.html?team=${encodeURIComponent(t.id)}"
+           class="team-btn"
+           style="flex:1; text-align:center;">
+          📄 球隊介紹
+        </a>
+
+        <a href="team-stats.html?team=${encodeURIComponent(t.id)}"
+           class="team-btn"
+           style="flex:1; text-align:center;">
+          📈 數據分析
+        </a>
       </div>
     `;
-    card.addEventListener("click", () => {
-  location.href = `team.html?team=${encodeURIComponent(t.id)}`;
-});
 
     teamList.appendChild(card);
   });
 }
 
-function renderDetail(t){
-  teamDetail.innerHTML = `
-    <div class="detail-card">
-      <div class="detail-title">${t.name}（${t.short || ""}）</div>
-      <div class="detail-row"><b>城市：</b> ${t.city || "-"}</div>
-      <div class="detail-row"><b>主場：</b> ${t.home || "-"}</div>
-      <div class="detail-row"><b>成立：</b> ${t.founded || "-"}</div>
-      <div class="detail-row"><b>主色：</b>
-        ${(t.colors || []).slice(0,3).map(colorDot).join("")}
-      </div>
-      <div class="detail-intro">${t.intro || ""}</div>
-    </div>
-  `;
-}
-
+/* ========= 搜尋 ========= */
 function applySearch(){
   const q = teamSearch.value.trim();
   if (!q){
     renderList(teams);
     return;
   }
+
   const filtered = teams.filter(t =>
     (t.name || "").includes(q) ||
     (t.city || "").includes(q) ||
-    (t.home || "").includes(q) ||
-    (t.short || "").includes(q)
+    (t.home || "").includes(q)
   );
+
   renderList(filtered);
 }
 
+/* ========= 載入 teams.json ========= */
 async function loadTeams(){
   setStatus("載入中：data/teams.json");
   teamList.innerHTML = "";
-  teamDetail.innerHTML = `<div style="color:#666;">載入中…</div>`;
 
   try{
     const res = await fetch("data/teams.json");
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-    if (!Array.isArray(data)) throw new Error("teams.json 不是陣列");
+    if (!Array.isArray(data)) throw new Error("teams.json 格式錯誤");
 
     teams = data;
-    setStatus(`✅ 已載入：${teams.length} 隊`);
+    setStatus(`✅ 已載入 ${teams.length} 支球隊`);
     renderList(teams);
-
-    // 預設顯示第一隊詳細
-    if (teams.length > 0) renderDetail(teams[0]);
-
-    console.log("✅ teams 載入成功", teams);
   }catch(err){
-    console.error("❌ teams 載入失敗", err);
-    setStatus("❌ 載入失敗：請確認 Live Server 與 data/teams.json");
+    console.error(err);
+    setStatus("❌ 載入失敗，請確認 data/teams.json 是否存在");
     teamList.innerHTML = "<p style='color:red;'>球隊資料讀取失敗</p>";
-    teamDetail.innerHTML = "";
   }
 }
 
+/* ========= 事件 ========= */
 reloadBtn.addEventListener("click", loadTeams);
 teamSearch.addEventListener("input", applySearch);
 
-// 預設載入
+/* ========= 啟動 ========= */
 loadTeams();
 </script>
+<script src="js/version.js"></script>
 
 </body>
 </html>

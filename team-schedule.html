@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>CPBL 球隊賽程</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">CPBL</a>
+    <a class="nav-link" href="index.html">首頁</a>
+    <a class="nav-link" href="schedule.html">賽程</a>
+    <a class="nav-link" href="standings.html">戰績</a>
+    <a class="nav-link active" href="teams.html">球隊</a>
+    <a class="nav-link" href="season.html">賽季</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <h1 id="teamTitle">球隊賽程</h1>
+  <p class="muted" id="teamSub">載入中…</p>
+</header>
+
+<main>
+  <section class="home-grid" style="grid-template-columns: 1fr;">
+    <div class="home-card primary">
+      <h2>📅 本隊賽程</h2>
+      <div id="teamScheduleList" class="muted">載入中…</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+ © 2026 CPBL Data Site ｜ 
+ <span class="site-version"></span> ｜ 
+ 明叡 × ChatGPT
+</footer>
+
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const team = params.get("team");
+
+  const TEAM_NAME_MAP = {
+    brothers: "中信兄弟",
+    lions: "統一7-ELEVEn獅",
+    monkeys: "樂天桃猿",
+    dragons: "味全龍",
+    guardians: "富邦悍將",
+    hawks: "台鋼雄鷹",
+    // 若你有明星賽隊名也可加：
+    // taiwan: "台灣隊",
+    // allstar: "明星隊"
+  };
+
+  const titleEl = document.getElementById("teamTitle");
+  const subEl = document.getElementById("teamSub");
+  const listEl = document.getElementById("teamScheduleList");
+
+  if (!team) {
+    titleEl.textContent = "球隊賽程";
+    subEl.textContent = "缺少 team 參數";
+    listEl.textContent = "請從球隊頁進入";
+    throw new Error("missing team");
+  }
+
+  const teamName = TEAM_NAME_MAP[team] || team;
+  titleEl.textContent = `${teamName}｜球隊賽程`;
+  subEl.textContent = `team=${team}`;
+
+  const months = [
+    "2026-03","2026-04","2026-05","2026-06",
+    "2026-07","2026-08"
+  ];
+
+  Promise.all(
+    months.map(m =>
+      fetch(`data/schedule-${m}.json`)
+        .then(r => r.ok ? r.json() : [])
+        .catch(() => [])
+    )
+  ).then(results => {
+    const games = results.flat();
+
+    // 篩出「有本隊」的比賽（teams 用中文/英文都能吃）
+    const teamGames = games.filter(g => {
+      const h = g.teams?.home;
+      const a = g.teams?.away;
+      return h === team || a === team || h === teamName || a === teamName;
+    });
+
+    if (!teamGames.length) {
+      listEl.textContent = "這個月份範圍內找不到本隊賽程";
+      return;
+    }
+
+    teamGames.sort((x,y) => x.date.localeCompare(y.date));
+
+    listEl.innerHTML = teamGames.map(g => {
+      const home = g.teams?.home ?? "—";
+      const away = g.teams?.away ?? "—";
+      const time = g.time ?? "時間未定";
+      const status = g.type === "exhibition" ? "熱身賽" : (g.type === "allstar" ? "明星賽" : "例行賽");
+
+      return `
+        <div class="mini-game-card" style="margin:10px 0;">
+          <div><strong>📅 ${g.date}</strong>（${status}）</div>
+          <div>⚔️ ${away} vs ${home}</div>
+          <div>⏰ ${time}</div>
+          <a class="card-link" href="schedule.html?date=${g.date}">👉 查看當日賽程</a>
+        </div>
+      `;
+    }).join("");
+  }).catch(err => {
+    console.error(err);
+    listEl.textContent = "賽程載入失敗";
+  });
+</script>
+<script src="js/version.js"></script>
+
+</body>
+</html>

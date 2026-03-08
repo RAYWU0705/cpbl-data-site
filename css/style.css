@@ -1,47 +1,26 @@
+/* =========================
+   全站基礎設定（穩定）
+   ========================= */
+:root {
+  --team-color: #222;
+  --team-bg: #f4f6f8;
+  --card-bg: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: "Noto Sans TC", Arial, sans-serif;
-  background-color: #f4f6f8;
   margin: 0;
-  padding: 0;
+  font-family: "Noto Sans TC", Arial, sans-serif;
+  background: #f4f6f8;
+  color: #222;
 }
 
-header {
-  background-color: #0b3c5d;
-  color: white;
-  padding: 16px;
-  text-align: center;
-}
-
-main {
-  padding: 20px;
-}
-
-.game-card {
-  background-color: white;
-  border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 16px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.teams {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.info {
-  margin-top: 8px;
-  color: #555;
-}
-
-footer {
-  text-align: center;
-  padding: 12px;
-  color: #888;
-  font-size: 14px;
-}
-
-/* ===== 導覽列 ===== */
+/* =========================
+   導覽列（全站共用）
+   ========================= */
 .nav {
   background: #082b43;
   padding: 10px 16px;
@@ -59,11 +38,9 @@ footer {
 }
 
 .brand {
-  color: white;
+  color: #fff;
   text-decoration: none;
   font-weight: 800;
-  letter-spacing: 0.5px;
-  margin-right: 8px;
 }
 
 .nav-link {
@@ -75,462 +52,1861 @@ footer {
 }
 
 .nav-link:hover {
-  background: rgba(255,255,255,0.12);
-  color: white;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
 }
 
 .nav-link.active {
-  background: rgba(255,255,255,0.2);
-  color: white;
-}
-.game-card {
-  padding: 10px 14px;
-  margin: 8px 0;
-  border-radius: 8px;
-  border-left: 6px solid #ccc;
-  background: #f9f9f9;
+  background: rgba(255,255,255,0.25);
+  color: #fff;
 }
 
-.home-game {
-  border-left-color: #f0b400; /* 中信兄弟系金色示意 */
-  background: #fffbe6;
-}
-.game-row {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 24px;
-}
-
-.game-row .game-card {
-  flex: 1 1 260px; /* 一排可 2～3 場，自動換行 */
-  max-width: 320px;
-}
-.table-card{
-  background:#fff;
-  border-radius:12px;
-  padding:12px;
-  box-shadow:0 2px 10px rgba(0,0,0,0.08);
-  overflow:auto;
+/* =========================
+   Header（一般頁）
+   ========================= */
+header {
+  background: #0b3c5d;
+  color: #fff;
+  padding: 18px 16px;
+  text-align: center;
 }
 
-.standings-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:720px;
-}
-
-.standings-table th,
-.standings-table td{
-  padding:10px 12px;
-  border-bottom:1px solid rgba(0,0,0,0.08);
-  text-align:center;
-  white-space:nowrap;
-}
-
-.standings-table thead th{
-  background:rgba(8,43,67,0.06);
-  font-weight:800;
-}
-/* ===== 戰績表：美化 ===== */
-.table-card{
-  background:#fff;
-  border-radius:14px;
-  padding:14px;
-  box-shadow:0 6px 18px rgba(0,0,0,0.08);
-  overflow:auto;
-}
-
-.standings-table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:780px;
-}
-
-.standings-table thead th{
-  background:rgba(8,43,67,0.08);
-  font-weight:800;
-  padding:12px 10px;
-  text-align:center;
-  position:sticky;
-  top:0;
-}
-
-.standings-table td{
-  padding:12px 10px;
-  border-bottom:1px solid rgba(0,0,0,0.08);
-  text-align:center;
-}
-
-.standings-table tbody tr:nth-child(even){
-  background:rgba(0,0,0,0.02);
-}
-
-.standings-table tbody tr:hover{
-  background:rgba(255, 208, 102, 0.20);
-}
-
-.standings-table td:nth-child(2){
-  text-align:left;            /* 球隊名靠左比較像排行榜 */
-  font-weight:800;
-}
-/* ===== Teams layout ===== */
-.teams-layout{
-  display:flex;
-  gap:14px;
-  align-items:flex-start;
-  flex-wrap:wrap;
-}
-
-.team-list{
-  flex: 1 1 360px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-.team-detail{
-  flex: 2 1 420px;
-  min-width:320px;
-}
-
-.team-card{
-  width:100%;
-  text-align:left;
-  background:#fff;
-  border:1px solid rgba(0,0,0,0.10);
-  border-radius:14px;
-  padding:12px 14px;
-  cursor:pointer;
-  box-shadow:0 2px 10px rgba(0,0,0,0.06);
-}
-
-.team-card:hover{
-  background:rgba(255, 208, 102, 0.18);
-}
-
-.team-card-title{
-  font-weight:900;
-  font-size:18px;
-}
-
-.team-card-sub{
-  color:#666;
-  margin-top:4px;
-  font-size:14px;
-}
-
-.team-card-colors{
-  margin-top:8px;
-  display:flex;
-  gap:6px;
-}
-
-.color-dot{
-  width:12px;
-  height:12px;
-  border-radius:999px;
-  display:inline-block;
-  border:1px solid rgba(0,0,0,0.15);
-}
-
-.detail-card{
-  background:#fff;
-  border-radius:14px;
-  padding:14px;
-  box-shadow:0 6px 18px rgba(0,0,0,0.08);
-  border:1px solid rgba(0,0,0,0.10);
-}
-
-.detail-title{
-  font-size:22px;
-  font-weight:900;
-  margin-bottom:10px;
-}
-
-.detail-row{
-  margin:6px 0;
-}
-
-.detail-intro{
-  margin-top:12px;
-  color:#444;
-  line-height:1.7;
-}
-.team-btn{
-  display:inline-block;
-  padding:10px 12px;
-  border-radius:12px;
-  background:#fff;
-  border:1px solid rgba(0,0,0,0.12);
-  text-decoration:none;
-  color:#0b3c5d;
-  font-weight:700;
-}
-.team-btn:hover{
-  background:rgba(255, 208, 102, 0.18);
-}
-.home-features {
+/* =========================
+   主內容
+   ========================= */
+main {
   max-width: 1100px;
-  margin: 32px auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
-  padding: 0 16px;
+  margin: 0 auto;
+  padding: 20px 16px;
 }
 
-.feature-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-}
-
-.feature-card h3 {
-  margin-bottom: 8px;
-}
-
-.feature-card p {
-  color: #555;
-  line-height: 1.6;
-}
-
-.feature-card a {
-  display: inline-block;
-  margin-top: 10px;
-  font-weight: 600;
-  color: #0b5ed7;
-  text-decoration: none;
-}
-.home-panels{
-  max-width:1100px;
-  margin: 12px auto 40px;
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap:20px;
-  padding: 0 16px;
-}
-
-.panel{
-  background:#fff;
-  border-radius:12px;
-  padding:20px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-}
-
-.panel h2{
-  margin-top:0;
-  margin-bottom:12px;
-}
-.date-title{
-  margin: 18px 0 10px;
-  font-size: 18px;
-  font-weight: 800;
-}
-
-.game-row{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.mini-game-card{
-  background: #fffdf2;
-  border-radius: 10px;
-  padding: 12px 14px;
-  border-left: 6px solid #f2b400;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-}
-
-.mini-teams{
-  font-size: 16px;
-  font-weight: 800;
-  margin-bottom: 6px;
-}
-
-.mini-meta{
-  color: #555;
+footer {
+  text-align: center;
+  padding: 14px;
   font-size: 14px;
-  margin-top: 3px;
-}
-.quick-links{
-  max-width:1100px;
-  margin: 18px auto 0;
-  padding: 0 16px;
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-}
-
-.quick-btn{
-  display:inline-block;
-  text-decoration:none;
-  background:#fff;
-  color:#0b3c5d;
-  font-weight:800;
-  padding:10px 14px;
-  border-radius:10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-
-.quick-btn:hover{
-  transform: translateY(-1px);
-}
-.top3-card{
-  background:#f7fbff;
-  border-radius:10px;
-  padding:12px 14px;
-  margin: 10px 0;
-  border-left: 6px solid #0b3c5d;
-}
-
-.top3-rank{
-  font-weight:900;
-  color:#0b3c5d;
-  margin-bottom:4px;
-}
-
-.top3-team{
-  font-size:18px;
-  font-weight:900;
-  margin-bottom:6px;
-}
-
-.top3-meta{
-  color:#555;
-  font-size:14px;
-}
-.team-cell {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.team-logo {
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
-}
-.game-status {
-  display: inline-block;
-  margin-bottom: 6px;
-  font-weight: 700;
-  font-size: 0.9rem;
-}
-
-.game-status.scheduled {
   color: #666;
 }
 
-.game-status.live {
-  color: #c00;
+/* =========================
+   卡片通用
+   ========================= */
+.card,
+.team-detail-card,
+.next-game-card,
+.recent-games {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
 }
 
-.game-status.final {
-  color: #0a7;
+/* =========================
+   ✅ 球隊主題區（只影響這裡）
+   ========================= */
+.team-theme-zone {
+  background: var(--team-bg);
+  color: var(--team-color);
+  padding: 20px;
+  border-radius: 20px;
 }
-.teams {
+
+/* =========================
+   球隊詳細頁
+   ========================= */
+.team-detail-card {
+  text-align: center;
+}
+
+.team-logo-xl {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.team-intro {
+  line-height: 1.7;
+  opacity: 0.9;
+}
+
+.team-meta {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+}
+
+.team-meta li {
+  margin: 6px 0;
+}
+
+/* =========================
+   按鈕
+   ========================= */
+.team-btn {
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #fff;
+  color: #082b43;
+  text-decoration: none;
+  font-weight: 700;
+  border: 1px solid rgba(0,0,0,0.15);
+}
+
+.team-btn:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 16px;
+  text-decoration: none;
+  font-weight: 600;
+  color: inherit;
+}
+
+/* =========================
+   下一場比賽
+   ========================= */
+.next-game-card h2 {
+  margin-top: 0;
+}
+
+.next-game-inner div {
+  margin: 4px 0;
+}
+
+/* =========================
+   近期賽程
+   ========================= */
+.recent-games h2 {
+  margin-top: 0;
+}
+
+.recent-game {
+  margin: 6px 0;
+}
+/* =========================
+   首頁比分橫條（MLB 風）
+   ========================= */
+.score-card {
+  min-width: 220px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 10px 14px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+  flex-shrink: 0;
+}
+
+.score-teams {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-weight: 600;
+  justify-content: space-between;
+  font-weight: 700;
 }
 
-.team-logo {
+.score-team {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.score-team img {
   width: 28px;
   height: 28px;
   object-fit: contain;
 }
 
-.team-name.home {
+.score-status {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #555;
+  text-align: center;
+}
+
+.score-loading {
+  color: #fff;
+  opacity: 0.85;
+}
+/* =========================
+   首頁卡片版型
+   ========================= */
+
+/* =========================
+   🔥 首頁卡片 Grid（穩定版）
+   ========================= */
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 固定 3 欄 */
+  gap: 20px;
+}
+@media (max-width: 900px) {
+  .home-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.home-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.home-card h2 {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+.card-link {
+  display: inline-block;
+  margin-top: 10px;
+  font-weight: 700;
+  text-decoration: none;
   color: #0b3c5d;
 }
 
-.team-name.away {
-  color: #333;
+.card-link:hover {
+  text-decoration: underline;
+}
+
+.muted {
+  color: #666;
+}
+/* =========================
+   首頁卡片：視覺層級
+   ========================= */
+
+/* 主要卡片（最重要） */
+.home-card.primary {
+  border: 2px solid #0b3c5d;
+  box-shadow: 0 12px 28px rgba(11, 60, 93, 0.25);
+}
+
+/* 次要卡片 */
+.home-card.secondary {
+  border: 2px dashed rgba(11, 60, 93, 0.35);
+  background: #f8fbfd;
+}
+
+/* 卡片 hover 微互動（全部共用） */
+.home-card {
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.home-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.15);
+}
+
+/* =========================
+   賽程卡片（MLB 風）
+   ========================= */
+
+.date-title {
+  margin: 24px 0 10px;
+  font-size: 18px;
+  font-weight: 800;
+  color: #0b3c5d;
+}
+
+.game-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+}
+.game-card {
+  pointer-events: auto !important;
+}
+
+.game-matchup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.team {
+  width: 120px;
+  text-align: center;
+}
+
+.team img {
+  width: 72px;
+  height: auto;
+}
+
+.team-name {
+  margin-top: 6px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.center {
+  text-align: center;
 }
 
 .vs {
-  margin: 0 6px;
-  opacity: 0.6;
-}
-.game-card {
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 10px;
-  background: #fff;
+  font-size: 20px;
+  font-weight: 900;
+  color: #aaa;
+  margin-bottom: 6px;
 }
 
-.game-card .team-name.home {
-  font-weight: 800;
-  background: #eef6ff;
-  padding: 2px 6px;
-  border-radius: 6px;
+.status {
+  font-size: 14px;
 }
-/* ===== 比賽狀態標籤 ===== */
-.game-status {
-  display: inline-block;
-  padding: 4px 10px;
-  border-radius: 999px;
+
+.game-meta {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+}
+/* =========================
+   賽程：月曆模式（必要）
+   ========================= */
+
+.calendar-grid{
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.cal-head{
+  background: #0b3c5d;
+  color: #fff;
+  font-weight: 800;
+  text-align: center;
+  padding: 10px 0;
+  border-radius: 10px;
+}
+
+.cal-cell{
+  background: #fff;
+  border-radius: 14px;
+  padding: 10px;
+  min-height: 110px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.06);
+}
+
+.cal-date-num{
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+.cal-game{
   font-size: 12px;
+  background: #f4f6f8;
+  border-radius: 8px;
+  padding: 4px 6px;
+  margin-top: 4px;
+}
+.cal-game{
+  font-size: 12px;
+  background: #eef2f5;
+  border-radius: 6px;
+  padding: 4px 6px;
+  margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cal-more{
+  font-size: 11px;
+  color: #666;
+  margin-top: 4px;
+}
+/* =========================
+   戰績表（完整版修正）
+   ========================= */
+
+.standings-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  table-layout: auto;   /* ✅ 改成 auto */
+}
+
+.standings-table th,
+.standings-table td {
+  padding: 10px 8px;
+  text-align: center;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+/* 表頭 */
+.standings-table th {
+  background: #f4f6f8;
+  font-weight: 700;
+}
+
+/* 球隊欄位 */
+.team-cell {
+  text-align: left;
+  min-width: 180px;   /* ✅ 不固定死寬 */
+}
+
+/* 球隊內容 */
+.team-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 隊徽 */
+.team-wrap img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* 球隊名稱 */
+.team-name {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* 勝率 / 勝差數字對齊 */
+.standings-table td:nth-child(7),
+.standings-table td:nth-child(8) {
+  font-variant-numeric: tabular-nums;
+}
+
+/* 排名 */
+.standings-table td:first-child {
+  font-weight: 700;
+}
+
+/* =========================
+   🔥 修正：球隊頁文字顯示問題
+   ========================= */
+
+/* 所有球隊頁卡片，文字強制深色 */
+body.team-themed .card,
+body.team-themed .team-detail-card,
+body.team-themed .next-game-card,
+body.team-themed .recent-games {
+  color: #222 !important;
+}
+
+/* 球隊頁內的一般文字 */
+body.team-themed p,
+body.team-themed li,
+body.team-themed span,
+body.team-themed .team-meta,
+body.team-themed .game-meta {
+  color: #222 !important;
+}
+
+/* 標題可以保留主題色（好看） */
+body.team-themed h1,
+body.team-themed h2,
+body.team-themed h3 {
+  color: var(--team-color);
+}
+/* =========================
+   🔥 球隊頁：強制修正白字標題問題
+   ========================= */
+
+/* 球隊名稱（最上方） */
+body.team-themed .team-name,
+body.team-themed .team-title,
+body.team-themed .team-header h1,
+body.team-themed .team-header h2 {
+  color: #ffffff !important;
+}
+
+/* 區塊標題：下一場比賽、近期賽程 */
+body.team-themed .section-title,
+body.team-themed .section-header,
+body.team-themed h2.section-title,
+body.team-themed h3.section-title {
+  color: #222 !important;
+}
+
+/* 字卡內所有標題 */
+body.team-themed .card h2,
+body.team-themed .card h3,
+body.team-themed .next-game-card h2,
+body.team-themed .recent-games h2 {
+  color: #222 !important;
+}
+
+/* 保險：所有卡片內文字 */
+body.team-themed .card,
+body.team-themed .next-game-card,
+body.team-themed .recent-games {
+  color: #222 !important;
+}
+/* =========================
+   🔥【最終修正】球隊頁文字顯示統一方案
+   ========================= */
+
+/* ❌ 禁止 team-themed 全域吃顏色 */
+body.team-themed {
+  color: initial;
+}
+
+/* ===== Header（最上方藍底）一律白字 ===== */
+body.team-themed header,
+body.team-themed header h1,
+body.team-themed header p {
+  color: #ffffff !important;
+}
+
+/* ===== 卡片本體：一律深色字 ===== */
+body.team-themed .team-detail-card,
+body.team-themed .next-game-card,
+body.team-themed .recent-games {
+  background: #ffffff;
+  color: #222222 !important;
+}
+
+/* ===== 卡片內所有文字（保險全蓋） ===== */
+body.team-themed .team-detail-card *,
+body.team-themed .next-game-card *,
+body.team-themed .recent-games * {
+  color: #222222 !important;
+}
+
+/* ===== 區塊標題 ===== */
+body.team-themed .team-detail-card h1,
+body.team-themed .next-game-card h2,
+body.team-themed .recent-games h2 {
+  color: #222222 !important;
+  font-weight: 700;
+}
+
+/* ===== icon / meta 文字 ===== */
+body.team-themed .team-meta,
+body.team-themed .game-meta,
+body.team-themed .team-meta span,
+body.team-themed .game-meta span {
+  color: #222222 !important;
+}
+/* =========================
+   🔥【終極修正】球隊頁 Header 強制白字
+   ========================= */
+
+/* 球隊頁 header 本體 */
+body.team-themed header {
+  background-color: #0b3a5a; /* 保險 */
+}
+
+/* Header 內「所有文字」強制白色 */
+body.team-themed header *,
+body.team-themed header h1,
+body.team-themed header h2,
+body.team-themed header p,
+body.team-themed header span {
+  color: #ffffff !important;
+}
+/* =========================
+   首頁比分橫條（乾淨版）
+   ========================= */
+
+.score-strip-wrap {
+  max-width: 1100px;
+  margin: 20px auto;
+}
+
+.score-strip {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+#scoreTrack {
+  display: flex;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.score-card {
+  min-width: 200px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,.12);
+  flex-shrink: 0;
+}
+
+/* 左右箭頭（首頁比分橫條） */
+.score-strip-wrap {
+  position: relative;
+  max-width: 1100px;
+  margin: 20px auto;
+}
+
+.score-strip {
+  overflow-x: auto;
+}
+
+#scoreTrack {
+  display: flex;
+  gap: 16px;
+  padding: 10px 40px; /* 留空給箭頭 */
+}
+
+.score-card {
+  min-width: 200px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,.12);
+  flex-shrink: 0;
+}
+
+/* 箭頭（不搞遮罩、不搞 pointer） */
+.score-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,.2);
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  z-index: 5;
+}
+
+.score-nav.left { left: 0; }
+.score-nav.right { right: 0; }
+
+/* 首頁比分橫條：隊徽大小鎖死 */
+.score-team-row img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+/* =========================
+   🔧 首頁比分橫條：顯示修正
+   ========================= */
+
+/* 橫條本體一定要有背景與高度 */
+.score-strip {
+  background: #0b3c5d;
+  padding: 12px 0;
+}
+
+/* 載入中文字改成可見 */
+.score-loading {
+  color: #ffffff;
+  font-weight: 700;
+  padding: 12px;
+}
+
+/* 沒卡片時也要撐高度 */
+#scoreTrack {
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+}
+.score-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;              /* 🔥 提高到 10 */
+  pointer-events: auto;     /* 🔥 強制可點 */
+  background: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0,0,0,.2);
+  cursor: pointer;
+}
+
+.score-nav.left { left: 0; }
+.score-nav.right { right: 0; }
+/* =========================
+   🔥 A｜比分橫條視覺升級（安全版）
+   ========================= */
+
+/* 卡片基本動畫 */
+.score-card {
+  transition: 
+    transform .15s ease,
+    box-shadow .15s ease;
+}
+
+/* Hover 微浮起 */
+.score-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.18);
+}
+
+/* 今天的比賽（如果有） */
+.score-card.is-today {
+  border: 2px solid #ff9800;
+  background: linear-gradient(180deg, #fff7e6, #ffffff);
+}
+
+/* 今天日期文字 */
+.score-card.is-today .score-date {
+  font-weight: 800;
+  color: #e65100;
+}
+
+/* 滑動時更順 */
+#scoreTrack {
+  scroll-behavior: smooth;
+}
+
+/* 左右箭頭 hover */
+.score-nav:hover {
+  background: #f4f6f8;
+  transform: scale(1.08);
+}
+/* =========================
+   🔥 A+｜首頁卡片層級（立刻可見）
+   ========================= */
+
+/* 主卡（第一眼要看的） */
+.home-card.primary {
+  border: 2px solid #0b3c5d;
+  box-shadow: 0 12px 28px rgba(11,60,93,.25);
+}
+
+/* 主卡標題更醒目 */
+.home-card.primary h2 {
+  font-size: 20px;
+}
+
+/* 次卡稍微收斂 */
+.home-card.secondary {
+  opacity: .92;
+}
+
+/* 首頁卡片 hover */
+.home-card {
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.home-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0,0,0,.18);
+}
+/* =========================
+   🔥 首頁：空卡片暫時隱藏
+   ========================= */
+
+/* =========================
+   🔥 首頁卡片：空狀態顯示
+   ========================= */
+
+.home-card:empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  background: #f0f3f6;
+  color: #999;
+  box-shadow: none;
+  border: 1px dashed #ccd3da;
+}
+
+.top6-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+}
+
+.top6-list li {
+  display: grid;
+  grid-template-columns: 32px 1fr 70px 60px;
+  align-items: center;
+  padding: 6px 4px;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+}
+
+.top6-list li:last-child {
+  border-bottom: none;
+}
+
+.rank {
+  font-weight: 600;
+}
+
+.record,
+.pct {
+  text-align: right;
+  color: #555;
+}
+.top6-list li:first-child {
+  font-weight: 600;
+  background: #f4faff;
+}
+.top6-list li:hover {
+  background: #f4faff;
+}
+.my-team {
+  color: #000;
+  background: #ffe600;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-weight: 700;
+}
+.highlight-team {
+  background: #ffe600;
+  color: #d40000;
+  font-weight: 900;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.my-team-game {
+  background: #fff3bf;   /* 淡黃色 */
+  border-left: 6px solid #f4c430;
+  font-weight: 700;
+}
+.today-hint {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 4px 0 8px;
+}
+.focus-game {
+  background: #fff3bf;
+  border-left: 6px solid #f4c430;
+  padding-left: 8px;
+}
+.team-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin: 8px 0;
+}
+/* 🔥 修正：列表模式時，月曆完全不吃事件 */
+#calendarWrap {
+  pointer-events: none;
+}
+
+/* 月曆模式才恢復可點 */
+#calendarWrap.active {
+  pointer-events: auto;
+}
+/* =========================
+   比賽中心：比分區塊
+   ========================= */
+.score-board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin: 20px 0 10px;
+}
+
+.score {
+  font-size: 42px;
+  font-weight: 900;
+  width: 60px;
+  text-align: center;
+}
+
+.score-sep {
+  font-size: 32px;
+  font-weight: 700;
+  color: #999;
+}
+/* =========================
+   比賽中心：局數區塊
+   ========================= */
+.inning-board {
+  margin: 14px auto 10px;
+  max-width: 520px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+  font-size: 14px;
+}
+
+.inning-row {
+  display: grid;
+  grid-template-columns: 60px repeat(9, 1fr) 40px 40px 40px;
+  text-align: center;
+  align-items: center;
+}
+
+.inning-row span {
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.inning-row.header {
+  background: #0b3c5d;
+  color: #fff;
+  font-weight: 700;
+}
+
+.inning-row.away {
+  background: #f9fafb;
+}
+
+.inning-row.home {
+  background: #ffffff;
+  font-weight: 600;
+}
+
+.inning-row span:last-child {
+  font-weight: 800;
+}
+/* =========================
+   先發投手（空殼）
+   ========================= */
+.starting-pitchers h2 {
+  margin-top: 0;
+}
+
+.pitcher-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.pitcher-card {
+  background: #f4f6f8;
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+}
+
+.pitcher-name {
+  font-size: 18px;
   font-weight: 700;
   margin-top: 6px;
 }
 
-/* 未開打 */
-.game-status.scheduled {
-  background: #eef2ff;
-  color: #3730a3;
+.placeholder {
+  color: #999;
 }
 
-/* 進行中 */
-.game-status.live {
-  background: #fee2e2;
-  color: #991b1b;
-  animation: livePulse 1.2s infinite;
-}
-
-/* 已結束 */
-.game-status.final {
-  background: #dcfce7;
-  color: #166534;
-}
-
-/* LIVE 呼吸效果 */
-@keyframes livePulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.5; }
-  100% { opacity: 1; }
+.pitcher-hint {
+  margin-top: 10px;
+  font-size: 13px;
 }
 /* =========================
-   賽程狀態顯示
+   先發打序表（空殼）
    ========================= */
+.lineup-table {
+  margin-top: 12px;
+  border-radius: 12px;
+  overflow: hidden;
+}
 
-.game-status {
-  display: inline-block;
-  margin: 6px 0;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 13px;
+.inning-row {
+  display: grid;
+  grid-template-columns:
+    80px              /* 隊伍 */
+    repeat(9, 1fr)   /* 1–9 局 */
+    1fr               /* R */
+    1fr               /* H */
+    1fr;              /* E */
+  align-items: center;
+}
+
+
+.inning-row.header {
+  background: #0b3c5d;
+  color: #fff;
+  font-weight: 700;
+}
+
+.inning-row:last-child {
+  border-bottom: none;
+}
+/* ===== 記分板容器 ===== */
+.inning-board {
+  --inning-count: 9; /* JS 會動態改 */
+  display: grid;
+  gap: 0;
+  background: #0b3c5d;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* ===== 每一列 ===== */
+.inning-row {
+  display: grid;
+  grid-template-columns:
+    80px
+    repeat(var(--inning-count), 1fr)
+    1fr  /* R */
+    1fr  /* H */
+    1fr; /* E */
+  align-items: center;
+  background: #fff;
+}
+
+.inning-row.header {
+  background: #0b3c5d;
+  color: #fff;
   font-weight: 600;
 }
 
-/* 未開打 */
-.game-status.scheduled {
-  background: #f1f3f4;
-  color: #5f6368;
+.inning-row span {
+  padding: 10px 6px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
 }
 
-/* 進行中 */
-.game-status.live {
-  background: #fdecea;
-  color: #d93025;
+.inning-row.header span {
+  border-bottom: 1px solid rgba(255,255,255,.3);
 }
 
-/* 比賽結束 */
-.game-status.final {
-  background: #e6f4ea;
-  color: #188038;
+.inning-row.away,
+.inning-row.home {
+  background: #fff;
+}
+/* =========================
+   賽事資訊區（Game Info）
+   ========================= */
+.game-info {
+  background: #ffffff;
+}
+
+.game-info h2 {
+  margin-top: 0;
+}
+
+.info-block {
+  padding: 12px 0;
+  border-top: 1px solid #eee;
+}
+
+.info-block:first-of-type {
+  border-top: none;
+}
+
+.info-block h3 {
+  margin: 0 0 6px;
+  font-size: 15px;
+}
+
+.info-block .placeholder {
+  color: #999;
+}
+/* =========================
+   先發打序 / 投手成績（橫向表格）
+   ========================= */
+
+.lineup-table,
+.pitcher-table {
+  margin-top: 12px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Header */
+.lineup-header,
+.pitcher-header {
+  display: grid;
+  grid-template-columns: 60px 1fr 80px 50px 50px 50px;
+  align-items: center;
+  padding: 12px;
+  background: #0b3c5d;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Row */
+.lineup-row,
+.pitcher-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 80px 50px 50px 50px;
+  align-items: center;
+  padding: 10px 12px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.lineup-row:last-child,
+.pitcher-row:last-child {
+  border-bottom: none;
+}
+
+.lineup-row span,
+.pitcher-row span {
+  text-align: center;
+}
+
+.lineup-row .placeholder,
+.pitcher-row .placeholder {
+  color: #999;
+}
+/* =========================
+   球隊高亮（全聯盟共用）
+   ========================= */
+
+.highlight-team {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* 各隊主色 */
+body.team-brothers .highlight-team {
+  background: #ffd400;   /* 中信兄弟黃 */
+  color: #222;
+}
+
+body.team-lions .highlight-team {
+  background: #e58a35;   /* 統一獅紅 */
+}
+
+body.team-monkeys .highlight-team {
+  background: #aa2424;   /* 樂天紫 */
+}
+
+body.team-dragons .highlight-team {
+  background: #d32f2f;   /* 味全紅 */
+}
+
+body.team-guardians .highlight-team {
+  background: #1565c0;   /* 富邦藍 */
+}
+
+body.team-hawks .highlight-team {
+  background: #2e7d32;   /* 台鋼綠 */
+}
+/* =========================
+   🔥 強制球隊高亮（最終版）
+   ========================= */
+
+body[class^="team-"] .highlight-team {
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+/* 中信兄弟 */
+body.team-brothers .highlight-team {
+  background-color: #ffd400 !important;
+  color: #000 !important;
+}
+
+/* 統一獅 */
+body.team-lions .highlight-team {
+  background-color: #e68a00 !important;
+  color: #fff !important;
+}
+
+/* 樂天桃猿 */
+body.team-monkeys .highlight-team {
+  background-color: #8b0000 !important;
+  color: #fff !important;
+}
+
+/* 味全龍 */
+body.team-dragons .highlight-team {
+  background-color: #c3002f !important;
+  color: #fff !important;
+}
+
+/* 富邦悍將 */
+body.team-guardians .highlight-team {
+  background-color: #003a8f !important;
+  color: #fff !important;
+}
+
+/* 台鋼雄鷹 */
+body.team-hawks .highlight-team {
+  background-color: #006d5b !important;
+  color: #fff !important;
+}
+/* ===== 球隊主題外框（共用） ===== */
+.team-theme-zone {
+  margin: 32px auto;
+  padding: 24px;
+  border-radius: 20px;
+  background: #fff;
+}
+
+/* ===== 各隊主色外框 ===== */
+body.team-brothers .team-theme-zone {
+  border: 10px solid #FFD400;
+}
+
+body.team-lions .team-theme-zone {
+  border: 10px solid #e69d00;
+}
+
+body.team-monkeys .team-theme-zone {
+  border: 10px solid #9E1B32;
+}
+
+body.team-dragons .team-theme-zone {
+  border: 10px solid #C40018;
+}
+
+body.team-guardians .team-theme-zone {
+  border: 10px solid #0047AB;
+}
+
+body.team-hawks .team-theme-zone {
+  border: 10px solid #006400;
+}
+/* ===== roster 卡片化（最省事）===== */
+.roster-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.roster-item {
+  background: #fff;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.roster-item strong {
+  font-size: 16px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.roster-item .muted {
+  font-size: 13px;
+  color: #666;
+}
+/* =========================
+   教練 / 球員 卡片化顯示
+   （中職官網風格，CSS only）
+   ========================= */
+
+.roster-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.roster-item {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  line-height: 1.5;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.roster-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+}
+
+/* 姓名 */
+.roster-item strong {
+  display: block;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #0b2d4d;
+}
+
+/* 職稱 / 位置 */
+.roster-item .muted,
+.roster-item span,
+.roster-item div {
+  font-size: 14px;
+  color: #555;
+}
+
+/* 一軍 / 二軍 標題間距 */
+.team-detail-card h3,
+.team-detail-card h4 {
+  margin-top: 28px;
+  margin-bottom: 8px;
+}
+/* 一軍 / 二軍 標籤 */
+.roster-item {
+  position: relative;
+}
+
+.roster-item[data-squad="first"]::before,
+.roster-item[data-squad="second"]::before {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: #fff;
+}
+
+.roster-item[data-squad="first"]::before {
+  content: "一軍";
+  background: #0b5ed7;
+}
+
+.roster-item[data-squad="second"]::before {
+  content: "二軍";
+  background: #6c757d;
+}
+.team-switch {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.team-tab {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: none;
+  background: #e9ecef;
+  cursor: pointer;
+}
+
+.team-tab.active {
+  background: #0b5ed7;
+  color: #fff;
+}
+
+.box-content {
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.box-section {
+  margin-bottom: 16px;
+  color: #666;
+}
+/* =====================
+   逐局比分（Linescore）
+   ===================== */
+
+.linescore-table {
+  margin-top: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  font-size: 14px;
+}
+
+.linescore-row {
+  display: grid;
+  grid-template-columns: 120px repeat(9, 1fr) 1fr;
+  text-align: center;
+  border-top: 1px solid #e5e7eb;
+}
+
+.linescore-row.header {
+  background: #f8fafc;
+  font-weight: 600;
+  border-top: none;
+}
+
+.linescore-row span {
+  padding: 8px 4px;
+  border-right: 1px solid #e5e7eb;
+}
+
+.linescore-row span:last-child {
+  border-right: none;
+}
+
+.linescore-row.header span {
+  font-size: 13px;
+  color: #555;
+}
+.status-live { color:#d62828; font-weight:700; }
+.status-final { color:#2a9d8f; font-weight:700; }
+.status-scheduled { color:#888; }
+.winner {
+  font-weight: 700;
+  color: #2a9d8f;
+}
+
+.loser {
+  opacity: 0.6;
+}
+
+.status-live {
+  color: #d62828;
+  font-weight: 700;
+}
+
+.status-final {
+  color: #2a9d8f;
+  font-weight: 700;
+}
+
+.status-scheduled {
+  color: #888;
+}
+/* =========================
+   比賽狀態樣式
+========================= */
+
+.status-live {
+  color: #d60000;
+  font-weight: 700;
+  animation: livePulse 1s infinite;
+}
+
+@keyframes livePulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+.status-final {
+  color: #0a8f2a;
+  font-weight: 700;
+}
+
+.status-scheduled {
+  color: #555;
+}
+
+/* =========================
+   逐局比分高亮
+========================= */
+
+.linescore-row span.current-inning {
+  background: #0b3c5d;
+  color: white;
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+.ticket-btn {
+  display:inline-block;
+  background:#0b3c5d;
+  color:#fff;
+  padding:10px 16px;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:700;
+  transition:0.2s;
+}
+
+.ticket-btn:hover {
+  background:#145a86;
+  transform:translateY(-2px);
+}
+.focus-slider {
+  overflow: hidden;
+  position: relative;
+  min-height: 120px;
+}
+
+#focusTrack {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.focus-slide {
+  min-width: 100%;
+  padding: 10px 0;
+}
+
+.focus-dots {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.focus-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ccc;
+  margin: 0 4px;
+  cursor: pointer;
+}
+
+.focus-dot.active {
+  background: #0b3c5d;
+}
+.streak-win {
+  color: #d62828;
+  font-weight: 700;
+}
+
+.streak-lose {
+  color: #1d3557;
+  font-weight: 700;
+}
+body.theme-home {
+  background: linear-gradient(
+    to bottom,
+    var(--theme-color-light),
+    #ffffff
+  );
+}
+:root {
+  --theme-color-light: #f5f5f5;
+}
+body.theme-match {
+  background: linear-gradient(
+    to right,
+    var(--away-color-light) 0%,
+    var(--away-color-light) 50%,
+    var(--home-color-light) 50%,
+    var(--home-color-light) 100%
+  );
+}
+body.theme-match {
+  background-attachment: fixed;
+}
+.score-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  cursor: pointer;
+}
+
+.score-strip {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+#scoreTrack {
+  display: flex;
+  gap: 16px;
+}
+
+.score-card {
+  text-decoration: none;
+  color: inherit;
+}
+.score-card {
+  min-width: 260px;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 16px 18px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.score-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.15);
+}
+
+.score-date {
+  font-weight: 700;
+  font-size: 14px;
+  color: #0f3c57;
+}
+
+.score-team-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+}
+
+.score-team-row img {
+  width: 22px;
+  height: 22px;
+}
+
+.score-status {
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #777;
+}
+.score-strip-wrap {
+  background: #123f5a;
+  padding: 20px 40px;
+  border-radius: 12px;
+}
+
+.score-strip {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.score-strip::-webkit-scrollbar {
+  display: none;
+}
+.nav-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.nav-teams {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-teams img {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.2s ease;
+}
+
+.nav-teams img:hover {
+  transform: scale(1.15);
+}
+.date-switch-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 14px 0;
+  background: #f8f9fb;
+  border-bottom: 1px solid #e2e6ed;
+}
+
+.date-switch-bar button {
+  background: #123b5c;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  font-size: 18px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.date-switch-bar button:hover {
+  opacity: 0.85;
+}
+
+.date-info {
+  text-align: center;
+}
+
+#currentDateText {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+#gameCountText {
+  font-size: 13px;
+  color: #666;
+}
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.cal-header {
+  text-align: center;
+  font-weight: bold;
+  padding: 8px 0;
+  background: #0b3c5d;
+  color: white;
+  border-radius: 6px;
+}
+
+.cal-cell {
+  min-height: 110px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 6px;
+  position: relative;
+  transition: 0.2s;
+}
+
+.cal-cell:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.cal-cell.empty {
+  background: transparent;
+  border: none;
+}
+
+.cal-date {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.cal-game {
+  font-size: 12px;
+  margin-top: 4px;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.cal-game:hover {
+  background: #eef4ff;
+}
+/* =========================
+   比賽中心雙色主題
+========================= */
+
+.theme-match .match-hero {
+  background: linear-gradient(
+    90deg,
+    var(--away-color-light),
+    var(--home-color-light)
+  );
+  transition: 0.4s ease;
+}
+
+/* 隊名自動染色 */
+.theme-match #homeTeam .team-name {
+  color: var(--home-color);
+  font-weight: 700;
+}
+
+.theme-match #awayTeam .team-name {
+  color: var(--away-color);
+  font-weight: 700;
+}
+
+/* 上方比分加粗 */
+.theme-match #homeScore.winner {
+  color: var(--home-color);
+  font-weight: 800;
+}
+
+.theme-match #awayScore.winner {
+  color: var(--away-color);
+  font-weight: 800;
+}
+
+/* 淡色背景卡片強化 */
+.theme-match .boxscore,
+.theme-match .linescore {
+  background: linear-gradient(
+    180deg,
+    var(--away-color-light),
+    var(--home-color-light)
+  );
+}
+/* =========================
+   MATCH HERO v4.3
+========================= */
+
+.match-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 30px;
+  border-radius: 20px;
+  margin: 30px 0;
+  background: linear-gradient(
+    135deg,
+    var(--away-color-light, #f5f5f5),
+    var(--home-color-light, #ffffff)
+  );
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+
+.hero-team {
+  flex: 1;
+  text-align: center;
+}
+
+.hero-team img {
+  width: 70px;
+  margin-bottom: 12px;
+}
+
+.hero-score {
+  font-size: 64px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-top: 10px;
+}
+
+.hero-center {
+  flex: 1;
+  text-align: center;
+}
+
+.hero-status {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.hero-date {
+  font-size: 16px;
+  color: #666;
+}
+
+/* 勝隊強化 */
+.hero-score.winner {
+  color: #d62828;
+}
+
+.hero-score.loser {
+  opacity: 0.5;
+}
+.linescore-row span {
+  min-width: 28px;
+  text-align: center;
+}
+.linescore-row {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+}
+.badge-ex {
+  display: inline-block;
+  background: #ff7a00;
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  margin-left: 6px;
+  font-weight: bold;
+}
+.batter-header,
+.batter-row{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr;
+  padding:6px 0;
+}
+
+.batter-team-title{
+  margin-top:14px;
+  font-weight:700;
+}
+
+.pitcher-row{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr;
+  padding:6px 0;
+}
+
+.pitcher-team-title{
+  margin-top:14px;
+  font-weight:700;
+}
+.my-cal-game {
+  background: rgba(255, 220, 0, 0.15);
+  border-left: 4px solid #ffcc00;
+  padding-left: 4px;
 }

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>CPBL 對戰中心</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">CPBL</a>
+    <a class="nav-link" href="index.html">首頁</a>
+    <a class="nav-link" href="schedule.html">賽程</a>
+    <a class="nav-link" href="standings.html">戰績</a>
+    <a class="nav-link active" href="teams.html">球隊</a>
+    <a class="nav-link" href="season.html">賽季</a>
+
+  </div>
+</nav>
+
+<header>
+  <h1 id="pageTitle">對戰中心</h1>
+  <p id="pageSub">讀取中…</p>
+</header>
+
+<main>
+  <div id="h2hContent" class="card">讀取中…</div>
+</main>
+
+<footer>
+ © 2026 CPBL Data Site ｜ 
+ <span class="site-version"></span> ｜ 
+ 明叡 × ChatGPT
+</footer>
+
+<script>
+/* ========= 讀取 team ========= */
+const params = new URLSearchParams(location.search);
+const teamId = params.get("team");
+
+const title = document.getElementById("pageTitle");
+const sub   = document.getElementById("pageSub");
+const box   = document.getElementById("h2hContent");
+
+if (!teamId) {
+  box.innerHTML = "❌ 缺少 team 參數";
+  throw new Error("missing team");
+}
+
+/* ========= 載入球隊資料 ========= */
+fetch("data/teams.json")
+  .then(r => r.json())
+  .then(teams => {
+    const team = teams.find(t => t.id === teamId);
+    if (!team) {
+      box.innerHTML = "❌ 找不到球隊";
+      return;
+    }
+
+    title.textContent = `${team.name}｜對戰中心`;
+    sub.textContent = "顯示對各隊對戰紀錄（示意版）";
+
+    renderH2H(team.name);
+  });
+
+/* ========= 計算對戰 ========= */
+function renderH2H(teamName) {
+  fetch("data/schedule-2026-04.json")
+    .then(r => r.json())
+    .then(games => {
+      const map = {};
+
+      const home = g.home ?? g.homeTeam;
+      const away = g.away ?? g.awayTeam;
+
+      if (home !== teamName && away !== teamName) return;
+
+      const opp = home === teamName ? away : home;
+
+
+      if (!Object.keys(map).length) {
+        box.innerHTML = "目前尚無對戰紀錄";
+        return;
+      }
+
+      box.innerHTML = `
+        <h2>🆚 ${teamName} 對戰紀錄</h2>
+        <ul>
+          ${Object.entries(map).map(([opp, d]) => `
+            <li>${teamName} vs ${opp}：${d.games} 場</li>
+          `).join("")}
+        </ul>
+      `;
+    });
+}
+</script>
+<script src="js/version.js"></script>
+
+</body>
+</html>

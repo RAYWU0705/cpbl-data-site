@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>Boxscore 月份管理 | CPBL</title>
+<style>
+.wrap{max-width:1100px;margin:auto;padding:20px;}
+.card{background:#fff;padding:16px;border-radius:14px;margin-bottom:16px;}
+.row{display:flex;gap:6px;flex-wrap:wrap;}
+input,select{padding:6px;border-radius:8px;border:1px solid #ccc;}
+button{padding:8px 12px;border:none;border-radius:10px;cursor:pointer;}
+.primary{background:#0b3c5d;color:#fff;font-weight:bold;}
+.table{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:6px;margin-bottom:6px;}
+.innings{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;}
+.badge-ex{display:inline-block;background:#ff7a00;color:#fff;font-size:12px;padding:2px 8px;border-radius:999px;font-weight:800;margin-left:8px;}
+.meta-line{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.small-muted{color:#666;font-size:13px;}
+hr{border:none;border-top:1px solid #eee;margin:12px 0;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<h1>⚾ Boxscore 月份管理後台 v4.4.2-beta</h1>
+
+<div class="card">
+  <input type="month" id="monthInput">
+  <button onclick="loadMonth()">載入月份</button>
+  <select id="gameSelect"></select>
+  <div class="small-muted" style="margin-top:8px;">
+    ＊切換場次會自動回填已儲存資料；AVG/ERA 在分母為 0 時會輸出 null（不造假）。
+  </div>
+</div>
+
+<div id="editor" style="display:none;">
+
+<div class="card">
+  <div class="meta-line">
+    <div id="gameMeta"></div>
+    <div id="gameTypeBadge"></div>
+  </div>
+</div>
+
+<div class="card">
+<h3>逐局比分 (1-9局)</h3>
+
+<div>主隊</div>
+<div id="homeInnings" class="innings"></div>
+
+<div style="height:8px;"></div>
+
+<div>客隊</div>
+<div id="awayInnings" class="innings"></div>
+
+</div>
+
+<div class="card">
+<h3>R / H / E</h3>
+<div class="row">
+<input id="homeR" placeholder="主 R">
+<input id="homeH" placeholder="主 H">
+<input id="homeE" placeholder="主 E">
+</div>
+<div class="row">
+<input id="awayR" placeholder="客 R">
+<input id="awayH" placeholder="客 H">
+<input id="awayE" placeholder="客 E">
+</div>
+</div>
+
+<div class="card">
+<h3>打者</h3>
+<div class="small-muted">AB=0 → AVG 會輸出 null</div>
+<hr>
+<div id="battersHome"></div>
+<button onclick="addBatter('home')">+ 主隊</button>
+<div style="height:8px"></div>
+<div id="battersAway"></div>
+<button onclick="addBatter('away')">+ 客隊</button>
+</div>
+
+<div class="card">
+<h3>投手</h3>
+<div class="small-muted">IP=0 → ERA 會輸出 null；IP 可用 5.1 / 5.2 表示 1/3、2/3</div>
+<hr>
+<div id="pitchersHome"></div>
+<button onclick="addPitcher('home')">+ 主隊</button>
+<div style="height:8px"></div>
+<div id="pitchersAway"></div>
+<button onclick="addPitcher('away')">+ 客隊</button>
+</div>
+
+<div class="card">
+<button class="primary" onclick="saveGame()">儲存此場</button>
+<button onclick="downloadMonth()">下載整月 JSON</button>
+</div>
+
+</div>
+</div>
+
+<script>
+let scheduleData=[];
+let boxData={};
+let currentGameId=null;
+
+const monthInput = document.getElementById("monthInput");
+const gameSelect = document.getElementById("gameSelect");
+const editor = document.getElementById("editor");
+const gameMeta = document.getElementById("gameMeta");
+const gameTypeBadge = document.getElementById("gameTypeBadge");
+
+function capitalize(s){return s.charAt(0).toUpperCase()+s.slice(1);}
+
+function numOrNull(v){
+  if(v === "" || v === null || v === undefined) return null;
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
+}
+
+function toIntOrNull(v){
+  const n = numOrNull(v);
+  if(n === null) return null;
+  return Math.trunc(n);
+}
+
+function parseIP(ip){
+  const str = String(ip);
+  if(!str.includes(".")) return Number(str);
+  const [f,d] = str.split(".");
+  const base = Number(f);
+  if(d==="1") return base + 1/3;
+  if(d==="2") return base + 2/3;
+  return base;
+}
+
+/* =========================
+   逐局：建立 + 回填 + 自動算 R
+========================= */
+
+function buildInnings(container){
+  const div=document.getElementById(container);
+  div.innerHTML="";
+  for(let i=1;i<=9;i++){
+    const input=document.createElement("input");
+    input.type="number";
+    input.min="0";
+    input.placeholder=i;
+    input.addEventListener("input", recalcR);
+    div.appendChild(input);
+  }
+  const total=document.createElement("input");
+  total.placeholder="R";
+  total.disabled=true;
+  div.appendChild(total);
+}
+
+function setInnings(container, arr){
+  const div = document.getElementById(container);
+  const inputs = div.querySelectorAll("input");
+  for(let i=0;i<9;i++){
+    inputs[i].value = (typeof arr?.[i] === "number") ? String(arr[i]) : "";
+  }
+  recalcR();
+}
+
+function getInnings(container){
+  const div = document.getElementById(container);
+  const inputs = div.querySelectorAll("input");
+  const arr = [];
+  for(let i=0;i<9;i++){
+    const v = inputs[i].value;
+    const n = toIntOrNull(v);
+    arr.push(n === null ? 0 : Math.max(0, n));
+  }
+  return arr;
+}
+
+function recalcR(){
+  ["home","away"].forEach(side=>{
+    const container=document.getElementById(side+"Innings");
+    const inputs=container.querySelectorAll("input");
+    let sum=0;
+    for(let i=0;i<9;i++){
+      sum += (+inputs[i].value || 0);
+    }
+    inputs[9].value = sum;
+    document.getElementById(side+"R").value = sum;
+  });
+}
+
+/* =========================
+   表格列：新增 + 回填
+========================= */
+
+function addBatter(side, preset=null){
+  const div=document.createElement("div");
+  div.className="table";
+  div.innerHTML=`
+    <input placeholder="姓名">
+    <input type="number" placeholder="AB" min="0">
+    <input type="number" placeholder="H" min="0">
+    <input type="number" placeholder="R" min="0">
+    <input type="number" placeholder="RBI" min="0">
+  `;
+  if(preset){
+    const i = div.querySelectorAll("input");
+    i[0].value = preset.name ?? "";
+    i[1].value = (typeof preset.AB === "number") ? preset.AB : "";
+    i[2].value = (typeof preset.H === "number") ? preset.H : "";
+    i[3].value = (typeof preset.R === "number") ? preset.R : "";
+    i[4].value = (typeof preset.RBI === "number") ? preset.RBI : "";
+  }
+  document.getElementById("batters"+capitalize(side)).appendChild(div);
+}
+
+function addPitcher(side, preset=null){
+  const div=document.createElement("div");
+  div.className="table";
+  div.innerHTML=`
+    <input placeholder="姓名">
+    <input type="number" placeholder="IP" step="0.1" min="0">
+    <input type="number" placeholder="H" min="0">
+    <input type="number" placeholder="ER" min="0">
+    <input type="number" placeholder="SO" min="0">
+  `;
+  if(preset){
+    const i = div.querySelectorAll("input");
+    i[0].value = preset.name ?? "";
+    i[1].value = (typeof preset.IP === "number") ? preset.IP : "";
+    i[2].value = (typeof preset.H === "number") ? preset.H : "";
+    i[3].value = (typeof preset.ER === "number") ? preset.ER : "";
+    i[4].value = (typeof preset.SO === "number") ? preset.SO : "";
+  }
+  document.getElementById("pitchers"+capitalize(side)).appendChild(div);
+}
+
+function clearSideTables(){
+  document.getElementById("battersHome").innerHTML="";
+  document.getElementById("battersAway").innerHTML="";
+  document.getElementById("pitchersHome").innerHTML="";
+  document.getElementById("pitchersAway").innerHTML="";
+}
+
+/* =========================
+   collect：不造假 AVG/ERA
+========================= */
+
+function collect(id,type){
+  const rows=document.querySelectorAll("#"+id+" .table");
+  const arr=[];
+  rows.forEach(r=>{
+    const i=r.querySelectorAll("input");
+    if(i[0].value.trim()!==""){
+      if(type==="batter"){
+        const ab = Math.max(0, toIntOrNull(i[1].value) ?? 0);
+        const h  = Math.max(0, toIntOrNull(i[2].value) ?? 0);
+
+        // 不造假：AB=0 → AVG=null
+        const avg = (ab > 0) ? (h / ab).toFixed(3) : null;
+
+        arr.push({
+          name: i[0].value.trim(),
+          AB: ab,
+          H: h,
+          R: Math.max(0, toIntOrNull(i[3].value) ?? 0),
+          RBI: Math.max(0, toIntOrNull(i[4].value) ?? 0),
+          AVG: avg
+        });
+      }else{
+        const ipRaw = numOrNull(i[1].value);
+        const ip = (ipRaw === null) ? 0 : Math.max(0, ipRaw);
+        const er = Math.max(0, toIntOrNull(i[3].value) ?? 0);
+        const ipInOuts = parseIP(ip);
+
+        // 不造假：IP=0 → ERA=null
+        const era = (ipInOuts > 0) ? ((er * 9) / ipInOuts).toFixed(2) : null;
+
+        arr.push({
+          name: i[0].value.trim(),
+          IP: ip,
+          H: Math.max(0, toIntOrNull(i[2].value) ?? 0),
+          ER: er,
+          SO: Math.max(0, toIntOrNull(i[4].value) ?? 0),
+          ERA: era
+        });
+      }
+    }
+  });
+  return arr;
+}
+
+/* =========================
+   載入月份：保留你原邏輯 + 加 type
+========================= */
+
+async function loadMonth(){
+  const m = monthInput.value;
+  if(!m) return;
+
+  const res = await fetch(`data/schedule-${m}.json`);
+  if(!res.ok){
+    alert("找不到 schedule");
+    return;
+  }
+  scheduleData = await res.json();
+
+  // 嘗試讀舊 boxscore
+  try{
+    const oldRes = await fetch(`data/boxscore-${m}.json`);
+    if(oldRes.ok){
+      boxData = await oldRes.json();
+      console.log("載入舊 boxscore");
+    }else{
+      throw "no file";
+    }
+  }catch{
+    console.log("沒有舊 boxscore，建立新檔");
+    boxData = {};
+  }
+
+  gameSelect.innerHTML = "<option value=''>選擇比賽</option>";
+
+  scheduleData.forEach(g=>{
+
+  // 🔥 如果沒有主客隊，直接跳過
+  const home = g.teams?.home ?? g.home;
+  const away = g.teams?.away ?? g.away;
+
+  if(!home || !away) return;
+
+  const id =
+    g.date.replaceAll("-","") +
+    "_" +
+    home +
+    "_" +
+   away;
+    if(!boxData[id]){
+      boxData[id] = {
+        meta:{
+              id: id,
+              date: g.date,
+              home: home,
+              away: away,
+              type: g.type ?? "regular",
+              status: g.status ?? "scheduled",
+              time: g.time ?? null,
+              venue: g.venue ?? null
+          },
+        lineScore:{home:Array(9).fill(0),away:Array(9).fill(0)},
+        totals:{home:{},away:{}},
+        batters:{home:[],away:[]},
+        pitchers:{home:[],away:[]}
+      };
+    }else{
+      // 舊檔沒有 type 的話，補上
+      boxData[id].meta = boxData[id].meta || {};
+      if(!boxData[id].meta.type) boxData[id].meta.type = g.type ?? "regular";
+    }
+
+    gameSelect.innerHTML += `<option value="${id}">${id}</option>`;
+  });
+
+  gameSelect.onchange = ()=>loadGame(gameSelect.value);
+}
+
+/* =========================
+   載入單場：回填 UI（你原本缺的）
+========================= */
+
+function loadGame(id){
+  if(!id || !boxData[id]) return;
+
+  currentGameId = id;
+  const g = boxData[id];
+
+  editor.style.display="block";
+
+  // meta
+  const type = g?.meta?.type ?? "regular";
+  const typeText = (type === "exhibition") ? "熱身賽" : "例行賽";
+  gameMeta.innerText = `${g.meta.date} ${g.meta.away} vs ${g.meta.home}`;
+  gameTypeBadge.innerHTML = (type === "exhibition")
+    ? `<span class="badge-ex">熱身賽</span>`
+    : `<span class="small-muted">例行賽</span>`;
+
+  // 逐局：建立 + 回填
+  buildInnings("homeInnings");
+  buildInnings("awayInnings");
+  setInnings("homeInnings", g?.lineScore?.home ?? Array(9).fill(0));
+  setInnings("awayInnings", g?.lineScore?.away ?? Array(9).fill(0));
+
+  // RHE：回填
+  const th = g?.totals?.home ?? {};
+  const ta = g?.totals?.away ?? {};
+  document.getElementById("homeR").value = (typeof th.R === "number") ? th.R : (document.getElementById("homeR").value || "");
+  document.getElementById("homeH").value = (typeof th.H === "number") ? th.H : "";
+  document.getElementById("homeE").value = (typeof th.E === "number") ? th.E : "";
+  document.getElementById("awayR").value = (typeof ta.R === "number") ? ta.R : (document.getElementById("awayR").value || "");
+  document.getElementById("awayH").value = (typeof ta.H === "number") ? ta.H : "";
+  document.getElementById("awayE").value = (typeof ta.E === "number") ? ta.E : "";
+
+  // 打者/投手：清掉舊 DOM，再回填
+  clearSideTables();
+
+  (g?.batters?.home ?? []).forEach(p => addBatter("home", p));
+  (g?.batters?.away ?? []).forEach(p => addBatter("away", p));
+  (g?.pitchers?.home ?? []).forEach(p => addPitcher("home", p));
+  (g?.pitchers?.away ?? []).forEach(p => addPitcher("away", p));
+}
+
+/* =========================
+   儲存單場：寫回 boxData
+========================= */
+
+function saveGame(){
+  if(!currentGameId) return;
+  const g = boxData[currentGameId];
+
+  // 逐局
+  g.lineScore = g.lineScore || {home:[], away:[]};
+  g.lineScore.home = getInnings("homeInnings");
+  g.lineScore.away = getInnings("awayInnings");
+
+  // totals：R 以逐局加總為準（避免不一致）
+  const homeR = g.lineScore.home.reduce((a,b)=>a+(+b||0),0);
+  const awayR = g.lineScore.away.reduce((a,b)=>a+(+b||0),0);
+
+  g.totals = g.totals || {home:{}, away:{}};
+  g.totals.home = {
+    R: homeR,
+    H: Math.max(0, toIntOrNull(document.getElementById("homeH").value) ?? 0),
+    E: Math.max(0, toIntOrNull(document.getElementById("homeE").value) ?? 0)
+  };
+  g.totals.away = {
+    R: awayR,
+    H: Math.max(0, toIntOrNull(document.getElementById("awayH").value) ?? 0),
+    E: Math.max(0, toIntOrNull(document.getElementById("awayE").value) ?? 0)
+  };
+
+  // 讓畫面 R 跟著同步（純顯示）
+  document.getElementById("homeR").value = homeR;
+  document.getElementById("awayR").value = awayR;
+
+  // 打者/投手
+  g.batters = g.batters || {home:[], away:[]};
+  g.pitchers = g.pitchers || {home:[], away:[]};
+  g.batters.home = collect("battersHome","batter");
+  g.batters.away = collect("battersAway","batter");
+  g.pitchers.home = collect("pitchersHome","pitcher");
+  g.pitchers.away = collect("pitchersAway","pitcher");
+
+  alert("✅ 已儲存此場（記得下載整月 JSON 覆蓋 data 檔）");
+}
+
+function downloadMonth(){
+  const m = monthInput.value || "month";
+  const blob=new Blob([JSON.stringify(boxData,null,2)],{type:"application/json;charset=utf-8"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=`games-${m}.json`;
+  a.click();
+}
+</script>
+
+</body>
+</html>

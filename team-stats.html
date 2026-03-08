@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>CPBL 球隊分析</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">CPBL</a>
+    <a class="nav-link" href="index.html">首頁</a>
+    <a class="nav-link" href="schedule.html">賽程</a>
+    <a class="nav-link" href="standings.html">戰績</a>
+    <a class="nav-link active" href="teams.html">球隊</a>
+    <a class="nav-link" href="season.html">賽季</a>
+
+    <!-- ✅ 先讓它不要 404：先指到 schedule.html（之後你再做 team-schedule.html 再改回來） -->
+    <a class="card-link" id="linkSchedule" href="schedule.html">📅 球隊賽程</a>
+  </div>
+</nav>
+
+<header>
+  <h1 id="teamTitle">球隊分析</h1>
+  <p id="teamSub">近期表現統計</p>
+</header>
+
+<main style="max-width:900px; margin:auto; padding:20px;">
+
+  <section class="card">
+    <h2>📊 近期概況</h2>
+    <ul id="summaryList"></ul>
+  </section>
+
+  <section class="card">
+    <h2>🕒 最近 5 場比賽</h2>
+    <div id="recentGames"></div>
+  </section>
+
+  <section class="card">
+    <h2>🏠 / ✈️ 主客場表現</h2>
+    <ul id="homeAwayStats"></ul>
+  </section>
+
+  <section class="card">
+    <h2>⚔️ 對戰各隊成績</h2>
+    <div id="vsTeams"></div>
+  </section>
+
+</main>
+
+<footer>
+ © 2026 CPBL Data Site ｜ 
+ <span class="site-version"></span> ｜ 
+ 明叡 × ChatGPT
+</footer>
+
+<!-- ✅ 只留一次 -->
+<script src="js/team-theme.js"></script>
+<script src="js/team-stats.js"></script>
+<script src="js/version.js"></script>
+
+</body>
+</html>

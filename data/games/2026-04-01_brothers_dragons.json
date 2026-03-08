@@ -1,0 +1,26 @@
+{
+  "meta": {
+    "date": "2026-04-01",
+    "home": "brothers",
+    "away": "dragons",
+    "status": "scheduled"
+  },
+  "score": {
+    "home": null,
+    "away": null
+  },
+  "innings": {
+    "away": [],
+    "home": []
+  },
+  "lineup": {
+    "home": [],
+    "away": []
+  },
+  "pitchers": {
+    "home": [],
+    "away": []
+  },
+  "umpires": null,
+  "postgame": null
+}

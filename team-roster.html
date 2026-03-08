@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>CPBL 球隊名單</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">CPBL</a>
+    <a class="nav-link" href="index.html">首頁</a>
+    <a class="nav-link" href="schedule.html">賽程</a>
+    <a class="nav-link" href="standings.html">戰績</a>
+    <a class="nav-link active" href="teams.html">球隊</a>
+    <a class="nav-link" href="season.html">賽季</a>
+  </div>
+</nav>
+
+<header class="team-header">
+  <h1 id="pageTitle">球隊名單</h1>
+  <p id="pageSub">載入中…</p>
+</header>
+
+<main>
+  <div class="team-theme-zone">
+
+    <div class="team-detail-card">
+      <h2>👨‍🏫 教練團</h2>
+      <div id="coachList" class="roster-list">載入中…</div>
+
+      <hr>
+
+      <h2>🧢 球員名單</h2>
+      <div id="playerList" class="roster-list">（目前尚未建立）</div>
+
+      <a class="back-link" id="backToTeam">← 回球隊總覽</a>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+ © 2026 CPBL Data Site ｜ 
+ <span class="site-version"></span> ｜ 
+ 明叡 × ChatGPT
+</footer>
+
+
+<script src="js/team-roster.js"></script>
+<script src="js/version.js"></script>
+
+</body>
+</html>

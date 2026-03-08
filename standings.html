@@ -15,6 +15,8 @@
     <a class="nav-link" href="schedule.html">賽程</a>
     <a class="nav-link active" href="standings.html">戰績</a>
     <a class="nav-link" href="teams.html">球隊</a>
+    <a class="nav-link" href="season.html">賽季</a>
+
   </div>
 </nav>
 
@@ -60,16 +62,18 @@
   </details>
 </main>
 
-<footer>© 2026 CPBL Data Site｜明叡 × ChatGPT</footer>
-<script>
-const TEAM_LOGOS = {
-  "中信兄弟": "./assets/logo/brothers.png",
-  "統一7-ELEVEn獅": "./assets/logo/lions.png",
-  "樂天桃猿": "./assets/logo/monkeys.png",
-  "味全龍": "./assets/logo/dragons.png",
-  "富邦悍將": "./assets/logo/guardians.png",
-  "台鋼雄鷹": "./assets/logo/hawks.png"
-};
+<footer>
+ © 2026 CPBL Data Site ｜ 
+ <span class="site-version"></span> ｜ 
+ 明叡 × ChatGPT
+</footer>
+<script type="module">
+
+import { loadGames, filterGames } from "./js/games-data.js";
+import { calculateStandings } from "./js/standingsEngine.js";
+
+/* ========= 常數 ========= */
+
 const TEAM_KEYS = {
   "中信兄弟": "brothers",
   "統一7-ELEVEn獅": "lions",
@@ -79,15 +83,8 @@ const TEAM_KEYS = {
   "台鋼雄鷹": "hawks"
 };
 
+/* ========= DOM ========= */
 
-
-function getTeamLogo(team) {
-  return TEAM_LOGOS[team] || "";
-}
-</script>
-
-<script>
-  /* ========= DOM ========= */
 const standingsWrap = document.getElementById("standingsWrap");
 const seasonSelect  = document.getElementById("seasonSelect");
 const splitSelect   = document.getElementById("splitSelect");
@@ -95,139 +92,133 @@ const reloadBtn     = document.getElementById("reloadBtn");
 const statusText    = document.getElementById("statusText");
 const teamSearch    = document.getElementById("teamSearch");
 
-/* ========= 常數 ========= */
-const TEAMS = [
-  "中信兄弟",
-  "統一7-ELEVEn獅",
-  "樂天桃猿",
-  "味全龍",
-  "富邦悍將",
-  "台鋼雄鷹"
-];
-
 /* ========= 狀態 ========= */
-let rawRows = [];
+
+let currentSeason = "2026";
+let currentSplit  = "full";
+let rawStandings  = [];
 
 /* ========= 工具 ========= */
-function setStatus(msg) {
+
+function setStatus(msg){
   statusText.textContent = msg;
 }
 
-/* ========= 核心：計算戰績 ========= */
-function calculateStandings(games) {
-  const table = {};
-  TEAMS.forEach(t => {
-    table[t] = { team: t, games: 0, wins: 0, losses: 0, ties: 0 };
+/* ========= 核心渲染 ========= */
+
+async function updateStandings(){
+
+  setStatus("計算中…");
+
+  await loadGames("2026-03"); // 你之後可以改成全年月份迴圈
+
+  const games = filterGames({
+    month: "2026-03"
   });
 
-  games.forEach(g => {
-    if (typeof g.homeScore !== "number" || typeof g.awayScore !== "number") return;
+  rawStandings = calculateStandings(games);
 
-    const home = table[g.home];
-    const away = table[g.away];
-    if (!home || !away) return;
+  renderStandings(rawStandings);
 
-    home.games++;
-    away.games++;
-
-    if (g.homeScore > g.awayScore) {
-      home.wins++; away.losses++;
-    } else if (g.homeScore < g.awayScore) {
-      away.wins++; home.losses++;
-    } else {
-      home.ties++; away.ties++;
-    }
-  });
-
-  return Object.values(table).map(r => {
-    const denom = r.wins + r.losses;
-    const winPct = denom === 0 ? 0 : r.wins / denom;
-    return { ...r, winPct: winPct.toFixed(3) };
-  });
+  setStatus(`✅ 已計算（${rawStandings.length} 隊）`);
 }
 
 /* ========= 顯示 ========= */
-function renderStandings(rows) {
-  if (!rows.length) {
+
+function renderStandings(rows){
+
+  if (!rows.length){
     standingsWrap.innerHTML = "<p>尚無戰績資料</p>";
     return;
   }
-
-  rows.sort((a,b) => b.winPct - a.winPct || b.wins - a.wins);
-  rawRows = rows;
 
   standingsWrap.innerHTML = `
     <table class="standings-table">
       <thead>
         <tr>
-          <th>#</th><th>球隊</th><th>場</th><th>勝</th><th>敗</th><th>和</th><th>勝率</th>
+          <th>#</th>
+          <th>球隊</th>
+          <th>出賽</th>
+          <th>勝</th>
+          <th>敗</th>
+          <th>主場</th>
+          <th>客場</th>
+          <th>勝率</th>
+          <th>勝差</th>
+          <th>近況</th>
         </tr>
       </thead>
       <tbody>
-        ${rows.map((r,i)=>`
-          <tr>
+        ${rows.map((t,i)=>`
+          <tr class="standings-row" data-team="${TEAM_KEYS[t.team]}">
             <td>${i+1}</td>
-            <td class="team-cell">
-  <a href="team.html?team=${TEAM_KEYS[r.team]}"
-     style="display:flex; align-items:center; gap:8px; text-decoration:none; color:inherit;">
 
-    <img src="${getTeamLogo(r.team)}"
-         class="team-logo"
-         alt="${r.team}">
+            <td>
+              <div class="team-wrap">
+                <img src="assets/logo/${TEAM_KEYS[t.team]}.png">
+                ${t.team}
+              </div>
+            </td>
 
-    <span style="font-weight:700;">${r.team}</span>
-  </a>
-</td>
+            <td>${t.games}</td>
+            <td>${t.wins}</td>
+            <td>${t.losses}</td>
 
+            <td>${t.homeWins}-${t.homeLosses}</td>
+            <td>${t.awayWins}-${t.awayLosses}</td>
 
-            <td>${r.games}</td>
-            <td>${r.wins}</td>
-            <td>${r.losses}</td>
-            <td>${r.ties}</td>
-            <td>${r.winPct}</td>
+            <td>${t.winPct.toFixed(3)}</td>
+            <td>${t.gb}</td>
+
+            <td>
+              ${
+                t.streakType
+                ? t.streakType + t.streakCount
+                : "-"
+              }
+            </td>
           </tr>
         `).join("")}
       </tbody>
     </table>
   `;
+
+  // 點擊跳轉
+  document.querySelectorAll(".standings-row").forEach(row=>{
+    row.style.cursor = "pointer";
+    row.addEventListener("click",()=>{
+      const teamId = row.dataset.team;
+      location.href = `team.html?team=${teamId}`;
+    });
+  });
 }
 
-/* ========= 從賽程讀取 ========= */
-async function loadStandingsFromSchedule() {
-  setStatus("計算中…");
+/* ========= 搜尋 ========= */
 
-  const months = ["2026-03","2026-04","2026-05","2026-06","2026-07"];
-  let allGames = [];
-
-  for (const m of months) {
-    try {
-      const res = await fetch(`data/schedule-${m}.json`);
-      if (!res.ok) continue;
-      const data = await res.json();
-      allGames = allGames.concat(data);
-    } catch {}
+teamSearch.addEventListener("input", ()=>{
+  const q = teamSearch.value.trim();
+  if (!q){
+    renderStandings(rawStandings);
+    return;
   }
 
-  const rows = calculateStandings(allGames);
-  setStatus(`✅ 已計算（${rows.length} 隊）`);
-  renderStandings(rows);
-}
-
-/* ========= 事件 ========= */
-reloadBtn.addEventListener("click", loadStandingsFromSchedule);
-seasonSelect.addEventListener("change", loadStandingsFromSchedule);
-splitSelect.addEventListener("change", loadStandingsFromSchedule);
-
-teamSearch.addEventListener("input", () => {
-  const q = teamSearch.value.trim();
-  if (!q) return renderStandings(rawRows);
-  renderStandings(rawRows.filter(r => r.team.includes(q)));
+  renderStandings(
+    rawStandings.filter(t=>t.team.includes(q))
+  );
 });
 
+/* ========= 事件 ========= */
+
+reloadBtn.addEventListener("click", updateStandings);
+seasonSelect.addEventListener("change", updateStandings);
+splitSelect.addEventListener("change", updateStandings);
+
 /* ========= 啟動 ========= */
-loadStandingsFromSchedule();
+
+updateStandings();
 
 </script>
+<script src="js/version.js"></script>
 
 </body>
 </html>
