@@ -1,0 +1,51 @@
+name: Update CPBL Live Data
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-live:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Check Chrome
+        run: |
+          google-chrome --version || chromium-browser --version || true
+
+      - name: Update CPBL live data
+        run: node scripts/fetch-cpbl-live-inplay-today.js
+        env:
+          CI: true
+
+      - name: Commit and push live data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add data/live/live-boxscore.json
+          git add data/live/pregame-today.json || true
+          git add data/live/probable-pitchers.json || true
+          git add data/live/league-news.json || true
+
+          if git diff --cached --quiet; then
+            echo "No live data changes to commit."
+          else
+            git commit -m "auto update live inplay data"
+            git push
+          fi
