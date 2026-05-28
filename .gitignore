@@ -1,0 +1,8 @@
+node_modules/
+logs/
+debug/
+data/live/backups/
+data/live/backup/
+scripts/backup/
+*.bak
+.DS_Store

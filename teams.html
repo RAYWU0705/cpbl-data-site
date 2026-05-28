@@ -2,153 +2,340 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>CPBL 球隊</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CPBL 球隊｜Ray's CPBL Data Site</title>
   <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .team-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      transition: 0.25s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .team-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+    }
+
+    .team-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: var(--team-color, #ccc);
+    }
+
+    .team-logo-lg {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    .team-card h3 {
+      margin: 8px 0 10px;
+      font-size: 20px;
+      font-weight: 950;
+    }
+
+    .team-card p {
+      min-height: 52px;
+      margin: 0;
+      color: #666;
+      line-height: 1.7;
+    }
+
+    .team-card-actions {
+      margin-top: 14px;
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .team-btn {
+      padding: 7px 10px;
+      border-radius: 9px;
+      background: #0b4a6f;
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .team-btn:hover {
+      background: #083a57;
+    }
+
+    .teams-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .teams-toolbar input {
+      flex: 1;
+      min-width: 240px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #d7dce3;
+      font-size: 14px;
+    }
+
+    .teams-toolbar button {
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: none;
+      background: #0b4a6f;
+      color: #fff;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .teams-toolbar button:hover {
+      background: #083a57;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+
+    @media (max-width: 600px) {
+      .team-logo-lg {
+        width: 70px;
+        height: 70px;
+      }
+
+      .teams-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .teams-toolbar input,
+      .teams-toolbar button {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
-<body>
+
+<body data-page="teams">
 
 <nav class="nav">
   <div class="nav-inner">
-    <a class="brand" href="index.html">CPBL</a>
-    <a class="nav-link" href="index.html">首頁</a>
-    <a class="nav-link" href="schedule.html">賽程</a>
-    <a class="nav-link" href="standings.html">戰績</a>
-    <a class="nav-link active" href="teams.html">球隊</a>
-    <a class="nav-link" href="season.html">賽季</a>
+
+    <div class="nav-left">
+      <a class="brand" href="index.html">CPBL</a>
+      <a class="nav-link" href="index.html">首頁</a>
+      <a class="nav-link" href="schedule.html">賽程</a>
+      <a class="nav-link" href="standings.html">戰績</a>
+      <a class="nav-link active" href="teams.html">球隊</a>
+      <a class="nav-link" href="rules.html">棒球規則</a>
+      <a class="nav-link" href="season.html">賽季</a>
+      <a class="nav-link" href="version.html">版本</a>
+      <a class="nav-link" href="about.html">網站介紹</a>
+    </div>
+    <div class="nav-teams" aria-label="球隊快速入口">
+      <a href="team.html?team=brothers"><img src="assets/logo/brothers.png" alt="中信兄弟"></a>
+      <a href="team.html?team=lions"><img src="assets/logo/lions.png" alt="統一7-ELEVEn獅"></a>
+      <a href="team.html?team=monkeys"><img src="assets/logo/monkeys.png" alt="樂天桃猿"></a>
+      <a href="team.html?team=dragons"><img src="assets/logo/dragons.png" alt="味全龍"></a>
+      <a href="team.html?team=guardians"><img src="assets/logo/guardians.png" alt="富邦悍將"></a>
+      <a href="team.html?team=hawks"><img src="assets/logo/hawks.png" alt="台鋼雄鷹"></a>
+    </div>
 
   </div>
 </nav>
 
-<header>
+<header class="hero">
+  <p class="muted">Ray's Unofficial CPBL Data Site</p>
   <h1>球隊列表</h1>
-  <p style="opacity:.85;">點擊球隊查看詳細介紹或數據分析</p>
-</header>
+  <p>Teams · Rosters · Team Profiles</p>
 
-<main style="max-width:1100px; margin:auto; padding:24px;">
-
-  <!-- 搜尋 -->
-  <div style="margin-bottom:20px; display:flex; gap:12px; align-items:center;">
-    <input id="teamSearch"
-           type="text"
-           placeholder="搜尋球隊（兄弟 / 獅 / 桃猿…）"
-           style="padding:8px 12px; flex:1;">
-    <button id="reloadBtn">重新載入</button>
-    <span id="statusText" style="color:#666;"></span>
+  <div class="hero-actions">
+    <button id="reloadBtn" type="button">重新載入</button>
+    <a href="standings.html">查看戰績</a>
+    <a href="schedule.html">查看賽程</a>
+    <a href="index.html">回首頁</a>
   </div>
 
-  <!-- 球隊卡片區 -->
-  <div id="teamList" class="team-grid"></div>
-  
+  <p class="muted">點擊球隊查看詳細介紹或數據分析。</p>
+</header>
+
+<main class="container">
+
+  <section class="home-card">
+    <h2>🔎 搜尋球隊</h2>
+
+    <div class="teams-toolbar">
+      <input id="teamSearch" placeholder="搜尋球隊（兄弟 / 獅 / 桃猿…）">
+      <span id="statusText" class="muted">載入中…</span>
+    </div>
+  </section>
+
+  <section class="home-card">
+    <h2>⚾ CPBL 球隊</h2>
+    <div id="teamList" class="team-grid"></div>
+  </section>
 
 </main>
 
 <footer>
- © 2026 CPBL Data Site ｜ 
- <span class="site-version"></span> ｜ 
- 明叡 × ChatGPT
+  © 2026 CPBL Data Site ｜ 
+  <span class="site-version"></span> ｜ 
+  明叡 × ChatGPT
 </footer>
 
-
 <script>
-/* ========= DOM ========= */
 const teamList   = document.getElementById("teamList");
 const teamSearch = document.getElementById("teamSearch");
 const reloadBtn  = document.getElementById("reloadBtn");
 const statusText = document.getElementById("statusText");
 
-/* ========= 狀態 ========= */
 let teams = [];
 
-/* ========= 工具 ========= */
-function setStatus(msg){
-  statusText.textContent = msg;
+/* ========= 球隊顏色 ========= */
+const TEAM_COLOR = {
+  brothers: "#FFCC00",
+  lions: "#FF6600",
+  monkeys: "#990000",
+  dragons: "#C8102E",
+  guardians: "#005BAC",
+  hawks: "#006666"
+};
+
+/* ========= 別名搜尋 ========= */
+function normalize(str) {
+  return (str || "").toLowerCase();
 }
 
-/* ========= 渲染球隊列表 ========= */
-function renderList(rows){
-  teamList.innerHTML = "";
+function matchTeam(t, q) {
+  const name = normalize(t.name);
+  const id   = normalize(t.id);
 
-  if (!rows || rows.length === 0){
-    teamList.innerHTML = "<p style='color:#666;'>沒有符合的球隊</p>";
+  return (
+    name.includes(q) ||
+    id.includes(q) ||
+    (q.includes("兄弟") && id === "brothers") ||
+    (q.includes("獅") && id === "lions") ||
+    (q.includes("猿") && id === "monkeys") ||
+    (q.includes("龍") && id === "dragons") ||
+    (q.includes("邦") && id === "guardians") ||
+    (q.includes("鷹") && id === "hawks")
+  );
+}
+
+/* ========= 防止 HTML 注入 ========= */
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+/* ========= 渲染 ========= */
+function renderList(rows) {
+  if (!rows.length) {
+    teamList.innerHTML = "<p class='muted'>沒有符合的球隊</p>";
     return;
   }
 
-  rows.forEach(t => {
-    const card = document.createElement("div");
-    card.className = "team-card";
+  teamList.innerHTML = rows.map(t => `
+    <div class="team-card" style="--team-color:${TEAM_COLOR[t.id] || "#ccc"}" data-id="${escapeHtml(t.id)}">
 
-    card.innerHTML = `
-      <img src="assets/logo/${t.id}.png"
-           alt="${t.name}"
-           class="team-logo-lg">
+      <img src="assets/logo/${escapeHtml(t.id)}.png"
+           class="team-logo-lg"
+           alt="${escapeHtml(t.name)}"
+           onerror="this.src='assets/logo/default.png'">
 
-      <h3>${t.name}</h3>
-      <p style="opacity:.8;">主場：${t.home}</p>
+      <h3>${escapeHtml(t.name)}</h3>
+      <p>主場：${escapeHtml(t.home || "資料待補")}</p>
 
-      <div style="margin-top:12px; display:flex; gap:8px;">
-        <a href="team.html?team=${encodeURIComponent(t.id)}"
-           class="team-btn"
-           style="flex:1; text-align:center;">
-          📄 球隊介紹
-        </a>
-
-        <a href="team-stats.html?team=${encodeURIComponent(t.id)}"
-           class="team-btn"
-           style="flex:1; text-align:center;">
-          📈 數據分析
-        </a>
+      <div class="team-card-actions">
+        <a href="team.html?team=${escapeHtml(t.id)}" class="team-btn" onclick="event.stopPropagation()">📄 介紹</a>
+        <a href="team-stats.html?team=${escapeHtml(t.id)}" class="team-btn" onclick="event.stopPropagation()">📈 數據</a>
       </div>
-    `;
+    </div>
+  `).join("");
 
-    teamList.appendChild(card);
+  document.querySelectorAll(".team-card").forEach(card => {
+    card.addEventListener("click", () => {
+      location.href = `team.html?team=${card.dataset.id}`;
+    });
   });
 }
 
 /* ========= 搜尋 ========= */
-function applySearch(){
-  const q = teamSearch.value.trim();
-  if (!q){
+function applySearch() {
+  const q = normalize(teamSearch.value.trim());
+  if (!q) {
     renderList(teams);
     return;
   }
 
-  const filtered = teams.filter(t =>
-    (t.name || "").includes(q) ||
-    (t.city || "").includes(q) ||
-    (t.home || "").includes(q)
-  );
-
-  renderList(filtered);
+  renderList(teams.filter(t => matchTeam(t, q)));
 }
 
-/* ========= 載入 teams.json ========= */
-async function loadTeams(){
-  setStatus("載入中：data/teams.json");
-  teamList.innerHTML = "";
+/* ========= 載入 ========= */
+async function loadTeams() {
+  statusText.textContent = "載入中…";
+  teamList.innerHTML = `<div class="loading">讀取球隊資料中…</div>`;
 
-  try{
-    const res = await fetch("data/teams.json");
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  try {
+    const res = await fetch(`data/teams.json?ts=${Date.now()}`, {
+      cache: "no-store"
+    });
+
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
+    }
+
     const data = await res.json();
-    if (!Array.isArray(data)) throw new Error("teams.json 格式錯誤");
 
-    teams = data;
-    setStatus(`✅ 已載入 ${teams.length} 支球隊`);
+    teams = Array.isArray(data)
+      ? data.sort((a, b) => a.id.localeCompare(b.id))
+      : [];
+
+    statusText.textContent = `✅ ${teams.length} 隊`;
     renderList(teams);
-  }catch(err){
-    console.error(err);
-    setStatus("❌ 載入失敗，請確認 data/teams.json 是否存在");
-    teamList.innerHTML = "<p style='color:red;'>球隊資料讀取失敗</p>";
+
+  } catch (e) {
+    console.error(e);
+    statusText.textContent = "❌ 失敗";
+    teamList.innerHTML = "<p style='color:red;'>讀取失敗</p>";
   }
 }
 
 /* ========= 事件 ========= */
-reloadBtn.addEventListener("click", loadTeams);
-teamSearch.addEventListener("input", applySearch);
+reloadBtn.onclick = loadTeams;
+teamSearch.oninput = applySearch;
 
 /* ========= 啟動 ========= */
 loadTeams();
 </script>
+
 <script src="js/version.js"></script>
 
 </body>

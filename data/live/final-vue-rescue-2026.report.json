@@ -1,0 +1,63 @@
+{
+  "version": "v5.4.3-FINAL-VUE-RESCUE-RANGE",
+  "year": 2026,
+  "generatedAt": "2026-05-28T08:45:29.969Z",
+  "dryRun": false,
+  "write": true,
+  "mergeEach": false,
+  "skipMerge": false,
+  "args": {
+    "date": "2026-05-22",
+    "dates": "",
+    "from": "",
+    "to": "",
+    "gameSno": "113",
+    "games": "",
+    "limit": 0
+  },
+  "targets": [
+    {
+      "gameSno": 113,
+      "date": "2026-05-22",
+      "away": "富邦悍將",
+      "home": "樂天桃猿",
+      "status": "final",
+      "score": {
+        "away": 2,
+        "home": 3
+      }
+    }
+  ],
+  "steps": [
+    {
+      "type": "fetch",
+      "target": {
+        "gameSno": 113,
+        "date": "2026-05-22",
+        "away": "富邦悍將",
+        "home": "樂天桃猿",
+        "status": "final",
+        "score": {
+          "away": 2,
+          "home": 3
+        }
+      },
+      "ok": true,
+      "code": 0,
+      "durationMs": 8789
+    },
+    {
+      "type": "merge-final",
+      "ok": true,
+      "code": 0,
+      "durationMs": 2782
+    }
+  ],
+  "summary": {
+    "targets": 1,
+    "fetchOk": 1,
+    "fetchFailed": 0,
+    "mergeOk": 1,
+    "mergeFailed": 0
+  }
+}

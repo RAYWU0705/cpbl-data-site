@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>更新日誌｜Ray's CPBL Data Site</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body data-page="version">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a class="brand" href="index.html">CPBL</a>
+      <a class="nav-link" href="index.html">首頁</a>
+      <a class="nav-link " href="schedule.html">賽程</a>
+      <a class="nav-link" href="standings.html">戰績</a>
+      <a class="nav-link" href="teams.html">球隊</a>
+      <a class="nav-link" href="rules.html">棒球規則</a>
+      <a class="nav-link" href="season.html">賽季</a>
+      <a class="nav-link active" href="version.html">版本</a>
+      <a class="nav-link" href="about.html">網站介紹</a>
+    </div>
+
+    <div class="nav-teams" aria-label="球隊快速入口">
+      <a href="team.html?team=brothers"><img src="assets/logo/brothers.png" alt="中信兄弟"></a>
+      <a href="team.html?team=lions"><img src="assets/logo/lions.png" alt="統一7-ELEVEn獅"></a>
+      <a href="team.html?team=monkeys"><img src="assets/logo/monkeys.png" alt="樂天桃猿"></a>
+      <a href="team.html?team=dragons"><img src="assets/logo/dragons.png" alt="味全龍"></a>
+      <a href="team.html?team=guardians"><img src="assets/logo/guardians.png" alt="富邦悍將"></a>
+      <a href="team.html?team=hawks"><img src="assets/logo/hawks.png" alt="台鋼雄鷹"></a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-badge">PRODUCT CHANGELOG</div>
+  <h1>CPBL Data Site 更新日誌</h1>
+  <p>記錄網站功能升級、資料穩定化、Match Center 演進與自動更新架構</p>
+
+  <div class="hero-actions">
+    <a href="index.html">返回首頁</a>
+    <a href="schedule.html">賽程中心</a>
+    <a href="farm-schedule.html">二軍賽程</a>
+    <a href="match.html">Match Center</a>
+    <a href="teams-dashboard.html">球隊資料總覽</a>
+    <a href="admin-manual-override.html">Override 管理</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="card version-current-card">
+    <p class="muted">目前版本</p>
+    <h2>v5.2.8-FARM-CHECKPOINT｜Farm Sidepath Checkpoint</h2>
+
+    <p>
+      Ray's CPBL Data Site 在 v5.2 正式完成二軍旁路系統第一階段。這不是封版，而是二軍大坑開挖前的穩定檢查點：
+      二軍爬蟲、二軍賽程頁、二軍比賽中心、首頁入口、網站介紹與版本紀錄都已經串起來。
+      目前二軍資料仍走獨立 farm 資料流，爬蟲只寫入 data/farm/farm-schedule-2026.json，
+      farm-schedule.html 可依月份、球隊、場地與狀態篩選，並可點入 farm-match.html 二軍比賽中心。
+      二軍比賽中心採用一軍 Match Center 的視覺樣式，但仍只讀二軍 schedule raw，不使用假逐局、假打者或假投手表。
+      一軍主流程、live-boxscore.json、PREGAME / LIVE / FINAL fetch 都維持穩定不動，下一階段將進入 v5.3 二軍 boxscore 旁路大坑。
+    </p>
+
+    <div class="version-status-grid">
+      <div class="version-status-item good">
+        <span>資料主線</span>
+        <strong>一軍穩定</strong>
+      </div>
+
+      <div class="version-status-item good">
+        <span>二軍賽程</span>
+        <strong>Farm Ready</strong>
+      </div>
+
+      <div class="version-status-item good">
+        <span>二軍比賽中心</span>
+        <strong>Match Style</strong>
+      </div>
+
+      <div class="version-status-item good">
+        <span>旁路架構</span>
+        <strong>Safe Path</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>🧭 下一階段 Roadmap</h2>
+
+    <div class="roadmap-list">
+      <div class="roadmap-item next">
+        <span class="roadmap-badge">NEXT</span>
+        <div>
+          <h3>v5.3.0 FARM FINAL BOXSCORE SIDELOAD</h3>
+          <p>
+            開始挖二軍 boxscore 大坑。第一階段先處理已結束二軍比賽，
+            建立 farm-boxscore-2026.json，補上 R/H/E、逐局比分、打者成績、投手成績、勝敗救與 MVP。
+          </p>
+        </div>
+      </div>
+
+      <div class="roadmap-item">
+        <span class="roadmap-badge">PLAN</span>
+        <div>
+          <h3>v5.3.1 FARM LIVE BOXSCORE</h3>
+          <p>
+            在二軍 FINAL boxscore 穩定後，再規劃二軍 LIVE 旁路資料。
+            LIVE 資料不得混入一軍 live-boxscore.json，應另建 farm-live-boxscore.json。
+          </p>
+        </div>
+      </div>
+
+      <div class="roadmap-item">
+        <span class="roadmap-badge">PLAN</span>
+        <div>
+          <h3>v5.4 Team Data QA Console</h3>
+          <p>
+            建立球隊資料檢查頁，集中檢查 roster、stats、transactions、schedule team filter、
+            一軍 / 二軍入口、圖示路徑與 CSS 載入狀態，避免頁面升級後又出現樣式覆蓋或資料來源錯位。
+          </p>
+        </div>
+      </div>
+
+      <div class="roadmap-item">
+        <span class="roadmap-badge">FUTURE</span>
+        <div>
+          <h3>v6.0 Intelligence Era</h3>
+          <p>
+            在資料系統與球隊系統穩定後，規劃加入勝敗預測、先發投手對戰分析、球隊近況雷達、AI 戰況摘要與維護助理。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>📌 更新紀錄</h2>
+
+    <div class="version-timeline">
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.2.4-FARM-HOME-ENTRY｜Farm Sidepath Entry</h3>
+            <span>二軍賽程入口</span>
+          </div>
+
+          <ul>
+            <li>schedule.html 新增一軍 / 二軍賽程入口卡，讓使用者可從一軍賽程中心快速切到 farm-schedule.html。</li>
+            <li>header action 新增「二軍賽程」入口，減少主導覽列壓力，同時讓二軍系統更容易被找到。</li>
+            <li>一軍 schedule.js 維持讀取 data/live/live-boxscore.json，不把二軍資料混進一軍賽程資料流。</li>
+            <li>二軍入口明確標示 data/farm/farm-schedule-2026.json 旁路資料來源。</li>
+            <li>完成二軍功能從「可用」到「可被使用者找到」的入口整合。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.2.3-FARM-SCHEDULE-WORKFLOW-STABLE</h3>
+            <span>二軍爬蟲穩定版</span>
+          </div>
+
+          <ul>
+            <li>二軍賽程爬蟲正式穩定化，從 CPBL 官方 schedule Vue 資料抓取 kindCode=D 二軍賽程。</li>
+            <li>全年二軍賽程成功寫入 data/farm/farm-schedule-2026.json，共 249 場。</li>
+            <li>狀態判斷改以 IsPlayBall、GameDateTimeE 與 GameDuringTime 為核心：IsPlayBall=Y 判 LIVE，結束時間或比賽時間有值判 FINAL。</li>
+            <li>修正二軍未開賽 0:0 誤判 FINAL 的問題。</li>
+            <li>新增 data/farm/farm-schedule-2026.debug.json 與 snapshot.json，方便檢查 raw 欄位與狀態統計。</li>
+            <li>寫入前自動備份舊檔到 data/farm/backup，降低資料覆蓋風險。</li>
+            <li>本腳本不接 update-all，不動一軍 PREGAME / LIVE / FINAL 主流程。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.2.2-FARM-MATCH-MAIN-STYLE</h3>
+            <span>二軍比賽中心視覺整合</span>
+          </div>
+
+          <ul>
+            <li>farm-match.html 改用一軍 match.html 的視覺結構，包含 match-hero、先發投手卡、狀態時間軸、LIVE 面板、R/H/E、勝敗投與投打區塊。</li>
+            <li>farm-match.html 載入 css/match.css 作為主視覺，再以 css/farm-match.css 補足二軍旁路提示。</li>
+            <li>二軍比賽中心維持只讀 data/farm/farm-schedule-2026.json，不讀一軍 live-boxscore.json。</li>
+            <li>不補假逐局、假打者、假投手表、假 B/S/O 或假壘包，避免資料誤導。</li>
+            <li>讓二軍比賽中心外觀與一軍 Match Center 一致，但資料邏輯仍獨立旁路。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.2.1-FARM-MATCH-CENTER</h3>
+            <span>二軍比賽中心</span>
+          </div>
+
+          <ul>
+            <li>新增 farm-match.html 二軍比賽中心，可由 gameSno 與 date 讀取指定二軍場次。</li>
+            <li>二軍比賽中心顯示主客隊、比分、狀態、日期、時間、球場、PresentStatus、IsPlayBall、GameResult、開始 / 結束時間與比賽時間。</li>
+            <li>顯示二軍 schedule raw 提供的先發投手、勝投、敗投、救援與 MVP 欄位。</li>
+            <li>farm-schedule.html 的二軍賽程卡片可點擊進入 farm-match.html。</li>
+            <li>支援同隊相關二軍賽程快速切換。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.2.0-FARM-SCHEDULE-SIDELOAD</h3>
+            <span>二軍旁路起點</span>
+          </div>
+
+          <ul>
+            <li>新增 farm-schedule.html 二軍賽程中心，建立二軍旁路頁面。</li>
+            <li>新增 data/farm/farm-schedule-2026.json 作為二軍賽程資料檔，與一軍 live-boxscore.json 分離。</li>
+            <li>支援二軍月份、日期、球隊、球場、狀態與關鍵字篩選。</li>
+            <li>支援二軍賽程 CSV 下載。</li>
+            <li>第一版只做二軍賽程，不做二軍 LIVE boxscore，不混入一軍 Match Center。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.1.4-SIDELOAD-DASHBOARD-OVERRIDE｜Control Panel Era</h3>
+            <span>Control Panel</span>
+          </div>
+
+          <ul>
+            <li>新增 teams-dashboard.html 球隊資料總覽 Dashboard，以旁路頁面讀取資料，不寫入、不污染主資料。</li>
+            <li>Dashboard 以 live-boxscore 作為主要資料中心，可整理六隊戰績、排名、近況、最近一場、下一場、資料完整度與本季對戰摘要。</li>
+            <li>新增 admin-manual-override.html Manual Override 管理頁，先採 JSON 產生器模式，不直接寫檔。</li>
+            <li>Manual Override 產生器可建立 gameSno、日期、主客隊、狀態、R/H/E、勝敗救、MVP、finalLock 與修正原因等片段。</li>
+            <li>新增 data/manual/manual-boxscore-overrides.json 作為人工修正資料入口，平常可保持空陣列，只有 CPBL 官方資料異常時才啟用。</li>
+            <li>FINAL fetch 支援 Manual Override Array 格式，人工修正可在最後一層套用，不改變原本 parser 與 recentFinalGuard 主流程。</li>
+            <li>LIVE fetch 加入 Manual Override 接線，可在 createOrMergeGame 後、寫入 live-boxscore 前套用安全修正。</li>
+            <li>完成第 3 項與第 4 項旁路功能：球隊資料總覽 Dashboard 與 Manual Override 管理頁。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.1.3-STABLE-BETA｜Game Day Dashboard Era</h3>
+            <span>前一版本</span>
+          </div>
+
+          <ul>
+            <li>新增 game-day.html 今日戰情中心，集中顯示今日所有比賽的 PREGAME、LIVE 與 FINAL 狀態。</li>
+            <li>今日戰情中心可顯示比分、R/H/E、先發投手、打序狀態、打者投手資料品質、liveState、finalLock、勝敗救與 MVP。</li>
+            <li>新增 data-quality.html 資料品質中心，可檢查 confirmed、partial、debug、finalLock、recentFinalGuard、stats fallback 與 liveState debug。</li>
+            <li>新增 report.html 報告模式，整理網站目標、資料流程、LIVE / FINAL 穩定化、球隊系統與未來規劃，方便課堂展示。</li>
+            <li>新增 about.html 網站介紹頁，讓使用者理解 Ray's CPBL Data Site 的定位、功能與資料可靠性設計。</li>
+            <li>LIVE fetch 推進至 v5.0-17，支援 stats fallback 補齊雙隊打者 / 投手，並正式寫入 liveState 第三層資料。</li>
+            <li>Match Center 可顯示 liveState 來源、目前局數、打者、投手、PITCH 與最近事件。</li>
+          </ul>
+        </div>
+      </article>
+
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.1.2-DATA-QUALITY-CONSOLE</h3>
+            <span>資料品質中心</span>
+          </div>
+
+          <ul>
+            <li>新增資料品質中心，集中檢查 live-boxscore.json 的資料狀態。</li>
+            <li>支援 FINAL / LIVE / PREGAME、confirmed / partial / debug、球隊與關鍵字篩選。</li>
+            <li>修正 dataQuality.flags 型別不一致造成 flags.some 不是函式的錯誤。</li>
+            <li>讓網站能清楚呈現哪些資料已確認、哪些資料仍需觀察或人工修正。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.1.1-REPORT-MODE / ABOUT PAGE</h3>
+            <span>報告與介紹</span>
+          </div>
+
+          <ul>
+            <li>新增 report.html 報告模式，提供課堂展示用的網站介紹、系統架構與功能亮點。</li>
+            <li>新增 about.html 網站介紹頁，說明網站目的、核心功能與資料更新流程。</li>
+            <li>新增導覽列入口建議，讓使用者能快速進入網站介紹、報告模式、資料品質中心與今日戰情中心。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.1.0-STABLE-BETA｜Team System Era</h3>
+            <span>球隊系統</span>
+          </div>
+
+          <ul>
+            <li>完成球隊系統主線升級：team.html、team-roster.html、team-stats.html、team-transactions.html 與 schedule.html 球隊篩選整合。</li>
+            <li>將球隊相關 CSS 拆分為 team-common、team-home、team-roster、team-stats 與 team-transactions，降低樣式互相覆蓋風險。</li>
+            <li>修復 teams.css 被覆蓋導致球隊名單卡片樣式消失的問題。</li>
+            <li>保留球隊系統共用設計語言：隊徽、隊色、玻璃卡片、資料摘要與手機版穩定排版。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.0.9-TEAM-TRANSACTIONS-PRO</h3>
+            <span>球員異動</span>
+          </div>
+
+          <ul>
+            <li>球員異動頁升級為 Pro 卡片介面。</li>
+            <li>新增異動統計、月份篩選、異動類型篩選與球員搜尋。</li>
+            <li>支援升一軍、降二軍、新註冊、註銷等異動分類顏色。</li>
+            <li>新增 team-transactions.css，避免異動頁樣式污染其他球隊頁。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.0.8-SCHEDULE-LIVE-BOXSCORE-RESTORE</h3>
+            <span>賽程修復</span>
+          </div>
+
+          <ul>
+            <li>修正 schedule.html 誤改為讀取不存在的 schedule-YYYY-MM.json，恢復以 live-boxscore.json 作為賽程資料主體。</li>
+            <li>支援 schedule.html?team=brothers 等球隊篩選入口。</li>
+            <li>保留列表模式、月曆模式、月份、日期、球隊、場地、狀態與搜尋篩選。</li>
+            <li>讓 team.html 的球隊賽程入口導向既有 schedule.html，避免維護獨立 team-schedule.html。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.0.6-TEAM-HOME-PRO</h3>
+            <span>球隊總覽</span>
+          </div>
+
+          <ul>
+            <li>team.html 升級為球隊總覽 Pro 版。</li>
+            <li>新增球隊 Hero、隊徽、隊色背景、快速資訊與三大入口卡片。</li>
+            <li>整合球隊名單、球隊分析與球隊賽程入口。</li>
+            <li>下一場比賽與最近比賽摘要卡片化。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.0.5-TEAM-STATS-PRO</h3>
+            <span>球隊分析</span>
+          </div>
+
+          <ul>
+            <li>team-stats.html 升級為球隊分析 Pro 版。</li>
+            <li>近期概況、最近 5 場、主客場表現與對戰各隊成績卡片化。</li>
+            <li>強化隊色主題背景與手機版表格閱讀。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.0.4-TEAM-ROSTER-CARDS</h3>
+            <span>球隊名單</span>
+          </div>
+
+          <ul>
+            <li>team-roster.html 升級為名單卡片化介面。</li>
+            <li>新增球隊名單 Hero、教練團卡片、球員分類卡片與隊色主題。</li>
+            <li>支援一軍 / 二軍切換時維持一致視覺。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.0.3-HOME-CALENDAR-SCORESTRIP</h3>
+            <span>首頁比分橫條</span>
+          </div>
+
+          <ul>
+            <li>首頁比分橫條左右切換改為真正前一天 / 後一天，不再只跳有比賽日。</li>
+            <li>無比賽日顯示「本日尚無比賽」。</li>
+            <li>預告先發未公布前，不顯示空白先發投手格。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.0.1-PREGAME-UX</h3>
+            <span>賽前體驗</span>
+          </div>
+
+          <ul>
+            <li>Match Center 新增賽前狀態卡。</li>
+            <li>顯示開賽倒數、先發投手公布狀態、先發打序同步狀態、LIVE 等待與 FINAL 未鎖定提示。</li>
+            <li>首頁比分橫條加入更清楚的賽前資訊邏輯。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.0.0-STABLE-BETA｜Data Reliability Era</h3>
+            <span>資料穩定化</span>
+          </div>
+
+          <ul>
+            <li>FINAL 更新流程升級為 v5 穩定化主線。</li>
+            <li>update-all.js 升級為 v5.0-STABLE，支援 health、dry-run、only、date、soft-exit。</li>
+            <li>三支 fetch 正式分流：pregame、live-inplay、final。</li>
+            <li>加入 finalLock，避免 FINAL 場次被 LIVE 或 PREGAME 資料覆蓋。</li>
+            <li>加入 dataQuality，讓比分、R/H/E、逐局、打者、投手與結果可分別標記資料品質。</li>
+            <li>加入 stats fallback，當中文官網 boxscore 不完整時，改由 stats.cpbl.com.tw 補足球員資料。</li>
+            <li>加入 duplicateTeam guard，避免客隊球員被錯誤塞入主隊欄位。</li>
+            <li>加入 manual override 人工修正層，爬蟲仍為主流程，人工資料可作為最後補洞與校正。</li>
+            <li>加入 recentFinalGuard，近期 0～2 天 FINAL 場次一律視為高風險並強制交叉驗證。</li>
+            <li>修正 102～111 近期問題場次的主隊打者、主隊投手與逐局資料穩定性。</li>
+            <li>Match Center 已確認可正常顯示 FINAL、R/H/E、逐局比分、勝敗救、MVP、打者與投手成績。</li>
+            <li>保留未來 AI 維護助理與勝敗預測功能的系統基礎。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v4.9.2 聯盟快訊中心資料化</h3>
+            <span>首頁資料模組</span>
+          </div>
+
+          <ul>
+            <li>新增 scripts/build-league-news.js。</li>
+            <li>新增 data/live/league-news.json。</li>
+            <li>update-all.js 新增 news 階段。</li>
+            <li>首頁聯盟快訊中心改為優先讀取 league-news.json。</li>
+            <li>支援 FINAL、LIVE、PREGAME、特殊狀態與資料同步快訊。</li>
+            <li>快訊卡可連到對應 Match Center。</li>
+            <li>系統狀態區新增 league-news 快訊數量。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v4.9.1 首頁細節穩定化</h3>
+            <span>首頁穩定化</span>
+          </div>
+
+          <ul>
+            <li>首頁比分橫條完成賽前、LIVE、賽後三階段顯示邏輯。</li>
+            <li>賽前狀態顯示客場先發與主場先發。</li>
+            <li>LIVE 狀態顯示局數、目前打者與目前投手。</li>
+            <li>賽後狀態顯示勝投、敗投、救援與 MVP。</li>
+            <li>首頁讀取 live-boxscore.json 與 probable-pitchers.json 的流程穩定化。</li>
+            <li>新增首頁 safeRender 機制，避免單一區塊錯誤拖垮整個首頁。</li>
+            <li>修正今日數據摘要特殊狀態顯示問題。</li>
+            <li>強化比分卡片防爆版面，避免球員姓名或長文字造成卡片變形。</li>
+            <li>改善手機版比分卡、勝敗救 MVP 區塊與首頁功能卡排列。</li>
+            <li>聯盟快訊中心新增最新賽果、下一場比賽與最新比賽資料摘要。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v4.9.0-RC 首頁公開版重整</h3>
+            <span>首頁重整</span>
+          </div>
+
+          <ul>
+            <li>首頁主功能改為 3×3 公開版配置。</li>
+            <li>移除「本週焦點對戰」，避免與「最近賽程焦點」重疊。</li>
+            <li>移除首頁「打擊 TOP 5」與「投手 TOP 5」，避免依賴不穩定球員 boxscore 明細。</li>
+            <li>新增「今日看球指南」，自動推薦今日或最近一日最值得關注的比賽。</li>
+            <li>新增「球隊賽程雷達」，統計六隊未來 7 天賽程壓力、主客場分布與連戰情況。</li>
+            <li>新增「聯盟快訊中心」，顯示今日賽事、資料同步與最新比賽資料摘要。</li>
+            <li>新增「球迷資料庫入口」，整合球隊頁、賽程中心、戰績排行榜與版本紀錄。</li>
+            <li>升級「今日數據摘要」，改為更大的數字卡與今日焦點資訊。</li>
+            <li>首頁卡片字級放大，改善閱讀舒適度並減少空白浪費。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v4.8.7 三支 fetch 分流主線</h3>
+            <span>資料架構</span>
+          </div>
+
+          <ul>
+            <li>封存舊版大型 fetch-cpbl-live-today.js，不再作為主線。</li>
+            <li>建立賽前、比賽中、賽後三支分流 fetch 架構。</li>
+            <li>fetch-cpbl-pregame-today.js 負責今日 / 指定日期賽程、預告先發與先發打序。</li>
+            <li>fetch-cpbl-live-inplay-today.js 負責 LIVE 比分、逐局、目前打者與目前投手。</li>
+            <li>fetch-cpbl-final-today.js 負責終場比分、R/H/E、打者投手成績、勝敗救與 MVP。</li>
+            <li>update-all.js 升級為新主線流程：pregame → live-inplay → final。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v4.8.6 Match Center 賽後投手摘要</h3>
+            <span>Match Center</span>
+          </div>
+
+          <ul>
+            <li>Match Center 先發投手卡依比賽狀態自動切換內容。</li>
+            <li>未開賽顯示「先發投手對決」。</li>
+            <li>LIVE 顯示「目前投打對決」。</li>
+            <li>FINAL 顯示「本場投手摘要」。</li>
+            <li>賽後自動判斷勝敗方，勝投與救援顯示於勝方，敗投顯示於敗方。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v4.8.5 Match Center 狀態時間軸</h3>
+            <span>比賽中心</span>
+          </div>
+
+          <ul>
+            <li>新增比賽狀態時間軸。</li>
+            <li>支援賽前資訊、LIVE 戰況、賽後數據三階段顯示。</li>
+            <li>依照 meta.status 自動高亮目前階段。</li>
+            <li>改善使用者進入比賽中心後的資料理解速度。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v4.8.4 預告先發整合</h3>
+            <span>資料串接</span>
+          </div>
+
+          <ul>
+            <li>新增 probable-pitchers.json。</li>
+            <li>從 CPBL 官方首頁比分橫條抓取今日預告先發。</li>
+            <li>首頁比分橫條顯示客場先發與主場先發。</li>
+            <li>Match Center 賽前頁同步顯示先發投手對決。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v4.8.0-RC 首頁比分橫條升級</h3>
+            <span>首頁升級</span>
+          </div>
+
+          <ul>
+            <li>首頁比分橫條改為官網感大型賽程卡。</li>
+            <li>支援今日賽程、未開賽、LIVE、已結束與延賽狀態。</li>
+            <li>加入左右日期切換。</li>
+            <li>加入比賽中心入口。</li>
+            <li>改善首頁視覺層級與賽事卡片資訊密度。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v4.7 Hero Pro Layout</h3>
+            <span>首頁升級</span>
+          </div>
+
+          <ul>
+            <li>首頁 Hero 改成左側主標題、右側 LIVE CENTER 卡片。</li>
+            <li>加入首頁搜尋入口。</li>
+            <li>升級 Dashboard Layout。</li>
+            <li>改善首頁卡片與手機版排列。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v4.6.0-RC LIVE Match Center 穩定版</h3>
+            <span>核心完成</span>
+          </div>
+
+          <ul>
+            <li>完成 Match Center 即時狀態面板。</li>
+            <li>新增 R/H/E 顯示。</li>
+            <li>新增逐局比分顯示。</li>
+            <li>新增打者成績與投手成績。</li>
+            <li>新增 30 秒自動刷新。</li>
+            <li>新增 admin-live-debug.html 總 Debug 頁。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v4.5 LIVE Boxscore Parser 修正版</h3>
+            <span>穩定性修正</span>
+          </div>
+
+          <ul>
+            <li>修正 LIVE 不誤判 FINAL。</li>
+            <li>修正 CPBL boxscore parser 抓不到打者資料的問題。</li>
+            <li>修正投手成績表解析。</li>
+            <li>加入 debug/live-detail 輸出。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v4.4 Match Center 視覺升級</h3>
+            <span>UI 升級</span>
+          </div>
+
+          <ul>
+            <li>恢復兩隊代表色背景。</li>
+            <li>改善比賽中心主視覺。</li>
+            <li>加入主客隊 Logo 與比分區塊。</li>
+            <li>強化比賽狀態顯示。</li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 CPBL Data Site ｜ <span class="site-version"></span> ｜ 明叡 × ChatGPT
+</footer>
+
+<script src="js/version.js"></script>
+
+</body>
+</html>

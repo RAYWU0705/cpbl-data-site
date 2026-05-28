@@ -1,0 +1,487 @@
+/* =========================================================
+   Ray's CPBL Data Site
+   version.css
+   Product Changelog System
+   v5.0 Ultra Timeline
+========================================================= */
+
+/* =========================
+   Hero Badge
+========================= */
+
+.hero-badge {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 34px;
+
+  padding: 6px 14px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(255,255,255,0.12);
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 950;
+
+  letter-spacing: 1.2px;
+
+  margin-bottom: 14px;
+
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+/* =========================
+   Current Version Card
+========================= */
+
+.version-current-card {
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 34px;
+
+  border-radius: 34px;
+
+  background:
+    radial-gradient(circle at top right, rgba(255,255,255,0.1), transparent 30%),
+    linear-gradient(
+      135deg,
+      #061a2d,
+      var(--primary-dark),
+      var(--primary)
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 24px 54px rgba(15,23,42,0.18);
+}
+
+.version-current-card::after {
+  content: "v5";
+
+  position: absolute;
+
+  right: 24px;
+  bottom: -18px;
+
+  font-size: 120px;
+  font-weight: 950;
+
+  color: rgba(255,255,255,0.05);
+
+  pointer-events: none;
+}
+
+.version-current-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.version-current-card .muted {
+  color: rgba(255,255,255,0.72);
+}
+
+.version-current-card h2 {
+  margin: 10px 0 14px;
+
+  font-size: clamp(34px, 5vw, 58px);
+
+  line-height: 1.08;
+
+  font-weight: 950;
+
+  color: #ffffff;
+}
+
+.version-current-card p {
+  max-width: 900px;
+
+  line-height: 1.9;
+
+  font-size: 16px;
+
+  color: rgba(255,255,255,0.82);
+
+  font-weight: 800;
+}
+
+/* =========================
+   Status Grid
+========================= */
+
+.version-status-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(180px, 1fr));
+
+  gap: 16px;
+
+  margin-top: 28px;
+}
+
+.version-status-item {
+  padding: 22px;
+
+  border-radius: 24px;
+
+  background:
+    rgba(255,255,255,0.12);
+
+  border:
+    1px solid rgba(255,255,255,0.14);
+
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.version-status-item span {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: rgba(255,255,255,0.72);
+
+  font-size: 13px;
+
+  font-weight: 850;
+}
+
+.version-status-item strong {
+  display: block;
+
+  font-size: 28px;
+  font-weight: 950;
+}
+
+.version-status-item.good strong {
+  color: #7dff9c;
+}
+
+/* =========================
+   Roadmap
+========================= */
+
+.roadmap-list {
+  display: grid;
+  gap: 18px;
+}
+
+.roadmap-item {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 16px;
+
+  padding: 22px;
+
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.98),
+      rgba(248,250,252,0.95)
+    );
+
+  border:
+    1px solid rgba(11,60,93,0.08);
+
+  box-shadow:
+    0 12px 30px rgba(15,23,42,0.06);
+}
+
+.roadmap-item.next {
+  border:
+    2px solid rgba(255,204,0,0.35);
+}
+
+.roadmap-badge {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 68px;
+  min-height: 34px;
+
+  padding: 0 12px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(11,60,93,0.08);
+
+  color: var(--primary);
+
+  font-size: 12px;
+  font-weight: 950;
+
+  letter-spacing: 1px;
+}
+
+.roadmap-item.next .roadmap-badge {
+  background:
+    linear-gradient(
+      135deg,
+      #ffcc00,
+      #ff9800
+    );
+
+  color: #111111;
+}
+
+.roadmap-item h3 {
+  margin: 0 0 8px;
+
+  font-size: 24px;
+  font-weight: 950;
+
+  color: #0f172a;
+}
+
+.roadmap-item p {
+  margin: 0;
+
+  line-height: 1.8;
+
+  color: #475569;
+
+  font-weight: 800;
+}
+
+/* =========================
+   Timeline Ultra
+========================= */
+
+.version-timeline {
+  position: relative;
+
+  display: grid;
+  gap: 28px;
+
+  margin-top: 24px;
+}
+
+.version-timeline::before {
+  content: "";
+
+  position: absolute;
+
+  left: 18px;
+  top: 0;
+  bottom: 0;
+
+  width: 3px;
+
+  background:
+    linear-gradient(
+      180deg,
+      var(--primary),
+      rgba(11,60,93,0.08)
+    );
+}
+
+.version-entry {
+  position: relative;
+
+  padding-left: 58px;
+}
+
+.version-dot {
+  position: absolute;
+
+  left: 6px;
+  top: 10px;
+
+  width: 26px;
+  height: 26px;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      var(--primary-dark)
+    );
+
+  border:
+    4px solid #ffffff;
+
+  box-shadow:
+    0 6px 16px rgba(15,23,42,0.18);
+}
+
+.version-entry.current .version-dot {
+  background:
+    linear-gradient(
+      135deg,
+      #ffcc00,
+      #ff9800
+    );
+
+  box-shadow:
+    0 0 18px rgba(255,204,0,0.45);
+}
+
+.version-content {
+  padding: 28px;
+
+  border-radius: 30px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.98),
+      rgba(248,250,252,0.95)
+    );
+
+  border:
+    1px solid rgba(11,60,93,0.08);
+
+  box-shadow:
+    0 14px 34px rgba(15,23,42,0.08);
+}
+
+.version-head {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  flex-wrap: wrap;
+
+  margin-bottom: 16px;
+}
+
+.version-head h3 {
+  margin: 0;
+
+  font-size: clamp(24px, 3vw, 34px);
+
+  font-weight: 950;
+
+  color: #0f172a;
+}
+
+.version-head span {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 36px;
+
+  padding: 6px 14px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(11,60,93,0.08);
+
+  color: var(--primary);
+
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.version-content ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.version-content li {
+  margin-bottom: 10px;
+
+  line-height: 1.8;
+
+  color: #334155;
+
+  font-size: 15px;
+
+  font-weight: 800;
+}
+
+/* =========================
+   手機版
+========================= */
+
+@media (max-width: 900px) {
+
+  .version-current-card {
+    padding: 28px;
+  }
+
+  .version-current-card h2 {
+    font-size: 42px;
+  }
+
+}
+
+@media (max-width: 720px) {
+
+  .version-current-card {
+    padding: 22px;
+    border-radius: 26px;
+  }
+
+  .version-current-card h2 {
+    font-size: 34px;
+  }
+
+  .version-status-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .roadmap-item {
+    flex-direction: column;
+  }
+
+  .version-entry {
+    padding-left: 46px;
+  }
+
+  .version-content {
+    padding: 22px;
+  }
+
+  .version-head h3 {
+    font-size: 24px;
+  }
+
+}
+
+@media (max-width: 520px) {
+
+  .version-status-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .version-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .version-content {
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .version-content li {
+    font-size: 14px;
+  }
+
+}

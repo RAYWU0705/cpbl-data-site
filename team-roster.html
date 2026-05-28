@@ -2,54 +2,96 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>CPBL 球隊名單</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CPBL 球隊名單｜Ray's CPBL Data Site</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body data-page="team-roster">
 
 <nav class="nav">
   <div class="nav-inner">
-    <a class="brand" href="index.html">CPBL</a>
-    <a class="nav-link" href="index.html">首頁</a>
-    <a class="nav-link" href="schedule.html">賽程</a>
-    <a class="nav-link" href="standings.html">戰績</a>
-    <a class="nav-link active" href="teams.html">球隊</a>
-    <a class="nav-link" href="season.html">賽季</a>
-  </div>
-</nav>
 
-<header class="team-header">
-  <h1 id="pageTitle">球隊名單</h1>
-  <p id="pageSub">載入中…</p>
-</header>
+    <div class="nav-left">
+      <a class="brand" href="index.html">CPBL</a>
+      <a class="nav-link" href="index.html">首頁</a>
+      <a class="nav-link active" href="schedule.html">賽程</a>
+      <a class="nav-link" href="standings.html">戰績</a>
+      <a class="nav-link" href="teams.html">球隊</a>
+      <a class="nav-link" href="rules.html">棒球規則</a>
+      <a class="nav-link" href="game-day.html">今日戰情</a>
+      <a class="nav-link" href="version.html">版本</a>
+    </div>
 
-<main>
-  <div class="team-theme-zone">
-
-    <div class="team-detail-card">
-      <h2>👨‍🏫 教練團</h2>
-      <div id="coachList" class="roster-list">載入中…</div>
-
-      <hr>
-
-      <h2>🧢 球員名單</h2>
-      <div id="playerList" class="roster-list">（目前尚未建立）</div>
-
-      <a class="back-link" id="backToTeam">← 回球隊總覽</a>
+    <div class="nav-teams" aria-label="球隊快速入口">
+      <a href="team.html?team=brothers"><img src="assets/logo/brothers.png" alt="中信兄弟"></a>
+      <a href="team.html?team=lions"><img src="assets/logo/lions.png" alt="統一7-ELEVEn獅"></a>
+      <a href="team.html?team=monkeys"><img src="assets/logo/monkeys.png" alt="樂天桃猿"></a>
+      <a href="team.html?team=dragons"><img src="assets/logo/dragons.png" alt="味全龍"></a>
+      <a href="team.html?team=guardians"><img src="assets/logo/guardians.png" alt="富邦悍將"></a>
+      <a href="team.html?team=hawks"><img src="assets/logo/hawks.png" alt="台鋼雄鷹"></a>
     </div>
 
   </div>
+</nav>
+
+<header class="hero team-roster-page-hero">
+  <p class="muted">Ray's Unofficial CPBL Data Site</p>
+  <h1 id="pageTitle">球隊名單</h1>
+  <p id="pageSub">載入中…</p>
+
+  <div class="hero-actions">
+    <a href="teams.html">返回球隊列表</a>
+    <a href="standings.html">查看戰績</a>
+    <a href="schedule.html">查看賽程</a>
+    <a href="index.html">回首頁</a>
+  </div>
+
+  <p class="muted">Team Roster · Coaches · Players</p>
+</header>
+
+<main class="container">
+
+  <section class="team-roster-hero-card" id="teamRosterHeroCard">
+    <div class="team-roster-hero-loading">載入球隊資料中…</div>
+  </section>
+
+  <section class="home-card team-detail-card team-roster-panel">
+    <div class="section-title-row roster-section-title-row">
+      <div>
+        <span class="roster-kicker">COACHING STAFF</span>
+        <h2>👨‍🏫 教練團</h2>
+      </div>
+      <span class="roster-count-pill" id="coachCountPill">—</span>
+    </div>
+    <div id="coachList" class="roster-list">載入中…</div>
+  </section>
+
+  <section class="home-card team-detail-card team-roster-panel">
+    <div class="section-title-row roster-section-title-row">
+      <div>
+        <span class="roster-kicker">PLAYERS</span>
+        <h2>🧢 球員名單</h2>
+      </div>
+      <span class="roster-count-pill" id="playerCountPill">—</span>
+    </div>
+
+    <div id="playerList" class="roster-list">（目前尚未建立）</div>
+    <div id="playersContainer" class="roster-list"></div>
+
+    <a class="card-link roster-back-link" id="backToTeam">← 回球隊總覽</a>
+  </section>
+
 </main>
 
 <footer>
- © 2026 CPBL Data Site ｜ 
- <span class="site-version"></span> ｜ 
- 明叡 × ChatGPT
+  © 2026 CPBL Data Site ｜
+  <span class="site-version"></span> ｜
+  明叡 × ChatGPT
 </footer>
 
-
-<script src="js/team-roster.js"></script>
+<script src="js/team-roster.js?v=504"></script>
 <script src="js/version.js"></script>
 
 </body>

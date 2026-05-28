@@ -1,0 +1,433 @@
+[
+  {
+    "gameSno": 109,
+    "sourceStage": "pregame",
+    "meta": {
+      "date": "2026-05-20",
+      "home": "味全龍",
+      "away": "台鋼雄鷹",
+      "status": "scheduled",
+      "statusText": "比賽尚未開始",
+      "type": "regular",
+      "typeText": "一軍例行賽",
+      "time": "18:35",
+      "duration": "",
+      "venue": "花蓮",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?year=2026&kindCode=A&gameSno=109",
+      "urlMode": "pregame",
+      "win": null,
+      "lose": null,
+      "save": null,
+      "mvp": null
+    },
+    "lineScore": {
+      "away": [],
+      "home": []
+    },
+    "totals": {
+      "away": {
+        "R": 0,
+        "H": null,
+        "E": null
+      },
+      "home": {
+        "R": 0,
+        "H": null,
+        "E": null
+      }
+    },
+    "batters": {
+      "away": [],
+      "home": []
+    },
+    "pitchers": {
+      "away": [],
+      "home": []
+    },
+    "pregame": {
+      "starters": {
+        "away": "本季",
+        "home": "拿下四連勝"
+      },
+      "lineups": {
+        "away": [],
+        "home": []
+      }
+    },
+    "liveState": null,
+    "debug": {
+      "source": "fetch-cpbl-pregame-today",
+      "scheduleRaw": {
+        "PresentStatus": 1,
+        "IsGameStop": "0",
+        "GameDateTimeS": "2026-05-20T18:35:00",
+        "GameDateTimeE": null,
+        "GameDuringTime": "",
+        "MultyGame": "N",
+        "Year": "2026",
+        "KindCode": "A",
+        "GameSeasonCode": "1",
+        "GameSno": 109,
+        "GameDate": "2026-05-20T00:00:00",
+        "GameResult": "",
+        "PreExeDate": "2026-05-20T18:35:00",
+        "VisitingTeamCode": "AKP011",
+        "VisitingTeamName": "台鋼雄鷹",
+        "HomeTeamCode": "AAA011",
+        "HomeTeamName": "味全龍",
+        "FieldAbbe": "花蓮",
+        "VisitingScore": 0,
+        "HomeScore": 0,
+        "MvpAcnt": "",
+        "MvpCount": null,
+        "VisitingPitcherAcnt": "0000002679",
+        "HomePitcherAcnt": "0000000762",
+        "WinningPitcherAcnt": "",
+        "LoserPitcherAcnt": "",
+        "CloserAcnt": "",
+        "VisitingClubSmallImgPath": "/files/atts/0M259522048557486065/單色T-100x100.png",
+        "HomeClubSmallImgPath": "/files/atts/0L021497845061333235/logo_dragon.png",
+        "WinningPitcherName": "",
+        "LoserPitcherName": "",
+        "CloserName": "",
+        "MvpName": "",
+        "VisitingPitcherName": "",
+        "HomePitcherName": "",
+        "IsPlayBall": "N",
+        "ReserveDate": null
+      },
+      "homeCard": {
+        "gameSno": 109,
+        "awayStarter": "本季",
+        "homeStarter": "拿下四連勝",
+        "lineups": {
+          "away": [],
+          "home": []
+        },
+        "foundCard": true,
+        "source": "official-home-score-strip+official-home-game-card",
+        "debugText": "本季花蓮首戰！李凱威關鍵安打率味全拿下四連勝 2026/05/19 台鋼雄鷹 味全龍 本季花蓮首戰！李凱威關鍵安打率味全拿下四連勝 2026/05/19 台鋼雄鷹 味全龍 台鋼雄鷹 味全龍",
+        "debugLines": [
+          "本季花蓮首戰！李凱威關鍵安打率味全拿下四連勝 2026/05/19 台鋼雄鷹 味全龍",
+          "本季花蓮首戰！李凱威關鍵安打率味全拿下四連勝",
+          "2026/05/19",
+          "台鋼雄鷹 味全龍",
+          "台鋼雄鷹",
+          "味全龍"
+        ],
+        "cardRect": {
+          "x": 474,
+          "y": 2630,
+          "width": 494,
+          "height": 131
+        },
+        "scoreStripCandidates": [
+          {
+            "usefulPower": 3,
+            "area": 64526,
+            "textLength": 94,
+            "rect": {
+              "x": 474,
+              "y": 2630,
+              "width": 494,
+              "height": 131
+            },
+            "textSample": "本季花蓮首戰！李凱威關鍵安打率味全拿下四連勝 2026/05/19 台鋼雄鷹 味全龍 本季花蓮首戰！李凱威關鍵安打率味全拿下四連勝 2026/05/19 台鋼雄鷹 味全龍 台鋼雄鷹 味全龍"
+          },
+          {
+            "usefulPower": 3,
+            "area": 208558,
+            "textLength": 160,
+            "rect": {
+              "x": 50,
+              "y": 2630,
+              "width": 918,
+              "height": 227
+            },
+            "textSample": "本季花蓮首戰！李凱威關鍵安打率味全拿下四連勝 本季花蓮首戰！李凱威關鍵安打率味全拿下四連勝 2026/05/19 台鋼雄鷹 味全龍 本季花蓮首戰！李凱威關鍵安打率味全拿下四連勝 本季花蓮首戰！李凱威關鍵安打率味全拿下四連勝 2026/05/19 台鋼雄鷹 味全龍 2026/05/19 台鋼雄鷹 味全龍 台鋼雄鷹 味全龍"
+          }
+        ]
+      },
+      "beforeGameStart": true,
+      "parserMode": "v5.0-3-PREGAME-STABLE",
+      "updatedAt": "2026-05-20T03:23:52.995Z"
+    },
+    "dataQuality": {
+      "version": "v5.0-3-PREGAME-STABLE",
+      "source": "fetch-cpbl-pregame-today",
+      "stage": "pregame",
+      "schedule": "confirmed",
+      "starters": "confirmed",
+      "lineups": "debug",
+      "liveSafe": "confirmed",
+      "finalSafe": "confirmed",
+      "mode": "pregame-safe-parser",
+      "message": "PREGAME 安全模式：只更新 scheduled / pregame 區塊，不覆蓋 LIVE / FINAL 狀態。",
+      "updatedAt": "2026-05-20T03:23:52.995Z"
+    }
+  },
+  {
+    "gameSno": 110,
+    "sourceStage": "pregame",
+    "meta": {
+      "date": "2026-05-20",
+      "home": "樂天桃猿",
+      "away": "中信兄弟",
+      "status": "scheduled",
+      "statusText": "比賽尚未開始",
+      "type": "regular",
+      "typeText": "一軍例行賽",
+      "time": "18:35",
+      "duration": "",
+      "venue": "樂天桃園",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?year=2026&kindCode=A&gameSno=110",
+      "urlMode": "pregame",
+      "win": null,
+      "lose": null,
+      "save": null,
+      "mvp": null
+    },
+    "lineScore": {
+      "away": [],
+      "home": []
+    },
+    "totals": {
+      "away": {
+        "R": 0,
+        "H": null,
+        "E": null
+      },
+      "home": {
+        "R": 0,
+        "H": null,
+        "E": null
+      }
+    },
+    "batters": {
+      "away": [],
+      "home": []
+    },
+    "pitchers": {
+      "away": [],
+      "home": []
+    },
+    "pregame": {
+      "starters": {
+        "away": "游竣宥",
+        "home": "魔爾曼"
+      },
+      "lineups": {
+        "away": [],
+        "home": []
+      }
+    },
+    "liveState": null,
+    "debug": {
+      "source": "fetch-cpbl-pregame-today",
+      "scheduleRaw": {
+        "PresentStatus": 1,
+        "IsGameStop": "0",
+        "GameDateTimeS": "2026-05-20T18:35:00",
+        "GameDateTimeE": null,
+        "GameDuringTime": "",
+        "MultyGame": "N",
+        "Year": "2026",
+        "KindCode": "A",
+        "GameSeasonCode": "1",
+        "GameSno": 110,
+        "GameDate": "2026-05-20T00:00:00",
+        "GameResult": "",
+        "PreExeDate": "2026-05-20T18:35:00",
+        "VisitingTeamCode": "ACN011",
+        "VisitingTeamName": "中信兄弟",
+        "HomeTeamCode": "AJL011",
+        "HomeTeamName": "樂天桃猿",
+        "FieldAbbe": "樂天桃園",
+        "VisitingScore": 0,
+        "HomeScore": 0,
+        "MvpAcnt": "",
+        "MvpCount": null,
+        "VisitingPitcherAcnt": "0000007281",
+        "HomePitcherAcnt": "0000007790",
+        "WinningPitcherAcnt": "",
+        "LoserPitcherAcnt": "",
+        "CloserAcnt": "",
+        "VisitingClubSmallImgPath": "/files/atts/0L021497108709222204/logo_brothers.png",
+        "HomeClubSmallImgPath": "/files/atts/0L015574823122453305/2024_CPBL六隊Logo_R2_官網.png",
+        "WinningPitcherName": "",
+        "LoserPitcherName": "",
+        "CloserName": "",
+        "MvpName": "",
+        "VisitingPitcherName": "",
+        "HomePitcherName": "",
+        "IsPlayBall": "N",
+        "ReserveDate": null
+      },
+      "homeCard": {
+        "gameSno": 110,
+        "awayStarter": "游竣宥",
+        "homeStarter": "魔爾曼",
+        "lineups": {
+          "away": [],
+          "home": []
+        },
+        "foundCard": true,
+        "source": "official-home-score-strip-body-fallback+official-home-game-card",
+        "debugText": "110 11-22-1 VS. 13-19-1 樂天桃園 18:35 晴 攝氏27至28度 降雨機率0% 客場先發 游竣宥 主場先發 魔爾曼 售票資訊 ",
+        "debugLines": [
+          "110 11-22-1 VS. 13-19-1 樂天桃園 18:35 晴 攝氏27至28度 降雨機率0% 客場先發 游竣宥 主場先發 魔爾曼 售票資訊"
+        ],
+        "cardRect": null,
+        "scoreStripCandidates": []
+      },
+      "beforeGameStart": true,
+      "parserMode": "v5.0-3-PREGAME-STABLE",
+      "updatedAt": "2026-05-20T03:23:52.996Z"
+    },
+    "dataQuality": {
+      "version": "v5.0-3-PREGAME-STABLE",
+      "source": "fetch-cpbl-pregame-today",
+      "stage": "pregame",
+      "schedule": "confirmed",
+      "starters": "confirmed",
+      "lineups": "debug",
+      "liveSafe": "confirmed",
+      "finalSafe": "confirmed",
+      "mode": "pregame-safe-parser",
+      "message": "PREGAME 安全模式：只更新 scheduled / pregame 區塊，不覆蓋 LIVE / FINAL 狀態。",
+      "updatedAt": "2026-05-20T03:23:52.996Z"
+    }
+  },
+  {
+    "gameSno": 111,
+    "sourceStage": "pregame",
+    "meta": {
+      "date": "2026-05-20",
+      "home": "富邦悍將",
+      "away": "統一7-ELEVEn獅",
+      "status": "scheduled",
+      "statusText": "比賽尚未開始",
+      "type": "regular",
+      "typeText": "一軍例行賽",
+      "time": "18:35",
+      "duration": "",
+      "venue": "新莊",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?year=2026&kindCode=A&gameSno=111",
+      "urlMode": "pregame",
+      "win": null,
+      "lose": null,
+      "save": null,
+      "mvp": null
+    },
+    "lineScore": {
+      "away": [],
+      "home": []
+    },
+    "totals": {
+      "away": {
+        "R": 0,
+        "H": null,
+        "E": null
+      },
+      "home": {
+        "R": 0,
+        "H": null,
+        "E": null
+      }
+    },
+    "batters": {
+      "away": [],
+      "home": []
+    },
+    "pitchers": {
+      "away": [],
+      "home": []
+    },
+    "pregame": {
+      "starters": {
+        "away": "銳力獅",
+        "home": "阿部雄大"
+      },
+      "lineups": {
+        "away": [],
+        "home": []
+      }
+    },
+    "liveState": null,
+    "debug": {
+      "source": "fetch-cpbl-pregame-today",
+      "scheduleRaw": {
+        "PresentStatus": 1,
+        "IsGameStop": "0",
+        "GameDateTimeS": "2026-05-20T18:35:00",
+        "GameDateTimeE": null,
+        "GameDuringTime": "",
+        "MultyGame": "N",
+        "Year": "2026",
+        "KindCode": "A",
+        "GameSeasonCode": "1",
+        "GameSno": 111,
+        "GameDate": "2026-05-20T00:00:00",
+        "GameResult": "",
+        "PreExeDate": "2026-05-20T18:35:00",
+        "VisitingTeamCode": "ADD011",
+        "VisitingTeamName": "統一7-ELEVEn獅",
+        "HomeTeamCode": "AEO011",
+        "HomeTeamName": "富邦悍將",
+        "FieldAbbe": "新莊",
+        "VisitingScore": 0,
+        "HomeScore": 0,
+        "MvpAcnt": "",
+        "MvpCount": null,
+        "VisitingPitcherAcnt": "0000006295",
+        "HomePitcherAcnt": "0000007783",
+        "WinningPitcherAcnt": "",
+        "LoserPitcherAcnt": "",
+        "CloserAcnt": "",
+        "VisitingClubSmallImgPath": "/files/atts/0L021496162893869773/logo_lions.png",
+        "HomeClubSmallImgPath": "/files/atts/0L021495969510091777/logo_fubon.png",
+        "WinningPitcherName": "",
+        "LoserPitcherName": "",
+        "CloserName": "",
+        "MvpName": "",
+        "VisitingPitcherName": "",
+        "HomePitcherName": "",
+        "IsPlayBall": "N",
+        "ReserveDate": null
+      },
+      "homeCard": {
+        "gameSno": 111,
+        "awayStarter": "銳力獅",
+        "homeStarter": "阿部雄大",
+        "lineups": {
+          "away": [],
+          "home": []
+        },
+        "foundCard": true,
+        "source": "official-home-score-strip-body-fallback+official-home-game-card",
+        "debugText": "111 18-15-1 VS. 18-14-0 新莊 18:35 多雲 攝氏28至29度 降雨機率0% 客場先發 銳力獅 主場先發 阿部雄大 售票資訊 ",
+        "debugLines": [
+          "111 18-15-1 VS. 18-14-0 新莊 18:35 多雲 攝氏28至29度 降雨機率0% 客場先發 銳力獅 主場先發 阿部雄大 售票資訊"
+        ],
+        "cardRect": null,
+        "scoreStripCandidates": []
+      },
+      "beforeGameStart": true,
+      "parserMode": "v5.0-3-PREGAME-STABLE",
+      "updatedAt": "2026-05-20T03:23:52.996Z"
+    },
+    "dataQuality": {
+      "version": "v5.0-3-PREGAME-STABLE",
+      "source": "fetch-cpbl-pregame-today",
+      "stage": "pregame",
+      "schedule": "confirmed",
+      "starters": "confirmed",
+      "lineups": "debug",
+      "liveSafe": "confirmed",
+      "finalSafe": "confirmed",
+      "mode": "pregame-safe-parser",
+      "message": "PREGAME 安全模式：只更新 scheduled / pregame 區塊，不覆蓋 LIVE / FINAL 狀態。",
+      "updatedAt": "2026-05-20T03:23:52.996Z"
+    }
+  }
+]

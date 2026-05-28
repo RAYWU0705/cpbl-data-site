@@ -1,0 +1,457 @@
+/* =========================================================
+   Ray's CPBL Data Site
+   farm-schedule.css
+   v5.2.0-FARM-SCHEDULE-SIDELOAD
+========================================================= */
+
+body[data-page="farm-schedule"] {
+  background:
+    radial-gradient(circle at 12% 7%, rgba(250,204,21,0.14), transparent 28%),
+    radial-gradient(circle at 88% 10%, rgba(34,197,94,0.12), transparent 30%),
+    linear-gradient(135deg,#071827 0%,#081b2e 48%,#062f35 100%);
+  color: #f8fafc;
+  min-height: 100vh;
+}
+
+body[data-page="farm-schedule"] .nav {
+  background: rgba(7,24,39,.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(255,255,255,.12);
+}
+
+.farm-hero {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 68px 22px 34px;
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 360px;
+  gap: 26px;
+  align-items: end;
+}
+
+.farm-eyebrow {
+  margin: 0 0 12px;
+  color: #d8c46b;
+  font-size: 13px;
+  font-weight: 950;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.farm-hero h1 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(42px,5vw,72px);
+  line-height: 1.02;
+  letter-spacing: -.06em;
+  text-shadow: 0 16px 40px rgba(0,0,0,.25);
+}
+
+.farm-subtitle {
+  margin: 18px 0 0;
+  max-width: 820px;
+  color: #d6e1ec;
+  font-size: 17px;
+  line-height: 1.8;
+  font-weight: 750;
+}
+
+.farm-actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.farm-actions a,
+.farm-actions button,
+.farm-toolbar button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 11px 17px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.94);
+  color: #082033;
+  font-weight: 950;
+  text-decoration: none;
+  cursor: pointer;
+  transition: .18s ease;
+  box-shadow: 0 14px 30px rgba(0,0,0,.20);
+  font-family: inherit;
+}
+
+.farm-actions a:hover,
+.farm-actions button:hover,
+.farm-toolbar button:hover {
+  transform: translateY(-2px);
+  background: #facc15;
+  color: #071827;
+}
+
+.farm-muted {
+  color: #cbd5e1;
+  line-height: 1.7;
+  font-weight: 800;
+}
+
+.farm-hero-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 220px;
+  padding: 26px;
+  border-radius: 32px;
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.16);
+  box-shadow: 0 24px 70px rgba(0,0,0,.32);
+}
+
+.farm-hero-card::after {
+  content: "2";
+  position: absolute;
+  right: -18px;
+  bottom: -42px;
+  color: rgba(255,255,255,.10);
+  font-size: 150px;
+  line-height: 1;
+  font-weight: 950;
+}
+
+.farm-hero-card span {
+  display: inline-block;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.14);
+  color: #dbeafe;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: .06em;
+}
+
+.farm-hero-card strong {
+  display: block;
+  margin-top: 22px;
+  color: #fff;
+  font-size: 34px;
+  letter-spacing: -.04em;
+}
+
+.farm-hero-card p {
+  color: #cbd5e1;
+  line-height: 1.7;
+}
+
+.farm-shell {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 22px 70px;
+}
+
+.farm-card {
+  margin-bottom: 22px;
+  padding: 24px;
+  border-radius: 32px;
+  background: rgba(255,255,255,.09);
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: 0 14px 38px rgba(0,0,0,.22);
+}
+
+.farm-section-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: flex-end;
+  margin-bottom: 18px;
+}
+
+.farm-section-title h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 30px;
+  letter-spacing: -.04em;
+}
+
+.farm-section-title small {
+  color: #b6c6d6;
+  font-weight: 800;
+  line-height: 1.6;
+}
+
+.farm-status-grid {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 14px;
+}
+
+.farm-status-grid div {
+  padding: 18px;
+  border-radius: 24px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+}
+
+.farm-status-grid span {
+  display: block;
+  color: #9fb1c4;
+  font-size: 13px;
+  font-weight: 950;
+  margin-bottom: 8px;
+}
+
+.farm-status-grid strong {
+  color: #fff;
+  font-size: 34px;
+  line-height: 1;
+  font-weight: 950;
+}
+
+.farm-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.farm-toolbar label {
+  color: #cbd5e1;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.farm-toolbar select,
+.farm-toolbar input {
+  min-height: 42px;
+  padding: 9px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.94);
+  color: #0f172a;
+  font-weight: 850;
+}
+
+.farm-toolbar button {
+  min-height: 42px;
+  box-shadow: none;
+}
+
+.farm-schedule-list {
+  display: grid;
+  gap: 18px;
+}
+
+.farm-date-group {
+  display: grid;
+  gap: 12px;
+}
+
+.farm-date-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 15px;
+  border-radius: 18px;
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.12);
+}
+
+.farm-date-head h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 950;
+}
+
+.farm-date-head span {
+  color: #fde68a;
+  font-weight: 950;
+}
+
+.farm-game-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 14px;
+}
+
+.farm-game-card {
+  display: grid;
+  gap: 14px;
+  padding: 20px;
+  border-radius: 26px;
+  background: rgba(255,255,255,.94);
+  color: #0f172a;
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: 0 14px 32px rgba(0,0,0,.16);
+}
+
+.farm-game-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+}
+
+.farm-game-no,
+.farm-game-status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(15,23,42,.07);
+  color: #334155;
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.farm-game-status.status-final {
+  color: #0a7a24;
+  background: rgba(10,143,42,.10);
+}
+
+.farm-game-status.status-postponed,
+.farm-game-status.status-cancelled {
+  color: #92400e;
+  background: rgba(245,158,11,.13);
+}
+
+.farm-match {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 90px minmax(0,1fr);
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.farm-team {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+}
+
+.farm-team img {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+  padding: 6px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 8px 18px rgba(15,23,42,.08);
+}
+
+.farm-team strong {
+  color: #0f172a;
+  font-size: 17px;
+  line-height: 1.25;
+  font-weight: 950;
+}
+
+.farm-score {
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+}
+
+.farm-score strong {
+  color: #071827;
+  font-size: 34px;
+  line-height: 1;
+  font-weight: 950;
+}
+
+.farm-score span {
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.farm-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.farm-empty {
+  padding: 30px;
+  border-radius: 24px;
+  background: rgba(255,255,255,.08);
+  border: 1px dashed rgba(255,255,255,.20);
+  color: #cbd5e1;
+  text-align: center;
+  font-weight: 900;
+  line-height: 1.8;
+}
+
+.farm-code {
+  margin: 0;
+  max-height: 360px;
+  overflow: auto;
+  padding: 18px;
+  border-radius: 22px;
+  background: #020617;
+  color: #d1fae5;
+  border: 1px solid rgba(255,255,255,.12);
+  font-size: 13px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 1100px) {
+  .farm-hero,
+  .farm-game-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .farm-status-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .farm-hero,
+  .farm-shell {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .farm-hero h1 {
+    font-size: 38px;
+  }
+
+  .farm-section-title {
+    display: block;
+  }
+
+  .farm-section-title small {
+    display: block;
+    margin-top: 8px;
+  }
+
+  .farm-status-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .farm-toolbar {
+    align-items: stretch;
+  }
+
+  .farm-toolbar select,
+  .farm-toolbar input,
+  .farm-toolbar button {
+    width: 100%;
+  }
+
+  .farm-match {
+    grid-template-columns: 1fr;
+  }
+
+  .farm-score {
+    order: -1;
+  }
+}

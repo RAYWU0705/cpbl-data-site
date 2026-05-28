@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Admin Ops Center｜Ray's CPBL Data Site</title>
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    body[data-page="admin-live-debug"]{
+      background:
+        radial-gradient(circle at 12% 6%, rgba(250,204,21,.16), transparent 28%),
+        radial-gradient(circle at 88% 10%, rgba(56,189,248,.14), transparent 30%),
+        linear-gradient(135deg,#071827 0%,#081b2e 48%,#062f35 100%);
+      color:#f8fafc;
+      min-height:100vh;
+    }
+
+    body[data-page="admin-live-debug"] .nav{
+      background:rgba(7,24,39,.88);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(255,255,255,.12);
+    }
+
+    .ops-hero{
+      max-width:1280px;
+      margin:0 auto;
+      padding:64px 22px 34px;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 360px;
+      gap:26px;
+      align-items:end;
+    }
+
+    .ops-eyebrow{
+      margin:0 0 12px;
+      color:#d8c46b;
+      font-size:13px;
+      font-weight:950;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .ops-hero h1{
+      margin:0;
+      color:#fff;
+      font-size:clamp(40px,5vw,72px);
+      line-height:1.02;
+      letter-spacing:-.06em;
+    }
+
+    .ops-subtitle{
+      margin:18px 0 0;
+      max-width:820px;
+      color:#d6e1ec;
+      font-size:17px;
+      line-height:1.8;
+      font-weight:750;
+    }
+
+    .ops-actions,.ops-mini-actions{
+      margin-top:22px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .ops-actions a,.ops-actions button,.ops-mini-actions a{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:42px;
+      padding:11px 17px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.94);
+      color:#082033;
+      font-weight:950;
+      text-decoration:none;
+      cursor:pointer;
+      transition:.18s ease;
+      box-shadow:0 14px 30px rgba(0,0,0,.20);
+      font-family:inherit;
+    }
+
+    .ops-actions a:hover,.ops-actions button:hover,.ops-mini-actions a:hover{
+      transform:translateY(-2px);
+      background:#facc15;
+      color:#071827;
+    }
+
+    .ops-hero-panel,.ops-card,.ops-kpi,.ops-status-panel{
+      background:rgba(255,255,255,.09);
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow:0 18px 46px rgba(0,0,0,.24);
+    }
+
+    .ops-hero-panel{
+      position:relative;
+      overflow:hidden;
+      padding:26px;
+      min-height:220px;
+      border-radius:32px;
+    }
+
+    .ops-hero-panel span{
+      display:inline-block;
+      padding:7px 11px;
+      border-radius:999px;
+      background:rgba(255,255,255,.14);
+      color:#dbeafe;
+      font-size:12px;
+      font-weight:950;
+      letter-spacing:.06em;
+    }
+
+    .ops-hero-panel strong{
+      display:block;
+      margin-top:22px;
+      color:#fff;
+      font-size:34px;
+      letter-spacing:-.04em;
+    }
+
+    .ops-hero-panel p{
+      color:#cbd5e1;
+      line-height:1.7;
+      margin-bottom:0;
+    }
+
+    .ops-shell{
+      max-width:1280px;
+      margin:0 auto;
+      padding:0 22px 70px;
+    }
+
+    .ops-status-panel{
+      margin:0 0 22px;
+      padding:20px 22px;
+      border-radius:26px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+
+    .ops-status-panel>div{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .ops-status-dot{
+      width:13px;
+      height:13px;
+      border-radius:999px;
+      display:inline-block;
+      background:#22c55e;
+      box-shadow:0 0 0 6px rgba(34,197,94,.18);
+    }
+
+    .ops-status-dot.warn{background:#f59e0b;box-shadow:0 0 0 6px rgba(245,158,11,.20)}
+    .ops-status-dot.bad{background:#ef4444;box-shadow:0 0 0 6px rgba(239,68,68,.18)}
+
+    .ops-status-panel strong{color:#fff;font-weight:950}
+    .ops-status-panel small{color:#cbd5e1;font-weight:800}
+
+    .ops-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:16px;
+      margin-bottom:22px;
+    }
+
+    .ops-kpi{
+      min-height:132px;
+      padding:20px;
+      border-radius:26px;
+      overflow:hidden;
+    }
+
+    .ops-kpi span,.debug-source-item span,.debug-health-card span,.ops-list-item span,.debug-stat-grid span{
+      display:block;
+      color:#9fb1c4;
+      font-size:12px;
+      font-weight:950;
+      margin-bottom:7px;
+    }
+
+    .ops-kpi strong{
+      display:block;
+      color:#fff;
+      font-size:32px;
+      line-height:1.1;
+      font-weight:950;
+      letter-spacing:-.045em;
+    }
+
+    .ops-kpi small{
+      display:block;
+      margin-top:8px;
+      color:#9fb1c4;
+      font-weight:750;
+      line-height:1.5;
+    }
+
+    .ops-layout{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 380px;
+      gap:22px;
+      align-items:start;
+    }
+
+    .ops-side{position:sticky;top:92px}
+
+    .ops-card{
+      margin-bottom:22px;
+      padding:24px;
+      border-radius:32px;
+    }
+
+    .ops-section-title{
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      align-items:flex-end;
+      margin-bottom:18px;
+    }
+
+    .ops-section-title h2{
+      margin:0;
+      color:#fff;
+      font-size:30px;
+      letter-spacing:-.04em;
+    }
+
+    .ops-section-title small{
+      color:#b6c6d6;
+      font-weight:800;
+      line-height:1.6;
+    }
+
+    .debug-source-grid,.debug-health-grid,.debug-stat-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+    }
+
+    .debug-source-item,.debug-health-card,.debug-stat-grid>div,.ops-list-item{
+      padding:15px;
+      border-radius:20px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+    }
+
+    .debug-source-item strong,.debug-health-card strong,.debug-stat-grid strong,.ops-list-item strong{
+      display:block;
+      color:#fff;
+      font-size:18px;
+      line-height:1.4;
+      font-weight:950;
+      word-break:break-word;
+    }
+
+    .debug-health-card.good strong{color:#86efac}
+    .debug-health-card.warn strong{color:#fde68a}
+    .debug-health-card.bad strong{color:#fca5a5}
+    .debug-health-card.live strong{color:#7dd3fc}
+
+    .debug-filter{
+      display:flex;
+      gap:9px;
+      flex-wrap:wrap;
+    }
+
+    .debug-filter-btn{
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.10);
+      color:#dbeafe;
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:950;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .debug-filter-btn.active,.debug-filter-btn:hover{
+      background:#fff;
+      color:#082033;
+    }
+
+    .debug-games-list{display:grid;gap:14px}
+
+    .debug-game-card{
+      padding:18px;
+      border-radius:24px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+    }
+
+    .debug-game-card.good{border-color:rgba(34,197,94,.30)}
+    .debug-game-card.warn{border-color:rgba(245,158,11,.36)}
+    .debug-game-card.bad{border-color:rgba(239,68,68,.40)}
+
+    .debug-game-top{
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      align-items:flex-start;
+      margin-bottom:14px;
+    }
+
+    .debug-game-title{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+      color:#fff;
+      font-size:17px;
+      font-weight:950;
+    }
+
+    .debug-game-meta{
+      margin-top:8px;
+      color:#b6c6d6;
+      font-size:13px;
+      line-height:1.6;
+      font-weight:800;
+    }
+
+    .debug-badge{
+      display:inline-flex;
+      padding:5px 9px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:950;
+    }
+
+    .debug-badge.good{background:rgba(34,197,94,.18);color:#86efac}
+    .debug-badge.warn{background:rgba(245,158,11,.18);color:#fde68a}
+    .debug-badge.bad{background:rgba(239,68,68,.18);color:#fca5a5}
+
+    .debug-game-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      justify-content:flex-end;
+    }
+
+    .debug-game-actions a{
+      display:inline-flex;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.14);
+      color:#fff;
+      font-weight:950;
+      text-decoration:none;
+    }
+
+    .debug-detail{
+      margin-top:14px;
+      border-radius:18px;
+      background:rgba(2,6,23,.28);
+      border:1px solid rgba(255,255,255,.10);
+      padding:12px 14px;
+      color:#dbeafe;
+    }
+
+    .debug-detail summary{cursor:pointer;font-weight:950}
+    .debug-detail li{margin:8px 0;color:#cbd5e1;line-height:1.6}
+
+    .debug-empty{
+      padding:28px;
+      border-radius:24px;
+      border:1px dashed rgba(255,255,255,.22);
+      background:rgba(255,255,255,.06);
+      color:#cbd5e1;
+      font-weight:900;
+      text-align:center;
+      line-height:1.7;
+    }
+
+    .debug-empty.bad{border-color:rgba(239,68,68,.4);color:#fca5a5}
+
+    .ops-list{display:grid;gap:10px}
+    .ops-list-item{display:flex;justify-content:space-between;gap:12px;align-items:center}
+    .ops-list-item strong{text-align:right}
+
+    .ops-pre{
+      margin:0;
+      max-height:360px;
+      overflow:auto;
+      padding:16px;
+      border-radius:20px;
+      background:#020617;
+      color:#d1fae5;
+      border:1px solid rgba(255,255,255,.12);
+      font-size:12px;
+      line-height:1.7;
+      white-space:pre-wrap;
+      word-break:break-word;
+    }
+
+    .muted{color:#9fb1c4!important;line-height:1.7;font-weight:750}
+
+    @media(max-width:1100px){
+      .ops-hero,.ops-layout{grid-template-columns:1fr}
+      .ops-side{position:static}
+      .ops-grid,.debug-source-grid,.debug-health-grid,.debug-stat-grid{grid-template-columns:repeat(2,1fr)}
+    }
+
+    @media(max-width:680px){
+      .ops-hero,.ops-shell{padding-left:14px;padding-right:14px}
+      .ops-hero h1{font-size:38px}
+      .ops-grid,.debug-source-grid,.debug-health-grid,.debug-stat-grid{grid-template-columns:1fr}
+      .debug-game-top,.ops-section-title,.ops-status-panel{display:block}
+      .debug-game-actions,.ops-status-panel small{margin-top:12px}
+    }
+  </style>
+</head>
+
+<body data-page="admin-live-debug">
+
+<nav class="nav">
+  <div class="nav-left">
+    <a class="brand" href="index.html">CPBL</a>
+    <a class="nav-link" href="index.html">首頁</a>
+    <a class="nav-link active" href="schedule.html">賽程</a>
+    <a class="nav-link" href="standings.html">戰績</a>
+    <a class="nav-link" href="teams.html">球隊</a>
+    <a class="nav-link" href="rules.html">棒球規則</a>
+    <a class="nav-link" href="game-day.html">今日戰情</a>
+    <a class="nav-link" href="version.html">版本</a>
+  </div>
+  
+</nav>
+
+<header class="ops-hero">
+  <div>
+    <p class="ops-eyebrow">Ray's CPBL Admin Tool｜v5.1.5-ADMIN-OPS-CENTER</p>
+    <h1>Admin Ops Center</h1>
+    <p class="ops-subtitle" id="debugHeaderSub">
+      從 LIVE Debug 升級成系統維運總控台：監控 live-boxscore、賽前資料、人工修正、快訊與今日場次健康狀態。
+    </p>
+
+    <div class="ops-actions">
+      <a href="schedule.html">返回賽程</a>
+      <a href="data-quality.html">資料品質中心</a>
+      <a href="game-day.html">今日戰情中心</a>
+      <a href="admin-manual-override.html">Override 管理</a>
+      <button id="btnReloadDebug" type="button">重新載入</button>
+    </div>
+  </div>
+
+  <aside class="ops-hero-panel">
+    <span>Operations Mode</span>
+    <strong id="opsOverallStatus">載入中</strong>
+    <p id="opsOverallMessage">正在讀取本機資料與檢查系統狀態。</p>
+  </aside>
+</header>
+
+<main class="ops-shell">
+
+  <section class="ops-status-panel">
+    <div>
+      <span class="ops-status-dot warn" id="opsStatusDot"></span>
+      <strong id="opsStatusTitle">正在讀取資料...</strong>
+    </div>
+    <small id="opsStatusDetail">讀取 live-boxscore / pregame / probable / league-news / manual override。</small>
+  </section>
+
+  <section class="ops-grid">
+    <article class="ops-kpi">
+      <span>總場次</span>
+      <strong id="debugTotalGames">—</strong>
+      <small>live-boxscore.json</small>
+    </article>
+
+    <article class="ops-kpi">
+      <span>今日場次</span>
+      <strong id="debugTodayGames">—</strong>
+      <small id="opsTodayHint">依台北日期判斷</small>
+    </article>
+
+    <article class="ops-kpi">
+      <span>Manual Override</span>
+      <strong id="opsOverrideCount">—</strong>
+      <small>data/manual/manual-boxscore-overrides.json</small>
+    </article>
+
+    <article class="ops-kpi">
+      <span>最後讀取</span>
+      <strong id="debugLastLoad">—</strong>
+      <small>瀏覽器端即時讀取</small>
+    </article>
+  </section>
+
+  <section class="ops-layout">
+
+    <div>
+      <section class="ops-card">
+        <div class="ops-section-title">
+          <div>
+            <p class="ops-eyebrow">Source Health</p>
+            <h2>資料來源狀態</h2>
+          </div>
+          <small>讀得到就顯示，讀不到不炸頁面。</small>
+        </div>
+
+        <div class="debug-source-grid">
+          <div class="debug-source-item">
+            <span>主要資料</span>
+            <strong id="opsLiveSource">讀取中</strong>
+          </div>
+
+          <div class="debug-source-item">
+            <span>賽前資料</span>
+            <strong id="opsPregameSource">讀取中</strong>
+          </div>
+
+          <div class="debug-source-item">
+            <span>預告先發</span>
+            <strong id="opsProbableSource">讀取中</strong>
+          </div>
+
+          <div class="debug-source-item">
+            <span>快訊資料</span>
+            <strong id="opsNewsSource">讀取中</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="ops-card">
+        <div class="ops-section-title">
+          <div>
+            <p class="ops-eyebrow">System Health</p>
+            <h2>系統健康檢查</h2>
+          </div>
+          <small>Debug 判斷只作為開發檢查，不代表官方資料一定錯。</small>
+        </div>
+
+        <div class="debug-health-grid">
+          <div class="debug-health-card good">
+            <span>正常</span>
+            <strong id="debugGoodCount">0</strong>
+          </div>
+
+          <div class="debug-health-card warn">
+            <span>警告</span>
+            <strong id="debugWarnCount">0</strong>
+          </div>
+
+          <div class="debug-health-card bad">
+            <span>錯誤</span>
+            <strong id="debugBadCount">0</strong>
+          </div>
+
+          <div class="debug-health-card live">
+            <span>LIVE</span>
+            <strong id="debugLiveCount">0</strong>
+          </div>
+        </div>
+
+        <p class="muted" id="debugHealthHint">
+          scheduled 場次允許沒有打者 / 投手 / 逐局；LIVE / FINAL 會加強檢查 boxscore 欄位。
+        </p>
+      </section>
+
+      <section class="ops-card">
+        <div class="ops-section-title">
+          <div>
+            <p class="ops-eyebrow">Game Monitor</p>
+            <h2>場次總覽</h2>
+          </div>
+
+          <div class="debug-filter">
+            <button class="debug-filter-btn active" data-filter="all" type="button">全部</button>
+            <button class="debug-filter-btn" data-filter="today" type="button">今日</button>
+            <button class="debug-filter-btn" data-filter="live" type="button">LIVE</button>
+            <button class="debug-filter-btn" data-filter="final" type="button">FINAL</button>
+            <button class="debug-filter-btn" data-filter="problem" type="button">有問題</button>
+            <button class="debug-filter-btn" data-filter="override" type="button">Override</button>
+          </div>
+        </div>
+
+        <div id="debugGamesList" class="debug-games-list">
+          載入中…
+        </div>
+      </section>
+    </div>
+
+    <aside class="ops-side">
+      <section class="ops-card">
+        <div class="ops-section-title">
+          <div>
+            <p class="ops-eyebrow">Today Snapshot</p>
+            <h2>今日摘要</h2>
+          </div>
+        </div>
+
+        <div class="ops-list">
+          <div class="ops-list-item"><span>PREGAME 場次</span><strong id="opsPregameCount">—</strong></div>
+          <div class="ops-list-item"><span>Probable 先發筆數</span><strong id="opsProbableCount">—</strong></div>
+          <div class="ops-list-item"><span>League News</span><strong id="opsNewsCount">—</strong></div>
+          <div class="ops-list-item"><span>FINAL 場次</span><strong id="opsFinalCount">—</strong></div>
+          <div class="ops-list-item"><span>Scheduled 場次</span><strong id="opsScheduledCount">—</strong></div>
+        </div>
+      </section>
+
+      <section class="ops-card">
+        <div class="ops-section-title">
+          <div>
+            <p class="ops-eyebrow">Quick Links</p>
+            <h2>維運入口</h2>
+          </div>
+        </div>
+
+        <div class="ops-mini-actions">
+          <a href="data/live/live-boxscore.json" target="_blank">live-boxscore</a>
+          <a href="data/live/pregame-today.json" target="_blank">pregame-today</a>
+          <a href="data/live/probable-pitchers.json" target="_blank">probable</a>
+          <a href="data/live/league-news.json" target="_blank">league-news</a>
+          <a href="data/manual/manual-boxscore-overrides.json" target="_blank">manual overrides</a>
+        </div>
+
+        <p class="muted">
+          備份資料夾與 logs 目錄通常無法由瀏覽器直接列目錄；若未來有需要，可以再用 Node 產生 index JSON。
+        </p>
+      </section>
+
+      <section class="ops-card">
+        <div class="ops-section-title">
+          <div>
+            <p class="ops-eyebrow">Raw Ops Summary</p>
+            <h2>讀取摘要</h2>
+          </div>
+        </div>
+
+        <pre class="ops-pre" id="opsRawSummary">載入中…</pre>
+      </section>
+    </aside>
+
+  </section>
+
+</main>
+
+<footer>
+  © 2026 CPBL Data Site ｜ <span class="site-version"></span> ｜ 明叡 × ChatGPT
+</footer>
+
+<script src="js/pages/admin-live-debug.js"></script>
+<script src="js/version.js"></script>
+
+</body>
+</html>

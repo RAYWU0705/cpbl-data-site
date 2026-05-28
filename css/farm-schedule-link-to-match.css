@@ -1,0 +1,24 @@
+/* =========================================================
+   Ray's CPBL Data Site
+   farm-schedule-link-to-match.css
+   v5.2.1-FARM-SCHEDULE-LINK-TO-MATCH
+   可選：讓二軍賽程卡片看起來可點擊
+========================================================= */
+
+body[data-page="farm-schedule"] .farm-game-card[data-match-url] {
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+body[data-page="farm-schedule"] .farm-game-card[data-match-url]:hover,
+body[data-page="farm-schedule"] .farm-game-card[data-match-url]:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 46px rgba(0,0,0,.24);
+  border-color: rgba(250,204,21,.55);
+  outline: none;
+}
+
+body[data-page="farm-schedule"] .farm-game-card[data-match-url] .farm-meta span:nth-child(3) {
+  color: #0f766e;
+  font-weight: 950;
+}

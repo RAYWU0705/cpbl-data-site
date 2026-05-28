@@ -1,0 +1,22 @@
+/* =========================================================
+   Ray's CPBL Data Site
+   teams.css
+   v5.1.0-TEAMS-CSS-SPLIT-STABLE
+
+   球隊系統 CSS 入口檔。
+   不再把 team.html / team-roster.html / team-stats.html
+   全部樣式塞在同一份檔案，避免互相覆蓋。
+========================================================= */
+
+@import url("./team-common.css");
+@import url("./team-home.css");
+@import url("./team-roster.css");
+@import url("./team-stats.css");
+
+/*
+  team-transactions.html 仍使用：
+  css/team-transactions.css
+
+  所以這裡不 import team-transactions.css，
+  避免異動頁樣式影響其他球隊頁。
+*/

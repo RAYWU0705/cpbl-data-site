@@ -1,0 +1,268 @@
+/* =========================================================
+   Ray's CPBL Data Site
+   farm-match.css
+   v5.3.5-FARM-MATCH-BOXSCORE-INTEGRATION
+
+   目的：
+   - 二軍比賽中心沿用一軍 match.html / match.css 的主要視覺
+   - 只補二軍旁路提示與少量相容樣式
+========================================================= */
+
+body[data-page="farm-match"] {
+  --primary: #0b3c5d;
+  --primary-dark: #082033;
+  --muted: #64748b;
+  --border: rgba(15,23,42,0.10);
+}
+
+/* 二軍頁也吃一軍 match.css 的 hero / card / match-hero 樣式 */
+body[data-page="farm-match"] .hero .muted {
+  font-weight: 900;
+}
+
+body[data-page="farm-match"] .hero-actions a,
+body[data-page="farm-match"] .hero-actions button {
+  cursor: pointer;
+}
+
+body[data-page="farm-match"] .match-hero::after {
+  content: "FARM";
+}
+
+/* 二軍資料品質 chip */
+body[data-page="farm-match"] .dq-chip-manual {
+  background: rgba(37,99,235,0.10);
+  color: #1d4ed8;
+}
+
+body[data-page="farm-match"] .dq-chip-warn {
+  background: rgba(245,158,11,0.12);
+  color: #b45309;
+}
+
+body[data-page="farm-match"] .dq-chip-good {
+  background: rgba(10,143,42,0.10);
+  color: #0a7a24;
+}
+
+body[data-page="farm-match"] .dq-chip-live {
+  background: rgba(239,68,68,0.12);
+  color: #b91c1c;
+}
+
+body[data-page="farm-match"] .dq-chip-final {
+  background: rgba(10,143,42,0.10);
+  color: #0a7a24;
+}
+
+body[data-page="farm-match"] .dq-chip-scheduled {
+  background: rgba(255,152,0,0.12);
+  color: #b45309;
+}
+
+/* 空資料提示，沿用一軍卡片視覺 */
+body[data-page="farm-match"] .empty-box,
+body[data-page="farm-match"] .starter-box {
+  padding: 22px;
+  border-radius: 22px;
+  background: rgba(11,60,93,0.05);
+  border: 1px solid rgba(11,60,93,0.08);
+  color: #475569;
+  font-size: 16px;
+  line-height: 1.8;
+  font-weight: 850;
+}
+
+body[data-page="farm-match"] .starter-box {
+  color: var(--primary);
+  font-weight: 950;
+}
+
+/* Raw 區塊保留開發用 */
+body[data-page="farm-match"] .farm-raw {
+  margin: 0;
+  max-height: 420px;
+  overflow: auto;
+  padding: 18px;
+  border-radius: 22px;
+  background: #020617;
+  color: #d1fae5;
+  border: 1px solid rgba(255,255,255,.12);
+  font-size: 13px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* 二軍 LIVE 面板：沒有 BSO / 壘包，不要讓它看起來像壞掉 */
+body[data-page="farm-match"] .live-status-panel:not(.is-live) .live-pill {
+  background: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.82);
+}
+
+body[data-page="farm-match"] #liveStatusHint {
+  margin-top: 18px;
+}
+
+/* 讓二軍頁小螢幕下與一軍一致 */
+@media (max-width: 720px) {
+  body[data-page="farm-match"] .hero-actions {
+    align-items: stretch;
+  }
+
+  body[data-page="farm-match"] .hero-actions a,
+  body[data-page="farm-match"] .hero-actions button {
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   v5.3.5 FARM MATCH BOXSCORE INTEGRATION
+   二軍比賽中心接入 farm-boxscore-2026.json
+========================================================= */
+
+body[data-page="farm-match"] .farm-boxscore-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 12px 0 18px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 950;
+  letter-spacing: .02em;
+  border: 1px solid rgba(15,23,42,0.08);
+}
+
+body[data-page="farm-match"] .farm-boxscore-badge.is-confirmed {
+  background: rgba(22,163,74,0.12);
+  color: #15803d;
+  border-color: rgba(22,163,74,0.22);
+}
+
+body[data-page="farm-match"] .farm-boxscore-badge.is-partial {
+  background: rgba(245,158,11,0.12);
+  color: #b45309;
+  border-color: rgba(245,158,11,0.22);
+}
+
+body[data-page="farm-match"] .farm-boxscore-badge.is-missing {
+  background: rgba(100,116,139,0.12);
+  color: #475569;
+  border-color: rgba(100,116,139,0.22);
+}
+
+body[data-page="farm-match"] .dq-chip-warn {
+  background: rgba(245,158,11,0.12);
+  color: #b45309;
+}
+
+body[data-page="farm-match"] .live-status-panel.has-boxscore {
+  box-shadow:
+    0 18px 45px rgba(15,23,42,0.14),
+    0 0 0 1px rgba(22,163,74,0.12) inset;
+}
+
+body[data-page="farm-match"] .farm-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(15,23,42,0.08);
+  background: rgba(255,255,255,0.72);
+}
+
+body[data-page="farm-match"] .farm-stat-table {
+  width: 100%;
+  min-width: 980px;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: 14px;
+}
+
+body[data-page="farm-match"] .farm-stat-table thead {
+  background:
+    linear-gradient(180deg, rgba(11,60,93,0.10), rgba(11,60,93,0.04));
+}
+
+body[data-page="farm-match"] .farm-stat-table th,
+body[data-page="farm-match"] .farm-stat-table td {
+  padding: 11px 10px;
+  border-bottom: 1px solid rgba(15,23,42,0.07);
+  white-space: nowrap;
+}
+
+body[data-page="farm-match"] .farm-stat-table th {
+  color: #0f172a;
+  font-weight: 950;
+}
+
+body[data-page="farm-match"] .farm-stat-table td {
+  color: #334155;
+  font-weight: 800;
+}
+
+body[data-page="farm-match"] .farm-stat-table .player-name {
+  text-align: left;
+  color: #0f172a;
+  font-weight: 950;
+}
+
+body[data-page="farm-match"] .farm-stat-table tbody tr:hover {
+  background: rgba(250,204,21,0.10);
+}
+
+body[data-page="farm-match"] .farm-stat-note {
+  margin-top: 12px;
+  font-weight: 850;
+}
+
+body[data-page="farm-match"] .farm-play-note {
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(22,163,74,0.10);
+  color: #166534;
+  font-weight: 900;
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+
+body[data-page="farm-match"] .farm-play-list {
+  display: grid;
+  gap: 10px;
+}
+
+body[data-page="farm-match"] .farm-play-item {
+  display: grid;
+  grid-template-columns: 90px minmax(90px, 140px) 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 15px;
+  border-radius: 18px;
+  background: rgba(15,23,42,0.045);
+  border: 1px solid rgba(15,23,42,0.06);
+}
+
+body[data-page="farm-match"] .farm-play-item span {
+  color: #64748b;
+  font-weight: 950;
+}
+
+body[data-page="farm-match"] .farm-play-item strong {
+  color: #0f172a;
+  font-weight: 950;
+}
+
+body[data-page="farm-match"] .farm-play-item em {
+  color: #334155;
+  font-style: normal;
+  font-weight: 850;
+}
+
+@media (max-width: 720px) {
+  body[data-page="farm-match"] .farm-play-item {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+}

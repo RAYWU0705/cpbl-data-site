@@ -1,0 +1,78 @@
+/* =========================================================
+FINAL fetch 接入新版 Manual Override：fetch-cpbl-final-today.js
+=========================================================
+
+你的 FINAL 檔其實已經有舊版 Manual Override v1：
+- MANUAL_OVERRIDE_FILE
+- ensureManualOverrideFile()
+- readManualOverrides()
+- applyManualOverride()
+- main() 裡也有 await ensureManualOverrideFile()、readManualOverrides()
+- createFinalGame 後也有 finalGame = applyManualOverride(finalGame, manualOverrides)
+
+但是舊版只吃 Object keyed 格式，不吃 admin-manual-override.html 產生的 Array 格式。
+
+建議最小改法：只改 readManualOverrides()，讓它支援 Array。
+
+------------------------------------------------------------
+把原本 readManualOverrides() 整段換成這段
+------------------------------------------------------------
+
+async function readManualOverrides() {
+  const raw = await readJsonFile(MANUAL_OVERRIDE_FILE, []);
+
+  if (Array.isArray(raw)) {
+    const map = {};
+
+    for (const item of raw) {
+      if (!item || typeof item !== "object") continue;
+
+      const gameSno = Number(item.gameSno || item.meta?.gameSno || 0);
+      const date = cleanOneLine(item.meta?.date || item.date || "");
+      const away = cleanOneLine(item.meta?.away || item.away || "");
+      const home = cleanOneLine(item.meta?.home || item.home || "");
+
+      const keys = [
+        item.key ? cleanOneLine(item.key) : "",
+        gameSno ? `${gameSno}` : "",
+        date && gameSno ? `${date}_${gameSno}` : "",
+        date && away && home ? `${date}_${away}_${home}` : ""
+      ].filter(Boolean);
+
+      for (const key of keys) {
+        map[key] = {
+          ...item,
+          reason: item.reason || item.override?.reason || "",
+          note: item.note || item.override?.note || ""
+        };
+      }
+    }
+
+    console.log(`🧰 人工修正：Array 格式 ${raw.length} 筆，展開為 ${Object.keys(map).length} 個 key`);
+    return map;
+  }
+
+  if (!raw || typeof raw !== "object") {
+    return {};
+  }
+
+  console.log(`🧰 人工修正：Object 格式 ${Object.keys(raw).length} 個 key`);
+  return raw;
+}
+
+
+------------------------------------------------------------
+另外建議把 ensureManualOverrideFile() 的預設內容改成 []
+------------------------------------------------------------
+
+原本：
+
+    await fs.writeFile(MANUAL_OVERRIDE_FILE, JSON.stringify({}, null, 2), "utf-8");
+
+改成：
+
+    await fs.writeFile(MANUAL_OVERRIDE_FILE, JSON.stringify([], null, 2), "utf-8");
+
+
+這樣就跟 admin-manual-override.html 的 Array 模式一致。
+*/

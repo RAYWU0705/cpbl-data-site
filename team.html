@@ -2,112 +2,97 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>CPBL 球隊總覽</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CPBL 球隊總覽｜Ray's CPBL Data Site</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body data-page="team">
 
 <nav class="nav">
   <div class="nav-inner">
-    <a class="brand" href="index.html">CPBL</a>
-    <a class="nav-link" href="index.html">首頁</a>
-    <a class="nav-link" href="schedule.html">賽程</a>
-    <a class="nav-link" href="standings.html">戰績</a>
-    <a class="nav-link active" href="teams.html">球隊</a>
-    <a class="nav-link" href="season.html">賽季</a>
-    
+
+    <div class="nav-left">
+      <a class="brand" href="index.html">CPBL</a>
+      <a class="nav-link" href="index.html">首頁</a>
+      <a class="nav-link" href="schedule.html">賽程</a>
+      <a class="nav-link" href="standings.html">戰績</a>
+      <a class="nav-link active" href="teams.html">球隊</a>
+      <a class="nav-link" href="rules.html">棒球規則</a>
+      <a class="nav-link" href="season.html">賽季</a>
+      <a class="nav-link" href="version.html">版本</a>
+      <a class="nav-link" href="about.html">網站介紹</a>
+    </div>
+
+    <div class="nav-teams" aria-label="球隊快速入口">
+      <a href="team.html?team=brothers"><img src="assets/logo/brothers.png" alt="中信兄弟"></a>
+      <a href="team.html?team=lions"><img src="assets/logo/lions.png" alt="統一7-ELEVEn獅"></a>
+      <a href="team.html?team=monkeys"><img src="assets/logo/monkeys.png" alt="樂天桃猿"></a>
+      <a href="team.html?team=dragons"><img src="assets/logo/dragons.png" alt="味全龍"></a>
+      <a href="team.html?team=guardians"><img src="assets/logo/guardians.png" alt="富邦悍將"></a>
+      <a href="team.html?team=hawks"><img src="assets/logo/hawks.png" alt="台鋼雄鷹"></a>
+    </div>
+
   </div>
 </nav>
 
-<header class="team-header">
-  <h1 id="pageTitle">球隊</h1>
-  <p id="pageSub">讀取中…</p>
+<header class="hero team-page-top">
+  <p class="muted">Ray's Unofficial CPBL Data Site</p>
+  <h1 id="pageTitle">球隊總覽</h1>
+  <p id="pageSub">Team Home · Schedule · Roster · Stats</p>
+
+  <div class="hero-actions">
+    <a href="teams.html">返回球隊列表</a>
+    <a id="heroScheduleLink" href="schedule.html">查看賽程</a>
+    <a id="heroRosterLink" href="team-roster.html">球隊名單</a>
+    <a id="heroStatsLink" href="team-stats.html">球隊分析</a>
+  </div>
 </header>
 
-<main>
-  <div class="team-theme-zone">
-    <div id="teamDetail">載入中…</div>
-  </div>
+<main class="container team-home-pro-page">
+
+  <section id="teamDetail">
+    <div class="team-home-loading">
+      <strong>載入球隊資料中…</strong>
+      <span>正在讀取 teams.json、live-boxscore 與賽程資料</span>
+    </div>
+  </section>
+
+  <section class="team-home-grid">
+
+    <article class="home-card team-home-section-card" id="nextGame">
+      <div class="team-section-head">
+        <div>
+          <span class="team-section-kicker">NEXT GAME</span>
+          <h2>📅 下一場比賽</h2>
+        </div>
+      </div>
+      <div class="next-content team-home-placeholder">載入中…</div>
+    </article>
+
+    <article class="home-card team-home-section-card" id="recentGames">
+      <div class="team-section-head">
+        <div>
+          <span class="team-section-kicker">RECENT FORM</span>
+          <h2>🕒 最近 5 場</h2>
+        </div>
+      </div>
+      <div class="next-content team-home-placeholder">載入中…</div>
+    </article>
+
+  </section>
+
 </main>
 
 <footer>
- © 2026 CPBL Data Site ｜ 
- <span class="site-version"></span> ｜ 
- 明叡 × ChatGPT
+  © 2026 CPBL Data Site ｜ 
+  <span class="site-version"></span> ｜ 
+  明叡 × ChatGPT
 </footer>
 
-
-<script>
-/* =========================
-   Team Page – Overview Only
-   ========================= */
-
-// 讀取 team 參數
-const params = new URLSearchParams(location.search);
-const teamId = params.get("team");
-const linkRoster = document.getElementById("linkRoster");
-const linkStats = document.getElementById("linkStats");
-const linkSchedule = document.getElementById("linkSchedule");
-
-if (teamId) {
-  if (linkRoster) linkRoster.href = `team-roster.html?team=${teamId}`;
-  if (linkStats) linkStats.href = `team-stats.html?team=${teamId}`;
-  if (linkSchedule) linkSchedule.href = `team-schedule.html?team=${teamId}`;
-}
-
-const pageTitle = document.getElementById("pageTitle");
-const pageSub   = document.getElementById("pageSub");
-const detailBox = document.getElementById("teamDetail");
-
-if (!teamId) {
-  detailBox.innerHTML = "<p style='color:red;'>缺少 team 參數</p>";
-  throw new Error("missing team");
-}
-
-// 載入球隊資料
-fetch("data/teams.json")
-  .then(r => r.json())
-  .then(teams => {
-    const team = teams.find(t => t.id === teamId);
-    if (!team) throw new Error("team not found");
-
-    pageTitle.textContent = team.name;
-    pageSub.textContent = `${team.city}｜${team.home}`;
-
-    // ⭐ 套用球隊主題 class（黃色邊框就是靠這個）
-    document.body.classList.add(`team-${team.id}`);
-
-    detailBox.innerHTML = `
-      <div class="team-detail-card">
-        <img src="assets/logo/${team.id}.png" class="team-logo-xl" alt="${team.name}">
-        <h2>${team.name}</h2>
-
-        <ul class="team-meta">
-          <li>📍 城市：${team.city}</li>
-          <li>🏟️ 主場：${team.home}</li>
-          <li>📅 成立：${team.founded}</li>
-        </ul>
-
-        <div class="team-btn-row">
-          <a class="team-btn" href="team-schedule.html?team=${team.id}">
-            📅 球隊賽程
-          </a>
-          <a class="team-btn" href="team-roster.html?team=${team.id}">
-            👥 教練 / 球員名單
-          </a>
-        </div>
-
-        <a class="back-link" href="teams.html">← 回球隊列表</a>
-      </div>
-    `;
-  })
-  .catch(err => {
-    console.error(err);
-    detailBox.innerHTML =
-      "<p style='color:red;'>球隊資料載入失敗</p>";
-  });
-</script>
+<script src="js/team-theme.js"></script>
+<script src="js/pages/team.js"></script>
 <script src="js/version.js"></script>
 
 </body>

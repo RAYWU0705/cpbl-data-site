@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>網站介紹｜Ray's CPBL Data Site</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/about.css">
+</head>
+
+<body data-page="about">
+
+<nav class="nav">
+  <div class="nav-inner">
+
+    <div class="nav-left">
+      <a class="brand" href="index.html">CPBL</a>
+      <a class="nav-link" href="index.html">首頁</a>
+      <a class="nav-link" href="schedule.html">賽程</a>
+      <a class="nav-link" href="standings.html">戰績</a>
+      <a class="nav-link" href="teams.html">球隊</a>
+      <a class="nav-link" href="rules.html">棒球規則</a>
+      <a class="nav-link" href="season.html">賽季</a>
+      <a class="nav-link" href="version.html">版本</a>
+      <a class="nav-link active" href="about.html">網站介紹</a>
+    </div>
+
+    <div class="nav-teams" aria-label="球隊快速入口">
+      <a href="team.html?team=brothers"><img src="assets/logo/brothers.png" alt="中信兄弟"></a>
+      <a href="team.html?team=lions"><img src="assets/logo/lions.png" alt="統一7-ELEVEn獅"></a>
+      <a href="team.html?team=monkeys"><img src="assets/logo/monkeys.png" alt="樂天桃猿"></a>
+      <a href="team.html?team=dragons"><img src="assets/logo/dragons.png" alt="味全龍"></a>
+      <a href="team.html?team=guardians"><img src="assets/logo/guardians.png" alt="富邦悍將"></a>
+      <a href="team.html?team=hawks"><img src="assets/logo/hawks.png" alt="台鋼雄鷹"></a>
+    </div>
+
+  </div>
+</nav>
+
+<header class="hero about-hero">
+  <p class="muted">Ray's Unofficial CPBL Data Site</p>
+  <h1>網站介紹</h1>
+  <p>一個以中華職棒資料整理、即時比分、比賽中心與球隊資訊為核心的非官方數據網站。</p>
+
+  <div class="hero-actions">
+    <a href="index.html">進入首頁</a>
+    <a href="match.html">Match Center</a>
+    <a href="farm-schedule.html">二軍賽程</a>
+    <a href="teams.html">查看球隊</a>
+    <a href="version.html">版本紀錄</a>
+  </div>
+
+  <p class="muted">Data Reliability · Live Boxscore · Team System · Match Center · Farm Sidepath</p>
+</header>
+
+<main class="container about-container">
+
+  <section class="about-lead-card">
+    <div class="about-lead-main">
+      <span class="about-kicker">ABOUT THIS SITE</span>
+      <h2>Ray's CPBL Data Site 在做什麼？</h2>
+      <p>
+        Ray's CPBL Data Site 是一個中華職棒非官方資料網站，目標是把賽程、比分、比賽中心、球隊名單、
+        球隊分析、球員異動與資料品質狀態整合在同一個網站裡。網站不是單純複製官方資料，
+        而是嘗試把資料整理成更容易閱讀、比較與追蹤的形式。
+      </p>
+    </div>
+
+    <div class="about-lead-badge">
+      <strong>v5.2</strong>
+      <span>Farm Sidepath Era</span>
+    </div>
+  </section>
+
+  <section class="about-grid-4">
+    <article class="about-feature-card">
+      <div class="about-icon">📅</div>
+      <h3>賽程與比分</h3>
+      <p>整理每日賽程、比賽狀態、比分、R/H/E、逐局比分與無比賽日提示，讓使用者快速掌握今天中職在打什麼。</p>
+    </article>
+
+    <article class="about-feature-card">
+      <div class="about-icon">🏟️</div>
+      <h3>Match Center</h3>
+      <p>整合單場比賽資訊，包含賽前先發、LIVE 戰況、打者投手成績、勝敗救、MVP 與資料品質狀態。</p>
+    </article>
+
+    <article class="about-feature-card">
+      <div class="about-icon">🧢</div>
+      <h3>球隊系統</h3>
+      <p>提供球隊總覽、球隊名單、球隊分析、球員異動與隊伍專屬賽程入口，讓球迷可以用球隊視角瀏覽資料。</p>
+    </article>
+
+    <article class="about-feature-card farm-feature-card">
+      <div class="about-icon">🌱</div>
+      <h3>二軍旁路系統</h3>
+      <p>二軍賽程與二軍比賽中心採獨立資料流，讀取 data/farm，不混入一軍 live-boxscore 主流程。</p>
+    </article>
+  </section>
+
+  <section class="home-card about-section-card">
+    <div class="section-title-row">
+      <div>
+        <span class="about-kicker">CORE FEATURES</span>
+        <h2>核心功能</h2>
+      </div>
+      <span class="about-pill">目前主線</span>
+    </div>
+
+    <div class="about-feature-list">
+      <div class="about-feature-row">
+        <strong>首頁比分橫條</strong>
+        <span>每日顯示比賽，無比賽日顯示「本日尚無比賽」。</span>
+      </div>
+
+      <div class="about-feature-row">
+        <strong>賽前資料</strong>
+        <span>抓取預告先發、先發打序狀態，並在資料未同步時清楚提示。</span>
+      </div>
+
+      <div class="about-feature-row">
+        <strong>LIVE 比賽資料</strong>
+        <span>支援即時比分、R/H/E、逐局、雙隊打者投手成績與 liveState 偵測。</span>
+      </div>
+
+      <div class="about-feature-row">
+        <strong>FINAL 資料鎖定</strong>
+        <span>比賽結束後寫入 finalLock，避免賽後資料被 LIVE 或 PREGAME 流程覆蓋。</span>
+      </div>
+
+      <div class="about-feature-row">
+        <strong>資料品質狀態</strong>
+        <span>以 confirmed、partial、debug 等狀態標示資料是否完整，避免錯資料被當成完整資料。</span>
+      </div>
+
+      <div class="about-feature-row">
+        <strong>人工修正層</strong>
+        <span>當爬蟲資料異常時，可透過 manual override 補正重要欄位。</span>
+      </div>
+
+      <div class="about-feature-row">
+        <strong>二軍賽程旁路</strong>
+        <span>二軍資料獨立寫入 data/farm/farm-schedule-2026.json，不污染一軍 live-boxscore.json。</span>
+      </div>
+
+      <div class="about-feature-row">
+        <strong>二軍比賽中心</strong>
+        <span>二軍單場頁沿用一軍 Match Center 視覺，但不補假逐局、假打者或假投手表。</span>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="home-card about-section-card about-farm-card">
+    <div class="section-title-row">
+      <div>
+        <span class="about-kicker">FARM SIDEPATH</span>
+        <h2>二軍旁路資料系統</h2>
+      </div>
+      <span class="about-pill farm-pill">v5.2 新增</span>
+    </div>
+
+    <div class="about-report-box farm-report-box">
+      <p>
+        從 v5.2 開始，網站加入二軍賽程與二軍比賽中心，但二軍資料沒有直接混入一軍主流程。
+        這條線採用旁路設計：官方二軍賽程經由獨立爬蟲整理後，寫入 <code>data/farm/farm-schedule-2026.json</code>，
+        再由 <code>farm-schedule.html</code> 與 <code>farm-match.html</code> 讀取。
+      </p>
+
+      <p>
+        這樣做的好處是，一軍的 PREGAME、LIVE、FINAL、finalLock、recentFinalGuard 與 live-boxscore.json
+        不會被二軍資料污染。二軍比賽中心可以使用一軍 Match Center 的視覺語言，但資料仍保持獨立、可檢查、可回滾。
+      </p>
+    </div>
+
+    <div class="about-farm-flow">
+      <div>
+        <b>1</b>
+        <strong>二軍爬蟲</strong>
+        <span>scripts/fetch-cpbl-farm-schedule-static.js</span>
+      </div>
+
+      <div>
+        <b>2</b>
+        <strong>旁路資料</strong>
+        <span>data/farm/farm-schedule-2026.json</span>
+      </div>
+
+      <div>
+        <b>3</b>
+        <strong>二軍賽程頁</strong>
+        <span>farm-schedule.html，可篩選、下載 CSV、點入比賽中心。</span>
+      </div>
+
+      <div>
+        <b>4</b>
+        <strong>二軍比賽中心</strong>
+        <span>farm-match.html，沿用一軍風格，但不顯示假 boxscore。</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-grid-2">
+    <article class="home-card about-section-card">
+      <span class="about-kicker">DATA PIPELINE</span>
+      <h2>資料更新流程</h2>
+
+      <div class="about-flow">
+        <div>
+          <b>1</b>
+          <span>PREGAME</span>
+          <p>賽前賽程、預告先發、先發打序。</p>
+        </div>
+
+        <div>
+          <b>2</b>
+          <span>LIVE</span>
+          <p>比賽中比分、R/H/E、逐局、打者投手與即時狀態。</p>
+        </div>
+
+        <div>
+          <b>3</b>
+          <span>FINAL</span>
+          <p>賽後完整成績、勝敗救、MVP、finalLock。</p>
+        </div>
+
+        <div>
+          <b>4</b>
+          <span>FARM</span>
+          <p>二軍賽程旁路與二軍比賽中心。</p>
+        </div>
+
+        <div>
+          <b>5</b>
+          <span>NEWS</span>
+          <p>聯盟快訊與首頁摘要資料。</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="home-card about-section-card">
+      <span class="about-kicker">WHY DIFFERENT</span>
+      <h2>跟一般比分網站差在哪？</h2>
+
+      <ul class="about-check-list">
+        <li>不只顯示比分，也顯示資料品質。</li>
+        <li>遇到官方資料不同步時，不硬顯示錯資料。</li>
+        <li>支援 stats fallback 與 recentFinalGuard，提高近期資料穩定度。</li>
+        <li>比賽中心會依賽前、LIVE、FINAL 狀態切換顯示內容。</li>
+        <li>球隊系統整合名單、分析、異動與賽程入口。</li>
+        <li>二軍資料採旁路架構，擴充功能時不污染一軍主資料。</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="home-card about-section-card">
+    <div class="section-title-row">
+      <div>
+        <span class="about-kicker">REPORT TALKING POINTS</span>
+        <h2>報告時可以怎麼介紹？</h2>
+      </div>
+      <span class="about-pill">簡報重點</span>
+    </div>
+
+    <div class="about-report-box">
+      <p>
+        這個網站的核心目標，是建立一個能長期維護的中華職棒資料系統。它不只是把官方資料爬下來，
+        還加入資料品質檢查、失敗保護、備份、finalLock、recentFinalGuard、stats fallback 與人工修正層。
+        也就是說，當資料來源不穩定時，網站仍能盡量維持正確、可讀與可追蹤。
+      </p>
+
+      <p>
+        目前網站已經包含首頁比分橫條、賽程中心、二軍賽程、戰績、球隊系統、一軍 / 二軍 Match Center、版本紀錄與資料更新流程。
+        未來可以在穩定資料基礎上，繼續加入二軍 boxscore 旁路、勝敗預測、球隊趨勢分析、AI 戰況摘要與維護助理。
+      </p>
+    </div>
+  </section>
+
+  <section class="about-grid-3 about-link-grid">
+    <a class="about-link-card" href="index.html">
+      <strong>首頁</strong>
+      <span>今日賽程、比分橫條、快訊與入口</span>
+    </a>
+
+    <a class="about-link-card" href="schedule.html">
+      <strong>一軍賽程中心</strong>
+      <span>列表、月曆、球隊與場地篩選</span>
+    </a>
+
+    <a class="about-link-card farm-link-card" href="farm-schedule.html">
+      <strong>二軍賽程</strong>
+      <span>旁路資料、二軍賽程篩選與二軍比賽中心入口</span>
+    </a>
+
+    <a class="about-link-card" href="teams.html">
+      <strong>球隊系統</strong>
+      <span>球隊總覽、名單、分析與異動</span>
+    </a>
+
+    <a class="about-link-card" href="match.html">
+      <strong>一軍 Match Center</strong>
+      <span>單場比賽中心與資料品質狀態</span>
+    </a>
+
+    <a class="about-link-card farm-link-card" href="farm-match.html">
+      <strong>二軍比賽中心</strong>
+      <span>沿用一軍風格，讀取二軍旁路 schedule raw</span>
+    </a>
+
+    <a class="about-link-card" href="version.html">
+      <strong>版本紀錄</strong>
+      <span>網站演進與穩定化紀錄</span>
+    </a>
+
+    <a class="about-link-card" href="standings.html">
+      <strong>戰績排行</strong>
+      <span>球隊戰績與排名資料</span>
+    </a>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 CPBL Data Site ｜
+  <span class="site-version"></span> ｜
+  明叡 × ChatGPT
+</footer>
+
+<script src="js/version.js"></script>
+
+</body>
+</html>

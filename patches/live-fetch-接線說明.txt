@@ -1,0 +1,66 @@
+/* =========================================================
+LIVE fetch 接入 Manual Override：fetch-cpbl-live-today.js / fetch-cpbl-live-inplay-today.js
+=========================================================
+
+你的 LIVE 檔目前會建立 merged 後直接 updatedMap.set(gameSno, merged)。
+請照下面三個位置改。
+
+------------------------------------------------------------
+① 檔案最上方 import 區，加這段
+------------------------------------------------------------
+
+import {
+  ensureManualOverrideFile as ensureManualOverrideFileV2,
+  readManualOverrides as readManualOverridesV2,
+  applyManualOverrideToGame as applyManualOverrideToGameV2
+} from "./lib/manual-overrides.js";
+
+
+------------------------------------------------------------
+② main() 裡，進入 try 後，讀 schedule 前加這段
+------------------------------------------------------------
+
+    await ensureManualOverrideFileV2(path.join(__dirname, ".."));
+    const manualOverrides = await readManualOverridesV2(path.join(__dirname, ".."));
+
+
+你原本大概長這樣：
+
+  try {
+    const scheduleGames = await discoverTodayGamesFromScheduleApi(browser, today);
+
+改成：
+
+  try {
+    await ensureManualOverrideFileV2(path.join(__dirname, ".."));
+    const manualOverrides = await readManualOverridesV2(path.join(__dirname, ".."));
+
+    const scheduleGames = await discoverTodayGamesFromScheduleApi(browser, today);
+
+
+------------------------------------------------------------
+③ for 迴圈裡，把 merged 改成 let，並在 set 前套用
+------------------------------------------------------------
+
+你原本大概是：
+
+      const merged = createOrMergeGame(oldGame, game, liveCard, detailBundle);
+
+      updatedMap.set(gameSno, merged);
+      updatedCount++;
+
+改成：
+
+      let merged = createOrMergeGame(oldGame, game, liveCard, detailBundle);
+
+      merged = applyManualOverrideToGameV2(merged, manualOverrides, {
+        stage: "live",
+        logPrefix: "LIVE"
+      });
+
+      updatedMap.set(gameSno, merged);
+      updatedCount++;
+
+這樣 LIVE 只會在「已合併完成、準備寫入前」套用人工修正。
+不會污染 parser，也不會改爬蟲邏輯。
+*/

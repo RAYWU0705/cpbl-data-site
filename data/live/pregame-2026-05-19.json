@@ -1,0 +1,134 @@
+[
+  {
+    "gameSno": 108,
+    "sourceStage": "pregame",
+    "meta": {
+      "date": "2026-05-19",
+      "home": "味全龍",
+      "away": "台鋼雄鷹",
+      "status": "scheduled",
+      "statusText": "比賽尚未開始",
+      "type": "regular",
+      "typeText": "一軍例行賽",
+      "time": "18:35",
+      "duration": "",
+      "venue": "花蓮",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?year=2026&kindCode=A&gameSno=108",
+      "urlMode": "pregame",
+      "win": null,
+      "lose": null,
+      "save": null,
+      "mvp": null
+    },
+    "lineScore": {
+      "away": [],
+      "home": []
+    },
+    "totals": {
+      "away": {
+        "R": 0,
+        "H": null,
+        "E": null
+      },
+      "home": {
+        "R": 0,
+        "H": null,
+        "E": null
+      }
+    },
+    "batters": {
+      "away": [],
+      "home": []
+    },
+    "pitchers": {
+      "away": [],
+      "home": []
+    },
+    "pregame": {
+      "starters": {
+        "away": "黃子鵬",
+        "home": "蔣銲"
+      },
+      "lineups": {
+        "away": [],
+        "home": []
+      }
+    },
+    "liveState": null,
+    "debug": {
+      "source": "fetch-cpbl-pregame-today",
+      "scheduleRaw": {
+        "PresentStatus": 1,
+        "IsGameStop": "0",
+        "GameDateTimeS": "2026-05-19T18:35:00",
+        "GameDateTimeE": null,
+        "GameDuringTime": "",
+        "MultyGame": "N",
+        "Year": "2026",
+        "KindCode": "A",
+        "GameSeasonCode": "1",
+        "GameSno": 108,
+        "GameDate": "2026-05-19T00:00:00",
+        "GameResult": "",
+        "PreExeDate": "2026-05-19T18:35:00",
+        "VisitingTeamCode": "AKP011",
+        "VisitingTeamName": "台鋼雄鷹",
+        "HomeTeamCode": "AAA011",
+        "HomeTeamName": "味全龍",
+        "FieldAbbe": "花蓮",
+        "VisitingScore": 0,
+        "HomeScore": 0,
+        "MvpAcnt": "",
+        "MvpCount": null,
+        "VisitingPitcherAcnt": "0000002274",
+        "HomePitcherAcnt": "0000007779",
+        "WinningPitcherAcnt": "",
+        "LoserPitcherAcnt": "",
+        "CloserAcnt": "",
+        "VisitingClubSmallImgPath": "/files/atts/0M259522048557486065/單色T-100x100.png",
+        "HomeClubSmallImgPath": "/files/atts/0L021497845061333235/logo_dragon.png",
+        "WinningPitcherName": "",
+        "LoserPitcherName": "",
+        "CloserName": "",
+        "MvpName": "",
+        "VisitingPitcherName": "",
+        "HomePitcherName": "",
+        "IsPlayBall": "N",
+        "ReserveDate": null
+      },
+      "homeCard": {
+        "gameSno": 108,
+        "awayStarter": "黃子鵬",
+        "homeStarter": "蔣銲",
+        "lineups": {
+          "away": [],
+          "home": []
+        },
+        "foundCard": true,
+        "source": "official-home-score-strip-body-fallback+official-home-game-card",
+        "debugText": "108 18-16-1 VS. 21-13-0 花蓮 18:35 陰 攝氏25至26度 降雨機率0% 客場先發 黃子鵬 主場先發 蔣銲 售票資訊 ",
+        "debugLines": [
+          "108 18-16-1 VS. 21-13-0 花蓮 18:35 陰 攝氏25至26度 降雨機率0% 客場先發 黃子鵬 主場先發 蔣銲 售票資訊"
+        ],
+        "cardRect": null,
+        "scoreStripCandidates": []
+      },
+      "beforeGameStart": true,
+      "parserMode": "v5.0-3-PREGAME-STABLE",
+      "updatedAt": "2026-05-18T06:27:10.085Z"
+    },
+    "dataQuality": {
+      "version": "v5.0-3-PREGAME-STABLE",
+      "source": "fetch-cpbl-pregame-today",
+      "stage": "pregame",
+      "schedule": "confirmed",
+      "starters": "confirmed",
+      "lineups": "debug",
+      "liveSafe": "confirmed",
+      "finalSafe": "confirmed",
+      "mode": "pregame-safe-parser",
+      "message": "PREGAME 安全模式：只更新 scheduled / pregame 區塊，不覆蓋 LIVE / FINAL 狀態。",
+      "updatedAt": "2026-05-18T06:27:10.085Z"
+    }
+  }
+]

@@ -2,122 +2,465 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <title>CPBL 球隊賽程</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CPBL 球隊賽程｜Ray's CPBL Data Site</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
+
+<body data-page="team-schedule">
 
 <nav class="nav">
   <div class="nav-inner">
-    <a class="brand" href="index.html">CPBL</a>
-    <a class="nav-link" href="index.html">首頁</a>
-    <a class="nav-link" href="schedule.html">賽程</a>
-    <a class="nav-link" href="standings.html">戰績</a>
-    <a class="nav-link active" href="teams.html">球隊</a>
-    <a class="nav-link" href="season.html">賽季</a>
+    <div class="nav-left">
+      <a class="brand" href="index.html">CPBL</a>
+      <a class="nav-link" href="index.html">首頁</a>
+      <a class="nav-link active" href="schedule.html">賽程</a>
+      <a class="nav-link" href="standings.html">戰績</a>
+      <a class="nav-link" href="teams.html">球隊</a>
+      <a class="nav-link" href="rules.html">棒球規則</a>
+      <a class="nav-link" href="game-day.html">今日戰情</a>
+      <a class="nav-link" href="version.html">版本</a>
+    </div>
+
+    <div class="nav-teams" aria-label="球隊快速入口">
+      <a href="team.html?team=brothers"><img src="assets/logo/brothers.png" alt="中信兄弟"></a>
+      <a href="team.html?team=lions"><img src="assets/logo/lions.png" alt="統一7-ELEVEn獅"></a>
+      <a href="team.html?team=monkeys"><img src="assets/logo/monkeys.png" alt="樂天桃猿"></a>
+      <a href="team.html?team=dragons"><img src="assets/logo/dragons.png" alt="味全龍"></a>
+      <a href="team.html?team=guardians"><img src="assets/logo/guardians.png" alt="富邦悍將"></a>
+      <a href="team.html?team=hawks"><img src="assets/logo/hawks.png" alt="台鋼雄鷹"></a>
+    </div>
   </div>
 </nav>
 
 <header class="hero">
+  <p class="muted">Ray's Unofficial CPBL Data Site</p>
   <h1 id="teamTitle">球隊賽程</h1>
   <p class="muted" id="teamSub">載入中…</p>
+
+  <div class="hero-actions">
+    <a id="backTeamLink" href="teams.html">返回球隊列表</a>
+    <a id="teamHomeLink" href="teams.html">球隊總覽</a>
+    <a href="schedule.html">完整賽程</a>
+    <a href="index.html">回首頁</a>
+  </div>
+
+  <p class="muted">Team Schedule · Monthly Games · Match Center</p>
 </header>
 
-<main>
-  <section class="home-grid" style="grid-template-columns: 1fr;">
-    <div class="home-card primary">
-      <h2>📅 本隊賽程</h2>
-      <div id="teamScheduleList" class="muted">載入中…</div>
+<main class="container">
+
+  <section class="home-card team-detail-card">
+    <div class="section-title-row">
+      <div>
+        <h2>📅 本隊賽程</h2>
+        <p class="muted" id="scheduleHint">讀取 2026 年賽程資料中…</p>
+      </div>
+
+      <div id="scheduleCountBadge" class="muted">—</div>
     </div>
+
+    <div id="teamScheduleList" class="roster-list">載入中…</div>
   </section>
+
 </main>
 
 <footer>
- © 2026 CPBL Data Site ｜ 
- <span class="site-version"></span> ｜ 
- 明叡 × ChatGPT
+  © 2026 CPBL Data Site ｜
+  <span class="site-version"></span> ｜
+  明叡 × ChatGPT
 </footer>
 
-
 <script>
-  const params = new URLSearchParams(location.search);
-  const team = params.get("team");
+/* =========================================================
+   Ray's CPBL Data Site
+   team-schedule.html
+   v5.0.6-TEAM-SCHEDULE-FIX
+========================================================= */
 
-  const TEAM_NAME_MAP = {
-    brothers: "中信兄弟",
-    lions: "統一7-ELEVEn獅",
-    monkeys: "樂天桃猿",
-    dragons: "味全龍",
-    guardians: "富邦悍將",
-    hawks: "台鋼雄鷹",
-    // 若你有明星賽隊名也可加：
-    // taiwan: "台灣隊",
-    // allstar: "明星隊"
-  };
+const params = new URLSearchParams(location.search);
+const team = cleanText(params.get("team"));
 
-  const titleEl = document.getElementById("teamTitle");
-  const subEl = document.getElementById("teamSub");
-  const listEl = document.getElementById("teamScheduleList");
+const TEAM_NAME_MAP = {
+  brothers: "中信兄弟",
+  lions: "統一7-ELEVEn獅",
+  monkeys: "樂天桃猿",
+  dragons: "味全龍",
+  guardians: "富邦悍將",
+  hawks: "台鋼雄鷹"
+};
 
-  if (!team) {
-    titleEl.textContent = "球隊賽程";
-    subEl.textContent = "缺少 team 參數";
-    listEl.textContent = "請從球隊頁進入";
-    throw new Error("missing team");
-  }
+const TEAM_ID_BY_NAME = {
+  "中信兄弟": "brothers",
+  "統一7-ELEVEn獅": "lions",
+  "樂天桃猿": "monkeys",
+  "味全龍": "dragons",
+  "富邦悍將": "guardians",
+  "台鋼雄鷹": "hawks"
+};
 
-  const teamName = TEAM_NAME_MAP[team] || team;
-  titleEl.textContent = `${teamName}｜球隊賽程`;
-  subEl.textContent = `team=${team}`;
+const TEAM_COLOR = {
+  brothers: "#f6c400",
+  lions: "#f26b21",
+  monkeys: "#8a1538",
+  dragons: "#c8102e",
+  guardians: "#0047ab",
+  hawks: "#007f7a"
+};
 
-  const months = [
-    "2026-03","2026-04","2026-05","2026-06",
-    "2026-07","2026-08"
-  ];
+const MONTHS = [
+  "2026-03",
+  "2026-04",
+  "2026-05",
+  "2026-06",
+  "2026-07",
+  "2026-08",
+  "2026-09",
+  "2026-10",
+  "2026-11"
+];
 
-  Promise.all(
-    months.map(m =>
-      fetch(`data/schedule-${m}.json`)
-        .then(r => r.ok ? r.json() : [])
-        .catch(() => [])
-    )
-  ).then(results => {
-    const games = results.flat();
+const titleEl = document.getElementById("teamTitle");
+const subEl = document.getElementById("teamSub");
+const listEl = document.getElementById("teamScheduleList");
+const hintEl = document.getElementById("scheduleHint");
+const countBadge = document.getElementById("scheduleCountBadge");
+const backTeamLink = document.getElementById("backTeamLink");
+const teamHomeLink = document.getElementById("teamHomeLink");
 
-    // 篩出「有本隊」的比賽（teams 用中文/英文都能吃）
-    const teamGames = games.filter(g => {
-      const h = g.teams?.home;
-      const a = g.teams?.away;
-      return h === team || a === team || h === teamName || a === teamName;
-    });
+initTeamSchedule();
 
-    if (!teamGames.length) {
-      listEl.textContent = "這個月份範圍內找不到本隊賽程";
+async function initTeamSchedule() {
+  try {
+    if (!team) {
+      showMissingTeam();
       return;
     }
 
-    teamGames.sort((x,y) => x.date.localeCompare(y.date));
+    const teamName = TEAM_NAME_MAP[team] || team;
+    const teamId = TEAM_NAME_MAP[team] ? team : TEAM_ID_BY_NAME[teamName];
 
-    listEl.innerHTML = teamGames.map(g => {
-      const home = g.teams?.home ?? "—";
-      const away = g.teams?.away ?? "—";
-      const time = g.time ?? "時間未定";
-      const status = g.type === "exhibition" ? "熱身賽" : (g.type === "allstar" ? "明星賽" : "例行賽");
+    titleEl.textContent = `${teamName}｜球隊賽程`;
+    subEl.textContent = `Team Schedule｜${teamId || team}`;
 
-      return `
-        <div class="mini-game-card" style="margin:10px 0;">
-          <div><strong>📅 ${g.date}</strong>（${status}）</div>
-          <div>⚔️ ${away} vs ${home}</div>
-          <div>⏰ ${time}</div>
-          <a class="card-link" href="schedule.html?date=${g.date}">👉 查看當日賽程</a>
-        </div>
-      `;
-    }).join("");
-  }).catch(err => {
-    console.error(err);
-    listEl.textContent = "賽程載入失敗";
-  });
+    if (teamId) {
+      document.body.style.setProperty("--team-color", TEAM_COLOR[teamId] || "#0b3c5d");
+      backTeamLink.href = `team.html?team=${encodeURIComponent(teamId)}`;
+      backTeamLink.textContent = "返回球隊總覽";
+      teamHomeLink.href = `team.html?team=${encodeURIComponent(teamId)}`;
+    }
+
+    const games = await loadScheduleMonths();
+    const normalizedGames = games.map(normalizeGame).filter(Boolean);
+
+    const teamGames = normalizedGames
+      .filter(g => isTeamGame(g, team, teamName, teamId))
+      .sort((a, b) => {
+        const d = String(a.date).localeCompare(String(b.date));
+        if (d !== 0) return d;
+        return String(a.time || "").localeCompare(String(b.time || ""));
+      });
+
+    renderSchedule(teamGames, teamName, teamId);
+
+  } catch (err) {
+    console.error("❌ 球隊賽程載入失敗：", err);
+    listEl.innerHTML = `
+      <div class="empty-box">
+        賽程載入失敗，請查看 Console。
+      </div>
+    `;
+  }
+}
+
+function showMissingTeam() {
+  titleEl.textContent = "球隊賽程";
+  subEl.textContent = "缺少 team 參數";
+  listEl.innerHTML = `
+    <div class="empty-box">
+      請從球隊頁進入，例如：team-schedule.html?team=brothers
+    </div>
+  `;
+}
+
+async function loadScheduleMonths() {
+  const results = await Promise.all(
+    MONTHS.map(month =>
+      fetch(`data/schedule-${month}.json?ts=${Date.now()}`)
+        .then(res => res.ok ? res.json() : [])
+        .catch(() => [])
+    )
+  );
+
+  return results.flatMap(toArray);
+}
+
+function toArray(data) {
+  if (Array.isArray(data)) return data;
+  if (Array.isArray(data?.games)) return data.games;
+  if (Array.isArray(data?.data)) return data.data;
+  if (Array.isArray(data?.items)) return data.items;
+
+  if (data && typeof data === "object") {
+    return Object.values(data).filter(v => v && typeof v === "object");
+  }
+
+  return [];
+}
+
+function normalizeGame(raw) {
+  if (!raw || typeof raw !== "object") return null;
+
+  const homeRaw =
+    raw.teams?.home ??
+    raw.home ??
+    raw.homeTeam ??
+    raw.meta?.home ??
+    raw.HomeTeamName ??
+    "";
+
+  const awayRaw =
+    raw.teams?.away ??
+    raw.away ??
+    raw.awayTeam ??
+    raw.meta?.away ??
+    raw.AwayTeamName ??
+    "";
+
+  const home = normalizeTeamValue(homeRaw);
+  const away = normalizeTeamValue(awayRaw);
+
+  return {
+    raw,
+    gameSno: raw.gameSno ?? raw.game_no ?? raw.gameNo ?? raw.id ?? raw.meta?.gameSno ?? "",
+    date: cleanText(raw.date ?? raw.gameDate ?? raw.GameDate ?? raw.meta?.date),
+    time: cleanText(raw.time ?? raw.gameTime ?? raw.GameTime ?? raw.meta?.time),
+    venue: cleanText(raw.venue ?? raw.stadium ?? raw.place ?? raw.meta?.venue),
+    type: cleanText(raw.type ?? raw.kind ?? raw.meta?.type ?? "regular"),
+    status: cleanText(raw.status ?? raw.gameStatus ?? raw.meta?.status ?? raw.meta?.statusText),
+    home,
+    away,
+    homeId: toTeamId(home),
+    awayId: toTeamId(away)
+  };
+}
+
+function normalizeTeamValue(value) {
+  const s = cleanText(value);
+
+  if (!s) return "";
+
+  if (TEAM_NAME_MAP[s]) return TEAM_NAME_MAP[s];
+
+  return s;
+}
+
+function toTeamId(value) {
+  const s = cleanText(value);
+
+  if (!s) return "";
+
+  if (TEAM_NAME_MAP[s]) return s;
+  if (TEAM_ID_BY_NAME[s]) return TEAM_ID_BY_NAME[s];
+
+  return s;
+}
+
+function isTeamGame(game, rawTeam, teamName, teamId) {
+  const candidates = new Set([
+    rawTeam,
+    teamName,
+    teamId
+  ].map(cleanText).filter(Boolean));
+
+  const homeCandidates = [
+    game.home,
+    game.homeId,
+    game.raw?.home,
+    game.raw?.teams?.home,
+    game.raw?.meta?.home
+  ].map(v => normalizeTeamValue(v)).map(cleanText);
+
+  const awayCandidates = [
+    game.away,
+    game.awayId,
+    game.raw?.away,
+    game.raw?.teams?.away,
+    game.raw?.meta?.away
+  ].map(v => normalizeTeamValue(v)).map(cleanText);
+
+  return [...homeCandidates, ...awayCandidates].some(v => candidates.has(v));
+}
+
+function renderSchedule(games, teamName, teamId) {
+  if (!games.length) {
+    if (hintEl) hintEl.textContent = "目前資料範圍內找不到本隊賽程。";
+    if (countBadge) countBadge.textContent = "0 場";
+
+    listEl.innerHTML = `
+      <div class="empty-box">
+        這個資料範圍內找不到 ${escapeHtml(teamName)} 的賽程。
+      </div>
+    `;
+    return;
+  }
+
+  const today = getTodayString();
+  const upcoming = games.filter(g => g.date >= today).length;
+  const finished = games.filter(g => g.date < today).length;
+
+  if (hintEl) {
+    hintEl.textContent = `共 ${games.length} 場｜未來 ${upcoming} 場｜已過去 ${finished} 場`;
+  }
+
+  if (countBadge) {
+    countBadge.textContent = `${games.length} 場`;
+  }
+
+  const grouped = groupByMonth(games);
+
+  listEl.innerHTML = Object.entries(grouped).map(([month, monthGames]) => `
+    <section class="team-schedule-month">
+      <div class="team-schedule-month-head">
+        <h3>${escapeHtml(month)}</h3>
+        <span>${monthGames.length} 場</span>
+      </div>
+
+      <div class="team-schedule-grid">
+        ${monthGames.map(g => renderGameCard(g, teamName, teamId)).join("")}
+      </div>
+    </section>
+  `).join("");
+}
+
+function groupByMonth(games) {
+  return games.reduce((acc, game) => {
+    const month = String(game.date || "").slice(0, 7) || "日期未定";
+    if (!acc[month]) acc[month] = [];
+    acc[month].push(game);
+    return acc;
+  }, {});
+}
+
+function renderGameCard(game, teamName, teamId) {
+  const isHome = sameTeam(game.home, teamName) || sameTeam(game.homeId, teamId);
+  const isAway = sameTeam(game.away, teamName) || sameTeam(game.awayId, teamId);
+
+  const sideText = isHome ? "主場" : isAway ? "客場" : "出賽";
+  const opponent = isHome ? game.away : game.home;
+
+  const statusText = getGameStatusText(game);
+  const typeText = getTypeText(game.type);
+
+  const matchUrl = buildMatchUrl(game);
+
+  return `
+    <article class="team-schedule-card ${isHome ? "is-home" : "is-away"}">
+      <div class="team-schedule-card-top">
+        <span class="team-schedule-side">${escapeHtml(sideText)}</span>
+        <span class="team-schedule-status">${escapeHtml(statusText)}</span>
+      </div>
+
+      <div class="team-schedule-date">
+        <strong>${escapeHtml(game.date || "日期未定")}</strong>
+        <span>${escapeHtml(game.time || "時間未定")}</span>
+      </div>
+
+      <div class="team-schedule-matchup">
+        <span class="${isAway ? "focus-team" : ""}">${escapeHtml(game.away || "客隊")}</span>
+        <b>vs</b>
+        <span class="${isHome ? "focus-team" : ""}">${escapeHtml(game.home || "主隊")}</span>
+      </div>
+
+      <div class="team-schedule-meta">
+        <span>🏟 ${escapeHtml(game.venue || "球場待定")}</span>
+        <span>🏷 ${escapeHtml(typeText)}</span>
+        <span>⚔️ 對手：${escapeHtml(opponent || "—")}</span>
+      </div>
+
+      <div class="team-schedule-actions">
+        <a class="card-link" href="schedule.html?date=${encodeURIComponent(game.date)}">當日賽程</a>
+        ${
+          game.gameSno
+            ? `<a class="card-link" href="${matchUrl}">比賽中心</a>`
+            : ""
+        }
+      </div>
+    </article>
+  `;
+}
+
+function buildMatchUrl(game) {
+  if (game.gameSno) {
+    return `match.html?gameSno=${encodeURIComponent(game.gameSno)}`;
+  }
+
+  return `match.html?date=${encodeURIComponent(game.date)}&home=${encodeURIComponent(game.home)}&away=${encodeURIComponent(game.away)}`;
+}
+
+function getGameStatusText(game) {
+  const s = cleanText(game.status);
+
+  if (/結束|final|finished/i.test(s)) return "已結束";
+  if (/比賽中|live|進行中/i.test(s)) return "LIVE";
+  if (/延賽/.test(s)) return "延賽";
+  if (/取消/.test(s)) return "取消";
+  if (/保留/.test(s)) return "保留";
+  if (/尚未|未開始|scheduled|pregame/i.test(s)) return "未開打";
+
+  return s || "未開打";
+}
+
+function getTypeText(type) {
+  const t = cleanText(type).toLowerCase();
+
+  if (t === "exhibition") return "熱身賽";
+  if (t === "allstar") return "明星賽";
+  if (t === "playoff") return "季後賽";
+  if (t === "championship") return "總冠軍賽";
+  if (t === "minor") return "二軍賽";
+
+  return "例行賽";
+}
+
+function sameTeam(a, b) {
+  if (!a || !b) return false;
+
+  const aa = cleanTeam(a);
+  const bb = cleanTeam(b);
+
+  return aa === bb;
+}
+
+function cleanTeam(value) {
+  return cleanText(value)
+    .replace(/\s+/g, "")
+    .replace(/7-ELEVEn/gi, "7-ELEVEn");
+}
+
+function getTodayString() {
+  const now = new Date();
+  const yyyy = now.getFullYear();
+  const mm = String(now.getMonth() + 1).padStart(2, "0");
+  const dd = String(now.getDate()).padStart(2, "0");
+
+  return `${yyyy}-${mm}-${dd}`;
+}
+
+function cleanText(value) {
+  return String(value ?? "").trim();
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
 </script>
+
 <script src="js/version.js"></script>
 
 </body>

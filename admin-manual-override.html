@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manual Override 管理頁｜Ray's CPBL Data Site</title>
+  <link rel="stylesheet" href="css/admin-manual-override.css" />
+</head>
+<body data-page="admin-manual-override">
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a class="brand" href="index.html">CPBL</a>
+      <a class="nav-link" href="index.html">首頁</a>
+      <a class="nav-link active" href="schedule.html">賽程</a>
+      <a class="nav-link" href="standings.html">戰績</a>
+      <a class="nav-link" href="teams.html">球隊</a>
+      <a class="nav-link" href="rules.html">棒球規則</a>
+      <a class="nav-link" href="game-day.html">今日戰情</a>
+      <a class="nav-link" href="version.html">版本</a>
+    </div>
+    <div class="nav-teams" aria-label="球隊快速入口">
+      <a href="team.html?team=brothers"><img src="assets/logo/brothers.png" alt="中信兄弟"></a>
+      <a href="team.html?team=lions"><img src="assets/logo/lions.png" alt="統一7-ELEVEn獅"></a>
+      <a href="team.html?team=monkeys"><img src="assets/logo/monkeys.png" alt="樂天桃猿"></a>
+      <a href="team.html?team=dragons"><img src="assets/logo/dragons.png" alt="味全龍"></a>
+      <a href="team.html?team=guardians"><img src="assets/logo/guardians.png" alt="富邦悍將"></a>
+      <a href="team.html?team=hawks"><img src="assets/logo/hawks.png" alt="台鋼雄鷹"></a>
+    </div>
+  </div>
+</nav>
+<header class="admin-hero">
+  <div class="admin-hero-main">
+    <p class="eyebrow">Ray's CPBL Data Site｜v5.1.4-SIDELOAD</p>
+    <h1>Manual Override 管理頁</h1>
+    <p class="subtitle">旁路 JSON 產生器：用來產生 <code>data/manual/manual-boxscore-overrides.json</code> 的修正片段。本頁不會直接寫檔、不會修改 fetch 主流程。</p>
+    <div class="hero-actions">
+      <a href="index.html">回首頁</a><a href="data-quality.html">資料品質中心</a><a href="game-day.html">今日戰情中心</a><a href="teams-dashboard.html">球隊資料總覽</a>
+    </div>
+  </div>
+  <div class="admin-hero-panel"><span>Override Mode</span><strong>JSON Generator</strong><p>安全產生修正片段，手動複製進 manual-boxscore-overrides.json。</p></div>
+</header>
+<main class="admin-shell">
+  <section class="status-panel"><div><span class="status-dot"></span><strong>Manual Override Generator 已就緒</strong></div><small>只產生 JSON，不寫入檔案、不污染主資料。</small></section>
+  <section class="layout-grid">
+    <form class="panel form-panel" id="overrideForm">
+      <div class="section-title"><div><p class="eyebrow">Override Input</p><h2>建立修正片段</h2></div><small>欄位留空會自動略過，不產生空值。</small></div>
+      <div class="form-grid">
+        <label><span>gameSno</span><input id="gameSno" type="number" min="1" placeholder="例如：102" required></label>
+        <label><span>日期</span><input id="date" type="date"></label>
+        <label><span>客隊</span><select id="away"><option value="">不修正</option><option>中信兄弟</option><option>統一7-ELEVEn獅</option><option>樂天桃猿</option><option>味全龍</option><option>富邦悍將</option><option>台鋼雄鷹</option></select></label>
+        <label><span>主隊</span><select id="home"><option value="">不修正</option><option>中信兄弟</option><option>統一7-ELEVEn獅</option><option>樂天桃猿</option><option>味全龍</option><option>富邦悍將</option><option>台鋼雄鷹</option></select></label>
+        <label><span>狀態</span><select id="status"><option value="">不修正</option><option value="pregame">pregame</option><option value="live">live</option><option value="final">final</option><option value="postponed">postponed</option><option value="cancelled">cancelled</option></select></label>
+        <label><span>狀態文字</span><input id="statusText" type="text" placeholder="例如：比賽結束"></label>
+        <label><span>球場</span><input id="venue" type="text" placeholder="例如：新莊"></label>
+        <label><span>開賽時間</span><input id="time" type="time"></label>
+      </div>
+      <div class="score-box"><h3>比分 / RHE</h3><div class="score-grid">
+        <label><span>客隊 R</span><input id="awayR" type="number" min="0"></label><label><span>客隊 H</span><input id="awayH" type="number" min="0"></label><label><span>客隊 E</span><input id="awayE" type="number" min="0"></label>
+        <label><span>主隊 R</span><input id="homeR" type="number" min="0"></label><label><span>主隊 H</span><input id="homeH" type="number" min="0"></label><label><span>主隊 E</span><input id="homeE" type="number" min="0"></label>
+      </div></div>
+      <div class="score-box"><h3>勝敗救 / MVP</h3><div class="form-grid">
+        <label><span>勝投</span><input id="win" type="text" placeholder="例如：羅戈"></label><label><span>敗投</span><input id="lose" type="text"></label><label><span>救援成功</span><input id="save" type="text"></label><label><span>MVP</span><input id="mvp" type="text"></label><label><span>比賽時間</span><input id="duration" type="text" placeholder="例如：3H12M"></label><label><span>官方網址</span><input id="officialUrl" type="url" placeholder="https://www.cpbl.com.tw/..."></label>
+      </div></div>
+      <div class="score-box"><h3>手動鎖定 / 品質註記</h3><div class="check-row"><label class="check"><input id="finalLock" type="checkbox"><span>finalLock：強制視為 FINAL</span></label><label class="check"><input id="manualOverride" type="checkbox" checked><span>manualOverride：標記為人工修正</span></label></div><label class="full"><span>修正原因</span><textarea id="reason" rows="3" placeholder="例如：官方 boxscore gameSno 對錯、比分資料延遲、FINAL 狀態誤判..."></textarea></label><label class="full"><span>備註</span><textarea id="note" rows="3" placeholder="給未來的自己看的備註，不影響資料解析。"></textarea></label></div>
+      <div class="button-row"><button type="submit">產生 JSON</button><button type="button" class="secondary" id="btnReset">清空</button><button type="button" class="secondary" id="btnExample">載入範例</button></div>
+    </form>
+    <section class="panel output-panel"><div class="section-title"><div><p class="eyebrow">Generated JSON</p><h2>產生結果</h2></div><small>複製後貼到 manual-boxscore-overrides.json。</small></div><div class="output-actions"><button id="btnCopy" type="button">複製 JSON</button><button id="btnDownload" type="button">下載片段</button><button id="btnWrapArray" type="button">切換 Array / Object</button></div><pre id="output">{}</pre><div class="guide-box"><h3>建議儲存位置</h3><code>data/manual/manual-boxscore-overrides.json</code><p>本頁只負責產生片段。你可以先存成單筆物件，或用 Array 模式累積多筆修正。</p></div><div class="guide-box warning"><h3>安全原則</h3><p>不直接寫檔、不碰 fetch 主流程。等你確認 JSON 沒問題後，再手動放進 manual override 檔案。</p></div></section>
+  </section>
+</main>
+<footer>© 2026 CPBL Data Site ｜ Manual Override Generator ｜ 明叡 × ChatGPT</footer>
+<script src="js/admin-manual-override.js"></script>
+</body>
+</html>

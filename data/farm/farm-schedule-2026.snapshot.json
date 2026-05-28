@@ -1,0 +1,4284 @@
+{
+  "meta": {
+    "version": "v5.2.3-FARM-SCHEDULE-WORKFLOW-STABLE",
+    "year": 2026,
+    "kindCode": "D",
+    "source": "cpbl-official-schedule",
+    "sourceUrl": "https://www.cpbl.com.tw/schedule",
+    "generatedAt": "2026-05-28T05:48:00.984Z",
+    "total": 249,
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "statusCount": {
+      "final": 85,
+      "scheduled": 164
+    },
+    "dataFlow": {
+      "lane": "farm-sidepath",
+      "writeTarget": "data/farm/farm-schedule-2026.json",
+      "doesNotTouch": [
+        "data/live/live-boxscore.json",
+        "scripts/update-all.js",
+        "一軍 PREGAME / LIVE / FINAL 主流程"
+      ]
+    },
+    "statusRules": [
+      "IsPlayBall === \"Y\" → live",
+      "GameDateTimeE 或 GameDuringTime 有值 → final",
+      "0:0 不自動判 final",
+      "IsDelay / 延賽 → postponed",
+      "IsCancel / 取消 → cancelled"
+    ]
+  },
+  "statusCount": {
+    "final": 85,
+    "scheduled": 164
+  },
+  "games": [
+    {
+      "gameSno": "1",
+      "date": "2026-03-26",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "final",
+      "score": {
+        "away": 1,
+        "home": 4
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-03-26T16:31:00",
+      "GameDuringTime": "022700",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=1&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "2",
+      "date": "2026-03-26",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "final",
+      "score": {
+        "away": 4,
+        "home": 1
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-03-26T16:41:00",
+      "GameDuringTime": "023600",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=2&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "3",
+      "date": "2026-03-27",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "final",
+      "score": {
+        "away": 3,
+        "home": 7
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-03-27T16:50:00",
+      "GameDuringTime": "024600",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=3&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "4",
+      "date": "2026-03-27",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "final",
+      "score": {
+        "away": 5,
+        "home": 4
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-03-27T17:22:00",
+      "GameDuringTime": "031700",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=4&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "5",
+      "date": "2026-03-31",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "富邦悍將二軍",
+      "venue": "亞太副",
+      "status": "final",
+      "score": {
+        "away": 4,
+        "home": 4
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-03-31T17:06:00",
+      "GameDuringTime": "030100",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=5&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "6",
+      "date": "2026-03-31",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "final",
+      "score": {
+        "away": 3,
+        "home": 4
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-03-31T16:29:00",
+      "GameDuringTime": "022400",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=6&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "7",
+      "date": "2026-04-01",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "富邦悍將二軍",
+      "venue": "亞太副",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=7&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "8",
+      "date": "2026-04-01",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=8&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "9",
+      "date": "2026-04-02",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "final",
+      "score": {
+        "away": 2,
+        "home": 1
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-02T16:46:00",
+      "GameDuringTime": "024000",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=9&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "10",
+      "date": "2026-04-02",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "final",
+      "score": {
+        "away": 4,
+        "home": 5
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-02T16:51:00",
+      "GameDuringTime": "024700",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=10&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "11",
+      "date": "2026-04-03",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "final",
+      "score": {
+        "away": 7,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-03T17:15:00",
+      "GameDuringTime": "031000",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=11&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "12",
+      "date": "2026-04-03",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "final",
+      "score": {
+        "away": 6,
+        "home": 7
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-03T17:21:00",
+      "GameDuringTime": "031600",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=12&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "13",
+      "date": "2026-04-04",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=13&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "14",
+      "date": "2026-04-04",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=14&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "15",
+      "date": "2026-04-05",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "final",
+      "score": {
+        "away": 0,
+        "home": 10
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-05T16:31:00",
+      "GameDuringTime": "022700",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=15&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "16",
+      "date": "2026-04-07",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "final",
+      "score": {
+        "away": 10,
+        "home": 7
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-07T17:23:00",
+      "GameDuringTime": "031900",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=16&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "17",
+      "date": "2026-04-07",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "final",
+      "score": {
+        "away": 0,
+        "home": 5
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-07T16:30:00",
+      "GameDuringTime": "022600",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=17&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "18",
+      "date": "2026-04-08",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "final",
+      "score": {
+        "away": 4,
+        "home": 6
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-08T17:00:00",
+      "GameDuringTime": "025500",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=18&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "19",
+      "date": "2026-04-08",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "final",
+      "score": {
+        "away": 2,
+        "home": 1
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-08T16:32:00",
+      "GameDuringTime": "022700",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=19&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "20",
+      "date": "2026-04-09",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "final",
+      "score": {
+        "away": 10,
+        "home": 2
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-09T16:59:00",
+      "GameDuringTime": "025400",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=20&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "21",
+      "date": "2026-04-09",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "final",
+      "score": {
+        "away": 6,
+        "home": 5
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-09T17:16:00",
+      "GameDuringTime": "031100",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=21&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "22",
+      "date": "2026-04-10",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "final",
+      "score": {
+        "away": 9,
+        "home": 7
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-10T17:27:00",
+      "GameDuringTime": "032200",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=22&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "23",
+      "date": "2026-04-10",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "final",
+      "score": {
+        "away": 1,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-10T16:28:00",
+      "GameDuringTime": "022300",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=23&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "24",
+      "date": "2026-04-11",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "final",
+      "score": {
+        "away": 9,
+        "home": 4
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-11T17:26:00",
+      "GameDuringTime": "032100",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=24&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "25",
+      "date": "2026-04-12",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "final",
+      "score": {
+        "away": 14,
+        "home": 4
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-12T17:45:00",
+      "GameDuringTime": "034000",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=25&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "26",
+      "date": "2026-04-14",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "final",
+      "score": {
+        "away": 9,
+        "home": 6
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-14T17:08:00",
+      "GameDuringTime": "030400",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=26&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "27",
+      "date": "2026-04-14",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "final",
+      "score": {
+        "away": 0,
+        "home": 5
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-14T16:53:00",
+      "GameDuringTime": "024800",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=27&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "28",
+      "date": "2026-04-15",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "final",
+      "score": {
+        "away": 20,
+        "home": 3
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-15T17:46:00",
+      "GameDuringTime": "034100",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=28&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "29",
+      "date": "2026-04-15",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "final",
+      "score": {
+        "away": 9,
+        "home": 2
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-15T17:06:00",
+      "GameDuringTime": "030000",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=29&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "30",
+      "date": "2026-04-16",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "final",
+      "score": {
+        "away": 3,
+        "home": 4
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-16T17:13:00",
+      "GameDuringTime": "030800",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=30&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "31",
+      "date": "2026-04-16",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "final",
+      "score": {
+        "away": 0,
+        "home": 13
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-16T17:29:00",
+      "GameDuringTime": "032400",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=31&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "32",
+      "date": "2026-04-17",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "樂天桃園",
+      "status": "final",
+      "score": {
+        "away": 9,
+        "home": 6
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-17T17:35:00",
+      "GameDuringTime": "033000",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=32&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "33",
+      "date": "2026-04-17",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "final",
+      "score": {
+        "away": 9,
+        "home": 2
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-17T17:27:00",
+      "GameDuringTime": "032300",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=33&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "34",
+      "date": "2026-04-18",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "final",
+      "score": {
+        "away": 7,
+        "home": 5
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-18T16:44:00",
+      "GameDuringTime": "023900",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=34&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "35",
+      "date": "2026-04-18",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "final",
+      "score": {
+        "away": 8,
+        "home": 15
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-18T17:55:00",
+      "GameDuringTime": "035000",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=35&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "7",
+      "date": "2026-04-19",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "富邦悍將二軍",
+      "venue": "亞太副",
+      "status": "final",
+      "score": {
+        "away": 6,
+        "home": 5
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-19T17:33:00",
+      "GameDuringTime": "032900",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=7&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "36",
+      "date": "2026-04-19",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "final",
+      "score": {
+        "away": 6,
+        "home": 7
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-19T17:14:00",
+      "GameDuringTime": "031000",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=36&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "37",
+      "date": "2026-04-21",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "final",
+      "score": {
+        "away": 1,
+        "home": 6
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-21T16:39:00",
+      "GameDuringTime": "023500",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=37&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "38",
+      "date": "2026-04-21",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "final",
+      "score": {
+        "away": 7,
+        "home": 5
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-21T17:34:00",
+      "GameDuringTime": "033000",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=38&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "39",
+      "date": "2026-04-22",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "final",
+      "score": {
+        "away": 4,
+        "home": 8
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-22T16:56:00",
+      "GameDuringTime": "025100",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=39&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "40",
+      "date": "2026-04-22",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "final",
+      "score": {
+        "away": 10,
+        "home": 7
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-22T17:11:00",
+      "GameDuringTime": "030600",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=40&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "41",
+      "date": "2026-04-23",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "final",
+      "score": {
+        "away": 1,
+        "home": 5
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-23T16:56:00",
+      "GameDuringTime": "025100",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=41&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "42",
+      "date": "2026-04-23",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "final",
+      "score": {
+        "away": 9,
+        "home": 4
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-23T17:37:00",
+      "GameDuringTime": "033200",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=42&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "43",
+      "date": "2026-04-24",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=43&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "44",
+      "date": "2026-04-24",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=44&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "45",
+      "date": "2026-04-25",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "final",
+      "score": {
+        "away": 2,
+        "home": 3
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-25T16:36:00",
+      "GameDuringTime": "023100",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=45&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "8",
+      "date": "2026-04-26",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "final",
+      "score": {
+        "away": 6,
+        "home": 1
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-26T16:51:00",
+      "GameDuringTime": "024600",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=8&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "46",
+      "date": "2026-04-26",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "final",
+      "score": {
+        "away": 6,
+        "home": 4
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-26T17:18:00",
+      "GameDuringTime": "031200",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=46&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "47",
+      "date": "2026-04-28",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "final",
+      "score": {
+        "away": 8,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-28T17:10:00",
+      "GameDuringTime": "030400",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=47&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "48",
+      "date": "2026-04-28",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "final",
+      "score": {
+        "away": 11,
+        "home": 7
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-28T17:43:00",
+      "GameDuringTime": "033800",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=48&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "49",
+      "date": "2026-04-29",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "樂天桃園",
+      "status": "final",
+      "score": {
+        "away": 3,
+        "home": 9
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-29T16:43:00",
+      "GameDuringTime": "023800",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=49&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "50",
+      "date": "2026-04-29",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "final",
+      "score": {
+        "away": 3,
+        "home": 4
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-04-29T16:44:00",
+      "GameDuringTime": "023900",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=50&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "51",
+      "date": "2026-04-30",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "樂天桃園",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=51&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "52",
+      "date": "2026-04-30",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=52&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "53",
+      "date": "2026-05-01",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "樂天桃園",
+      "status": "final",
+      "score": {
+        "away": 8,
+        "home": 2
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-01T16:52:00",
+      "GameDuringTime": "024700",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=53&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "54",
+      "date": "2026-05-01",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "final",
+      "score": {
+        "away": 2,
+        "home": 9
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-01T16:50:00",
+      "GameDuringTime": "024500",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=54&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "55",
+      "date": "2026-05-02",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "final",
+      "score": {
+        "away": 1,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-02T16:26:00",
+      "GameDuringTime": "022100",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=55&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "14",
+      "date": "2026-05-03",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "final",
+      "score": {
+        "away": 4,
+        "home": 5
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-03T17:03:00",
+      "GameDuringTime": "025700",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=14&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "56",
+      "date": "2026-05-03",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "final",
+      "score": {
+        "away": 0,
+        "home": 7
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-03T16:40:00",
+      "GameDuringTime": "023500",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=56&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "57",
+      "date": "2026-05-05",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "final",
+      "score": {
+        "away": 4,
+        "home": 10
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-05T17:13:00",
+      "GameDuringTime": "030800",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=57&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "58",
+      "date": "2026-05-05",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "final",
+      "score": {
+        "away": 4,
+        "home": 4
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-05T17:24:00",
+      "GameDuringTime": "031900",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=58&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "59",
+      "date": "2026-05-06",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "final",
+      "score": {
+        "away": 10,
+        "home": 1
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-06T17:47:00",
+      "GameDuringTime": "034300",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=59&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "60",
+      "date": "2026-05-06",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "final",
+      "score": {
+        "away": 3,
+        "home": 1
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-06T16:53:00",
+      "GameDuringTime": "024900",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=60&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "61",
+      "date": "2026-05-07",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "final",
+      "score": {
+        "away": 12,
+        "home": 6
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-07T17:01:00",
+      "GameDuringTime": "025600",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=61&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "62",
+      "date": "2026-05-07",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "final",
+      "score": {
+        "away": 9,
+        "home": 2
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-07T16:54:00",
+      "GameDuringTime": "024900",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=62&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "63",
+      "date": "2026-05-08",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "final",
+      "score": {
+        "away": 2,
+        "home": 8
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-08T17:01:00",
+      "GameDuringTime": "025600",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=63&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "64",
+      "date": "2026-05-08",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "final",
+      "score": {
+        "away": 3,
+        "home": 6
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-08T16:46:00",
+      "GameDuringTime": "024100",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=64&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "65",
+      "date": "2026-05-09",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "final",
+      "score": {
+        "away": 3,
+        "home": 3
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-09T17:19:00",
+      "GameDuringTime": "031400",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=65&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "43",
+      "date": "2026-05-10",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "final",
+      "score": {
+        "away": 7,
+        "home": 5
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-10T17:20:00",
+      "GameDuringTime": "031600",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=43&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "66",
+      "date": "2026-05-10",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "final",
+      "score": {
+        "away": 2,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-10T16:43:00",
+      "GameDuringTime": "023900",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=66&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "67",
+      "date": "2026-05-12",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "final",
+      "score": {
+        "away": 4,
+        "home": 1
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-12T17:15:00",
+      "GameDuringTime": "031000",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=67&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "68",
+      "date": "2026-05-12",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "final",
+      "score": {
+        "away": 5,
+        "home": 8
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-12T17:14:00",
+      "GameDuringTime": "031000",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=68&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "69",
+      "date": "2026-05-13",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "final",
+      "score": {
+        "away": 4,
+        "home": 3
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-13T16:53:00",
+      "GameDuringTime": "024800",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=69&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "70",
+      "date": "2026-05-13",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "final",
+      "score": {
+        "away": 9,
+        "home": 5
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-13T17:16:00",
+      "GameDuringTime": "031200",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=70&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "71",
+      "date": "2026-05-14",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=71&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "72",
+      "date": "2026-05-14",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "final",
+      "score": {
+        "away": 9,
+        "home": 10
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-14T17:33:00",
+      "GameDuringTime": "032800",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=72&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "73",
+      "date": "2026-05-15",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "final",
+      "score": {
+        "away": 7,
+        "home": 6
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-15T17:45:00",
+      "GameDuringTime": "034000",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=73&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "74",
+      "date": "2026-05-15",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "final",
+      "score": {
+        "away": 1,
+        "home": 4
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-15T16:27:00",
+      "GameDuringTime": "022300",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=74&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "75",
+      "date": "2026-05-16",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "樂天桃園",
+      "status": "final",
+      "score": {
+        "away": 12,
+        "home": 3
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-16T17:38:00",
+      "GameDuringTime": "033300",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=75&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "76",
+      "date": "2026-05-17",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "final",
+      "score": {
+        "away": 6,
+        "home": 4
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-17T16:59:00",
+      "GameDuringTime": "025400",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=76&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "77",
+      "date": "2026-05-19",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "final",
+      "score": {
+        "away": 5,
+        "home": 1
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-19T16:38:00",
+      "GameDuringTime": "023300",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=77&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "78",
+      "date": "2026-05-19",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "final",
+      "score": {
+        "away": 5,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-19T16:44:00",
+      "GameDuringTime": "023900",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=78&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "79",
+      "date": "2026-05-20",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "final",
+      "score": {
+        "away": 3,
+        "home": 4
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-20T16:47:00",
+      "GameDuringTime": "024200",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=79&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "80",
+      "date": "2026-05-20",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "final",
+      "score": {
+        "away": 15,
+        "home": 4
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-20T16:51:00",
+      "GameDuringTime": "024600",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=80&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "81",
+      "date": "2026-05-21",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "final",
+      "score": {
+        "away": 10,
+        "home": 4
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-21T17:30:00",
+      "GameDuringTime": "032500",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=81&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "82",
+      "date": "2026-05-21",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "final",
+      "score": {
+        "away": 5,
+        "home": 1
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-21T16:59:00",
+      "GameDuringTime": "025400",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=82&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "83",
+      "date": "2026-05-22",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "final",
+      "score": {
+        "away": 5,
+        "home": 4
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-22T17:08:00",
+      "GameDuringTime": "030300",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=83&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "84",
+      "date": "2026-05-22",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "final",
+      "score": {
+        "away": 11,
+        "home": 3
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-22T17:39:00",
+      "GameDuringTime": "033400",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=84&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "85",
+      "date": "2026-05-23",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "final",
+      "score": {
+        "away": 7,
+        "home": 3
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-23T17:04:00",
+      "GameDuringTime": "025900",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=85&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "86",
+      "date": "2026-05-24",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "final",
+      "score": {
+        "away": 3,
+        "home": 3
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-24T17:22:00",
+      "GameDuringTime": "031700",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=86&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "87",
+      "date": "2026-05-26",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "final",
+      "score": {
+        "away": 14,
+        "home": 15
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-26T17:56:00",
+      "GameDuringTime": "035100",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=87&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "88",
+      "date": "2026-05-26",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "final",
+      "score": {
+        "away": 3,
+        "home": 5
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-26T16:47:00",
+      "GameDuringTime": "024200",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=88&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "89",
+      "date": "2026-05-27",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "final",
+      "score": {
+        "away": 4,
+        "home": 8
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-27T16:44:00",
+      "GameDuringTime": "023900",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=89&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "90",
+      "date": "2026-05-27",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "final",
+      "score": {
+        "away": 7,
+        "home": 13
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "2026-05-27T17:35:00",
+      "GameDuringTime": "033000",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=90&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "91",
+      "date": "2026-05-28",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=91&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "92",
+      "date": "2026-05-28",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=92&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "93",
+      "date": "2026-05-29",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=93&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "94",
+      "date": "2026-05-29",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=94&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "95",
+      "date": "2026-05-30",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=95&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "96",
+      "date": "2026-05-30",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=96&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "71",
+      "date": "2026-05-31",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=71&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "97",
+      "date": "2026-05-31",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=97&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "98",
+      "date": "2026-06-02",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=98&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "99",
+      "date": "2026-06-02",
+      "time": "16:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=99&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "100",
+      "date": "2026-06-03",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=100&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "101",
+      "date": "2026-06-03",
+      "time": "16:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=101&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "102",
+      "date": "2026-06-04",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=102&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "103",
+      "date": "2026-06-04",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=103&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "104",
+      "date": "2026-06-05",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=104&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "105",
+      "date": "2026-06-05",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=105&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "106",
+      "date": "2026-06-06",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=106&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "13",
+      "date": "2026-06-07",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=13&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "107",
+      "date": "2026-06-07",
+      "time": "16:05",
+      "away": "富邦悍將二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "樂天桃園",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=107&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "108",
+      "date": "2026-06-09",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=108&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "109",
+      "date": "2026-06-09",
+      "time": "16:05",
+      "away": "樂天桃猿二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=109&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "110",
+      "date": "2026-06-10",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=110&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "111",
+      "date": "2026-06-10",
+      "time": "16:05",
+      "away": "樂天桃猿二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=111&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "112",
+      "date": "2026-06-11",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=112&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "113",
+      "date": "2026-06-11",
+      "time": "16:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "樂天桃園",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=113&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "114",
+      "date": "2026-06-12",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=114&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "115",
+      "date": "2026-06-12",
+      "time": "16:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "樂天桃園",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=115&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "116",
+      "date": "2026-06-13",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=116&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "117",
+      "date": "2026-06-14",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=117&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "118",
+      "date": "2026-06-16",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=118&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "119",
+      "date": "2026-06-16",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=119&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "120",
+      "date": "2026-06-17",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=120&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "121",
+      "date": "2026-06-17",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=121&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "122",
+      "date": "2026-06-18",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=122&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "123",
+      "date": "2026-06-18",
+      "time": "16:05",
+      "away": "富邦悍將二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=123&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "124",
+      "date": "2026-06-19",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=124&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "125",
+      "date": "2026-06-19",
+      "time": "16:05",
+      "away": "富邦悍將二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=125&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "126",
+      "date": "2026-06-20",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=126&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "127",
+      "date": "2026-06-21",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=127&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "128",
+      "date": "2026-06-23",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=128&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "129",
+      "date": "2026-06-23",
+      "time": "16:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=129&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "130",
+      "date": "2026-06-24",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=130&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "131",
+      "date": "2026-06-24",
+      "time": "16:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=131&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "132",
+      "date": "2026-06-25",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=132&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "133",
+      "date": "2026-06-25",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=133&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "134",
+      "date": "2026-06-26",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=134&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "135",
+      "date": "2026-06-26",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=135&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "136",
+      "date": "2026-06-27",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=136&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "137",
+      "date": "2026-06-28",
+      "time": "16:05",
+      "away": "樂天桃猿二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=137&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "138",
+      "date": "2026-06-30",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=138&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "139",
+      "date": "2026-06-30",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=139&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "140",
+      "date": "2026-07-01",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=140&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "141",
+      "date": "2026-07-01",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=141&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "142",
+      "date": "2026-07-02",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=142&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "143",
+      "date": "2026-07-02",
+      "time": "16:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=143&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "144",
+      "date": "2026-07-03",
+      "time": "16:05",
+      "away": "中信兄弟二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "樂天桃園",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=144&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "145",
+      "date": "2026-07-03",
+      "time": "16:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=145&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "52",
+      "date": "2026-07-04",
+      "time": "16:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=52&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "146",
+      "date": "2026-07-04",
+      "time": "16:05",
+      "away": "樂天桃猿二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=146&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "44",
+      "date": "2026-07-05",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "中信兄弟二軍",
+      "venue": "場地未定",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=44&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "147",
+      "date": "2026-07-05",
+      "time": "16:05",
+      "away": "富邦悍將二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "台南",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=147&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "148",
+      "date": "2026-07-07",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=148&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "149",
+      "date": "2026-07-07",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=149&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "150",
+      "date": "2026-07-08",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=150&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "151",
+      "date": "2026-07-08",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=151&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "152",
+      "date": "2026-07-09",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=152&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "153",
+      "date": "2026-07-09",
+      "time": "16:05",
+      "away": "味全龍二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=153&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "154",
+      "date": "2026-07-10",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=154&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "155",
+      "date": "2026-07-10",
+      "time": "16:05",
+      "away": "味全龍二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=155&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "156",
+      "date": "2026-07-11",
+      "time": "16:05",
+      "away": "富邦悍將二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "台南",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=156&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "157",
+      "date": "2026-07-12",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=157&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "158",
+      "date": "2026-07-14",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=158&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "159",
+      "date": "2026-07-14",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=159&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "160",
+      "date": "2026-07-15",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=160&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "161",
+      "date": "2026-07-15",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=161&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "162",
+      "date": "2026-07-16",
+      "time": "16:05",
+      "away": "中信兄弟二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=162&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "163",
+      "date": "2026-07-16",
+      "time": "16:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=163&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "164",
+      "date": "2026-07-17",
+      "time": "16:05",
+      "away": "中信兄弟二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=164&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "165",
+      "date": "2026-07-17",
+      "time": "16:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=165&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "166",
+      "date": "2026-07-21",
+      "time": "16:05",
+      "away": "中信兄弟二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=166&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "167",
+      "date": "2026-07-21",
+      "time": "16:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=167&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "168",
+      "date": "2026-07-22",
+      "time": "16:05",
+      "away": "中信兄弟二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=168&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "169",
+      "date": "2026-07-22",
+      "time": "16:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=169&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "170",
+      "date": "2026-07-23",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=170&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "171",
+      "date": "2026-07-23",
+      "time": "16:05",
+      "away": "樂天桃猿二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "台南",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=171&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "172",
+      "date": "2026-07-24",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=172&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "173",
+      "date": "2026-07-24",
+      "time": "16:05",
+      "away": "樂天桃猿二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "台南",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=173&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "174",
+      "date": "2026-07-25",
+      "time": "16:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "樂天桃園",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=174&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "51",
+      "date": "2026-07-26",
+      "time": "16:05",
+      "away": "中信兄弟二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "樂天桃園",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=51&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "175",
+      "date": "2026-07-26",
+      "time": "16:05",
+      "away": "味全龍二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=175&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "176",
+      "date": "2026-07-28",
+      "time": "16:05",
+      "away": "中信兄弟二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=176&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "177",
+      "date": "2026-07-28",
+      "time": "16:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=177&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "178",
+      "date": "2026-07-29",
+      "time": "16:05",
+      "away": "中信兄弟二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=178&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "179",
+      "date": "2026-07-29",
+      "time": "16:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=179&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "180",
+      "date": "2026-07-30",
+      "time": "16:05",
+      "away": "中信兄弟二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "澄清湖",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=180&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "181",
+      "date": "2026-07-30",
+      "time": "16:05",
+      "away": "樂天桃猿二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=181&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "182",
+      "date": "2026-07-31",
+      "time": "16:05",
+      "away": "中信兄弟二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "台南",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=182&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "183",
+      "date": "2026-07-31",
+      "time": "16:05",
+      "away": "樂天桃猿二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=183&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "184",
+      "date": "2026-08-01",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=184&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "185",
+      "date": "2026-08-02",
+      "time": "16:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "樂天桃園",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=185&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "186",
+      "date": "2026-08-04",
+      "time": "16:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "樂天桃園",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=186&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "187",
+      "date": "2026-08-04",
+      "time": "16:05",
+      "away": "味全龍二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "澄清湖",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=187&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "188",
+      "date": "2026-08-05",
+      "time": "16:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "樂天桃園",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=188&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "189",
+      "date": "2026-08-05",
+      "time": "16:05",
+      "away": "味全龍二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "台南",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=189&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "190",
+      "date": "2026-08-06",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=190&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "191",
+      "date": "2026-08-06",
+      "time": "16:05",
+      "away": "富邦悍將二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "台南",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=191&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "192",
+      "date": "2026-08-07",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=192&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "193",
+      "date": "2026-08-07",
+      "time": "16:05",
+      "away": "富邦悍將二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "台南",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=193&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "194",
+      "date": "2026-08-08",
+      "time": "16:05",
+      "away": "中信兄弟二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=194&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "195",
+      "date": "2026-08-09",
+      "time": "16:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=195&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "197",
+      "date": "2026-08-11",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=197&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "196",
+      "date": "2026-08-11",
+      "time": "16:05",
+      "away": "樂天桃猿二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=196&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "199",
+      "date": "2026-08-12",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=199&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "198",
+      "date": "2026-08-12",
+      "time": "16:05",
+      "away": "樂天桃猿二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=198&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "201",
+      "date": "2026-08-13",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=201&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "200",
+      "date": "2026-08-13",
+      "time": "16:05",
+      "away": "富邦悍將二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=200&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "203",
+      "date": "2026-08-14",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=203&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "202",
+      "date": "2026-08-14",
+      "time": "16:05",
+      "away": "富邦悍將二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=202&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "204",
+      "date": "2026-08-15",
+      "time": "16:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "樂天桃園",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=204&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "205",
+      "date": "2026-08-16",
+      "time": "16:05",
+      "away": "中信兄弟二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=205&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "206",
+      "date": "2026-08-18",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=206&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "207",
+      "date": "2026-08-18",
+      "time": "16:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "台南",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=207&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "208",
+      "date": "2026-08-19",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=208&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "209",
+      "date": "2026-08-19",
+      "time": "16:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "台南",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=209&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "210",
+      "date": "2026-08-20",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=210&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "211",
+      "date": "2026-08-20",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=211&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "213",
+      "date": "2026-08-21",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=213&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "212",
+      "date": "2026-08-21",
+      "time": "16:05",
+      "away": "富邦悍將二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "樂天桃園",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=212&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "214",
+      "date": "2026-08-22",
+      "time": "16:05",
+      "away": "味全龍二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=214&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "215",
+      "date": "2026-08-23",
+      "time": "16:05",
+      "away": "中信兄弟二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "台南",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=215&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "216",
+      "date": "2026-08-25",
+      "time": "16:05",
+      "away": "中信兄弟二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=216&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "217",
+      "date": "2026-08-25",
+      "time": "16:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=217&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "218",
+      "date": "2026-08-26",
+      "time": "16:05",
+      "away": "中信兄弟二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=218&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "219",
+      "date": "2026-08-26",
+      "time": "16:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=219&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "220",
+      "date": "2026-08-27",
+      "time": "16:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=220&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "221",
+      "date": "2026-08-27",
+      "time": "16:05",
+      "away": "樂天桃猿二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "台南",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=221&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "222",
+      "date": "2026-08-28",
+      "time": "16:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=222&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "223",
+      "date": "2026-08-28",
+      "time": "16:05",
+      "away": "樂天桃猿二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "台南",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=223&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "224",
+      "date": "2026-08-29",
+      "time": "16:05",
+      "away": "中信兄弟二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "樂天桃園",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=224&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "225",
+      "date": "2026-08-30",
+      "time": "16:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=225&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "226",
+      "date": "2026-09-01",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=226&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "227",
+      "date": "2026-09-01",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=227&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "228",
+      "date": "2026-09-02",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=228&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "229",
+      "date": "2026-09-02",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=229&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "230",
+      "date": "2026-09-03",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=230&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "231",
+      "date": "2026-09-03",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=231&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "232",
+      "date": "2026-09-04",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=232&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "233",
+      "date": "2026-09-04",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=233&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "234",
+      "date": "2026-09-05",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=234&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "235",
+      "date": "2026-09-05",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "台南",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=235&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "236",
+      "date": "2026-09-06",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "台南",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=236&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "237",
+      "date": "2026-09-08",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=237&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "238",
+      "date": "2026-09-08",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=238&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "239",
+      "date": "2026-09-09",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=239&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "240",
+      "date": "2026-09-09",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "status": "scheduled",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "IsPlayBall": "N",
+      "GameDateTimeE": "",
+      "GameDuringTime": "",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=240&kindCode=D&year=2026"
+    }
+  ]
+}

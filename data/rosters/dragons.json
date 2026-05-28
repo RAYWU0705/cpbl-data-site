@@ -1,39 +1,804 @@
 {
-  "team": "味全龍",
+  "teamId": "dragons",
+  "teamName": "味全龍",
+  "clubNo": "AAA",
+  "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=AAA",
+  "updatedAt": "2026-05-28T07:00:45.078Z",
   "coaches": {
     "first": {
       "title": "一軍教練團",
+      "squad": "first",
       "list": [
-        { "role": "總教練", "name": "葉君璋" },
-        { "role": "巡迴統籌教練", "name": "古久保健二" },
-        { "role": "攻擊統籌教練", "name": "彼得森 Tyger Pederson" },
-        { "role": "投手協調教練", "name": "黃亦志" },
-        { "role": "首席教練", "name": "丘昌榮" },
-        { "role": "投手教練", "name": "納瓦洛 Jaime Navarro" },
-        { "role": "牛棚投手教練", "name": "郭勝安" },
-        { "role": "打擊兼外野守備教練", "name": "張建銘" },
-        { "role": "助理打擊教練", "name": "林智勝" },
-        { "role": "捕手教練", "name": "劉家豪" },
-        { "role": "內野守備教練", "name": "陳志偉" },
-        { "role": "體能教練", "name": "邱世杰" },
-        { "role": "助理體能教練", "name": "王昊" }
+        {
+          "number": "27",
+          "name": "葉君璋",
+          "role": "一軍總教練"
+        },
+        {
+          "number": "86",
+          "name": "陳志偉",
+          "role": "一軍內野守備教練"
+        },
+        {
+          "number": "91",
+          "name": "郭勝安",
+          "role": "一軍牛棚投手教練"
+        },
+        {
+          "number": "66",
+          "name": "張建銘",
+          "role": "一軍打擊兼外野守備教練"
+        },
+        {
+          "number": "31",
+          "name": "林智勝",
+          "role": "一軍助理打擊教練"
+        },
+        {
+          "number": "80",
+          "name": "王昊",
+          "role": "一軍助理體能教練"
+        },
+        {
+          "number": "92",
+          "name": "黃亦志",
+          "role": "一軍投手協調教練"
+        },
+        {
+          "number": "43",
+          "name": "納瓦洛",
+          "role": "一軍投手教練"
+        },
+        {
+          "number": "35",
+          "name": "彼得森",
+          "role": "一軍攻擊統籌教練"
+        },
+        {
+          "number": "93",
+          "name": "丘昌榮",
+          "role": "一軍首席教練"
+        },
+        {
+          "number": "94",
+          "name": "劉家豪",
+          "role": "一軍捕手教練"
+        },
+        {
+          "number": "97",
+          "name": "邱世杰",
+          "role": "一軍體能教練"
+        },
+        {
+          "number": "87",
+          "name": "古久保健二",
+          "role": "巡迴統籌教練"
+        }
       ]
     },
     "second": {
       "title": "二軍教練團",
+      "squad": "second",
       "list": [
-        { "role": "總教練", "name": "劉榮華" },
-        { "role": "首席兼內野守備教練", "name": "林宗男" },
-        { "role": "投手教練", "name": "蕭一傑" },
-        { "role": "牛棚兼復健投手教練", "name": "羅嘉仁" },
-        { "role": "助理打擊兼基地教練", "name": "陳家駒" },
-        { "role": "助理打擊教練", "name": "吳嘉侑" },
-        { "role": "捕手教練", "name": "王膺鵬" },
-        { "role": "外野守備教練", "name": "張家浩" },
-        { "role": "體能教練", "name": "彭立堯" },
-        { "role": "助理體能教練", "name": "劉家愷" }
+        {
+          "number": "76",
+          "name": "劉榮華",
+          "role": "二軍總教練"
+        },
+        {
+          "number": "19",
+          "name": "羅嘉仁",
+          "role": "二軍牛棚兼復健投手教練"
+        },
+        {
+          "number": "12",
+          "name": "張家浩",
+          "role": "二軍外野守備教練"
+        },
+        {
+          "number": "53",
+          "name": "吳嘉侑",
+          "role": "二軍打擊助理教練"
+        },
+        {
+          "number": "98",
+          "name": "陳家駒",
+          "role": "二軍助理打擊兼基地教練"
+        },
+        {
+          "number": "68",
+          "name": "劉家愷",
+          "role": "二軍助理體能教練"
+        },
+        {
+          "number": "89",
+          "name": "蕭一傑",
+          "role": "二軍投手教練"
+        },
+        {
+          "number": "79",
+          "name": "林宗男",
+          "role": "二軍首席兼內野守備教練"
+        },
+        {
+          "number": "32",
+          "name": "王膺鵬",
+          "role": "二軍捕手教練"
+        },
+        {
+          "number": "83",
+          "name": "彭立堯",
+          "role": "二軍體能教練"
+        }
       ]
     }
   },
-  "players": []
+  "players": {
+    "first_投手": {
+      "title": "一軍投手",
+      "squad": "first",
+      "group": "投手",
+      "list": [
+        {
+          "number": "0",
+          "name": "李超",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "33",
+          "name": "蔣銲",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "37",
+          "name": "鋼龍",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "39",
+          "name": "呂偉晟",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "42",
+          "name": "趙璟榮",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "52",
+          "name": "伍鐸",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "54",
+          "name": "王伯洋",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "59",
+          "name": "陳冠偉",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "71",
+          "name": "林子昱",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "95",
+          "name": "梅賽鍶",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "99",
+          "name": "林凱威",
+          "group": "投手",
+          "position": "投手"
+        }
+      ]
+    },
+    "first_捕手": {
+      "title": "一軍捕手",
+      "squad": "first",
+      "group": "捕手",
+      "list": [
+        {
+          "number": "9",
+          "name": "林辰勳",
+          "group": "捕手",
+          "position": "捕手"
+        },
+        {
+          "number": "63",
+          "name": "蔣少宏",
+          "group": "捕手",
+          "position": "捕手"
+        }
+      ]
+    },
+    "first_內野手": {
+      "title": "一軍內野手",
+      "squad": "first",
+      "group": "內野手",
+      "list": [
+        {
+          "number": "11",
+          "name": "朱育賢",
+          "group": "內野手",
+          "position": "一壘手"
+        },
+        {
+          "number": "21",
+          "name": "李凱威",
+          "group": "內野手",
+          "position": "二壘手"
+        },
+        {
+          "number": "23",
+          "name": "劉俊緯",
+          "group": "內野手",
+          "position": "游擊手"
+        },
+        {
+          "number": "25",
+          "name": "張政禹",
+          "group": "內野手",
+          "position": "游擊手"
+        },
+        {
+          "number": "36",
+          "name": "李展毅",
+          "group": "內野手",
+          "position": "一壘手"
+        },
+        {
+          "number": "44",
+          "name": "陳思仲",
+          "group": "內野手",
+          "position": "三壘手"
+        },
+        {
+          "number": "46",
+          "name": "劉基鴻",
+          "group": "內野手",
+          "position": "三壘手"
+        },
+        {
+          "number": "57",
+          "name": "拿莫．伊漾",
+          "group": "內野手",
+          "position": "游擊手"
+        }
+      ]
+    },
+    "first_外野手": {
+      "title": "一軍外野手",
+      "squad": "first",
+      "group": "外野手",
+      "list": [
+        {
+          "number": "1",
+          "name": "陳子豪",
+          "group": "外野手",
+          "position": "右外野手"
+        },
+        {
+          "number": "2",
+          "name": "郭天信",
+          "group": "外野手",
+          "position": "中外野手"
+        },
+        {
+          "number": "7",
+          "name": "林孝程",
+          "group": "外野手",
+          "position": "左外野手"
+        },
+        {
+          "number": "24",
+          "name": "王順和",
+          "group": "外野手",
+          "position": "中外野手"
+        },
+        {
+          "number": "81",
+          "name": "張祐嘉",
+          "group": "外野手",
+          "position": "右外野手"
+        }
+      ]
+    },
+    "second_投手": {
+      "title": "二軍投手",
+      "squad": "second",
+      "group": "投手",
+      "list": [
+        {
+          "number": "00",
+          "name": "*翁瑋均",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "5",
+          "name": "陳禹勳",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "10",
+          "name": "魔神龍",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "13",
+          "name": "林柏佑",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "14",
+          "name": "黃暐傑",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "15",
+          "name": "楊鈺翔",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "17",
+          "name": "郭郁政",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "20",
+          "name": "吳俊杰",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "40",
+          "name": "李致霖",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "41",
+          "name": "*鄭展昊",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "45",
+          "name": "*陳志杰",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "48",
+          "name": "*林逸達",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "51",
+          "name": "張景淯",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "55",
+          "name": "曾仁和",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "56",
+          "name": "陳暐皓",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "67",
+          "name": "曹祐齊",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "69",
+          "name": "*何宗旂",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "70",
+          "name": "*賴知頎",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "73",
+          "name": "*吳承翰",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "74",
+          "name": "張鈞守",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "77",
+          "name": "林鋅杰",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "78",
+          "name": "吳君奕",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "90",
+          "name": "王定穎",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "104",
+          "name": "黃侰程",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "124",
+          "name": "*薛毓達",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "132",
+          "name": "*林紘維",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "134",
+          "name": "*林軒宇",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "139",
+          "name": "◎吳東霖",
+          "group": "投手",
+          "position": "投手"
+        }
+      ]
+    },
+    "second_捕手": {
+      "title": "二軍捕手",
+      "squad": "second",
+      "group": "捕手",
+      "list": [
+        {
+          "number": "22",
+          "name": "*全浩瑋",
+          "group": "捕手",
+          "position": "捕手"
+        },
+        {
+          "number": "65",
+          "name": "姚冠瑋",
+          "group": "捕手",
+          "position": "捕手"
+        },
+        {
+          "number": "123",
+          "name": "黃贊維",
+          "group": "捕手",
+          "position": "捕手"
+        },
+        {
+          "number": "125",
+          "name": "*劉曜豪",
+          "group": "捕手",
+          "position": "捕手"
+        }
+      ]
+    },
+    "second_內野手": {
+      "title": "二軍內野手",
+      "squad": "second",
+      "group": "內野手",
+      "list": [
+        {
+          "number": "4",
+          "name": "吉力吉撈．鞏冠",
+          "group": "內野手",
+          "position": "一壘手"
+        },
+        {
+          "number": "6",
+          "name": "吳承皓",
+          "group": "內野手",
+          "position": "二壘手"
+        },
+        {
+          "number": "16",
+          "name": "黃柏豪",
+          "group": "內野手",
+          "position": "一壘手"
+        },
+        {
+          "number": "26",
+          "name": "*陽念祖",
+          "group": "內野手",
+          "position": "游擊手"
+        },
+        {
+          "number": "61",
+          "name": "吳東融",
+          "group": "內野手",
+          "position": "二壘手"
+        },
+        {
+          "number": "72",
+          "name": "石翔宇",
+          "group": "內野手",
+          "position": "游擊手"
+        },
+        {
+          "number": "88",
+          "name": "周委宏",
+          "group": "內野手",
+          "position": "二壘手"
+        },
+        {
+          "number": "127",
+          "name": "*許子謙",
+          "group": "內野手",
+          "position": "二壘手"
+        },
+        {
+          "number": "137",
+          "name": "◎潘信安",
+          "group": "內野手",
+          "position": "三壘手"
+        }
+      ]
+    },
+    "second_外野手": {
+      "title": "二軍外野手",
+      "squad": "second",
+      "group": "外野手",
+      "list": [
+        {
+          "number": "34",
+          "name": "張祐銘",
+          "group": "外野手",
+          "position": "右外野手"
+        },
+        {
+          "number": "50",
+          "name": "曾聖安",
+          "group": "外野手",
+          "position": "中外野手"
+        },
+        {
+          "number": "58",
+          "name": "許博閎",
+          "group": "外野手",
+          "position": "中外野手"
+        },
+        {
+          "number": "82",
+          "name": "冉皓燐",
+          "group": "外野手",
+          "position": "中外野手"
+        },
+        {
+          "number": "133",
+          "name": "*崔聖允",
+          "group": "外野手",
+          "position": "中外野手"
+        },
+        {
+          "number": "135",
+          "name": "*傅鈞致",
+          "group": "外野手",
+          "position": "左外野手"
+        }
+      ]
+    }
+  },
+  "transactions": [
+    {
+      "date": "2026-05-28",
+      "player": "林鋅杰",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-05-28",
+      "player": "曾仁和",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-05-27",
+      "player": "許博閎",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-05-27",
+      "player": "曾仁和",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-05-24",
+      "player": "陳暐皓",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-05-24",
+      "player": "鋼龍",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-05-23",
+      "player": "張祐嘉",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-05-23",
+      "player": "魔神龍",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-05-22",
+      "player": "許博閎",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-05-21",
+      "player": "曾聖安",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-05-19",
+      "player": "張祐銘",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-05-19",
+      "player": "陳子豪",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-05-17",
+      "player": "曾仁和",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-05-17",
+      "player": "拿莫．伊漾",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-05-16",
+      "player": "石翔宇",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-05-16",
+      "player": "曾仁和",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-05-14",
+      "player": "黃贊維",
+      "reason": "新註冊"
+    },
+    {
+      "date": "2026-05-13",
+      "player": "陳思仲",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-05-13",
+      "player": "姚冠瑋",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-05-12",
+      "player": "陳暐皓",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-05-12",
+      "player": "林孝程",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-05-11",
+      "player": "郭郁政",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-05-11",
+      "player": "冉皓燐",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-05-11",
+      "player": "許博閎",
+      "reason": "新註冊"
+    },
+    {
+      "date": "2026-05-10",
+      "player": "郭郁政",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-05-10",
+      "player": "吳君奕",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-05-10",
+      "player": "陳暐皓",
+      "reason": "新註冊"
+    },
+    {
+      "date": "2026-05-09",
+      "player": "陳子豪",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-05-09",
+      "player": "鋼龍",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-05-09",
+      "player": "梅賽鍶",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-05-09",
+      "player": "曾聖安",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-05-02",
+      "player": "曾仁和",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-05-02",
+      "player": "趙璟榮",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-05-01",
+      "player": "曾仁和",
+      "reason": "升一軍"
+    }
+  ]
 }

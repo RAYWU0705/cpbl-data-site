@@ -1,0 +1,258 @@
+/* =========================================================
+   Ray's CPBL Data Site
+   standings.css
+   戰績頁樣式
+   v4.6.6-RC CSS Split
+========================================================= */
+
+/* =========================
+   1. 戰績頁外層
+========================= */
+
+.standings-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--border);
+}
+
+.standings-card h2 {
+  margin: 0 0 16px;
+  color: var(--primary);
+  font-size: 26px;
+  font-weight: 950;
+}
+
+/* =========================
+   2. 戰績表格
+========================= */
+
+.standings-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.standings-table th,
+.standings-table td {
+  padding: 16px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.standings-table th {
+  background: rgba(11, 60, 93, 0.08);
+  color: var(--primary);
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.standings-table td {
+  font-weight: 800;
+}
+
+.standings-table tbody tr {
+  transition:
+    background 0.16s ease,
+    transform 0.16s ease;
+}
+
+.standings-table tbody tr:hover {
+  background: rgba(11, 60, 93, 0.045);
+}
+
+/* =========================
+   3. 排名欄位
+========================= */
+
+.standings-rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 36px;
+  height: 32px;
+  padding: 0 11px;
+
+  border-radius: 999px;
+  background: rgba(11, 60, 93, 0.1);
+  color: var(--primary);
+
+  font-weight: 950;
+}
+
+.standings-table tbody tr:nth-child(1) .standings-rank {
+  background: rgba(255, 215, 0, 0.22);
+  color: #9a7200;
+}
+
+.standings-table tbody tr:nth-child(2) .standings-rank {
+  background: rgba(192, 192, 192, 0.22);
+  color: #555555;
+}
+
+.standings-table tbody tr:nth-child(3) .standings-rank {
+  background: rgba(205, 127, 50, 0.18);
+  color: #8a4f18;
+}
+
+/* =========================
+   4. 球隊欄位
+========================= */
+
+.standings-team {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-start;
+
+  min-width: 150px;
+  text-align: left;
+}
+
+.standings-team img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.standings-team strong {
+  font-weight: 950;
+}
+
+/* =========================
+   5. 勝率與勝差
+========================= */
+
+.win-pct {
+  color: var(--primary);
+  font-weight: 950;
+}
+
+.games-back {
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.games-back.leader {
+  color: var(--success);
+}
+
+/* =========================
+   6. 近期狀態
+========================= */
+
+.streak {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 42px;
+  padding: 8px 12px;
+
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 950;
+}
+
+.streak.win {
+  background: rgba(10, 143, 42, 0.1);
+  color: var(--success);
+}
+
+.streak.loss {
+  background: rgba(214, 0, 0, 0.1);
+  color: var(--danger);
+}
+
+.streak.tie {
+  background: rgba(11, 60, 93, 0.08);
+  color: var(--primary);
+}
+
+/* =========================
+   7. 戰績摘要卡
+========================= */
+
+.standings-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+
+  margin-bottom: 20px;
+}
+
+.standings-summary-item {
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(11, 60, 93, 0.045);
+  border: 1px solid rgba(11, 60, 93, 0.09);
+}
+
+.standings-summary-item span {
+  display: block;
+  margin-bottom: 6px;
+
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.standings-summary-item strong {
+  font-size: 24px;
+  font-weight: 950;
+  color: var(--primary);
+}
+
+/* =========================
+   8. 戰績備註
+========================= */
+
+.standings-note {
+  margin-top: 16px;
+  padding: 14px 16px;
+
+  border-radius: 16px;
+  background: rgba(11, 60, 93, 0.045);
+  color: var(--muted);
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+/* =========================
+   9. 手機版戰績頁
+========================= */
+
+@media (max-width: 820px) {
+  .standings-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .standings-card {
+    padding: 18px;
+  }
+
+  .standings-table {
+    min-width: 760px;
+  }
+}
+
+@media (max-width: 520px) {
+  .standings-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .standings-card h2 {
+    font-size: 22px;
+  }
+
+  .standings-team {
+    min-width: 130px;
+  }
+
+  .standings-team img {
+    width: 28px;
+    height: 28px;
+  }
+}

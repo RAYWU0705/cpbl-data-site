@@ -1,0 +1,4 @@
+在各頁導覽列「版本紀錄」前可加入：
+
+<a class="nav-link" href="about.html">網站介紹</a>
+<a class="nav-link" href="report.html">報告模式</a>

@@ -1,0 +1,432 @@
+/* =========================================================
+   Ray's CPBL Data Site
+   team-common.css
+   v5.1.0-TEAMS-CSS-SPLIT-STABLE
+
+   球隊系統共用樣式：
+   - teams.html 球隊列表
+   - 球隊基礎卡片
+   - 隊色變數
+   - 共用 RWD
+
+   注意：
+   頁面專用樣式請放：
+   - team-home.css
+   - team-roster.css
+   - team-stats.css
+   - team-transactions.css
+========================================================= */
+
+/* =========================================================
+   Ray's CPBL Data Site
+   teams.css
+   球隊頁樣式
+   v5.0.4-TEAM-ROSTER-CARDS
+========================================================= */
+
+/* =========================
+   1. 球隊列表外層
+========================= */
+
+.teams-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.team-card {
+  position: relative;
+  overflow: hidden;
+
+  display: block;
+  padding: 20px;
+
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: #ffffff;
+
+  color: inherit;
+  text-decoration: none;
+
+  box-shadow: var(--shadow-soft);
+
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    border-color 0.16s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card);
+  border-color: rgba(11, 60, 93, 0.2);
+}
+
+.team-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 6px;
+  background: var(--team-color, var(--primary));
+}
+
+/* =========================
+   2. 球隊卡片內容
+========================= */
+
+.team-card-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.team-card-logo {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.team-card-title {
+  min-width: 0;
+}
+
+.team-card-title h2,
+.team-card-title h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 950;
+  color: var(--primary);
+}
+
+.team-card-title p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.team-card-meta {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.team-card-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+
+  margin-top: 14px;
+}
+
+.team-card-stat {
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(11, 60, 93, 0.045);
+  text-align: center;
+}
+
+.team-card-stat span {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.team-card-stat strong {
+  font-size: 18px;
+  font-weight: 950;
+  color: var(--primary);
+}
+
+/* =========================
+   3. 單隊頁主視覺
+========================= */
+
+.team-hero-card {
+  position: relative;
+  overflow: hidden;
+
+  padding: 26px;
+  border-radius: 24px;
+
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.24), transparent 34%),
+    linear-gradient(135deg, var(--team-color, var(--primary)), #111111);
+  color: #ffffff;
+
+  box-shadow: var(--shadow-card);
+}
+
+.team-hero-content {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.team-hero-logo {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+
+  padding: 10px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.team-hero-info h1 {
+  margin: 0;
+  font-size: clamp(30px, 4vw, 46px);
+  line-height: 1.15;
+  font-weight: 950;
+}
+
+.team-hero-info p {
+  margin: 7px 0 0;
+  color: rgba(255, 255, 255, 0.76);
+  font-weight: 800;
+}
+
+/* =========================
+   4. 單隊頁資訊卡
+========================= */
+
+.team-info-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+
+  margin-top: 18px;
+}
+
+.team-info-item {
+  padding: 14px;
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.13);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.team-info-item span {
+  display: block;
+  margin-bottom: 5px;
+
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.team-info-item strong {
+  font-size: 18px;
+  font-weight: 950;
+}
+
+/* =========================
+   5. 球員名單基礎
+========================= */
+
+.roster-section {
+  margin-top: 20px;
+}
+
+.roster-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  margin-bottom: 14px;
+}
+
+.roster-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.roster-filter button {
+  border: 0;
+  border-radius: 999px;
+  padding: 7px 12px;
+
+  background: rgba(11, 60, 93, 0.08);
+  color: var(--primary);
+
+  font-size: 13px;
+  font-weight: 900;
+
+  transition:
+    background 0.16s ease,
+    color 0.16s ease,
+    transform 0.16s ease;
+}
+
+.roster-filter button:hover {
+  transform: translateY(-1px);
+}
+
+.roster-filter button.active {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.roster-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.player-card {
+  padding: 15px;
+  border-radius: 16px;
+
+  background: #ffffff;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+}
+
+.player-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  margin-bottom: 8px;
+}
+
+.player-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 38px;
+  height: 30px;
+  padding: 0 8px;
+
+  border-radius: 999px;
+  background: rgba(11, 60, 93, 0.09);
+  color: var(--primary);
+
+  font-weight: 950;
+}
+
+.player-position {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 28px;
+  padding: 4px 9px;
+
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.045);
+  color: var(--muted);
+
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.player-name {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 950;
+  color: var(--text);
+}
+
+.player-meta {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* =========================
+   6. 球員名單表格版
+========================= */
+
+.roster-table {
+  width: 100%;
+  text-align: center;
+}
+
+.roster-table th {
+  color: var(--primary);
+}
+
+.roster-table td {
+  font-weight: 800;
+}
+
+.roster-table .player-name-cell {
+  text-align: left;
+  font-weight: 950;
+}
+
+/* =========================
+   7. 球隊異動紀錄
+========================= */
+
+.transaction-list {
+  display: grid;
+  gap: 10px;
+}
+
+.transaction-item {
+  padding: 12px 14px;
+
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(11, 60, 93, 0.035);
+}
+
+.transaction-item strong {
+  color: var(--primary);
+  font-weight: 950;
+}
+
+.transaction-item p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* =========================
+   8. 球隊主題色
+========================= */
+
+body.team-brothers {
+  --team-color: #f6c400;
+  --team-color-dark: #1f2937;
+}
+
+body.team-lions {
+  --team-color: #f26b21;
+  --team-color-dark: #7c2d12;
+}
+
+body.team-monkeys {
+  --team-color: #8a1538;
+  --team-color-dark: #3f0a1f;
+}
+
+body.team-dragons {
+  --team-color: #c8102e;
+  --team-color-dark: #5f0b16;
+}
+
+body.team-guardians {
+  --team-color: #0047ab;
+  --team-color-dark: #082f6f;
+}
+
+body.team-hawks {
+  --team-color: #007f7a;
+  --team-color-dark: #064e4a;
+}

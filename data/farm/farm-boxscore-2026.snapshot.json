@@ -1,0 +1,3591 @@
+{
+  "meta": {
+    "version": "v5.3.4-FARM-FINAL-BOXSCORE-VUE-DATA",
+    "year": 2026,
+    "generatedAt": "2026-05-28T05:57:16.161Z",
+    "total": 85,
+    "source": "cpbl-official-farm-box",
+    "dataFlow": {
+      "lane": "farm-boxscore-sidepath",
+      "readFrom": "data/farm/farm-schedule-2026.json",
+      "writeTarget": "data/farm/farm-boxscore-2026.json",
+      "doesNotTouch": [
+        "data/live/live-boxscore.json",
+        "scripts/update-all.js",
+        "一軍 Match Center 主流程"
+      ]
+    }
+  },
+  "games": [
+    {
+      "gameSno": "1",
+      "date": "2026-03-26",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 1,
+        "home": 4
+      },
+      "rhe": {
+        "away": {
+          "H": 8,
+          "E": 0
+        },
+        "home": {
+          "H": 4,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 14,
+        "home": 9
+      },
+      "pitchers": {
+        "away": 6,
+        "home": 2
+      },
+      "decision": {
+        "win": "艾速特",
+        "lose": "曾偉喆",
+        "save": "坎南",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=1&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "2",
+      "date": "2026-03-26",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 4,
+        "home": 1
+      },
+      "rhe": {
+        "away": {
+          "H": 8,
+          "E": 1
+        },
+        "home": {
+          "H": 7,
+          "E": 2
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 12,
+        "home": 17
+      },
+      "pitchers": {
+        "away": 3,
+        "home": 5
+      },
+      "decision": {
+        "win": "阿部雄大",
+        "lose": "鄭展昊",
+        "save": "王偉軒",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=2&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "3",
+      "date": "2026-03-27",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 3,
+        "home": 7
+      },
+      "rhe": {
+        "away": {
+          "H": 8,
+          "E": 1
+        },
+        "home": {
+          "H": 12,
+          "E": 3
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 12,
+        "home": 10
+      },
+      "pitchers": {
+        "away": 7,
+        "home": 4
+      },
+      "decision": {
+        "win": "櫻井周斗",
+        "lose": "張宥謙",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=3&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "4",
+      "date": "2026-03-27",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 5,
+        "home": 4
+      },
+      "rhe": {
+        "away": {
+          "H": 10,
+          "E": 1
+        },
+        "home": {
+          "H": 11,
+          "E": 2
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 16,
+        "home": 12
+      },
+      "pitchers": {
+        "away": 3,
+        "home": 5
+      },
+      "decision": {
+        "win": "陳品宏",
+        "lose": "賴知頎",
+        "save": "羅華韋",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=4&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "5",
+      "date": "2026-03-31",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "富邦悍將二軍",
+      "venue": "亞太副",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 4,
+        "home": 4
+      },
+      "rhe": {
+        "away": {
+          "H": 8,
+          "E": 1
+        },
+        "home": {
+          "H": 8,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 10,
+        "home": 10
+      },
+      "batters": {
+        "away": 12,
+        "home": 16
+      },
+      "pitchers": {
+        "away": 5,
+        "home": 5
+      },
+      "decision": {
+        "win": "",
+        "lose": "",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=5&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "6",
+      "date": "2026-03-31",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 3,
+        "home": 4
+      },
+      "rhe": {
+        "away": {
+          "H": 5,
+          "E": 2
+        },
+        "home": {
+          "H": 8,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 11,
+        "home": 14
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 7
+      },
+      "decision": {
+        "win": "劉家翔",
+        "lose": "曾仁和",
+        "save": "朱承洋",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=6&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "9",
+      "date": "2026-04-02",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 2,
+        "home": 1
+      },
+      "rhe": {
+        "away": {
+          "H": 11,
+          "E": 2
+        },
+        "home": {
+          "H": 7,
+          "E": 2
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 15,
+        "home": 11
+      },
+      "pitchers": {
+        "away": 2,
+        "home": 3
+      },
+      "decision": {
+        "win": "阿部雄大",
+        "lose": "德保拉",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=9&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "10",
+      "date": "2026-04-02",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 4,
+        "home": 5
+      },
+      "rhe": {
+        "away": {
+          "H": 9,
+          "E": 3
+        },
+        "home": {
+          "H": 7,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 14,
+        "home": 15
+      },
+      "pitchers": {
+        "away": 6,
+        "home": 5
+      },
+      "decision": {
+        "win": "楊鈺翔",
+        "lose": "李承鴻",
+        "save": "何宗旂",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=10&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "11",
+      "date": "2026-04-03",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 7,
+        "home": 0
+      },
+      "rhe": {
+        "away": {
+          "H": 9,
+          "E": 1
+        },
+        "home": {
+          "H": 6,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 15,
+        "home": 15
+      },
+      "pitchers": {
+        "away": 7,
+        "home": 6
+      },
+      "decision": {
+        "win": "賴鴻誠",
+        "lose": "陶樂",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=11&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "12",
+      "date": "2026-04-03",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 6,
+        "home": 7
+      },
+      "rhe": {
+        "away": {
+          "H": 12,
+          "E": 0
+        },
+        "home": {
+          "H": 10,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 12,
+        "home": 12
+      },
+      "pitchers": {
+        "away": 7,
+        "home": 2
+      },
+      "decision": {
+        "win": "曹祐齊",
+        "lose": "吳紹遠",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=12&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "15",
+      "date": "2026-04-05",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 0,
+        "home": 10
+      },
+      "rhe": {
+        "away": {
+          "H": 4,
+          "E": 1
+        },
+        "home": {
+          "H": 16,
+          "E": 2
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 15,
+        "home": 13
+      },
+      "pitchers": {
+        "away": 5,
+        "home": 3
+      },
+      "decision": {
+        "win": "坎南",
+        "lose": "陳克羿",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=15&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "16",
+      "date": "2026-04-07",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 10,
+        "home": 7
+      },
+      "rhe": {
+        "away": {
+          "H": 10,
+          "E": 1
+        },
+        "home": {
+          "H": 9,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 14,
+        "home": 13
+      },
+      "pitchers": {
+        "away": 6,
+        "home": 6
+      },
+      "decision": {
+        "win": "曾仁和",
+        "lose": "盧孟揚",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=16&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "17",
+      "date": "2026-04-07",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 0,
+        "home": 5
+      },
+      "rhe": {
+        "away": {
+          "H": 3,
+          "E": 2
+        },
+        "home": {
+          "H": 11,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 10,
+        "home": 11
+      },
+      "pitchers": {
+        "away": 3,
+        "home": 4
+      },
+      "decision": {
+        "win": "銳力獅",
+        "lose": "愛力戈",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=17&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "18",
+      "date": "2026-04-08",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 4,
+        "home": 6
+      },
+      "rhe": {
+        "away": {
+          "H": 8,
+          "E": 0
+        },
+        "home": {
+          "H": 7,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 14,
+        "home": 9
+      },
+      "pitchers": {
+        "away": 5,
+        "home": 6
+      },
+      "decision": {
+        "win": "德保拉",
+        "lose": "魔神龍",
+        "save": "謝榮豪",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=18&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "19",
+      "date": "2026-04-08",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 2,
+        "home": 1
+      },
+      "rhe": {
+        "away": {
+          "H": 4,
+          "E": 0
+        },
+        "home": {
+          "H": 4,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 11,
+        "home": 12
+      },
+      "pitchers": {
+        "away": 2,
+        "home": 5
+      },
+      "decision": {
+        "win": "鈴木駿輔",
+        "lose": "李承鴻",
+        "save": "游霆崴",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=19&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "20",
+      "date": "2026-04-09",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 10,
+        "home": 2
+      },
+      "rhe": {
+        "away": {
+          "H": 17,
+          "E": 0
+        },
+        "home": {
+          "H": 5,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 16,
+        "home": 15
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 6
+      },
+      "decision": {
+        "win": "櫻井周斗",
+        "lose": "陶樂",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=20&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "21",
+      "date": "2026-04-09",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 6,
+        "home": 5
+      },
+      "rhe": {
+        "away": {
+          "H": 10,
+          "E": 1
+        },
+        "home": {
+          "H": 11,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 12,
+        "home": 14
+      },
+      "pitchers": {
+        "away": 5,
+        "home": 8
+      },
+      "decision": {
+        "win": "劉家翔",
+        "lose": "陳定均",
+        "save": "王宇翔",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=21&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "22",
+      "date": "2026-04-10",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 9,
+        "home": 7
+      },
+      "rhe": {
+        "away": {
+          "H": 11,
+          "E": 1
+        },
+        "home": {
+          "H": 10,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 12,
+        "home": 12
+      },
+      "pitchers": {
+        "away": 7,
+        "home": 7
+      },
+      "decision": {
+        "win": "黃紹睿",
+        "lose": "陳柏均",
+        "save": "李欣穎",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=22&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "23",
+      "date": "2026-04-10",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 1,
+        "home": 0
+      },
+      "rhe": {
+        "away": {
+          "H": 4,
+          "E": 1
+        },
+        "home": {
+          "H": 3,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 11,
+        "home": 11
+      },
+      "pitchers": {
+        "away": 2,
+        "home": 5
+      },
+      "decision": {
+        "win": "榊原元稀",
+        "lose": "張宥謙",
+        "save": "莊孟源",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=23&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "24",
+      "date": "2026-04-11",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 9,
+        "home": 4
+      },
+      "rhe": {
+        "away": {
+          "H": 12,
+          "E": 2
+        },
+        "home": {
+          "H": 9,
+          "E": 2
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 12,
+        "home": 15
+      },
+      "pitchers": {
+        "away": 6,
+        "home": 7
+      },
+      "decision": {
+        "win": "黃群",
+        "lose": "楊彬",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=24&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "25",
+      "date": "2026-04-12",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 14,
+        "home": 4
+      },
+      "rhe": {
+        "away": {
+          "H": 17,
+          "E": 1
+        },
+        "home": {
+          "H": 7,
+          "E": 3
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 18,
+        "home": 15
+      },
+      "pitchers": {
+        "away": 5,
+        "home": 8
+      },
+      "decision": {
+        "win": "潘奕誠",
+        "lose": "曹祐齊",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=25&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "26",
+      "date": "2026-04-14",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 9,
+        "home": 6
+      },
+      "rhe": {
+        "away": {
+          "H": 17,
+          "E": 2
+        },
+        "home": {
+          "H": 13,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 15,
+        "home": 14
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 4
+      },
+      "decision": {
+        "win": "陳克羿",
+        "lose": "盧孟揚",
+        "save": "王宇翔",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=26&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "27",
+      "date": "2026-04-14",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 0,
+        "home": 5
+      },
+      "rhe": {
+        "away": {
+          "H": 3,
+          "E": 1
+        },
+        "home": {
+          "H": 10,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 12,
+        "home": 11
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 7
+      },
+      "decision": {
+        "win": "銳力獅",
+        "lose": "陳正毅",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=27&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "28",
+      "date": "2026-04-15",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 20,
+        "home": 3
+      },
+      "rhe": {
+        "away": {
+          "H": 18,
+          "E": 0
+        },
+        "home": {
+          "H": 6,
+          "E": 3
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 16,
+        "home": 15
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 10
+      },
+      "decision": {
+        "win": "劉家翔",
+        "lose": "德保拉",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=28&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "29",
+      "date": "2026-04-15",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 9,
+        "home": 2
+      },
+      "rhe": {
+        "away": {
+          "H": 11,
+          "E": 1
+        },
+        "home": {
+          "H": 7,
+          "E": 3
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 14,
+        "home": 11
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 6
+      },
+      "decision": {
+        "win": "櫻井周斗",
+        "lose": "江少慶",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=29&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "30",
+      "date": "2026-04-16",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 3,
+        "home": 4
+      },
+      "rhe": {
+        "away": {
+          "H": 6,
+          "E": 0
+        },
+        "home": {
+          "H": 9,
+          "E": 3
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 14,
+        "home": 16
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 6
+      },
+      "decision": {
+        "win": "楊彬",
+        "lose": "王偉軒",
+        "save": "賴胤豪",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=30&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "31",
+      "date": "2026-04-16",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 0,
+        "home": 13
+      },
+      "rhe": {
+        "away": {
+          "H": 5,
+          "E": 4
+        },
+        "home": {
+          "H": 18,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 14,
+        "home": 16
+      },
+      "pitchers": {
+        "away": 7,
+        "home": 6
+      },
+      "decision": {
+        "win": "陳冠豪",
+        "lose": "楊鈺翔",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=31&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "32",
+      "date": "2026-04-17",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "樂天桃園",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 9,
+        "home": 6
+      },
+      "rhe": {
+        "away": {
+          "H": 10,
+          "E": 3
+        },
+        "home": {
+          "H": 12,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 14,
+        "home": 15
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 5
+      },
+      "decision": {
+        "win": "劉昱言",
+        "lose": "王宇翔",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=32&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "33",
+      "date": "2026-04-17",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 9,
+        "home": 2
+      },
+      "rhe": {
+        "away": {
+          "H": 14,
+          "E": 0
+        },
+        "home": {
+          "H": 6,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 14,
+        "home": 15
+      },
+      "pitchers": {
+        "away": 5,
+        "home": 5
+      },
+      "decision": {
+        "win": "黃侰程",
+        "lose": "艾速特",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=33&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "34",
+      "date": "2026-04-18",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 7,
+        "home": 5
+      },
+      "rhe": {
+        "away": {
+          "H": 9,
+          "E": 4
+        },
+        "home": {
+          "H": 8,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 14,
+        "home": 13
+      },
+      "pitchers": {
+        "away": 2,
+        "home": 3
+      },
+      "decision": {
+        "win": "江國豪",
+        "lose": "曹祐齊",
+        "save": "劉昱言",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=34&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "35",
+      "date": "2026-04-18",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 8,
+        "home": 15
+      },
+      "rhe": {
+        "away": {
+          "H": 11,
+          "E": 1
+        },
+        "home": {
+          "H": 13,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 15,
+        "home": 11
+      },
+      "pitchers": {
+        "away": 7,
+        "home": 6
+      },
+      "decision": {
+        "win": "姚杰宏",
+        "lose": "鄭凱文",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=35&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "7",
+      "date": "2026-04-19",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "富邦悍將二軍",
+      "venue": "亞太副",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 6,
+        "home": 5
+      },
+      "rhe": {
+        "away": {
+          "H": 12,
+          "E": 2
+        },
+        "home": {
+          "H": 7,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 10,
+        "home": 10
+      },
+      "batters": {
+        "away": 14,
+        "home": 16
+      },
+      "pitchers": {
+        "away": 6,
+        "home": 4
+      },
+      "decision": {
+        "win": "謝葆錡",
+        "lose": "王偉軒",
+        "save": "黃群",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=7&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "36",
+      "date": "2026-04-19",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 6,
+        "home": 7
+      },
+      "rhe": {
+        "away": {
+          "H": 11,
+          "E": 2
+        },
+        "home": {
+          "H": 8,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 11,
+        "home": 13
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 5
+      },
+      "decision": {
+        "win": "馬奎爾",
+        "lose": "周彥農",
+        "save": "謝榮豪",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=36&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "37",
+      "date": "2026-04-21",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 1,
+        "home": 6
+      },
+      "rhe": {
+        "away": {
+          "H": 5,
+          "E": 2
+        },
+        "home": {
+          "H": 10,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 16,
+        "home": 14
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 4
+      },
+      "decision": {
+        "win": "曾仁和",
+        "lose": "鍾亦恩",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=37&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "38",
+      "date": "2026-04-21",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 7,
+        "home": 5
+      },
+      "rhe": {
+        "away": {
+          "H": 11,
+          "E": 1
+        },
+        "home": {
+          "H": 9,
+          "E": 2
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 12,
+        "home": 16
+      },
+      "pitchers": {
+        "away": 7,
+        "home": 7
+      },
+      "decision": {
+        "win": "林子崴",
+        "lose": "謝葆錡",
+        "save": "林原裕",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=38&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "39",
+      "date": "2026-04-22",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 4,
+        "home": 8
+      },
+      "rhe": {
+        "away": {
+          "H": 10,
+          "E": 0
+        },
+        "home": {
+          "H": 11,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 13,
+        "home": 14
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 5
+      },
+      "decision": {
+        "win": "張景淯",
+        "lose": "莊孟源",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=39&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "40",
+      "date": "2026-04-22",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 10,
+        "home": 7
+      },
+      "rhe": {
+        "away": {
+          "H": 16,
+          "E": 2
+        },
+        "home": {
+          "H": 10,
+          "E": 2
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 12,
+        "home": 16
+      },
+      "pitchers": {
+        "away": 7,
+        "home": 4
+      },
+      "decision": {
+        "win": "朱柏翰",
+        "lose": "櫻井周斗",
+        "save": "姚杰宏",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=40&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "41",
+      "date": "2026-04-23",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 1,
+        "home": 5
+      },
+      "rhe": {
+        "away": {
+          "H": 6,
+          "E": 0
+        },
+        "home": {
+          "H": 6,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 13,
+        "home": 14
+      },
+      "pitchers": {
+        "away": 6,
+        "home": 6
+      },
+      "decision": {
+        "win": "張瑞麟",
+        "lose": "林紘維",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=41&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "42",
+      "date": "2026-04-23",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 9,
+        "home": 4
+      },
+      "rhe": {
+        "away": {
+          "H": 15,
+          "E": 0
+        },
+        "home": {
+          "H": 8,
+          "E": 2
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 11,
+        "home": 11
+      },
+      "pitchers": {
+        "away": 6,
+        "home": 8
+      },
+      "decision": {
+        "win": "韋宏亮",
+        "lose": "伍立辰",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=42&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "45",
+      "date": "2026-04-25",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 2,
+        "home": 3
+      },
+      "rhe": {
+        "away": {
+          "H": 6,
+          "E": 0
+        },
+        "home": {
+          "H": 7,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 12,
+        "home": 12
+      },
+      "pitchers": {
+        "away": 5,
+        "home": 3
+      },
+      "decision": {
+        "win": "麥斯威尼",
+        "lose": "李承鴻",
+        "save": "陳柏豪",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=45&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "8",
+      "date": "2026-04-26",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 6,
+        "home": 1
+      },
+      "rhe": {
+        "away": {
+          "H": 11,
+          "E": 1
+        },
+        "home": {
+          "H": 3,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 14,
+        "home": 15
+      },
+      "pitchers": {
+        "away": 3,
+        "home": 4
+      },
+      "decision": {
+        "win": "曹祐齊",
+        "lose": "舒治浩",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=8&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "46",
+      "date": "2026-04-26",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 6,
+        "home": 4
+      },
+      "rhe": {
+        "away": {
+          "H": 13,
+          "E": 0
+        },
+        "home": {
+          "H": 6,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 11,
+        "home": 13
+      },
+      "pitchers": {
+        "away": 7,
+        "home": 3
+      },
+      "decision": {
+        "win": "游竣宥",
+        "lose": "江國豪",
+        "save": "江忠城",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=46&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "47",
+      "date": "2026-04-28",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 8,
+        "home": 0
+      },
+      "rhe": {
+        "away": {
+          "H": 11,
+          "E": 0
+        },
+        "home": {
+          "H": 4,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 14,
+        "home": 15
+      },
+      "pitchers": {
+        "away": 3,
+        "home": 7
+      },
+      "decision": {
+        "win": "黃子豪",
+        "lose": "莊孟源",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=47&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "48",
+      "date": "2026-04-28",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 11,
+        "home": 7
+      },
+      "rhe": {
+        "away": {
+          "H": 14,
+          "E": 2
+        },
+        "home": {
+          "H": 11,
+          "E": 2
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 15,
+        "home": 13
+      },
+      "pitchers": {
+        "away": 6,
+        "home": 8
+      },
+      "decision": {
+        "win": "張鈞守",
+        "lose": "張宥謙",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=48&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "49",
+      "date": "2026-04-29",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "樂天桃園",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 3,
+        "home": 9
+      },
+      "rhe": {
+        "away": {
+          "H": 9,
+          "E": 0
+        },
+        "home": {
+          "H": 9,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 11,
+        "home": 11
+      },
+      "pitchers": {
+        "away": 5,
+        "home": 3
+      },
+      "decision": {
+        "win": "王奕翔",
+        "lose": "櫻井周斗",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=49&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "50",
+      "date": "2026-04-29",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 3,
+        "home": 4
+      },
+      "rhe": {
+        "away": {
+          "H": 7,
+          "E": 2
+        },
+        "home": {
+          "H": 7,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 14,
+        "home": 12
+      },
+      "pitchers": {
+        "away": 6,
+        "home": 5
+      },
+      "decision": {
+        "win": "林易霆",
+        "lose": "張景淯",
+        "save": "王鏡銘",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=50&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "53",
+      "date": "2026-05-01",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "樂天桃園",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 8,
+        "home": 2
+      },
+      "rhe": {
+        "away": {
+          "H": 9,
+          "E": 0
+        },
+        "home": {
+          "H": 5,
+          "E": 2
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 10,
+        "home": 16
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 5
+      },
+      "decision": {
+        "win": "林暉盛",
+        "lose": "郭玟毅",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=53&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "54",
+      "date": "2026-05-01",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 2,
+        "home": 9
+      },
+      "rhe": {
+        "away": {
+          "H": 7,
+          "E": 1
+        },
+        "home": {
+          "H": 12,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 13,
+        "home": 15
+      },
+      "pitchers": {
+        "away": 5,
+        "home": 4
+      },
+      "decision": {
+        "win": "陳仕朋",
+        "lose": "李承鴻",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=54&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "55",
+      "date": "2026-05-02",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 1,
+        "home": 0
+      },
+      "rhe": {
+        "away": {
+          "H": 8,
+          "E": 0
+        },
+        "home": {
+          "H": 3,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 9,
+        "home": 13
+      },
+      "pitchers": {
+        "away": 3,
+        "home": 3
+      },
+      "decision": {
+        "win": "陳正毅",
+        "lose": "郭郁政",
+        "save": "李欣穎",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=55&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "14",
+      "date": "2026-05-03",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 4,
+        "home": 5
+      },
+      "rhe": {
+        "away": {
+          "H": 11,
+          "E": 0
+        },
+        "home": {
+          "H": 13,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 14,
+        "home": 10
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 5
+      },
+      "decision": {
+        "win": "韋宏亮",
+        "lose": "舒治浩",
+        "save": "李欣穎",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=14&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "56",
+      "date": "2026-05-03",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 0,
+        "home": 7
+      },
+      "rhe": {
+        "away": {
+          "H": 5,
+          "E": 1
+        },
+        "home": {
+          "H": 12,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 16,
+        "home": 19
+      },
+      "pitchers": {
+        "away": 6,
+        "home": 4
+      },
+      "decision": {
+        "win": "阿部雄大",
+        "lose": "菲力士",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=56&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "57",
+      "date": "2026-05-05",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 4,
+        "home": 10
+      },
+      "rhe": {
+        "away": {
+          "H": 11,
+          "E": 0
+        },
+        "home": {
+          "H": 11,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 15,
+        "home": 10
+      },
+      "pitchers": {
+        "away": 5,
+        "home": 6
+      },
+      "decision": {
+        "win": "游竣宥",
+        "lose": "曹祐齊",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=57&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "58",
+      "date": "2026-05-05",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 4,
+        "home": 4
+      },
+      "rhe": {
+        "away": {
+          "H": 7,
+          "E": 2
+        },
+        "home": {
+          "H": 9,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 10,
+        "home": 10
+      },
+      "batters": {
+        "away": 16,
+        "home": 13
+      },
+      "pitchers": {
+        "away": 6,
+        "home": 5
+      },
+      "decision": {
+        "win": "",
+        "lose": "",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=58&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "59",
+      "date": "2026-05-06",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 10,
+        "home": 1
+      },
+      "rhe": {
+        "away": {
+          "H": 13,
+          "E": 0
+        },
+        "home": {
+          "H": 4,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 16,
+        "home": 12
+      },
+      "pitchers": {
+        "away": 8,
+        "home": 9
+      },
+      "decision": {
+        "win": "張景淯",
+        "lose": "伍立辰",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=59&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "60",
+      "date": "2026-05-06",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 3,
+        "home": 1
+      },
+      "rhe": {
+        "away": {
+          "H": 5,
+          "E": 0
+        },
+        "home": {
+          "H": 9,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 13,
+        "home": 11
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 2
+      },
+      "decision": {
+        "win": "李斯特",
+        "lose": "黃子豪",
+        "save": "劉昱言",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=60&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "61",
+      "date": "2026-05-07",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 12,
+        "home": 6
+      },
+      "rhe": {
+        "away": {
+          "H": 17,
+          "E": 1
+        },
+        "home": {
+          "H": 10,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 14,
+        "home": 13
+      },
+      "pitchers": {
+        "away": 5,
+        "home": 6
+      },
+      "decision": {
+        "win": "周彥農",
+        "lose": "魏碩成",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=61&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "62",
+      "date": "2026-05-07",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 9,
+        "home": 2
+      },
+      "rhe": {
+        "away": {
+          "H": 14,
+          "E": 0
+        },
+        "home": {
+          "H": 5,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 17,
+        "home": 11
+      },
+      "pitchers": {
+        "away": 7,
+        "home": 5
+      },
+      "decision": {
+        "win": "盧冠宇",
+        "lose": "黃保羅",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=62&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "63",
+      "date": "2026-05-08",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 2,
+        "home": 8
+      },
+      "rhe": {
+        "away": {
+          "H": 8,
+          "E": 1
+        },
+        "home": {
+          "H": 9,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 12,
+        "home": 12
+      },
+      "pitchers": {
+        "away": 6,
+        "home": 7
+      },
+      "decision": {
+        "win": "盧孟揚",
+        "lose": "李承鴻",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=63&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "64",
+      "date": "2026-05-08",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 3,
+        "home": 6
+      },
+      "rhe": {
+        "away": {
+          "H": 9,
+          "E": 3
+        },
+        "home": {
+          "H": 4,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 14,
+        "home": 13
+      },
+      "pitchers": {
+        "away": 5,
+        "home": 6
+      },
+      "decision": {
+        "win": "郭泰呈",
+        "lose": "陳柏豪",
+        "save": "張瑞麟",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=64&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "65",
+      "date": "2026-05-09",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 3,
+        "home": 3
+      },
+      "rhe": {
+        "away": {
+          "H": 8,
+          "E": 0
+        },
+        "home": {
+          "H": 6,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 10,
+        "home": 10
+      },
+      "batters": {
+        "away": 16,
+        "home": 10
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 4
+      },
+      "decision": {
+        "win": "",
+        "lose": "",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=65&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "43",
+      "date": "2026-05-10",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 7,
+        "home": 5
+      },
+      "rhe": {
+        "away": {
+          "H": 11,
+          "E": 2
+        },
+        "home": {
+          "H": 8,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 14,
+        "home": 15
+      },
+      "pitchers": {
+        "away": 6,
+        "home": 4
+      },
+      "decision": {
+        "win": "林逸達",
+        "lose": "李斯特",
+        "save": "陳暐皓",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=43&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "66",
+      "date": "2026-05-10",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 2,
+        "home": 0
+      },
+      "rhe": {
+        "away": {
+          "H": 8,
+          "E": 0
+        },
+        "home": {
+          "H": 2,
+          "E": 2
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 13,
+        "home": 16
+      },
+      "pitchers": {
+        "away": 5,
+        "home": 6
+      },
+      "decision": {
+        "win": "林詔恩",
+        "lose": "莊孟源",
+        "save": "鄭鈞仁",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=66&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "67",
+      "date": "2026-05-12",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 4,
+        "home": 1
+      },
+      "rhe": {
+        "away": {
+          "H": 9,
+          "E": 1
+        },
+        "home": {
+          "H": 6,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 14,
+        "home": 13
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 7
+      },
+      "decision": {
+        "win": "菲力士",
+        "lose": "鄭展昊",
+        "save": "吳俊偉",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=67&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "68",
+      "date": "2026-05-12",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 5,
+        "home": 8
+      },
+      "rhe": {
+        "away": {
+          "H": 11,
+          "E": 0
+        },
+        "home": {
+          "H": 14,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 14,
+        "home": 10
+      },
+      "pitchers": {
+        "away": 5,
+        "home": 5
+      },
+      "decision": {
+        "win": "劉軒荅",
+        "lose": "郭泰呈",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=68&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "69",
+      "date": "2026-05-13",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 4,
+        "home": 3
+      },
+      "rhe": {
+        "away": {
+          "H": 9,
+          "E": 2
+        },
+        "home": {
+          "H": 6,
+          "E": 3
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 14,
+        "home": 13
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 5
+      },
+      "decision": {
+        "win": "游竣宥",
+        "lose": "曹祐齊",
+        "save": "吳俊偉",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=69&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "70",
+      "date": "2026-05-13",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 9,
+        "home": 5
+      },
+      "rhe": {
+        "away": {
+          "H": 13,
+          "E": 0
+        },
+        "home": {
+          "H": 10,
+          "E": 2
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 17,
+        "home": 14
+      },
+      "pitchers": {
+        "away": 5,
+        "home": 6
+      },
+      "decision": {
+        "win": "潘奕誠",
+        "lose": "周彥農",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=70&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "72",
+      "date": "2026-05-14",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 9,
+        "home": 10
+      },
+      "rhe": {
+        "away": {
+          "H": 12,
+          "E": 1
+        },
+        "home": {
+          "H": 13,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 10,
+        "home": 10
+      },
+      "batters": {
+        "away": 15,
+        "home": 17
+      },
+      "pitchers": {
+        "away": 6,
+        "home": 7
+      },
+      "decision": {
+        "win": "吳紹遠",
+        "lose": "李柏毓",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=72&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "73",
+      "date": "2026-05-15",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 7,
+        "home": 6
+      },
+      "rhe": {
+        "away": {
+          "H": 10,
+          "E": 2
+        },
+        "home": {
+          "H": 10,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 10,
+        "home": 13
+      },
+      "pitchers": {
+        "away": 6,
+        "home": 9
+      },
+      "decision": {
+        "win": "伍祐城",
+        "lose": "陳禹勳",
+        "save": "韋宏亮",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=73&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "74",
+      "date": "2026-05-15",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 1,
+        "home": 4
+      },
+      "rhe": {
+        "away": {
+          "H": 6,
+          "E": 2
+        },
+        "home": {
+          "H": 10,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 12,
+        "home": 11
+      },
+      "pitchers": {
+        "away": 3,
+        "home": 6
+      },
+      "decision": {
+        "win": "朱柏翰",
+        "lose": "劉家翔",
+        "save": "劉予承",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=74&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "75",
+      "date": "2026-05-16",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "樂天桃園",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 12,
+        "home": 3
+      },
+      "rhe": {
+        "away": {
+          "H": 14,
+          "E": 1
+        },
+        "home": {
+          "H": 8,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 14,
+        "home": 13
+      },
+      "pitchers": {
+        "away": 6,
+        "home": 6
+      },
+      "decision": {
+        "win": "馬奎爾",
+        "lose": "榊原元稀",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=75&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "76",
+      "date": "2026-05-17",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 6,
+        "home": 4
+      },
+      "rhe": {
+        "away": {
+          "H": 8,
+          "E": 2
+        },
+        "home": {
+          "H": 7,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 9,
+        "home": 13
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 6
+      },
+      "decision": {
+        "win": "櫻井周斗",
+        "lose": "黃保羅",
+        "save": "李欣穎",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=76&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "77",
+      "date": "2026-05-19",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 5,
+        "home": 1
+      },
+      "rhe": {
+        "away": {
+          "H": 7,
+          "E": 0
+        },
+        "home": {
+          "H": 4,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 13,
+        "home": 16
+      },
+      "pitchers": {
+        "away": 6,
+        "home": 5
+      },
+      "decision": {
+        "win": "張景淯",
+        "lose": "鍾亦恩",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=77&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "78",
+      "date": "2026-05-19",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 5,
+        "home": 0
+      },
+      "rhe": {
+        "away": {
+          "H": 5,
+          "E": 0
+        },
+        "home": {
+          "H": 3,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 12,
+        "home": 15
+      },
+      "pitchers": {
+        "away": 6,
+        "home": 4
+      },
+      "decision": {
+        "win": "王凱程",
+        "lose": "張宥謙",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=78&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "79",
+      "date": "2026-05-20",
+      "time": "14:05",
+      "away": "味全龍二軍",
+      "home": "樂天桃猿二軍",
+      "venue": "青埔",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 3,
+        "home": 4
+      },
+      "rhe": {
+        "away": {
+          "H": 8,
+          "E": 2
+        },
+        "home": {
+          "H": 9,
+          "E": 2
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 12,
+        "home": 11
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 4
+      },
+      "decision": {
+        "win": "盧冠宇",
+        "lose": "翁瑋均",
+        "save": "郭玟毅",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=79&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "80",
+      "date": "2026-05-20",
+      "time": "14:05",
+      "away": "中信兄弟二軍",
+      "home": "統一7-ELEVEn獅二軍",
+      "venue": "亞太副",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 15,
+        "home": 4
+      },
+      "rhe": {
+        "away": {
+          "H": 18,
+          "E": 1
+        },
+        "home": {
+          "H": 5,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 15,
+        "home": 14
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 6
+      },
+      "decision": {
+        "win": "高秉洋",
+        "lose": "劉軒荅",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=80&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "81",
+      "date": "2026-05-21",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 10,
+        "home": 4
+      },
+      "rhe": {
+        "away": {
+          "H": 11,
+          "E": 1
+        },
+        "home": {
+          "H": 13,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 14,
+        "home": 18
+      },
+      "pitchers": {
+        "away": 6,
+        "home": 4
+      },
+      "decision": {
+        "win": "賴威誠",
+        "lose": "郭泰呈",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=81&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "82",
+      "date": "2026-05-21",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 5,
+        "home": 1
+      },
+      "rhe": {
+        "away": {
+          "H": 10,
+          "E": 2
+        },
+        "home": {
+          "H": 7,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 11,
+        "home": 13
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 7
+      },
+      "decision": {
+        "win": "邱立璿",
+        "lose": "鄭凱文",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=82&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "83",
+      "date": "2026-05-22",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 5,
+        "home": 4
+      },
+      "rhe": {
+        "away": {
+          "H": 11,
+          "E": 1
+        },
+        "home": {
+          "H": 6,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 10,
+        "home": 10
+      },
+      "batters": {
+        "away": 13,
+        "home": 17
+      },
+      "pitchers": {
+        "away": 5,
+        "home": 4
+      },
+      "decision": {
+        "win": "王宇翔",
+        "lose": "郭泰呈",
+        "save": "陳柏豪",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=83&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "84",
+      "date": "2026-05-22",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 11,
+        "home": 3
+      },
+      "rhe": {
+        "away": {
+          "H": 12,
+          "E": 0
+        },
+        "home": {
+          "H": 9,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 13,
+        "home": 16
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 9
+      },
+      "decision": {
+        "win": "黃子豪",
+        "lose": "林暉盛",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=84&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "85",
+      "date": "2026-05-23",
+      "time": "14:05",
+      "away": "台鋼雄鷹二軍",
+      "home": "富邦悍將二軍",
+      "venue": "嘉義市",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 7,
+        "home": 3
+      },
+      "rhe": {
+        "away": {
+          "H": 14,
+          "E": 0
+        },
+        "home": {
+          "H": 8,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 12,
+        "home": 13
+      },
+      "pitchers": {
+        "away": 3,
+        "home": 4
+      },
+      "decision": {
+        "win": "櫻井周斗",
+        "lose": "陳仕朋",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=85&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "86",
+      "date": "2026-05-24",
+      "time": "14:05",
+      "away": "統一7-ELEVEn獅二軍",
+      "home": "味全龍二軍",
+      "venue": "斗六",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 3,
+        "home": 3
+      },
+      "rhe": {
+        "away": {
+          "H": 10,
+          "E": 0
+        },
+        "home": {
+          "H": 7,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 10,
+        "home": 10
+      },
+      "batters": {
+        "away": 14,
+        "home": 13
+      },
+      "pitchers": {
+        "away": 6,
+        "home": 8
+      },
+      "decision": {
+        "win": "",
+        "lose": "",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=86&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "87",
+      "date": "2026-05-26",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 14,
+        "home": 15
+      },
+      "rhe": {
+        "away": {
+          "H": 12,
+          "E": 1
+        },
+        "home": {
+          "H": 18,
+          "E": 1
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 15,
+        "home": 16
+      },
+      "pitchers": {
+        "away": 7,
+        "home": 8
+      },
+      "decision": {
+        "win": "邱立璿",
+        "lose": "榊原元稀",
+        "save": "謝葆錡",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=87&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "88",
+      "date": "2026-05-26",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 3,
+        "home": 5
+      },
+      "rhe": {
+        "away": {
+          "H": 10,
+          "E": 0
+        },
+        "home": {
+          "H": 8,
+          "E": 2
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 12,
+        "home": 14
+      },
+      "pitchers": {
+        "away": 3,
+        "home": 5
+      },
+      "decision": {
+        "win": "伍立辰",
+        "lose": "黃保羅",
+        "save": "魏碩成",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=88&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "89",
+      "date": "2026-05-27",
+      "time": "14:05",
+      "away": "樂天桃猿二軍",
+      "home": "台鋼雄鷹二軍",
+      "venue": "皇鷹學院",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 4,
+        "home": 8
+      },
+      "rhe": {
+        "away": {
+          "H": 9,
+          "E": 2
+        },
+        "home": {
+          "H": 12,
+          "E": 0
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 12,
+        "home": 10
+      },
+      "pitchers": {
+        "away": 4,
+        "home": 3
+      },
+      "decision": {
+        "win": "王維中",
+        "lose": "盧冠宇",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=89&kindCode=D&year=2026"
+    },
+    {
+      "gameSno": "90",
+      "date": "2026-05-27",
+      "time": "14:05",
+      "away": "富邦悍將二軍",
+      "home": "中信兄弟二軍",
+      "venue": "園區",
+      "parseStatus": "confirmed",
+      "score": {
+        "away": 7,
+        "home": 13
+      },
+      "rhe": {
+        "away": {
+          "H": 10,
+          "E": 4
+        },
+        "home": {
+          "H": 15,
+          "E": 2
+        }
+      },
+      "lineScoreLength": {
+        "away": 9,
+        "home": 9
+      },
+      "batters": {
+        "away": 11,
+        "home": 13
+      },
+      "pitchers": {
+        "away": 6,
+        "home": 9
+      },
+      "decision": {
+        "win": "陶樂",
+        "lose": "李斯特",
+        "save": "",
+        "mvp": ""
+      },
+      "officialUrl": "https://www.cpbl.com.tw/box/index?gameSno=90&kindCode=D&year=2026"
+    }
+  ]
+}

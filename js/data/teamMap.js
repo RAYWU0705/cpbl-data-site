@@ -6,7 +6,7 @@ export const TEAM_MAP = {
     logo: "assets/logo/brothers.png"
   },
   lions: {
-    name: "統一7-ELEVEn獅",
+    name: "統一 7-ELEVEn 獅",
     short: "統一",
     color: "#FF6600",
     logo: "assets/logo/lions.png"

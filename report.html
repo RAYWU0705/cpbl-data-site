@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>報告模式｜Ray's CPBL Data Site</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/report.css">
+</head>
+
+<body data-page="report">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a class="brand" href="index.html">CPBL</a>
+      <a class="nav-link" href="index.html">首頁</a>
+      <a class="nav-link active" href="schedule.html">賽程</a>
+      <a class="nav-link" href="standings.html">戰績</a>
+      <a class="nav-link" href="teams.html">球隊</a>
+      <a class="nav-link" href="rules.html">棒球規則</a>
+      <a class="nav-link" href="game-day.html">今日戰情</a>
+      <a class="nav-link" href="version.html">版本</a>
+    </div>
+    <div class="nav-teams" aria-label="球隊快速入口">
+      <a href="team.html?team=brothers"><img src="assets/logo/brothers.png" alt="中信兄弟"></a>
+      <a href="team.html?team=lions"><img src="assets/logo/lions.png" alt="統一7-ELEVEn獅"></a>
+      <a href="team.html?team=monkeys"><img src="assets/logo/monkeys.png" alt="樂天桃猿"></a>
+      <a href="team.html?team=dragons"><img src="assets/logo/dragons.png" alt="味全龍"></a>
+      <a href="team.html?team=guardians"><img src="assets/logo/guardians.png" alt="富邦悍將"></a>
+      <a href="team.html?team=hawks"><img src="assets/logo/hawks.png" alt="台鋼雄鷹"></a>
+    </div>
+  </div>
+</nav>
+
+<header class="report-hero">
+  <div class="report-hero-bg"></div>
+  <div class="report-hero-content">
+    <span class="report-kicker">PRESENTATION MODE</span>
+    <h1>Ray's CPBL Data Site</h1>
+    <p>中華職棒非官方數據網站｜資料穩定化、LIVE 戰況、球隊系統與 Match Center</p>
+    <div class="report-hero-actions">
+      <a href="#slide-1">開始報告</a>
+      <a href="about.html">網站介紹</a>
+      <a href="index.html">回首頁</a>
+    </div>
+  </div>
+</header>
+
+<main class="report-deck">
+
+  <section class="report-slide intro" id="slide-1">
+    <div class="slide-number">01</div>
+    <div>
+      <span class="report-kicker">PROJECT GOAL</span>
+      <h2>我做的是什麼？</h2>
+      <p class="lead">
+        Ray's CPBL Data Site 是一個中華職棒非官方數據網站，目標不是只複製官網，
+        而是把賽程、比分、球隊、戰績、比賽中心與資料品質整合成一個更容易閱讀的資料系統。
+      </p>
+    </div>
+    <div class="slide-card-grid three">
+      <article><strong>即時比賽</strong><span>LIVE 比分、R/H/E、逐局、打者投手</span></article>
+      <article><strong>球隊系統</strong><span>球隊總覽、名單、分析、異動</span></article>
+      <article><strong>資料穩定</strong><span>dataQuality、finalLock、fallback、人工修正</span></article>
+    </div>
+  </section>
+
+  <section class="report-slide" id="slide-2">
+    <div class="slide-number">02</div>
+    <span class="report-kicker">WHY THIS SITE</span>
+    <h2>跟一般比分網站差在哪？</h2>
+    <div class="compare-grid">
+      <div class="compare-card muted-card">
+        <h3>一般比分網站</h3>
+        <p>顯示結果，但不一定告訴你資料是否完整、是否正在同步、是否被鎖定。</p>
+      </div>
+      <div class="compare-card highlight-card">
+        <h3>Ray's CPBL Data Site</h3>
+        <p>不只顯示資料，也判斷資料品質：confirmed、partial、debug、finalLock、recentFinalGuard。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="report-slide" id="slide-3">
+    <div class="slide-number">03</div>
+    <span class="report-kicker">DATA PIPELINE</span>
+    <h2>資料更新流程</h2>
+    <div class="flow-line">
+      <div><strong>PREGAME</strong><span>賽前賽程、預告先發、打序</span></div>
+      <b>→</b>
+      <div><strong>LIVE</strong><span>比分、逐局、R/H/E、打者投手</span></div>
+      <b>→</b>
+      <div><strong>FINAL</strong><span>終場、勝敗救、MVP、finalLock</span></div>
+      <b>→</b>
+      <div><strong>NEWS</strong><span>首頁快訊中心</span></div>
+    </div>
+    <p class="slide-note">主線由 update-all.js 統一管理，並支援 health、dry-run、only、date、soft-exit、backup、log、summary。</p>
+  </section>
+
+  <section class="report-slide" id="slide-4">
+    <div class="slide-number">04</div>
+    <span class="report-kicker">LIVE SYSTEM</span>
+    <h2>LIVE 比賽中心怎麼穩住？</h2>
+    <div class="feature-grid">
+      <article><h3>Side Guard</h3><p>避免客隊球員被錯塞到主隊，表格隊名不明確時不硬塞。</p></article>
+      <article><h3>Stats Fallback</h3><p>中文 boxscore 只吐單隊時，改由 stats fallback 補齊雙隊打者與投手。</p></article>
+      <article><h3>Live State</h3><p>開始解析目前局數、打者、投手、PITCH 與最近事件。</p></article>
+    </div>
+  </section>
+
+  <section class="report-slide" id="slide-5">
+    <div class="slide-number">05</div>
+    <span class="report-kicker">FINAL LOCK</span>
+    <h2>FINAL 資料穩定化</h2>
+    <p class="lead">
+      賽後資料會寫入 finalLock，避免後續 LIVE 或 PREGAME 更新把終場資料污染。
+      近期 0～2 天 FINAL 場次會啟動 recentFinalGuard，強制交叉驗證，避免官方資料同步延遲造成錯誤。
+    </p>
+    <div class="badge-row">
+      <span>finalLock</span><span>recentFinalGuard</span><span>duplicateTeam guard</span><span>manual override</span><span>stats fallback</span>
+    </div>
+  </section>
+
+  <section class="report-slide" id="slide-6">
+    <div class="slide-number">06</div>
+    <span class="report-kicker">TEAM SYSTEM</span>
+    <h2>球隊系統</h2>
+    <div class="portal-grid">
+      <a href="teams.html"><strong>球隊列表</strong><span>六隊入口</span></a>
+      <a href="team.html?team=brothers"><strong>球隊總覽</strong><span>球隊首頁</span></a>
+      <a href="team-roster.html?team=brothers&squad=first"><strong>球隊名單</strong><span>教練與球員</span></a>
+      <a href="team-stats.html?team=brothers"><strong>球隊分析</strong><span>近況與對戰</span></a>
+      <a href="team-transactions.html?team=brothers"><strong>球員異動</strong><span>升降與註冊</span></a>
+      <a href="schedule.html?team=brothers"><strong>球隊賽程</strong><span>依隊篩選</span></a>
+    </div>
+  </section>
+
+  <section class="report-slide" id="slide-7">
+    <div class="slide-number">07</div>
+    <span class="report-kicker">STABLE DESIGN</span>
+    <h2>我怎麼避免網站爆炸？</h2>
+    <div class="feature-grid four">
+      <article><h3>備份</h3><p>更新前自動備份 JSON。</p></article>
+      <article><h3>Log</h3><p>每次更新都有 log 與 summary。</p></article>
+      <article><h3>分流</h3><p>pregame、live、final 分開跑。</p></article>
+      <article><h3>人工修正</h3><p>爬蟲錯時可用 manual override 補資料。</p></article>
+    </div>
+  </section>
+
+  <section class="report-slide" id="slide-8">
+    <div class="slide-number">08</div>
+    <span class="report-kicker">DEMO FLOW</span>
+    <h2>報告展示順序</h2>
+    <ol class="demo-list">
+      <li>開首頁，介紹今日比分橫條與無比賽日顯示。</li>
+      <li>進 Match Center，介紹 LIVE / FINAL 與 Data Quality。</li>
+      <li>進球隊頁，展示球隊總覽、名單、分析、異動。</li>
+      <li>進版本紀錄，說明 v5 Data Reliability Era。</li>
+      <li>最後用本頁總結系統架構與未來規劃。</li>
+    </ol>
+  </section>
+
+  <section class="report-slide outro" id="slide-9">
+    <div class="slide-number">09</div>
+    <span class="report-kicker">NEXT</span>
+    <h2>未來可以做什麼？</h2>
+    <div class="feature-grid three">
+      <article><h3>Data QA Console</h3><p>集中檢查資料品質、partial、debug、finalLock。</p></article>
+      <article><h3>Game Day Dashboard</h3><p>把今日賽事做成比賽日總控台。</p></article>
+      <article><h3>AI 分析</h3><p>資料穩定後，再做勝敗預測與戰況摘要。</p></article>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 CPBL Data Site ｜ <span class="site-version"></span> ｜ 明叡 × ChatGPT
+</footer>
+
+<script src="js/version.js"></script>
+</body>
+</html>

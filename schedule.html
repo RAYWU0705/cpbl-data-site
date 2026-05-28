@@ -2,354 +2,193 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>CPBL 賽程</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CPBL 賽程｜Ray's CPBL Data Site</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/schedule.css">
 </head>
-<body>
+
+<body data-page="schedule">
 
 <nav class="nav">
   <div class="nav-inner">
-    <a class="brand" href="index.html">CPBL</a>
-    <a class="nav-link" href="index.html">首頁</a>
-    <a class="nav-link active" href="schedule.html">賽程</a>
-    <a class="nav-link" href="standings.html">戰績</a>
-    <a class="nav-link" href="teams.html">球隊</a>
-    <a class="nav-link" href="season.html">賽季</a>
+
+    <div class="nav-left">
+      <a class="brand" href="index.html">CPBL</a>
+      <a class="nav-link" href="index.html">首頁</a>
+      <a class="nav-link active" href="schedule.html">賽程</a>
+      <a class="nav-link" href="standings.html">戰績</a>
+      <a class="nav-link" href="teams.html">球隊</a>
+      <a class="nav-link" href="rules.html">棒球規則</a>
+      <a class="nav-link" href="season.html">賽季</a>
+      <a class="nav-link" href="version.html">版本</a>
+      <a class="nav-link" href="about.html">網站介紹</a>
+    </div>
+
+    <div class="nav-teams" aria-label="球隊快速入口">
+      <a href="team.html?team=brothers"><img src="assets/logo/brothers.png" alt="中信兄弟"></a>
+      <a href="team.html?team=lions"><img src="assets/logo/lions.png" alt="統一7-ELEVEn獅"></a>
+      <a href="team.html?team=monkeys"><img src="assets/logo/monkeys.png" alt="樂天桃猿"></a>
+      <a href="team.html?team=dragons"><img src="assets/logo/dragons.png" alt="味全龍"></a>
+      <a href="team.html?team=guardians"><img src="assets/logo/guardians.png" alt="富邦悍將"></a>
+      <a href="team.html?team=hawks"><img src="assets/logo/hawks.png" alt="台鋼雄鷹"></a>
+    </div>
+
   </div>
 </nav>
 
-<header>
-  <h1>完整賽程</h1>
-  <p>（可依月份、賽事類型、球隊與日期篩選）</p>
+<header class="hero">
+  <p class="muted">Ray's Unofficial CPBL Data Site</p>
+  <h1 id="scheduleTitle">賽程中心</h1>
+  <p id="scheduleSub">月曆模式、列表模式、球隊 / 場地 / 賽程別篩選，當賽程時間顯示時間未定時，即代表比賽已結束。</p>
+
+  <div class="hero-actions">
+    <button id="btnReloadGames" type="button">重新整理資料</button>
+    <a href="farm-schedule.html" class="card-link">二軍賽程</a>
+    <a href="index.html" class="card-link">回首頁</a>
+  </div>
+
+  <p id="scheduleDataStatus" class="muted">資料載入中…</p>
 </header>
 
-<main>
+<main class="container">
 
-  <!-- 🔥 今日焦點 -->
-  <section id="todayFocus" style="margin-bottom:24px;"></section>
+  <section class="home-card" id="teamFilterBanner" style="display:none;">
+    <div class="schedule-team-filter-banner">
+      <div>
+        <span class="schedule-kicker">TEAM FILTER</span>
+        <h2 id="teamFilterTitle">目前篩選球隊</h2>
+        <p id="teamFilterText" class="muted">—</p>
+      </div>
+      <div class="schedule-team-filter-actions">
+        <a id="teamHomeLink" class="card-link" href="teams.html">球隊總覽</a>
+        <a class="card-link" href="schedule.html">清除球隊篩選</a>
+      </div>
+    </div>
+  </section>
 
-  <!-- 📅 本週賽程 -->
-  <section id="weekPreview" style="margin-bottom:24px;"></section>
+  <section class="home-card schedule-league-card" aria-label="賽程層級切換">
+    <div class="schedule-league-switch">
+      <div>
+        <span class="schedule-kicker">LEAGUE SWITCH</span>
+        <h2>一軍 / 二軍賽程</h2>
+        <p class="muted">
+          目前顯示一軍賽程；二軍採旁路資料流，讀取 data/farm/farm-schedule-2026.json，不混入一軍 live-boxscore.json。
+        </p>
+      </div>
 
-  <!-- 篩選 -->
-  <div style="margin-bottom:20px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
-    <label>月份：</label>
-    <select id="monthSelect">
-      <option value="2026-03">2026-03</option>
-      <option value="2026-04">2026-04</option>
-      <option value="2026-05">2026-05</option>
-      <option value="2026-06">2026-06</option>
-      <option value="2026-07">2026-07</option>
-      <option value="2026-08">2026-08</option>
-      <option value="2026-09">2026-09</option>
-    </select>
+      <div class="schedule-league-actions">
+        <a class="schedule-league-btn active" href="schedule.html">一軍賽程</a>
+        <a class="schedule-league-btn farm" href="farm-schedule.html">二軍賽程</a>
+      </div>
+    </div>
+  </section>
 
-    <label>球隊：</label>
-    <select id="teamSelect">
-      <option value="ALL">全部球隊</option>
-      <option value="中信兄弟">中信兄弟</option>
-      <option value="統一7-ELEVEn獅">統一7-ELEVEn獅</option>
-      <option value="樂天桃猿">樂天桃猿</option>
-      <option value="味全龍">味全龍</option>
-      <option value="富邦悍將">富邦悍將</option>
-      <option value="台鋼雄鷹">台鋼雄鷹</option>
-    </select>
-    <label>賽事：</label>
-    <select id="typeSelect">
-      <option value="ALL">全部賽事</option>
-      <option value="exhibition">熱身賽</option>
-      <option value="regular">例行賽</option>
-      <option value="allstar">明星賽</option>
-      <option value="postseason">季後賽</option>
-      <option value="taiwan">台灣大賽</option>
-    </select>
-  </div>
 
-  
-<!-- 模式切換 -->
-  <div style="margin-bottom:20px;">
-    <button id="listBtn">📋 列表模式</button>
-    <button id="calendarBtn">🗓 月曆模式</button>
-  </div>
+  <section class="home-card">
+    <h2>🔥 今日 / 最近賽事</h2>
+    <div id="todayFocus" class="muted">載入中…</div>
+  </section>
 
-  <!-- 月曆 -->
-  <div id="calendarView" style="display:none;"></div>
+  <section class="home-card">
+    <h2>🧭 顯示模式</h2>
 
-  <!-- 列表 -->
-  <div id="scheduleList"></div>
+    <div class="schedule-toolbar">
+      <button id="btnListMode" type="button">列表模式</button>
+      <button id="btnCalendarMode" type="button">月曆模式</button>
+    </div>
+  </section>
+
+  <section class="home-card">
+    <h2>🔎 篩選賽程</h2>
+
+    <div class="schedule-toolbar">
+
+      <label for="typeSelect">賽程別：</label>
+      <select id="typeSelect">
+        <option value="ALL">全部賽程</option>
+      </select>
+
+      <label for="monthSelect">月份：</label>
+      <select id="monthSelect">
+        <option value="ALL">全部月份</option>
+      </select>
+
+      <label for="dateSelect">日期：</label>
+      <input id="dateSelect" type="date">
+
+      <label for="teamSelect">球隊：</label>
+      <select id="teamSelect">
+        <option value="ALL">全部球隊</option>
+      </select>
+
+      <label for="venueSelect">場地：</label>
+      <select id="venueSelect">
+        <option value="ALL">全部場地</option>
+      </select>
+
+      <label for="statusSelect">狀態：</label>
+      <select id="statusSelect">
+        <option value="ALL">全部狀態</option>
+        <option value="live">LIVE</option>
+        <option value="final">已結束</option>
+        <option value="scheduled">未開賽</option>
+        <option value="postponed">延賽</option>
+      </select>
+
+      <input id="searchInput" type="search" placeholder="搜尋球隊 / 場地 / gameSno">
+
+      <button id="btnResetFilter" type="button">清除篩選</button>
+
+    </div>
+  </section>
+
+
+  <section class="home-card schedule-download-card">
+    <div class="schedule-download-head">
+      <div>
+        <h2>⬇️ 下載賽程表</h2>
+        <p class="muted" id="scheduleDownloadHint">可下載目前篩選結果；支援 Excel CSV 與行事曆 ICS。</p>
+      </div>
+
+      <div class="schedule-download-actions">
+        <button id="btnDownloadScheduleCsv" type="button">下載 CSV</button>
+        <button id="btnDownloadScheduleIcs" type="button">下載 ICS</button>
+      </div>
+    </div>
+
+    <div class="schedule-download-note">
+      CSV 可用 Excel / Google 試算表開啟；ICS 可匯入 Google Calendar / Apple Calendar / Outlook。
+    </div>
+  </section>
+
+  <section class="home-card">
+    <h2>📊 賽程摘要</h2>
+    <div id="scheduleSummary" class="muted">計算中…</div>
+  </section>
+
+  <section class="home-card" id="listSection">
+    <h2>📋 列表模式</h2>
+    <div id="scheduleList"></div>
+  </section>
+
+  <section class="home-card is-hidden" id="calendarSection">
+    <h2>🗓 月曆模式</h2>
+    <div id="calendarTitle" class="calendar-title"></div>
+    <div id="calendarGrid"></div>
+  </section>
 
 </main>
 
 <footer>
- © 2026 CPBL Data Site ｜ 
- <span class="site-version"></span> ｜ 
- 明叡 × ChatGPT
+  © 2026 CPBL Data Site ｜
+  <span class="site-version"></span> ｜
+  明叡 × ChatGPT
 </footer>
 
-<script type="module">
-
-// =========================
-// v5 Schedule Engine
-// =========================
-
-import { loadGames, filterGames } from "./js/games-data.js";
-
-const state = {
-  month: "2026-03",
-  team: "ALL",
-  type: "ALL",
-  mode: "list"
-};
-
-const monthSelect = document.getElementById("monthSelect");
-const teamSelect = document.getElementById("teamSelect");
-const scheduleList = document.getElementById("scheduleList");
-const calendarView = document.getElementById("calendarView");
-const listBtn = document.getElementById("listBtn");
-const calendarBtn = document.getElementById("calendarBtn");
-const typeSelect = document.getElementById("typeSelect");
-
-// =========================
-// 初始化
-// =========================
-
-init();
-
-async function init(){
-  await loadGames(state.month);
-  render();
-}
-
-// =========================
-// 統一 render
-// =========================
-
-function render(){
-
-  const games = filterGames({
-  month: state.month,
-  team: state.team,
-  type: state.type
-});
-
-  if (state.mode === "list"){
-    scheduleList.style.display = "block";
-    calendarView.style.display = "none";
-    renderList(games);
-  } else {
-    scheduleList.style.display = "none";
-    calendarView.style.display = "block";
-    renderCalendar(games);
-  }
-}
-
-// =========================
-// 列表模式
-// =========================
-function renderList(games){
-
-  scheduleList.innerHTML = "";
-
-  if (!games.length){
-    scheduleList.innerHTML = "<p>本月無賽程</p>";
-    return;
-  }
-
-  const grouped = {};
-
-  games.forEach(g=>{
-    if (!grouped[g.date]) grouped[g.date] = [];
-    grouped[g.date].push(g);
-  });
-
-  Object.keys(grouped).sort().forEach(date=>{
-
-    const first = grouped[date][0];
-
-    const h3 = document.createElement("h3");
-    h3.textContent = `📅 ${date} ${first.weekday}`;
-    scheduleList.appendChild(h3);
-
-    grouped[date].forEach(g=>{
-
-      const scoreText = g.score
-        ? `<strong style="font-size:18px;">
-            ${g.score.away} : ${g.score.home}
-           </strong>`
-        : `<strong>VS</strong>`;
-
-      const statusText =
-        g.status === "final" ? "已結束" :
-        g.status === "live" ? "進行中" :
-        "未開賽";
-
-      const typeLabel = getTypeLabel(g.type);
-
-      const isMyTeam =
-        g.home === "中信兄弟" || g.away === "中信兄弟";
-
-      const myMark =
-        g.home === "中信兄弟" ? "🏠 主場" :
-        g.away === "中信兄弟" ? "✈️ 客場" :
-        "";
-
-      const card = document.createElement("div");
-      card.className = "game-card";
-      card.style.cursor = "pointer";
-
-      card.innerHTML = `
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <div>
-            ${g.away} ${scoreText} ${g.home}
-          </div>
-          <div>
-            ${typeLabel}
-          </div>
-        </div>
-
-        <div style="font-size:13px;color:#666;margin-top:6px;">
-          🏟 ${g.venue} ｜ ⏰ ${g.time}
-        </div>
-
-        <div style="font-size:12px;color:#999;margin-top:4px;">
-          ${statusText} ${isMyTeam ? "｜ "+myMark : ""}
-        </div>
-      `;
-
-      card.onclick = ()=>{
-        location.href =
-          `match.html?date=${g.date}&home=${g.home}&away=${g.away}`;
-      };
-
-      scheduleList.appendChild(card);
-    });
-  });
-}
-function getTypeLabel(type){
-
-  const map = {
-    exhibition: "🟠 熱身賽",
-    regular: "🔵 例行賽",
-    allstar: "⭐ 明星賽",
-    postseason: "🟣 季後賽",
-    taiwan: "🏆 台灣大賽"
-  };
-
-  if (!type || !map[type]) return "";
-
-  return `<span style="
-    background:#eee;
-    padding:4px 8px;
-    border-radius:8px;
-    font-size:12px;
-  ">${map[type]}</span>`;
-}
-
-// =========================
-// 月曆模式
-// =========================
-function renderCalendar(games){
-
-  const year = parseInt(state.month.slice(0,4));
-  const m = parseInt(state.month.slice(5,7)) - 1;
-
-  const firstDay = new Date(year, m, 1).getDay();
-  const daysInMonth = new Date(year, m + 1, 0).getDate();
-
-  const weekHeader = ["日","一","二","三","四","五","六"]
-    .map(d=>`<div class="cal-header">${d}</div>`)
-    .join("");
-
-  let cells = [];
-
-  for (let i = 0; i < firstDay; i++) {
-    cells.push(`<div class="cal-cell empty"></div>`);
-  }
-
-  for (let d = 1; d <= daysInMonth; d++){
-
-    const dayStr = d.toString().padStart(2,"0");
-    const dateStr = `${state.month}-${dayStr}`;
-
-    const dayGames = games.filter(g=>g.date===dateStr);
-
-    cells.push(`
-      <div class="cal-cell">
-        <div class="cal-date">${d}</div>
-
-        ${dayGames.map(g=>{
-
-          const scoreText = g.score
-            ? `${g.score.away}:${g.score.home}`
-            : "VS";
-
-          const typeIcon =
-            g.type === "exhibition" ? "🟠" :
-            g.type === "allstar" ? "⭐" :
-            g.type === "postseason" ? "🟣" :
-            g.type === "taiwan" ? "🏆" :
-            "🔵";
-
-          const isMy =
-            g.home === "中信兄弟" ||
-            g.away === "中信兄弟";
-
-          return `
-            <div class="cal-game ${isMy ? "my-cal-game" : ""}"
-              onclick="location.href='match.html?date=${g.date}&home=${g.home}&away=${g.away}'">
-              ${typeIcon}
-              ${g.away} ${scoreText} ${g.home}
-              <div style="font-size:11px;color:#777;">
-                ⏰ ${g.time}
-              </div>
-            </div>
-          `;
-        }).join("")}
-
-      </div>
-    `);
-  }
-
-  calendarView.innerHTML = `
-    <div class="calendar-grid">
-      ${weekHeader}
-      ${cells.join("")}
-    </div>
-  `;
-}
-// =========================
-// 篩選
-// =========================
-
-monthSelect.addEventListener("change", async ()=>{
-  state.month = monthSelect.value;
-  await loadGames(state.month);
-  render();
-});
-
-teamSelect.addEventListener("change", ()=>{
-  state.team = teamSelect.value;
-  render();
-});
-
-// =========================
-// 模式切換
-// =========================
-
-listBtn.addEventListener("click", ()=>{
-  state.mode = "list";
-  render();
-});
-
-calendarBtn.addEventListener("click", ()=>{
-  state.mode = "calendar";
-  render();
-});
-typeSelect.addEventListener("change", ()=>{
-  state.type = typeSelect.value;
-  render();
-});
-</script>
+<script type="module" src="js/pages/schedule.js?v=524"></script>
 <script src="js/version.js"></script>
+
 </body>
 </html>

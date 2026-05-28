@@ -1,0 +1,19 @@
+/* 
+  v5.2.1 farm-schedule.js patch note:
+  若你要讓二軍賽程卡片可以點進 farm-match.html，
+  請在原本 farm-schedule.js 的 renderFarmGameCard(game) 裡，
+  把 <article class="farm-game-card"> 改成：
+
+  <article class="farm-game-card" onclick="location.href='${buildFarmMatchUrl(game)}'" role="link" tabindex="0">
+
+  並在檔案底部新增：
+
+  function buildFarmMatchUrl(game) {
+    const params = new URLSearchParams();
+    params.set("gameSno", game.gameSno || "");
+    params.set("date", game.date || "");
+    return `farm-match.html?${params.toString()}`;
+  }
+
+  本 ZIP 不直接覆蓋 farm-schedule.js，避免你剛剛已經調整過的二軍狀態判斷被蓋掉。
+*/

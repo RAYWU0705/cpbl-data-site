@@ -1,17 +1,21 @@
 /* =========================
-   2026 CPBL Season Center V1.3
-   - 主/客戰績
+   2026 CPBL Season Center V2.0
+   來源：data/live/live-boxscore.json
+   - 賽季進度
+   - 各隊目前狀態
+   - 主客場戰績
    - 近10場
    - 連勝/連敗
-   - 最近一場比分
-   - 對戰戰績表 (H2H) 可點擊
-   - 對戰明細清單（可點進 match）
-   - 我的球隊高亮（中信兄弟）
-   ========================= */
+   - 最近一場
+   - 對戰戰績 H2H
+   - 對戰明細可點進 match.html?gameSno=
+========================= */
 
 let allSeasonGames = [];
 
 const MY_TEAM = "中信兄弟";
+const TOTAL_GAMES = 360;
+const LIVE_BOXSCORE_URL = "data/live/live-boxscore.json";
 
 const TEAM_ID_MAP = {
   "中信兄弟": "brothers",
@@ -21,6 +25,7 @@ const TEAM_ID_MAP = {
   "富邦悍將": "guardians",
   "台鋼雄鷹": "hawks"
 };
+
 const TEAM_LIST = Object.keys(TEAM_ID_MAP);
 
 const progressBox = document.getElementById("seasonProgress");
@@ -28,55 +33,130 @@ const teamGrid = document.getElementById("teamStatusGrid");
 const h2hWrap = document.getElementById("h2hTableWrap");
 const h2hDetailHint = document.getElementById("h2hDetailHint");
 const h2hDetailList = document.getElementById("h2hDetailList");
-
-const TOTAL_GAMES = 360;
-
-const months = ["2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09"];
+const todayBox = document.querySelector("#todayGamesCard .today-content");
 
 /* =========================
-   入口：載入全部月份
-   ========================= */
-Promise.all(
-  months.map(m =>
-    fetch(`data/schedule-${m}.json`)
-      .then(r => r.ok ? r.json() : [])
-      .catch(() => [])
-  )
-).then(results => {
-  allSeasonGames = results.flat();
+   入口
+========================= */
 
-  // 只取 final 且分數齊全
-  const finals = allSeasonGames.filter(g =>
-    g?.status === "final" &&
-    typeof g?.homeScore === "number" &&
-    typeof g?.awayScore === "number" &&
-    g?.teams?.home && g?.teams?.away
-  );
+document.addEventListener("DOMContentLoaded", initSeason);
 
-  updateProgress(finals);
+async function initSeason() {
+  try {
+    injectV2CssOnce();
 
-  const base = calculateStandings(finals);
-  const extras = calculateExtras(finals);            // 近10 + 連勝/連敗
-  const lastGame = calculateLastGame(finals);        // 最近一場
-  const merged = mergeStandings(base, extras, lastGame);
-  const ranked = rankStandings(merged);
+    allSeasonGames = await loadLiveBoxscoreGames();
 
-  renderTeamCards(ranked);
+    const regularGames = allSeasonGames.filter(g =>
+      g.type === "regular" &&
+      TEAM_LIST.includes(g.home) &&
+      TEAM_LIST.includes(g.away)
+    );
 
-  const h2h = calculateHeadToHead(finals);
-  renderHeadToHeadTable(h2h);
+    const finals = regularGames.filter(g =>
+      g.status === "final" &&
+      typeof g.homeScore === "number" &&
+      typeof g.awayScore === "number"
+    );
 
-  // 預設：顯示我的球隊 vs 任一隊（如果有）
-  if (h2hDetailList) {
-    h2hDetailList.innerHTML = `
-      <div class="muted">提示：點上方對戰表任一格，就會列出比賽（可點進比賽中心）</div>
-    `;
+    updateProgress(finals);
+
+    const base = calculateStandings(finals);
+    const extras = calculateExtras(finals);
+    const lastGame = calculateLastGame(finals);
+    const merged = mergeStandings(base, extras, lastGame);
+    const ranked = rankStandings(merged);
+
+    renderTeamCards(ranked);
+
+    const h2h = calculateHeadToHead(finals);
+    renderHeadToHeadTable(h2h);
+    renderTodayGames();
+
+    if (h2hDetailList) {
+      h2hDetailList.innerHTML = `
+        <div class="muted">提示：點上方對戰表任一格，就會列出比賽（可點進比賽中心）</div>
+      `;
+    }
+
+  } catch (err) {
+    console.error(err);
+
+    if (progressBox) {
+      progressBox.innerHTML = `<div class="muted">賽季資料載入失敗：${escapeHtml(err.message)}</div>`;
+    }
+
+    if (teamGrid) {
+      teamGrid.innerHTML = `<div class="home-card">資料載入失敗</div>`;
+    }
   }
-});
+}
+
+/* =========================
+   載入新版 live-boxscore
+========================= */
+
+async function loadLiveBoxscoreGames() {
+  const res = await fetch(`${LIVE_BOXSCORE_URL}?ts=${Date.now()}`, {
+    cache: "no-store"
+  });
+
+  if (!res.ok) {
+    throw new Error(`讀取 live-boxscore.json 失敗：HTTP ${res.status}`);
+  }
+
+  const data = await res.json();
+  const arr = Array.isArray(data) ? data : Object.values(data || {});
+
+  return arr
+    .map(normalizeGame)
+    .filter(g => g.date && g.home && g.away);
+}
+
+function normalizeGame(g) {
+  const meta = g.meta || {};
+
+  const home = normalizeTeamName(meta.home);
+  const away = normalizeTeamName(meta.away);
+
+  return {
+    raw: g,
+
+    gameSno: Number(g.gameSno ?? 0),
+
+    date: meta.date || "",
+    time: meta.time || "",
+    venue: meta.venue || "",
+
+    home,
+    away,
+
+    homeScore: valueOrNull(g.totals?.home?.R),
+    awayScore: valueOrNull(g.totals?.away?.R),
+
+    status: meta.status || "scheduled",
+    statusText: meta.statusText || "",
+
+    type: meta.type || "regular"
+  };
+}
+
+function normalizeTeamName(name) {
+  return String(name || "")
+    .replace("7-ELEVEN", "7-ELEVEn")
+    .trim();
+}
+
+function valueOrNull(v) {
+  if (v === undefined || v === null || v === "") return null;
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
+}
 
 /* =========================
    賽季進度
-   ========================= */
+========================= */
+
 function updateProgress(finalGames) {
   if (!progressBox) return;
 
@@ -84,17 +164,12 @@ function updateProgress(finalGames) {
   const percent = Math.round((played / TOTAL_GAMES) * 100);
 
   progressBox.innerHTML = `
-    <div style="margin-bottom:6px;">
-      已完成 ${played} / ${TOTAL_GAMES} 場（${percent}%）
+    <div class="season-progress-text">
+      已完成 <strong>${played}</strong> / ${TOTAL_GAMES} 場（${percent}%）
     </div>
-    <div style="background:#ddd; border-radius:10px; overflow:hidden;">
-      <div style="
-        width:${percent}%;
-        background:#0b3c5d;
-        color:#fff;
-        padding:6px;
-        font-weight:700;
-      ">
+
+    <div class="season-progress-bar">
+      <div class="season-progress-fill" style="width:${percent}%;">
         ${percent}%
       </div>
     </div>
@@ -102,34 +177,65 @@ function updateProgress(finalGames) {
 }
 
 /* =========================
-   基本戰績（含主/客）
-   ========================= */
+   基本戰績
+========================= */
+
 function calculateStandings(finals) {
   const teams = {};
+
   TEAM_LIST.forEach(t => {
     teams[t] = {
       team: t,
-      W:0, L:0, T:0,
-      homeW:0, homeL:0, homeT:0,
-      awayW:0, awayL:0, awayT:0
+
+      W: 0,
+      L: 0,
+      T: 0,
+
+      homeW: 0,
+      homeL: 0,
+      homeT: 0,
+
+      awayW: 0,
+      awayL: 0,
+      awayT: 0,
+
+      RF: 0,
+      RA: 0
     };
   });
 
   for (const g of finals) {
-    const home = g.teams.home;
-    const away = g.teams.away;
+    const home = g.home;
+    const away = g.away;
 
     if (!teams[home] || !teams[away]) continue;
 
+    teams[home].RF += g.homeScore;
+    teams[home].RA += g.awayScore;
+
+    teams[away].RF += g.awayScore;
+    teams[away].RA += g.homeScore;
+
     if (g.homeScore > g.awayScore) {
-      teams[home].W++; teams[home].homeW++;
-      teams[away].L++; teams[away].awayL++;
+      teams[home].W++;
+      teams[home].homeW++;
+
+      teams[away].L++;
+      teams[away].awayL++;
+
     } else if (g.homeScore < g.awayScore) {
-      teams[away].W++; teams[away].awayW++;
-      teams[home].L++; teams[home].homeL++;
+      teams[away].W++;
+      teams[away].awayW++;
+
+      teams[home].L++;
+      teams[home].homeL++;
+
     } else {
-      teams[home].T++; teams[home].homeT++;
-      teams[away].T++; teams[away].awayT++;
+      teams[home].T++;
+      teams[home].homeT++;
+
+      teams[away].T++;
+      teams[away].awayT++;
     }
   }
 
@@ -138,16 +244,17 @@ function calculateStandings(finals) {
 
 /* =========================
    近10場 + 連勝/連敗
-   ========================= */
+========================= */
+
 function calculateExtras(finals) {
-  const sorted = [...finals].sort((a,b) => (a.date || "").localeCompare(b.date || ""));
+  const sorted = [...finals].sort(sortByDateTime);
 
   const seq = {};
   TEAM_LIST.forEach(t => seq[t] = []);
 
   for (const g of sorted) {
-    const home = g.teams.home;
-    const away = g.teams.away;
+    const home = g.home;
+    const away = g.away;
 
     const homeRes = g.homeScore > g.awayScore ? "W" : (g.homeScore < g.awayScore ? "L" : "T");
     const awayRes = g.homeScore > g.awayScore ? "L" : (g.homeScore < g.awayScore ? "W" : "T");
@@ -157,28 +264,16 @@ function calculateExtras(finals) {
   }
 
   const extras = {};
+
   TEAM_LIST.forEach(t => {
     const s = seq[t];
     const last10 = s.slice(-10);
 
-    const last10W = last10.filter(x => x==="W").length;
-    const last10L = last10.filter(x => x==="L").length;
-    const last10T = last10.filter(x => x==="T").length;
+    const last10W = last10.filter(x => x === "W").length;
+    const last10L = last10.filter(x => x === "L").length;
+    const last10T = last10.filter(x => x === "T").length;
 
-    let streakType = "";
-    let streakCount = 0;
-    for (let i = s.length - 1; i >= 0; i--) {
-      const r = s[i];
-      if (r === "T") break;
-      if (!streakType) {
-        streakType = r; streakCount = 1;
-      } else if (r === streakType) {
-        streakCount++;
-      } else {
-        break;
-      }
-    }
-    const streak = !streakType ? "—" : `${streakType === "W" ? "連勝" : "連敗"} ${streakCount}`;
+    const streak = getStreakText(s);
 
     extras[t] = {
       last10: s.length ? `${last10W}-${last10L}-${last10T}` : "—",
@@ -189,57 +284,79 @@ function calculateExtras(finals) {
   return extras;
 }
 
+function getStreakText(results) {
+  if (!results.length) return "—";
+
+  const last = results[results.length - 1];
+
+  if (last === "T") return "和局 1";
+
+  let count = 1;
+
+  for (let i = results.length - 2; i >= 0; i--) {
+    if (results[i] === last) count++;
+    else break;
+  }
+
+  if (last === "W") return `連勝 ${count}`;
+  if (last === "L") return `連敗 ${count}`;
+
+  return "—";
+}
+
 /* =========================
-   最近一場（只取 final）
-   ========================= */
+   最近一場
+========================= */
+
 function calculateLastGame(finals) {
-  // 依日期排序，取最後一場（每隊各自最後）
-  const sorted = [...finals].sort((a,b) => (a.date || "").localeCompare(b.date || ""));
+  const sorted = [...finals].sort(sortByDateTime);
 
   const last = {};
   TEAM_LIST.forEach(t => last[t] = null);
 
   for (const g of sorted) {
-    const home = g.teams.home;
-    const away = g.teams.away;
-    if (last[home] !== undefined) last[home] = g;
-    if (last[away] !== undefined) last[away] = g;
+    if (last[g.home] !== undefined) last[g.home] = g;
+    if (last[g.away] !== undefined) last[g.away] = g;
   }
 
-  // 轉成文字（每隊視角）
   const out = {};
+
   TEAM_LIST.forEach(t => {
     const g = last[t];
+
     if (!g) {
       out[t] = "—";
       return;
     }
-    const home = g.teams.home;
-    const away = g.teams.away;
 
-    const isHome = (t === home);
+    const isHome = t === g.home;
+
     const meScore = isHome ? g.homeScore : g.awayScore;
     const oppScore = isHome ? g.awayScore : g.homeScore;
-    const opp = isHome ? away : home;
+    const opp = isHome ? g.away : g.home;
 
     const wl = meScore > oppScore ? "勝" : (meScore < oppScore ? "敗" : "和");
-    out[t] = `${g.date} vs ${opp}（${wl} ${meScore}-${oppScore}）`;
+
+    out[t] = `${g.date} vs ${shortName(opp)}（${wl} ${meScore}-${oppScore}）`;
   });
 
   return out;
 }
 
 /* =========================
-   合併戰績 + 附加資訊
-   ========================= */
+   合併 + 排名
+========================= */
+
 function mergeStandings(base, extras, lastGameText) {
   const out = {};
+
   TEAM_LIST.forEach(t => {
     const b = base[t];
-    const e = extras[t] || { last10:"—", streak:"—" };
+    const e = extras[t] || { last10: "—", streak: "—" };
 
     const total = b.W + b.L + b.T;
-    const pct = total ? b.W / total : 0;
+    const decisionGames = b.W + b.L;
+    const pct = decisionGames ? b.W / decisionGames : 0;
 
     out[t] = {
       ...b,
@@ -247,25 +364,34 @@ function mergeStandings(base, extras, lastGameText) {
       pct,
       last10: e.last10,
       streak: e.streak,
-      lastGame: lastGameText?.[t] ?? "—"
+      lastGame: lastGameText?.[t] ?? "—",
+      runDiff: b.RF - b.RA
     };
   });
+
   return out;
 }
 
-/* =========================
-   排名 + 勝差
-   ========================= */
 function rankStandings(standings) {
   const arr = Object.values(standings);
-  arr.sort((a,b) => b.pct - a.pct);
+
+  arr.sort((a, b) => {
+    if (b.pct !== a.pct) return b.pct - a.pct;
+    if (b.W !== a.W) return b.W - a.W;
+    if (b.runDiff !== a.runDiff) return b.runDiff - a.runDiff;
+    return a.team.localeCompare(b.team, "zh-Hant");
+  });
 
   const leader = arr[0] || null;
-  arr.forEach(t => {
-    if (!leader || t.total === 0) {
-      t.GB = "—";
+
+  arr.forEach((t, index) => {
+    t.rank = index + 1;
+
+    if (!leader || t.total === 0 || index === 0) {
+      t.GB = index === 0 && t.total > 0 ? "-" : "—";
       return;
     }
+
     const gb = ((leader.W - t.W) + (t.L - leader.L)) / 2;
     t.GB = gb === 0 ? "-" : gb.toFixed(1);
   });
@@ -274,14 +400,13 @@ function rankStandings(standings) {
 }
 
 /* =========================
-   渲染球隊卡片（新增最近一場、我的球隊高亮）
-   ========================= */
+   渲染球隊卡片
+========================= */
+
 function renderTeamCards(teams) {
   if (!teamGrid) return;
 
-  injectV13CssOnce();
-
-  teamGrid.innerHTML = teams.map((t, idx) => {
+  teamGrid.innerHTML = teams.map(t => {
     const pctText = t.total ? t.pct.toFixed(3) : "—";
 
     let status = "普通";
@@ -290,57 +415,67 @@ function renderTeamCards(teams) {
     else if (t.pct <= 0.4) status = "⚠️ 待調整";
 
     const isMine = t.team === MY_TEAM;
+    const logo = TEAM_ID_MAP[t.team];
 
     return `
-      <div class="home-card team-card ${isMine ? "my-team-card" : ""}" data-team="${t.team}">
-        <div style="display:flex; align-items:center; gap:12px;">
+      <a class="home-card season-team-card ${isMine ? "my-team-card" : ""}"
+         href="team.html?team=${logo}"
+         data-team="${escapeHtml(t.team)}">
+
+        <div class="season-team-head">
           <img
-            src="assets/logo/${TEAM_ID_MAP[t.team]}.png"
-            style="width:48px; height:48px; object-fit:contain;"
+            src="assets/logo/${logo}.png"
+            alt="${escapeHtml(t.team)}"
             onerror="this.style.display='none'"
           >
+
           <div>
-            <strong>${idx + 1}. ${t.team}</strong><br>
+            <strong>${t.rank}. ${escapeHtml(t.team)}</strong><br>
             <span class="muted record">${t.W}-${t.L}-${t.T}</span><br>
             <span class="muted status">勝率 ${pctText} ｜ 勝差 ${t.GB}</span>
           </div>
         </div>
 
-        <div style="margin-top:10px; display:grid; gap:6px;">
+        <div class="season-team-body">
           <div class="muted">主場 ${t.homeW}-${t.homeL}-${t.homeT} ｜ 客場 ${t.awayW}-${t.awayL}-${t.awayT}</div>
+          <div class="muted">得分 ${t.RF} ｜ 失分 ${t.RA} ｜ 差 ${t.runDiff > 0 ? "+" : ""}${t.runDiff}</div>
           <div class="muted">近10場 ${t.last10} ｜ ${t.streak}</div>
-          <div class="muted">最近一場比賽：${t.lastGame}</div>
-          <div style="font-weight:700;">狀態：${status}</div>
+          <div class="muted">最近一場比賽：${escapeHtml(t.lastGame)}</div>
+          <div class="season-status">狀態：${status}</div>
         </div>
-      </div>
+      </a>
     `;
   }).join("");
 }
 
 /* =========================
-   對戰戰績（H2H）
-   h2h[A][B] = {W,L,T}
-   ========================= */
+   對戰戰績 H2H
+========================= */
+
 function calculateHeadToHead(finals) {
   const h2h = {};
+
   TEAM_LIST.forEach(a => {
     h2h[a] = {};
     TEAM_LIST.forEach(b => {
-      h2h[a][b] = { W:0, L:0, T:0 };
+      h2h[a][b] = { W: 0, L: 0, T: 0 };
     });
   });
 
   for (const g of finals) {
-    const home = g.teams.home;
-    const away = g.teams.away;
+    const home = g.home;
+    const away = g.away;
+
     if (!h2h[home] || !h2h[away]) continue;
 
     if (g.homeScore > g.awayScore) {
       h2h[home][away].W++;
       h2h[away][home].L++;
+
     } else if (g.homeScore < g.awayScore) {
       h2h[away][home].W++;
       h2h[home][away].L++;
+
     } else {
       h2h[home][away].T++;
       h2h[away][home].T++;
@@ -350,13 +485,8 @@ function calculateHeadToHead(finals) {
   return h2h;
 }
 
-/* =========================
-   渲染對戰表（可點擊）
-   ========================= */
 function renderHeadToHeadTable(h2h) {
   if (!h2hWrap) return;
-
-  injectV13CssOnce();
 
   const header = `
     <div class="h2h-row h2h-head">
@@ -367,7 +497,9 @@ function renderHeadToHeadTable(h2h) {
 
   const rows = TEAM_LIST.map(a => {
     const cells = TEAM_LIST.map(b => {
-      if (a === b) return `<div class="h2h-cell h2h-self">—</div>`;
+      if (a === b) {
+        return `<div class="h2h-cell h2h-self">—</div>`;
+      }
 
       const x = h2h[a][b];
       const total = x.W + x.L + x.T;
@@ -377,16 +509,15 @@ function renderHeadToHeadTable(h2h) {
 
       return `
         <div class="h2h-cell h2h-click ${isMineLine ? "h2h-mine" : ""}"
-             data-a="${a}" data-b="${b}">
+             data-a="${escapeHtml(a)}"
+             data-b="${escapeHtml(b)}">
           ${text}
         </div>
       `;
     }).join("");
 
-    const rowMine = a === MY_TEAM ? "h2h-row-mine" : "";
-
     return `
-      <div class="h2h-row ${rowMine}">
+      <div class="h2h-row ${a === MY_TEAM ? "h2h-row-mine" : ""}">
         <div class="h2h-cell h2h-team">${shortName(a)}</div>
         ${cells}
       </div>
@@ -400,11 +531,11 @@ function renderHeadToHeadTable(h2h) {
     </div>
   `;
 
-  // 綁定點擊：顯示對戰明細
   h2hWrap.querySelectorAll(".h2h-click").forEach(cell => {
     cell.addEventListener("click", () => {
       const a = cell.dataset.a;
       const b = cell.dataset.b;
+
       renderHeadToHeadDetail(a, b);
       highlightSelectedH2H(a, b);
     });
@@ -412,18 +543,18 @@ function renderHeadToHeadTable(h2h) {
 }
 
 /* =========================
-   對戰明細（列出所有 final 的比賽，可點 match）
-   ========================= */
+   對戰明細
+========================= */
+
 function renderHeadToHeadDetail(teamA, teamB) {
   if (!h2hDetailList || !h2hDetailHint) return;
 
   const games = allSeasonGames
     .filter(g =>
-      g?.teams?.home && g?.teams?.away &&
-      ((g.teams.home === teamA && g.teams.away === teamB) ||
-       (g.teams.home === teamB && g.teams.away === teamA))
+      (g.home === teamA && g.away === teamB) ||
+      (g.home === teamB && g.away === teamA)
     )
-    .sort((a,b) => (a.date || "").localeCompare(b.date || ""));
+    .sort(sortByDateTime);
 
   h2hDetailHint.textContent = `目前顯示：${teamA} vs ${teamB}（共 ${games.length} 場）`;
 
@@ -433,49 +564,38 @@ function renderHeadToHeadDetail(teamA, teamB) {
   }
 
   h2hDetailList.innerHTML = games.map(g => {
-    const home = g.teams.home;
-    const away = g.teams.away;
+    const isFinal =
+      g.status === "final" &&
+      typeof g.homeScore === "number" &&
+      typeof g.awayScore === "number";
 
-    const isFinal = g.status === "final" &&
-      typeof g.homeScore === "number" && typeof g.awayScore === "number";
+    const scoreText = isFinal
+      ? `${g.away} ${g.awayScore} : ${g.homeScore} ${g.home}`
+      : `${g.away} vs ${g.home}｜${getStatusText(g.status)}`;
 
-    const scoreText = isFinal ? `${away} ${g.awayScore} : ${g.homeScore} ${home}` : `${away} vs ${home}`;
-
-    const params = new URLSearchParams();
-    params.set("date", g.date);
-    params.set("home", home);
-    params.set("away", away);
-
-    // 若你未來有用 gameId（現在先不強迫）
-    const gid = buildGameId(g);
-    if (gid) params.set("gameId", gid);
+    const url = g.gameSno
+      ? `match.html?gameSno=${g.gameSno}`
+      : "#";
 
     return `
-      <div class="h2h-game-item" data-url="match.html?${params.toString()}">
-        <div style="font-weight:700;">${g.date}</div>
-        <div class="muted">${scoreText}</div>
-        <div class="muted" style="font-size:12px;">點我進比賽中心</div>
-      </div>
+      <a class="h2h-game-item" href="${url}">
+        <div class="h2h-game-date">${escapeHtml(g.date)}｜${escapeHtml(g.time || "時間未定")}</div>
+        <div class="muted">${escapeHtml(scoreText)}</div>
+        <div class="muted">${escapeHtml(g.venue || "球場待定")}</div>
+      </a>
     `;
   }).join("");
-
-  h2hDetailList.querySelectorAll(".h2h-game-item").forEach(item => {
-    item.addEventListener("click", () => {
-      const url = item.dataset.url;
-      window.location.href = url;
-    });
-  });
 }
 
-/* =========================
-   高亮目前選到的格子（可看得到）
-   ========================= */
 function highlightSelectedH2H(a, b) {
   if (!h2hWrap) return;
+
   h2hWrap.querySelectorAll(".h2h-click").forEach(cell => {
     cell.classList.remove("h2h-selected");
+
     const ca = cell.dataset.a;
     const cb = cell.dataset.b;
+
     if ((ca === a && cb === b) || (ca === b && cb === a)) {
       cell.classList.add("h2h-selected");
     }
@@ -483,19 +603,54 @@ function highlightSelectedH2H(a, b) {
 }
 
 /* =========================
-   gameId：和 match.js 同規格
-   ========================= */
-function buildGameId(game) {
-  const home = game?.teams?.home;
-  const away = game?.teams?.away;
-  if (!game?.date || !home || !away) return null;
-  const dateId = game.date.replaceAll("-", "");
-  return `${dateId}_${home}_${away}`;
+   今日賽事
+========================= */
+
+function renderTodayGames() {
+  if (!todayBox) return;
+
+  const today = getToday();
+
+  const todayGames = allSeasonGames
+    .filter(g => g.date === today)
+    .sort(sortByDateTime);
+
+  if (!todayGames.length) {
+    todayBox.textContent = "今天沒有比賽";
+    return;
+  }
+
+  todayBox.innerHTML = todayGames.map(g => {
+    const scoreText =
+      g.status === "final" && typeof g.homeScore === "number" && typeof g.awayScore === "number"
+        ? `${g.away} ${g.awayScore} : ${g.homeScore} ${g.home}`
+        : `${g.away} vs ${g.home}`;
+
+    return `
+      <a class="today-game today-game-link" href="match.html?gameSno=${g.gameSno}">
+        <strong>${escapeHtml(scoreText)}</strong><br>
+        <span class="muted">${escapeHtml(g.time || "時間未定")}｜${escapeHtml(g.venue || "球場待定")}</span>
+      </a>
+    `;
+  }).join("");
 }
 
 /* =========================
-   縮寫顯示
-   ========================= */
+   工具
+========================= */
+
+function sortByDateTime(a, b) {
+  const ad = `${a.date || ""} ${a.time || "00:00"}`;
+  const bd = `${b.date || ""} ${b.time || "00:00"}`;
+  return ad.localeCompare(bd);
+}
+
+function getToday() {
+  const d = new Date();
+
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
 function shortName(team) {
   if (team.includes("中信")) return "兄弟";
   if (team.includes("統一")) return "統一";
@@ -506,39 +661,141 @@ function shortName(team) {
   return team;
 }
 
+function getStatusText(status) {
+  if (status === "final") return "已結束";
+  if (status === "live") return "LIVE";
+  if (status === "postponed") return "延賽";
+  if (status === "suspended") return "保留比賽";
+  if (status === "cancelled") return "取消";
+  return "未開賽";
+}
+
+function escapeHtml(str = "") {
+  return String(str)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
 /* =========================
-   注入 CSS（一次）
-   ========================= */
-function injectV13CssOnce() {
-  if (document.getElementById("seasonV13Style")) return;
+   CSS
+========================= */
+
+function injectV2CssOnce() {
+  if (document.getElementById("seasonV2Style")) return;
+
   const style = document.createElement("style");
-  style.id = "seasonV13Style";
+  style.id = "seasonV2Style";
+
   style.textContent = `
-    /* 我的球隊卡片高亮 */
+    .season-progress-text{
+      margin-bottom:8px;
+      font-size:16px;
+    }
+
+    .season-progress-bar{
+      background:#ddd;
+      border-radius:12px;
+      overflow:hidden;
+      min-height:32px;
+    }
+
+    .season-progress-fill{
+      background:#0b3c5d;
+      color:#fff;
+      padding:8px;
+      font-weight:900;
+      min-width:42px;
+      transition:.3s ease;
+    }
+
+    .season-team-card{
+      display:block;
+      color:inherit;
+      text-decoration:none;
+    }
+
+    .season-team-head{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .season-team-head img{
+      width:54px;
+      height:54px;
+      object-fit:contain;
+    }
+
+    .season-team-body{
+      margin-top:12px;
+      display:grid;
+      gap:7px;
+      line-height:1.6;
+    }
+
+    .season-status{
+      font-weight:900;
+    }
+
     .my-team-card{
       border:2px solid #0b3c5d;
-      box-shadow: 0 8px 20px rgba(11,60,93,0.18);
+      box-shadow:0 8px 20px rgba(11,60,93,0.18);
     }
 
-    /* H2H 表格 */
-    .h2h-table{ display:grid; gap:6px; overflow:auto; }
-    .h2h-row{ display:grid; grid-template-columns: 90px repeat(6, minmax(70px,1fr)); gap:6px; }
+    .h2h-table{
+      display:grid;
+      gap:6px;
+      overflow:auto;
+    }
+
+    .h2h-row{
+      display:grid;
+      grid-template-columns:90px repeat(6, minmax(70px,1fr));
+      gap:6px;
+    }
+
     .h2h-cell{
-      background:#f6f7f9; border:1px solid #eceef2; border-radius:10px;
-      padding:8px; text-align:center; font-size:13px;
+      background:#f6f7f9;
+      border:1px solid #eceef2;
+      border-radius:10px;
+      padding:8px;
+      text-align:center;
+      font-size:13px;
       user-select:none;
     }
-    .h2h-head .h2h-cell{ background:#0b3c5d; color:#fff; font-weight:700; }
-    .h2h-team{ background:#fff; font-weight:700; }
-    .h2h-self{ background:#fff; color:#999; }
 
-    .h2h-click{ cursor:pointer; transition: transform .08s ease; }
-    .h2h-click:hover{ transform: translateY(-1px); }
+    .h2h-head .h2h-cell{
+      background:#0b3c5d;
+      color:#fff;
+      font-weight:700;
+    }
 
-    /* 我的球隊相關格子淡淡提示 */
-    .h2h-mine{ border-color: rgba(11,60,93,0.45); }
+    .h2h-team{
+      background:#fff;
+      font-weight:700;
+    }
 
-    /* 被選中的格子 */
+    .h2h-self{
+      background:#fff;
+      color:#999;
+    }
+
+    .h2h-click{
+      cursor:pointer;
+      transition:transform .08s ease;
+    }
+
+    .h2h-click:hover{
+      transform:translateY(-1px);
+    }
+
+    .h2h-mine{
+      border-color:rgba(11,60,93,0.45);
+    }
+
     .h2h-selected{
       background:#0b3c5d !important;
       color:#fff !important;
@@ -546,62 +803,40 @@ function injectV13CssOnce() {
       font-weight:700;
     }
 
-    /* 我的球隊那一列 */
     .h2h-row-mine .h2h-team{
       border:2px solid rgba(11,60,93,0.45);
     }
 
-    /* 對戰明細 */
-    #h2hDetailList{ display:grid; gap:10px; }
-    .h2h-game-item{
+    #h2hDetailList{
+      display:grid;
+      gap:10px;
+    }
+
+    .h2h-game-item,
+    .today-game-link{
+      display:block;
       background:#fff;
       border:1px solid #eceef2;
       border-radius:14px;
       padding:12px 14px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+      box-shadow:0 6px 18px rgba(0,0,0,0.06);
+      color:inherit;
+      text-decoration:none;
       cursor:pointer;
+      line-height:1.7;
     }
-    .h2h-game-item:hover{
-      border-color: rgba(11,60,93,0.45);
+
+    .h2h-game-item:hover,
+    .today-game-link:hover{
+      border-color:rgba(11,60,93,0.45);
+    }
+
+    @media (max-width:800px){
+      .h2h-row{
+        grid-template-columns:80px repeat(6, 80px);
+      }
     }
   `;
+
   document.head.appendChild(style);
-}
-
-/* =========================
-   今日賽事（保留原功能：點去 schedule 篩日期）
-   ========================= */
-const todayBox = document.querySelector("#todayGamesCard .today-content");
-
-if (todayBox) {
-  const today = new Date().toISOString().slice(0,10);
-
-  Promise.all(
-    months.map(m =>
-      fetch(`data/schedule-${m}.json`).then(r => r.ok ? r.json() : []).catch(() => [])
-    )
-  ).then(results => {
-    const games = results.flat();
-    const todayGames = games.filter(g => g.date === today);
-
-    if (!todayGames.length) {
-      todayBox.textContent = "今天沒有比賽";
-      return;
-    }
-
-    todayBox.innerHTML = todayGames.map(g => `
-      <div class="today-game today-game-link" data-date="${g.date}">
-        ${g.teams?.home ?? "—"} vs ${g.teams?.away ?? "—"}
-      </div>
-    `).join("");
-
-    todayBox.querySelectorAll(".today-game-link").forEach(el => {
-      el.style.cursor = "pointer";
-      el.addEventListener("click", () => {
-        window.location.href = `schedule.html?date=${el.dataset.date}`;
-      });
-    });
-  }).catch(() => {
-    todayBox.textContent = "賽事載入失敗";
-  });
 }

@@ -1,0 +1,767 @@
+/* =========================================================
+   Ray's CPBL Data Site
+   team-transactions.css
+   v5.0.9-TEAM-TRANSACTIONS-PRO
+   只套用 team-transactions.html，不覆蓋 teams.css
+========================================================= */
+
+body[data-page="team-transactions"] {
+  --team-color: #0b3c5d;
+  --team-dark: #0f172a;
+  --team-color-soft: rgba(11, 60, 93, 0.12);
+  --team-color-mid: rgba(11, 60, 93, 0.34);
+}
+
+/* =========================
+   Hero
+========================= */
+
+.transaction-hero {
+  position: relative;
+  overflow: hidden;
+
+  background:
+    radial-gradient(circle at 12% 18%, var(--team-color-mid), transparent 28%),
+    radial-gradient(circle at 92% 12%, rgba(255,255,255,0.10), transparent 32%),
+    linear-gradient(135deg, var(--team-dark), #071827 60%, #082b40);
+
+  color: #ffffff;
+}
+
+.transaction-hero::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px);
+
+  background-size: 44px 44px;
+
+  pointer-events: none;
+}
+
+.transaction-hero::after {
+  content: "MOVES";
+
+  position: absolute;
+  right: 5%;
+  bottom: -36px;
+
+  font-size: clamp(86px, 14vw, 220px);
+  line-height: 1;
+
+  font-weight: 950;
+  letter-spacing: -8px;
+
+  color: rgba(255,255,255,0.06);
+
+  pointer-events: none;
+}
+
+.transaction-hero-inner {
+  position: relative;
+  z-index: 1;
+
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 210px;
+  align-items: center;
+
+  gap: 28px;
+}
+
+.transaction-hero-main {
+  min-width: 0;
+}
+
+.transaction-hero-logo-card {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+
+  padding: 22px;
+
+  border-radius: 30px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.16),
+      rgba(255,255,255,0.08)
+    );
+
+  border: 1px solid rgba(255,255,255,0.16);
+
+  box-shadow:
+    0 24px 56px rgba(0,0,0,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.18);
+
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+.transaction-hero-logo-card img {
+  width: 112px;
+  height: 112px;
+
+  object-fit: contain;
+
+  padding: 12px;
+
+  border-radius: 26px;
+
+  background: rgba(255,255,255,0.96);
+
+  box-shadow:
+    0 16px 32px rgba(0,0,0,0.20);
+}
+
+.transaction-hero-logo-card span {
+  color: rgba(255,255,255,0.82);
+
+  font-size: 13px;
+  font-weight: 950;
+  letter-spacing: 0.8px;
+}
+
+/* =========================
+   Shell
+========================= */
+
+.transaction-shell {
+  position: relative;
+  overflow: hidden;
+
+  border-top:
+    6px solid var(--team-color);
+
+  background:
+    radial-gradient(circle at 0% 0%, var(--team-color-soft), transparent 34%),
+    linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,252,0.96));
+}
+
+.transaction-shell::after {
+  content: "TRANSACTIONS";
+
+  position: absolute;
+  right: 20px;
+  bottom: -12px;
+
+  font-size: clamp(48px, 8vw, 118px);
+  line-height: 1;
+
+  font-weight: 950;
+  letter-spacing: -4px;
+
+  color: rgba(15,23,42,0.035);
+
+  pointer-events: none;
+}
+
+.transaction-tabs {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-bottom: 22px;
+}
+
+.transaction-tabs a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 40px;
+  padding: 9px 16px;
+
+  border-radius: 999px;
+
+  background: rgba(15,23,42,0.06);
+
+  color: #334155;
+
+  font-size: 14px;
+  font-weight: 950;
+
+  text-decoration: none;
+}
+
+.transaction-tabs a.active {
+  background:
+    linear-gradient(135deg, var(--team-color), var(--team-dark));
+
+  color: #ffffff;
+
+  box-shadow:
+    0 10px 24px var(--team-color-soft);
+}
+
+/* =========================
+   Header / Summary
+========================= */
+
+.transaction-page-head {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 18px;
+
+  margin-bottom: 18px;
+}
+
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 26px;
+  padding: 5px 10px;
+
+  border-radius: 999px;
+
+  background: var(--team-color-soft);
+  color: var(--team-color);
+
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0.7px;
+}
+
+.transaction-page-head h2 {
+  margin: 8px 0 6px;
+
+  color: #0f172a;
+
+  font-size: clamp(26px, 4vw, 40px);
+  line-height: 1.15;
+  font-weight: 950;
+}
+
+.transaction-summary-pill {
+  flex: 0 0 auto;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 40px;
+  padding: 10px 16px;
+
+  border-radius: 999px;
+
+  background: var(--team-color-soft);
+  color: #0f172a;
+
+  font-size: 14px;
+  font-weight: 950;
+}
+
+/* =========================
+   Stat Cards
+========================= */
+
+.transaction-stat-grid {
+  position: relative;
+  z-index: 1;
+
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+
+  gap: 14px;
+
+  margin: 18px 0;
+}
+
+.transaction-stat-card {
+  min-width: 0;
+
+  padding: 18px;
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.96), rgba(248,250,252,0.96));
+
+  border: 1px solid rgba(15,23,42,0.08);
+
+  box-shadow:
+    0 12px 28px rgba(15,23,42,0.06);
+}
+
+.transaction-stat-card span {
+  display: block;
+
+  color: #64748b;
+
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.transaction-stat-card strong {
+  display: block;
+
+  margin-top: 8px;
+
+  color: #0f172a;
+
+  font-size: clamp(28px, 4vw, 42px);
+  line-height: 1;
+
+  font-weight: 950;
+}
+
+.transaction-stat-card em {
+  display: block;
+
+  margin-top: 8px;
+
+  color: #64748b;
+
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 850;
+}
+
+.transaction-stat-card.move-up {
+  border-color: rgba(10,143,42,0.18);
+}
+
+.transaction-stat-card.move-down {
+  border-color: rgba(245,158,11,0.20);
+}
+
+/* =========================
+   Filter
+========================= */
+
+.transaction-filter-card {
+  position: relative;
+  z-index: 1;
+
+  display: grid;
+  grid-template-columns: 180px 180px minmax(220px,1fr) auto;
+  align-items: end;
+
+  gap: 14px;
+
+  margin: 20px 0;
+  padding: 18px;
+
+  border-radius: 24px;
+
+  background:
+    rgba(15,23,42,0.04);
+
+  border: 1px solid rgba(15,23,42,0.08);
+}
+
+.transaction-filter-card label {
+  display: grid;
+  gap: 7px;
+}
+
+.transaction-filter-card label span {
+  color: #64748b;
+
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.transaction-filter-card select,
+.transaction-filter-card input {
+  width: 100%;
+  min-height: 42px;
+
+  padding: 9px 12px;
+
+  border-radius: 14px;
+
+  border: 1px solid rgba(15,23,42,0.12);
+
+  background: #ffffff;
+
+  color: #0f172a;
+
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.transaction-filter-card button {
+  min-height: 42px;
+  padding: 9px 16px;
+
+  border: 0;
+  border-radius: 14px;
+
+  background:
+    linear-gradient(135deg, var(--team-color), var(--team-dark));
+
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 950;
+
+  cursor: pointer;
+}
+
+.active-transaction-filters {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin-bottom: 16px;
+}
+
+.active-transaction-filters span {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 30px;
+  padding: 6px 10px;
+
+  border-radius: 999px;
+
+  background: var(--team-color-soft);
+  color: #334155;
+
+  font-size: 12px;
+  font-weight: 900;
+}
+
+/* =========================
+   Transaction List
+========================= */
+
+.transaction-list {
+  position: relative;
+  z-index: 1;
+
+  display: grid;
+  gap: 20px;
+}
+
+.transaction-month-group {
+  display: grid;
+  gap: 14px;
+}
+
+.transaction-month-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  padding: 12px 14px;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(90deg, var(--team-color-soft), rgba(255,255,255,0.78));
+
+  border: 1px solid rgba(15,23,42,0.08);
+}
+
+.transaction-month-head h3 {
+  margin: 0;
+
+  color: #0f172a;
+
+  font-size: 20px;
+  font-weight: 950;
+}
+
+.transaction-month-head span {
+  color: #64748b;
+
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.transaction-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+
+  gap: 14px;
+}
+
+.transaction-card {
+  position: relative;
+  overflow: hidden;
+
+  padding: 18px;
+
+  border-radius: 24px;
+
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,252,0.96));
+
+  border: 1px solid rgba(15,23,42,0.08);
+
+  box-shadow:
+    0 12px 30px rgba(15,23,42,0.06);
+}
+
+.transaction-card::before {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 6px;
+
+  background: #64748b;
+}
+
+.transaction-card.move-up::before {
+  background: #0a8f2a;
+}
+
+.transaction-card.move-down::before {
+  background: #f59e0b;
+}
+
+.transaction-card.move-new::before {
+  background: #2563eb;
+}
+
+.transaction-card.move-out::before {
+  background: #dc2626;
+}
+
+.transaction-card.move-other::before {
+  background: var(--team-color);
+}
+
+.transaction-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  margin-bottom: 14px;
+}
+
+.transaction-date {
+  color: #64748b;
+
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.transaction-type {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 28px;
+  padding: 5px 10px;
+
+  border-radius: 999px;
+
+  background: rgba(15,23,42,0.06);
+  color: #334155;
+
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.transaction-player-row {
+  display: grid;
+  grid-template-columns: 54px minmax(0,1fr);
+  align-items: center;
+
+  gap: 12px;
+}
+
+.transaction-player-avatar {
+  width: 54px;
+  height: 54px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(135deg, var(--team-color), var(--team-dark));
+
+  color: #ffffff;
+
+  font-size: 22px;
+  font-weight: 950;
+
+  box-shadow:
+    0 10px 22px var(--team-color-soft);
+}
+
+.transaction-player-row strong {
+  display: block;
+
+  color: #0f172a;
+
+  font-size: 22px;
+  line-height: 1.2;
+
+  font-weight: 950;
+}
+
+.transaction-player-row span {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #475569;
+
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.transaction-route {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin-top: 14px;
+}
+
+.transaction-route span {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 28px;
+  padding: 5px 10px;
+
+  border-radius: 999px;
+
+  background: rgba(15,23,42,0.055);
+
+  color: #334155;
+
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.transaction-note {
+  margin: 14px 0 0;
+
+  padding: 12px;
+
+  border-radius: 16px;
+
+  background: rgba(15,23,42,0.04);
+
+  color: #475569;
+
+  font-size: 14px;
+  line-height: 1.6;
+
+  font-weight: 800;
+}
+
+.transaction-empty {
+  padding: 30px;
+
+  border-radius: 24px;
+
+  background: rgba(15,23,42,0.045);
+
+  border: 1px solid rgba(15,23,42,0.08);
+
+  text-align: center;
+
+  color: #475569;
+
+  font-weight: 850;
+}
+
+.transaction-empty strong {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #0f172a;
+
+  font-size: 22px;
+  font-weight: 950;
+}
+
+/* =========================
+   RWD
+========================= */
+
+@media (max-width: 980px) {
+  .transaction-hero-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .transaction-hero-logo-card {
+    justify-self: start;
+  }
+
+  .transaction-stat-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+
+  .transaction-filter-card {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .transaction-card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .transaction-hero-logo-card img {
+    width: 88px;
+    height: 88px;
+  }
+
+  .transaction-page-head {
+    flex-direction: column;
+  }
+
+  .transaction-summary-pill {
+    align-self: flex-start;
+  }
+
+  .transaction-stat-grid,
+  .transaction-filter-card {
+    grid-template-columns: 1fr;
+  }
+
+  .transaction-tabs {
+    gap: 8px;
+  }
+
+  .transaction-tabs a {
+    flex: 1 1 auto;
+  }
+
+  .transaction-card {
+    padding: 16px;
+  }
+
+  .transaction-card-top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

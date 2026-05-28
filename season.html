@@ -2,81 +2,109 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>2026 CPBL 賽季中心</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>2026 CPBL 賽季中心｜Ray's CPBL Data Site</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body data-page="season">
 
 <nav class="nav">
   <div class="nav-inner">
-    <a class="brand" href="index.html">CPBL</a>
-    <a class="nav-link" href="index.html">首頁</a>
-    <a class="nav-link" href="schedule.html">賽程</a>
-    <a class="nav-link" href="standings.html">戰績</a>
-    <a class="nav-link" href="teams.html">球隊</a>
-    <a class="nav-link active" href="season.html">賽季</a>
+
+    <div class="nav-left">
+      <a class="brand" href="index.html">CPBL</a>
+      <a class="nav-link" href="index.html">首頁</a>
+      <a class="nav-link" href="schedule.html">賽程</a>
+      <a class="nav-link" href="standings.html">戰績</a>
+      <a class="nav-link" href="teams.html">球隊</a>
+      <a class="nav-link" href="rules.html">棒球規則</a>
+      <a class="nav-link active" href="season.html">賽季</a>
+      <a class="nav-link" href="version.html">版本</a>
+      <a class="nav-link" href="about.html">網站介紹</a>
+    </div>
+
+    <div class="nav-teams" aria-label="球隊快速入口">
+      <a href="team.html?team=brothers"><img src="assets/logo/brothers.png" alt="中信兄弟"></a>
+      <a href="team.html?team=lions"><img src="assets/logo/lions.png" alt="統一7-ELEVEn獅"></a>
+      <a href="team.html?team=monkeys"><img src="assets/logo/monkeys.png" alt="樂天桃猿"></a>
+      <a href="team.html?team=dragons"><img src="assets/logo/dragons.png" alt="味全龍"></a>
+      <a href="team.html?team=guardians"><img src="assets/logo/guardians.png" alt="富邦悍將"></a>
+      <a href="team.html?team=hawks"><img src="assets/logo/hawks.png" alt="台鋼雄鷹"></a>
+    </div>
+
   </div>
 </nav>
 
-<header>
+<header class="hero">
+  <p class="muted">Ray's Unofficial CPBL Data Site</p>
   <h1>🏟️ 2026 CPBL 賽季中心</h1>
-  <p>從賽季視角掌握全聯盟狀態</p>
+  <p>Season Center · League Overview · Matchups</p>
+
+  <div class="hero-actions">
+    <a href="schedule.html">查看賽程</a>
+    <a href="standings.html">查看戰績</a>
+    <a href="teams.html">查看球隊</a>
+    <a href="index.html">回首頁</a>
+  </div>
+
+  <p class="muted">從賽季視角掌握全聯盟狀態。</p>
 </header>
 
-<main>
+<main class="container">
 
-  <!-- 🟦 賽季進度 -->
-  <section class="card">
+  <!-- 賽季進度 -->
+  <section class="home-card">
     <h2>📊 賽季進度</h2>
     <div id="seasonProgress">計算中…</div>
   </section>
 
-  <!-- 🟦 各隊狀態 -->
-  <section class="card">
+  <!-- 各隊狀態 -->
+  <section class="home-card">
     <h2>🔥 各隊目前狀態</h2>
     <div id="teamStatusGrid" class="home-grid"></div>
   </section>
-  <section class="card" style="margin-top:16px;">
-  <h2>🧾 對戰戰績</h2>
-  <div class="muted" style="margin-bottom:10px;">※ 只統計已結束（final）的比賽</div>
-  <div id="h2hTableWrap"></div>
-</section>
-  <section class="card" style="margin-top:16px;">
-  <h2>📌 對戰明細</h2>
-  <div id="h2hDetailHint" class="muted" style="margin-bottom:10px;">
-    點上方「對戰戰績」任一格，這裡會顯示該兩隊的所有比賽
-  </div>
-  <div id="h2hDetailList"></div>
-</section>
 
-<!-- 👇 就放在這裡 -->
-<div class="season-card" id="todayGamesCard">
-  <h2>📅 今日賽事</h2>
-  <p class="today-hint">👉 點擊比賽可查看當日完整賽程</p>
+  <!-- 對戰戰績 -->
+  <section class="home-card">
+    <h2>🧾 對戰戰績</h2>
+    <div class="muted" style="margin-bottom:10px;">※ 只統計已結束（final）的比賽</div>
+    <div id="h2hTableWrap"></div>
+  </section>
 
-  <div class="today-content">讀取中…</div>
-</div>
+  <!-- 對戰明細 -->
+  <section class="home-card">
+    <h2>📌 對戰明細</h2>
+    <div id="h2hDetailHint" class="muted" style="margin-bottom:10px;">
+      點上方「對戰戰績」任一格，這裡會顯示該兩隊的所有比賽
+    </div>
+    <div id="h2hDetailList"></div>
+  </section>
 
-<!-- 👇 下面才是其他東西（表格、清單等） -->
+  <!-- 今日賽事 -->
+  <section class="home-card season-card" id="todayGamesCard">
+    <h2>📅 今日賽事</h2>
+    <p class="today-hint muted">👉 點擊比賽可查看當日完整賽程</p>
+    <div class="today-content">讀取中…</div>
+  </section>
 
-
-  <!-- 🟦 賽季里程碑 -->
-  <section class="card">
+  <!-- 賽季里程碑 -->
+  <section class="home-card">
     <h2>🗓️ 賽季里程碑</h2>
     <ul>
       <li>🔥 開幕戰｜2026/03/28</li>
       <li>⭐ 明星賽｜2026/07/18–19</li>
-      <li>🏁 總冠軍賽｜2026 11/17-11/25</li>
+      <li>🏁 總冠軍賽｜2026/11/17–11/25</li>
     </ul>
   </section>
 
 </main>
 
 <footer>
- © 2026 CPBL Data Site ｜ 
- <span class="site-version"></span> ｜ 
- 明叡 × ChatGPT
+  © 2026 CPBL Data Site ｜ 
+  <span class="site-version"></span> ｜ 
+  明叡 × ChatGPT
 </footer>
 
 <script src="js/season.js"></script>

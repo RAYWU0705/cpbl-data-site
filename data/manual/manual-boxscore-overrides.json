@@ -1,0 +1,19 @@
+{
+  "gameSno": 14,
+  "meta": {
+    "date": "2026-06-27",
+    "away": "統一7-ELEVEn獅",
+    "home": "中信兄弟",
+    "status": "pregame",
+    "statusText": "比賽未開始，原場次為4/4延賽之補賽",
+    "venue": "洲際",
+    "time": "18:35"
+  },
+  "manualOverride": true,
+  "override": {
+    "version": "v5.1.4-MANUAL-OVERRIDE-GENERATOR",
+    "reason": "延賽補賽",
+    "note": "延賽補賽",
+    "createdAt": "2026-05-22T02:37:22.912Z"
+  }
+}

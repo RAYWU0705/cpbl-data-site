@@ -2,89 +2,416 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>CPBL 戰績</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CPBL 戰績｜Ray's CPBL Data Site</title>
   <link rel="stylesheet" href="css/style.css">
 
+  <style>
+    .standings-toolbar {
+      margin-bottom: 16px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .standings-toolbar input,
+    .standings-toolbar select,
+    .standings-toolbar button {
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid #d7dce3;
+      font-size: 14px;
+    }
+
+    .standings-toolbar button {
+      background: #0b4a6f;
+      color: #fff;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .standings-toolbar button:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
+    }
+
+    .status-text {
+      color: #666;
+      font-weight: 600;
+    }
+
+    .standings-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    .standings-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+    }
+
+    .standings-table th,
+    .standings-table td {
+      padding: 14px 12px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .standings-table th {
+      background: #f7f9fb;
+      font-weight: 800;
+      white-space: nowrap;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    .standings-table tbody tr {
+      transition:
+        background 0.18s ease,
+        transform 0.28s ease,
+        opacity 0.28s ease,
+        box-shadow 0.28s ease;
+      animation: rowFadeIn 0.35s ease;
+    }
+
+    .standings-table tbody tr:hover {
+      background: #f9fcff;
+    }
+
+    .standings-table tbody tr.rank-up {
+      animation: rankUpFlash 0.55s ease;
+    }
+
+    .standings-table tbody tr.rank-down {
+      animation: rankDownFlash 0.55s ease;
+    }
+
+    .standings-row {
+      cursor: pointer;
+    }
+
+    .team-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: flex-start;
+      min-width: 180px;
+    }
+
+    .team-wrap img {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      flex: 0 0 34px;
+    }
+
+    .team-name {
+      font-weight: 800;
+      text-align: left;
+    }
+
+    .rank-cell {
+      font-weight: 800;
+      width: 78px;
+    }
+
+    .rank-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      justify-content: center;
+    }
+
+    .rank-number {
+      font-size: 18px;
+      font-weight: 900;
+      color: #162938;
+    }
+
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 0 7px;
+    }
+
+    .rank-badge.up {
+      background: #e8f8ec;
+      color: #14853b;
+    }
+
+    .rank-badge.down {
+      background: #fdecec;
+      color: #c33434;
+    }
+
+    .rank-badge.flat {
+      background: #eef2f6;
+      color: #667;
+    }
+
+    .pct-high {
+      color: #14853b;
+      font-weight: 900;
+    }
+
+    .pct-mid {
+      color: #b57900;
+      font-weight: 900;
+    }
+
+    .pct-low {
+      color: #c33434;
+      font-weight: 900;
+    }
+
+    .trend-up {
+      color: #14853b;
+      font-weight: 900;
+    }
+
+    .trend-down {
+      color: #c33434;
+      font-weight: 900;
+    }
+
+    .trend-flat {
+      color: #667;
+      font-weight: 900;
+    }
+
+    .last10-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .last10-summary {
+      font-weight: 900;
+    }
+
+    .last10-seq {
+      font-size: 12px;
+      color: #667;
+      letter-spacing: 1px;
+      line-height: 1.2;
+    }
+
+    .sortable {
+      cursor: pointer;
+      transition: background 0.18s ease;
+    }
+
+    .sortable:hover {
+      background: #eef4fa;
+    }
+
+    .hint-box {
+      margin-top: 18px;
+      color: #556;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .empty-box {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      padding: 28px;
+      text-align: center;
+      color: #667;
+      font-weight: 700;
+    }
+
+    @keyframes rowFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes rankUpFlash {
+      0% {
+        background: #eefaf1;
+        transform: translateY(-4px);
+      }
+
+      100% {
+        background: transparent;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes rankDownFlash {
+      0% {
+        background: #fff1f1;
+        transform: translateY(4px);
+      }
+
+      100% {
+        background: transparent;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .standings-table {
+        font-size: 14px;
+      }
+
+      .standings-table th,
+      .standings-table td {
+        padding: 10px 8px;
+      }
+
+      .team-wrap {
+        min-width: 150px;
+      }
+
+      .team-wrap img {
+        width: 28px;
+        height: 28px;
+      }
+
+      .last10-seq {
+        letter-spacing: 0;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .standings-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .standings-toolbar input,
+      .standings-toolbar select,
+      .standings-toolbar button {
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .standings-card {
+        overflow: auto;
+      }
+
+      .standings-table {
+        min-width: 980px;
+      }
+    }
+  </style>
 </head>
-<body>
+
+<body data-page="standings">
 
 <nav class="nav">
   <div class="nav-inner">
-    <a class="brand" href="index.html">CPBL</a>
-    <a class="nav-link" href="index.html">首頁</a>
-    <a class="nav-link" href="schedule.html">賽程</a>
-    <a class="nav-link active" href="standings.html">戰績</a>
-    <a class="nav-link" href="teams.html">球隊</a>
-    <a class="nav-link" href="season.html">賽季</a>
+
+    <div class="nav-left">
+      <a class="brand" href="index.html">CPBL</a>
+      <a class="nav-link" href="index.html">首頁</a>
+      <a class="nav-link" href="schedule.html">賽程</a>
+      <a class="nav-link active" href="standings.html">戰績</a>
+      <a class="nav-link" href="teams.html">球隊</a>
+      <a class="nav-link" href="rules.html">棒球規則</a>
+      <a class="nav-link" href="season.html">賽季</a>
+      <a class="nav-link" href="version.html">版本</a>
+      <a class="nav-link" href="about.html">網站介紹</a>
+    </div>
+
+    <div class="nav-teams" aria-label="球隊快速入口">
+      <a href="team.html?team=brothers"><img src="assets/logo/brothers.png" alt="中信兄弟"></a>
+      <a href="team.html?team=lions"><img src="assets/logo/lions.png" alt="統一7-ELEVEn獅"></a>
+      <a href="team.html?team=monkeys"><img src="assets/logo/monkeys.png" alt="樂天桃猿"></a>
+      <a href="team.html?team=dragons"><img src="assets/logo/dragons.png" alt="味全龍"></a>
+      <a href="team.html?team=guardians"><img src="assets/logo/guardians.png" alt="富邦悍將"></a>
+      <a href="team.html?team=hawks"><img src="assets/logo/hawks.png" alt="台鋼雄鷹"></a>
+    </div>
 
   </div>
 </nav>
 
-<header>
+<header class="hero">
+  <p class="muted">Ray's Unofficial CPBL Data Site</p>
   <h1>戰績</h1>
-  <p>（目前為手動戰績表；未來可升級自動計算）</p>
-</header>
+  <p>Standings · Team Records · Win Percentage</p>
 
-<main>
-  <div style="margin-bottom:16px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
-    <label for="seasonSelect">賽季：</label>
-    <select id="seasonSelect">
-      <option value="2026">2026</option>
-    </select>
-    <label for="splitSelect">區段：</label>
-<select id="splitSelect">
-  <option value="full">全年</option>
-  <option value="first">上半季</option>
-  <option value="second">下半季</option>
-</select>
-
-<label for="teamSearch">搜尋球隊：</label>
-<input id="teamSearch" type="text" placeholder="例如：中信 / 兄弟 / 猿" style="padding:6px 10px;">
-
-    <button id="reloadBtn">重新讀取</button>
-
-    <span id="statusText" style="color:#666;"></span>
+  <div class="hero-actions">
+    <button id="reloadBtn" type="button">重新讀取</button>
+    <a href="schedule.html">查看賽程</a>
+    <a href="teams.html">查看球隊</a>
+    <a href="index.html">回首頁</a>
   </div>
 
-  <div id="standingsWrap"></div>
+  <p class="muted">自動由賽程比分計算，熱身賽不納入戰績。</p>
+</header>
 
-  <hr style="margin:24px 0; opacity:.25;">
+<main class="container">
 
-  <details>
-    <summary style="cursor:pointer;">📌 未來升級：自動計算戰績（需要比分）</summary>
-    <div style="margin-top:10px; color:#444; line-height:1.7;">
-      <p>如果你之後在賽程 JSON 加上比分欄位，例如：</p>
-      <pre style="background:#fff; padding:12px; border-radius:8px; overflow:auto; border:1px solid rgba(0,0,0,0.1);">
-{"date":"2026-04-01","away":"味全龍","home":"中信兄弟","awayScore":3,"homeScore":5}
-      </pre>
-      <p>那我可以幫你在這頁加「一鍵從賽程自動計算」按鈕。</p>
+  <section class="home-card">
+    <h2>🏆 聯盟戰績</h2>
+
+    <div class="standings-toolbar">
+      <label for="seasonSelect">賽季：</label>
+      <select id="seasonSelect">
+        <option value="2026">2026</option>
+      </select>
+
+      <label for="splitSelect">區段：</label>
+      <select id="splitSelect">
+        <option value="full">全年</option>
+        <option value="first">上半季</option>
+        <option value="second">下半季</option>
+      </select>
+
+      <label for="teamSearch">搜尋球隊：</label>
+      <input id="teamSearch" type="text" placeholder="例如：中信 / 兄弟 / 猿 / brothers">
+
+      <span id="statusText" class="status-text"></span>
     </div>
-  </details>
+
+    <div id="standingsWrap"></div>
+
+    <div class="hint-box">
+      排名變動會以「同賽季、同區段」上一次載入結果為基準顯示。第一次開啟或清除瀏覽器資料後，會先顯示持平。
+    </div>
+  </section>
+
 </main>
 
 <footer>
- © 2026 CPBL Data Site ｜ 
- <span class="site-version"></span> ｜ 
- 明叡 × ChatGPT
+  © 2026 CPBL Data Site ｜ 
+  <span class="site-version"></span> ｜ 
+  明叡 × ChatGPT
 </footer>
-<script type="module">
 
-import { loadGames, filterGames } from "./js/games-data.js";
+<script type="module">
 import { calculateStandings } from "./js/standingsEngine.js";
 
-/* ========= 常數 ========= */
-
-const TEAM_KEYS = {
-  "中信兄弟": "brothers",
-  "統一7-ELEVEn獅": "lions",
-  "樂天桃猿": "monkeys",
-  "味全龍": "dragons",
-  "富邦悍將": "guardians",
-  "台鋼雄鷹": "hawks"
-};
+/* ========= 資料來源 ========= */
+const LIVE_BOXSCORE_URL = "data/live/live-boxscore.json";
 
 /* ========= DOM ========= */
-
 const standingsWrap = document.getElementById("standingsWrap");
 const seasonSelect  = document.getElementById("seasonSelect");
 const splitSelect   = document.getElementById("splitSelect");
@@ -93,133 +420,493 @@ const statusText    = document.getElementById("statusText");
 const teamSearch    = document.getElementById("teamSearch");
 
 /* ========= 狀態 ========= */
-
 let currentSeason = "2026";
 let currentSplit  = "full";
+let allGames      = [];
 let rawStandings  = [];
 
-/* ========= 工具 ========= */
+let sortState = {
+  key: "rank",
+  dir: "asc"
+};
 
-function setStatus(msg){
+const SEASON_MONTHS = {
+  "2026": [
+    "2026-03",
+    "2026-04",
+    "2026-05",
+    "2026-06",
+    "2026-07",
+    "2026-08",
+    "2026-09"
+  ]
+};
+
+/* ========= 工具 ========= */
+function setStatus(msg) {
   statusText.textContent = msg;
 }
 
-/* ========= 核心渲染 ========= */
+function escapeHtml(str = "") {
+  return String(str)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
 
-async function updateStandings(){
+function normalizeTeamName(name) {
+  return String(name || "")
+    .replace("7-ELEVEN", "7-ELEVEn")
+    .replace(/\s+/g, "")
+    .trim();
+}
 
-  setStatus("計算中…");
+function resolveTeamId(name) {
+  const clean = normalizeTeamName(name).toLowerCase();
 
-  await loadGames("2026-03"); // 你之後可以改成全年月份迴圈
+  if (clean.includes("中信") || clean.includes("兄弟")) return "brothers";
+  if (clean.includes("統一")) return "lions";
+  if (clean.includes("樂天") || clean.includes("桃猿")) return "monkeys";
+  if (clean.includes("味全") || clean.includes("龍")) return "dragons";
+  if (clean.includes("富邦") || clean.includes("悍將")) return "guardians";
+  if (clean.includes("台鋼") || clean.includes("雄鷹")) return "hawks";
 
-  const games = filterGames({
-    month: "2026-03"
+  return null;
+}
+
+function getCanonicalTeamName(name) {
+  const id = resolveTeamId(name);
+
+  const map = {
+    brothers: "中信兄弟",
+    lions: "統一7-ELEVEn獅",
+    monkeys: "樂天桃猿",
+    dragons: "味全龍",
+    guardians: "富邦悍將",
+    hawks: "台鋼雄鷹"
+  };
+
+  return id ? map[id] : String(name || "");
+}
+
+function getWinPctClass(pct) {
+  if (pct >= 0.6) return "pct-high";
+  if (pct >= 0.5) return "pct-mid";
+  return "pct-low";
+}
+
+function getTrendText(trend) {
+  if (trend === "up") return "🔺";
+  if (trend === "down") return "🔻";
+  return "➖";
+}
+
+function getTrendClass(trend) {
+  if (trend === "up") return "trend-up";
+  if (trend === "down") return "trend-down";
+  return "trend-flat";
+}
+
+function getStreakText(team) {
+  if (!team.streakType || !team.streakCount) return "-";
+
+  if (team.streakType === "W") return `W${team.streakCount}`;
+  if (team.streakType === "L") return `L${team.streakCount}`;
+  if (team.streakType === "T") return `T${team.streakCount}`;
+
+  return "-";
+}
+
+function getSplitMonths(season, split) {
+  const months = SEASON_MONTHS[season] || [];
+
+  if (split === "first") {
+    return months.filter(m => Number(m.slice(5, 7)) <= 6);
+  }
+
+  if (split === "second") {
+    return months.filter(m => Number(m.slice(5, 7)) >= 7);
+  }
+
+  return months;
+}
+
+function getStorageKey() {
+  return `cpbl-standings-ranks-${currentSeason}-${currentSplit}`;
+}
+
+function buildRankMap(rows) {
+  const map = {};
+
+  rows.forEach(row => {
+    const id = resolveTeamId(row.team);
+    if (id) map[id] = row.rank;
   });
 
-  rawStandings = calculateStandings(games);
+  return map;
+}
 
-  renderStandings(rawStandings);
+function getPreviousRankMap() {
+  try {
+    return JSON.parse(localStorage.getItem(getStorageKey()) || "{}");
+  } catch {
+    return {};
+  }
+}
 
-  setStatus(`✅ 已計算（${rawStandings.length} 隊）`);
+function saveCurrentRankMap(rows) {
+  localStorage.setItem(
+    getStorageKey(),
+    JSON.stringify(buildRankMap(rows))
+  );
+}
+
+function getRankChange(teamName, currentRank) {
+  const teamId = resolveTeamId(teamName);
+  if (!teamId) return { type: "flat", text: "—" };
+
+  const prevMap = getPreviousRankMap();
+  const prevRank = prevMap[teamId];
+
+  if (!prevRank) return { type: "flat", text: "—" };
+
+  if (currentRank < prevRank) {
+    return { type: "up", text: `↑${prevRank - currentRank}` };
+  }
+
+  if (currentRank > prevRank) {
+    return { type: "down", text: `↓${currentRank - prevRank}` };
+  }
+
+  return { type: "flat", text: "—" };
+}
+
+function trendScore(trend) {
+  if (trend === "up") return 1;
+  if (trend === "flat") return 0;
+  return -1;
+}
+
+function streakScore(team) {
+  if (!team.streakType) return 0;
+  if (team.streakType === "W") return team.streakCount;
+  if (team.streakType === "L") return -team.streakCount;
+  return 0;
+}
+
+function getSortIndicator(key) {
+  if (sortState.key !== key) return "";
+  return sortState.dir === "asc" ? " ▲" : " ▼";
+}
+
+function sortRows(rows) {
+  const sorted = rows.slice();
+
+  sorted.sort((a, b) => {
+    let av;
+    let bv;
+
+    switch (sortState.key) {
+      case "rank":
+        av = a.rank;
+        bv = b.rank;
+        break;
+
+      case "team":
+        av = a.team;
+        bv = b.team;
+        break;
+
+      case "games":
+        av = a.games;
+        bv = b.games;
+        break;
+
+      case "wins":
+        av = a.wins;
+        bv = b.wins;
+        break;
+
+      case "losses":
+        av = a.losses;
+        bv = b.losses;
+        break;
+
+      case "ties":
+        av = a.ties;
+        bv = b.ties;
+        break;
+
+      case "home":
+        av = a.homeWins / (a.homeWins + a.homeLosses || 1);
+        bv = b.homeWins / (b.homeWins + b.homeLosses || 1);
+        break;
+
+      case "away":
+        av = a.awayWins / (a.awayWins + a.awayLosses || 1);
+        bv = b.awayWins / (b.awayWins + b.awayLosses || 1);
+        break;
+
+      case "winPct":
+        av = a.winPct;
+        bv = b.winPct;
+        break;
+
+      case "gb":
+        av = a.gb === "-" ? -999 : Number(a.gb);
+        bv = b.gb === "-" ? -999 : Number(b.gb);
+        break;
+
+      case "rf":
+        av = a.runsFor;
+        bv = b.runsFor;
+        break;
+
+      case "ra":
+        av = a.runsAgainst;
+        bv = b.runsAgainst;
+        break;
+
+      case "rd":
+        av = a.runDiff;
+        bv = b.runDiff;
+        break;
+
+      case "trend":
+        av = trendScore(a.trend);
+        bv = trendScore(b.trend);
+        break;
+
+      case "last10":
+        av = a.last10Wins - a.last10Losses;
+        bv = b.last10Wins - b.last10Losses;
+        break;
+
+      case "streak":
+        av = streakScore(a);
+        bv = streakScore(b);
+        break;
+
+      default:
+        av = a.rank;
+        bv = b.rank;
+    }
+
+    if (typeof av === "string" && typeof bv === "string") {
+      return sortState.dir === "asc"
+        ? av.localeCompare(bv, "zh-Hant")
+        : bv.localeCompare(av, "zh-Hant");
+    }
+
+    return sortState.dir === "asc" ? av - bv : bv - av;
+  });
+
+  return sorted;
+}
+
+/* ========= 載入 ========= */
+async function loadLiveBoxscoreGames() {
+  const res = await fetch(`${LIVE_BOXSCORE_URL}?ts=${Date.now()}`, {
+    cache: "no-store"
+  });
+
+  if (!res.ok) {
+    throw new Error(`讀取 live-boxscore.json 失敗：HTTP ${res.status}`);
+  }
+
+  const data = await res.json();
+  const arr = Array.isArray(data) ? data : Object.values(data || {});
+
+  return arr.map(g => ({
+    ...g,
+    meta: {
+      ...(g.meta || {}),
+      home: getCanonicalTeamName(g.meta?.home),
+      away: getCanonicalTeamName(g.meta?.away)
+    }
+  }));
+}
+
+/* ========= 核心 ========= */
+async function updateStandings() {
+  try {
+    currentSeason = seasonSelect.value;
+    currentSplit = splitSelect.value;
+
+    setStatus("計算中…");
+
+    allGames = await loadLiveBoxscoreGames();
+
+    const splitMonths = getSplitMonths(currentSeason, currentSplit);
+
+    const validGames = allGames.filter(g => {
+      const meta = g.meta || {};
+      const month = (meta.date || "").slice(0, 7);
+      const homeId = resolveTeamId(meta.home);
+      const awayId = resolveTeamId(meta.away);
+
+      return (
+        splitMonths.includes(month) &&
+        meta.type === "regular" &&
+        homeId &&
+        awayId
+      );
+    });
+
+    rawStandings = calculateStandings(validGames).map(row => ({
+      ...row,
+      team: getCanonicalTeamName(row.team)
+    }));
+
+    renderWithSearch();
+    saveCurrentRankMap(rawStandings);
+
+    const finals = validGames.filter(g => g.meta?.status === "final").length;
+
+    setStatus(`✅ 已計算（${rawStandings.length} 隊｜已結束 ${finals} 場）`);
+  } catch (err) {
+    console.error(err);
+    standingsWrap.innerHTML = `<div class="empty-box">戰績載入失敗</div>`;
+    setStatus("❌ 戰績載入失敗");
+  }
+}
+
+function renderWithSearch() {
+  const q = teamSearch.value.trim().toLowerCase();
+
+  let rows = rawStandings.slice();
+
+  if (q) {
+    rows = rows.filter(t => {
+      const name = t.team.toLowerCase();
+      const id = resolveTeamId(t.team) || "";
+      return name.includes(q) || id.includes(q);
+    });
+  }
+
+  rows = sortRows(rows);
+  renderStandings(rows);
 }
 
 /* ========= 顯示 ========= */
-
-function renderStandings(rows){
-
-  if (!rows.length){
-    standingsWrap.innerHTML = "<p>尚無戰績資料</p>";
+function renderStandings(rows) {
+  if (!rows.length) {
+    standingsWrap.innerHTML = `<div class="empty-box">尚無戰績資料</div>`;
     return;
   }
 
   standingsWrap.innerHTML = `
-    <table class="standings-table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>球隊</th>
-          <th>出賽</th>
-          <th>勝</th>
-          <th>敗</th>
-          <th>主場</th>
-          <th>客場</th>
-          <th>勝率</th>
-          <th>勝差</th>
-          <th>近況</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${rows.map((t,i)=>`
-          <tr class="standings-row" data-team="${TEAM_KEYS[t.team]}">
-            <td>${i+1}</td>
-
-            <td>
-              <div class="team-wrap">
-                <img src="assets/logo/${TEAM_KEYS[t.team]}.png">
-                ${t.team}
-              </div>
-            </td>
-
-            <td>${t.games}</td>
-            <td>${t.wins}</td>
-            <td>${t.losses}</td>
-
-            <td>${t.homeWins}-${t.homeLosses}</td>
-            <td>${t.awayWins}-${t.awayLosses}</td>
-
-            <td>${t.winPct.toFixed(3)}</td>
-            <td>${t.gb}</td>
-
-            <td>
-              ${
-                t.streakType
-                ? t.streakType + t.streakCount
-                : "-"
-              }
-            </td>
+    <div class="standings-card">
+      <table class="standings-table">
+        <thead>
+          <tr>
+            <th class="sortable" data-sort="rank">#${getSortIndicator("rank")}</th>
+            <th class="sortable" data-sort="team">球隊${getSortIndicator("team")}</th>
+            <th class="sortable" data-sort="games">出賽${getSortIndicator("games")}</th>
+            <th class="sortable" data-sort="wins">勝${getSortIndicator("wins")}</th>
+            <th class="sortable" data-sort="losses">敗${getSortIndicator("losses")}</th>
+            <th class="sortable" data-sort="ties">和${getSortIndicator("ties")}</th>
+            <th class="sortable" data-sort="home">主場${getSortIndicator("home")}</th>
+            <th class="sortable" data-sort="away">客場${getSortIndicator("away")}</th>
+            <th class="sortable" data-sort="winPct">勝率${getSortIndicator("winPct")}</th>
+            <th class="sortable" data-sort="gb">勝差${getSortIndicator("gb")}</th>
+            <th class="sortable" data-sort="rf">得分${getSortIndicator("rf")}</th>
+            <th class="sortable" data-sort="ra">失分${getSortIndicator("ra")}</th>
+            <th class="sortable" data-sort="rd">得失分差${getSortIndicator("rd")}</th>
+            <th class="sortable" data-sort="trend">趨勢${getSortIndicator("trend")}</th>
+            <th class="sortable" data-sort="last10">最近10場${getSortIndicator("last10")}</th>
+            <th class="sortable" data-sort="streak">近況${getSortIndicator("streak")}</th>
           </tr>
-        `).join("")}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          ${rows.map(t => {
+            const teamId = resolveTeamId(t.team);
+            const rankChange = getRankChange(t.team, t.rank);
+
+            return `
+              <tr class="standings-row ${rankChange.type === "up" ? "rank-up" : ""} ${rankChange.type === "down" ? "rank-down" : ""}"
+                  data-team="${escapeHtml(teamId || "")}">
+                <td class="rank-cell">
+                  <span class="rank-main">
+                    <span class="rank-number">${t.rank}</span>
+                    <span class="rank-badge ${rankChange.type}">
+                      ${rankChange.text}
+                    </span>
+                  </span>
+                </td>
+
+                <td>
+                  <div class="team-wrap">
+                    <img src="assets/logo/${escapeHtml(teamId)}.png" alt="${escapeHtml(t.team)}">
+                    <span class="team-name">${escapeHtml(t.team)}</span>
+                  </div>
+                </td>
+
+                <td>${t.games}</td>
+                <td>${t.wins}</td>
+                <td>${t.losses}</td>
+                <td>${t.ties}</td>
+                <td>${t.homeWins}-${t.homeLosses}</td>
+                <td>${t.awayWins}-${t.awayLosses}</td>
+                <td class="${getWinPctClass(t.winPct)}">${t.winPct.toFixed(3)}</td>
+                <td>${t.gb}</td>
+                <td>${t.runsFor}</td>
+                <td>${t.runsAgainst}</td>
+                <td>${t.runDiff > 0 ? "+" : ""}${t.runDiff}</td>
+                <td class="${getTrendClass(t.trend)}">${getTrendText(t.trend)}</td>
+                <td>
+                  <div class="last10-wrap">
+                    <span class="last10-summary">${t.last10Wins}-${t.last10Losses}${t.last10Ties ? `-${t.last10Ties}` : ""}</span>
+                    <span class="last10-seq">${escapeHtml(t.last10Display)}</span>
+                  </div>
+                </td>
+                <td>${escapeHtml(getStreakText(t))}</td>
+              </tr>
+            `;
+          }).join("")}
+        </tbody>
+      </table>
+    </div>
   `;
 
-  // 點擊跳轉
-  document.querySelectorAll(".standings-row").forEach(row=>{
-    row.style.cursor = "pointer";
-    row.addEventListener("click",()=>{
+  standingsWrap.querySelectorAll(".standings-row").forEach(row => {
+    row.addEventListener("click", () => {
       const teamId = row.dataset.team;
+      if (!teamId) return;
       location.href = `team.html?team=${teamId}`;
+    });
+  });
+
+  standingsWrap.querySelectorAll(".sortable").forEach(th => {
+    th.addEventListener("click", () => {
+      const key = th.dataset.sort;
+      if (!key) return;
+
+      if (sortState.key === key) {
+        sortState.dir = sortState.dir === "asc" ? "desc" : "asc";
+      } else {
+        sortState.key = key;
+        sortState.dir = key === "team" ? "asc" : "desc";
+      }
+
+      renderWithSearch();
     });
   });
 }
 
-/* ========= 搜尋 ========= */
-
-teamSearch.addEventListener("input", ()=>{
-  const q = teamSearch.value.trim();
-  if (!q){
-    renderStandings(rawStandings);
-    return;
-  }
-
-  renderStandings(
-    rawStandings.filter(t=>t.team.includes(q))
-  );
-});
-
 /* ========= 事件 ========= */
-
 reloadBtn.addEventListener("click", updateStandings);
 seasonSelect.addEventListener("change", updateStandings);
 splitSelect.addEventListener("change", updateStandings);
+teamSearch.addEventListener("input", renderWithSearch);
 
 /* ========= 啟動 ========= */
-
 updateStandings();
-
 </script>
+
 <script src="js/version.js"></script>
 
 </body>
 </html>
-

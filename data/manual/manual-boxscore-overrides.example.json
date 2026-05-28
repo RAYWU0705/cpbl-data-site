@@ -1,0 +1,31 @@
+[
+  {
+    "gameSno": 102,
+    "meta": {
+      "date": "2026-05-18",
+      "away": "中信兄弟",
+      "home": "統一7-ELEVEn獅",
+      "status": "final",
+      "statusText": "比賽結束",
+      "venue": "亞太主"
+    },
+    "totals": {
+      "away": {
+        "R": 5,
+        "H": 9,
+        "E": 1
+      },
+      "home": {
+        "R": 3,
+        "H": 8,
+        "E": 0
+      }
+    },
+    "finalLock": true,
+    "manualOverride": true,
+    "override": {
+      "reason": "範例：官方資料延遲或 gameSno 對錯時人工修正。",
+      "note": "確認後再保留，不需要可刪除。"
+    }
+  }
+]

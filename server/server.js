@@ -1,59 +1,51 @@
 import express from "express";
 import cors from "cors";
+import fs from "fs/promises";
+import path from "path";
+import { fileURLToPath } from "url";
+
+console.log("🔥 我是新的 server.js");
+
+// 🔥 ESM 取得 __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
+
 app.use(cors());
+app.use(express.json());
 
-app.get("/api/game", (req, res) => {
-  const { date, home, away } = req.query;
-
-  if (!date || !home || !away) {
-    return res.status(400).json({ error: "Missing params" });
-  }
-
-  const gameKey = `${date}_${home}_${away}`;
-
-  // 暫時回傳 mock
-  const data = {
-    gameKey,
-    date,
-    status: "scheduled",
-
-    teams: {
-      home: { id: home, name: "中信兄弟", short: "兄弟" },
-      away: { id: away, name: "統一7-ELEVEn獅", short: "統一" }
-    },
-
-    score: { home: null, away: null },
-
-    innings: {
-      home: Array(9).fill(null),
-      away: Array(9).fill(null),
-      R: { home: null, away: null },
-      H: { home: null, away: null },
-      E: { home: null, away: null }
-    },
-
-    startingPitchers: { home: null, away: null },
-
-    lineup: { published: false, home: [], away: [] },
-
-    pitchers: { home: [], away: [] },
-
-    umpires: {
-      published: false,
-      homePlate: null,
-      firstBase: null,
-      secondBase: null,
-      thirdBase: null
-    },
-
-    postgame: { attendance: null, duration: null }
-  };
-
-  res.json(data);
+/* =========================
+   測試 API
+========================= */
+app.get("/test", (req, res) => {
+  res.send("TEST OK");
 });
 
-app.listen(3001, () => {
-  console.log("API running at http://localhost:3001");
+/* =========================
+   LIVE API（讀 JSON）
+========================= */
+app.get("/api/live", async (req, res) => {
+  try {
+    const filePath = path.join(__dirname, "../data/live/live-boxscore.json");
+
+    console.log("📂 讀取:", filePath);
+
+    const raw = await fs.readFile(filePath, "utf-8");
+
+    const data = JSON.parse(raw);
+
+    res.json(data);
+
+  } catch (err) {
+    console.error("❌ 讀不到 live JSON:", err.message);
+    res.status(500).json({ error: "live file not found" });
+  }
+});
+
+/* =========================
+   啟動
+========================= */
+app.listen(3002, () => {
+  console.log("🚀 Server running at http://localhost:3002");
 });

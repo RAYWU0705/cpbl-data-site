@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>二軍比賽中心｜Ray's CPBL Data Site</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/match.css">
+  <link rel="stylesheet" href="css/farm-match.css">
+</head>
+
+<body data-page="farm-match" class="theme-match">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a class="brand" href="index.html">CPBL</a>
+      <a class="nav-link" href="index.html">首頁</a>
+      <a class="nav-link" href="schedule.html">一軍賽程</a>
+      <a class="nav-link active" href="farm-schedule.html">二軍賽程</a>
+      <a class="nav-link" href="standings.html">戰績</a>
+      <a class="nav-link" href="teams.html">球隊</a>
+      <a class="nav-link" href="rules.html">棒球規則</a>
+      <a class="nav-link" href="season.html">賽季</a>
+      <a class="nav-link" href="version.html">版本</a>
+      <a class="nav-link" href="about.html">網站介紹</a>
+    </div>
+
+    <div class="nav-teams" aria-label="球隊快速入口">
+      <a href="team.html?team=brothers"><img src="assets/logo/brothers.png" alt="中信兄弟"></a>
+      <a href="team.html?team=lions"><img src="assets/logo/lions.png" alt="統一7-ELEVEn獅"></a>
+      <a href="team.html?team=monkeys"><img src="assets/logo/monkeys.png" alt="樂天桃猿"></a>
+      <a href="team.html?team=dragons"><img src="assets/logo/dragons.png" alt="味全龍"></a>
+      <a href="team.html?team=guardians"><img src="assets/logo/guardians.png" alt="富邦悍將"></a>
+      <a href="team.html?team=hawks"><img src="assets/logo/hawks.png" alt="台鋼雄鷹"></a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <p class="muted">Ray's Unofficial CPBL Data Site｜v5.3.5-FARM-MATCH-BOXSCORE-INTEGRATION</p>
+  <h1>二軍比賽中心</h1>
+  <p id="matchHeaderSub">載入二軍比賽資料中…</p>
+
+  <div class="hero-actions">
+    <a href="farm-schedule.html">返回二軍賽程</a>
+    <a href="schedule.html">一軍賽程</a>
+    <button id="btnRefreshMatch" type="button">刷新資料</button>
+    <button id="btnOfficial" type="button">官方成績看板</button>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="home-card match-tab-section" data-tab-section="overview">
+    <div id="gameIdDisplay" class="muted"></div>
+    <div id="farmBoxscoreBadge" class="farm-boxscore-badge">Boxscore：載入中…</div>
+
+    <section class="match-hero">
+
+      <div class="hero-team away">
+        <img id="awayLogo" src="" alt="客隊 Logo">
+        <div id="awayTeam" class="team-name"></div>
+        <div id="awayScore" class="hero-score">—</div>
+      </div>
+
+      <div class="hero-center">
+        <div id="matchStatus" class="hero-status">⏳ 載入中...</div>
+        <div id="matchDate" class="hero-date"></div>
+        <div id="matchVenue" class="hero-meta"></div>
+        <div id="matchTime" class="hero-meta"></div>
+        <div id="matchType" class="hero-meta"></div>
+      </div>
+
+      <div class="hero-team home">
+        <img id="homeLogo" src="" alt="主隊 Logo">
+        <div id="homeTeam" class="team-name"></div>
+        <div id="homeScore" class="hero-score">—</div>
+      </div>
+
+    </section>
+
+    <section class="home-card starter-duel-card" id="starterDuelCard"></section>
+
+    <section class="home-card pregame-ux-card" id="pregameUxCard" hidden></section>
+
+    <section class="home-card match-progress-card" id="matchProgressCard">
+      <div class="match-progress-head">
+        <div>
+          <span class="progress-kicker">FARM MATCH FLOW</span>
+          <h2>比賽狀態時間軸</h2>
+        </div>
+        <div class="progress-current" id="progressCurrentStatus">載入中</div>
+      </div>
+
+      <div class="match-progress-timeline" id="matchProgressTimeline">
+        <div class="progress-step" data-progress-step="pregame">
+          <div class="progress-dot">1</div>
+          <div>
+            <strong>賽前資訊</strong>
+            <span>二軍賽程、球場與開賽時間</span>
+          </div>
+        </div>
+
+        <div class="progress-line"></div>
+
+        <div class="progress-step" data-progress-step="live">
+          <div class="progress-dot">2</div>
+          <div>
+            <strong>LIVE 狀態</strong>
+            <span>依 schedule raw 的 IsPlayBall 判斷</span>
+          </div>
+        </div>
+
+        <div class="progress-line"></div>
+
+        <div class="progress-step" data-progress-step="final">
+          <div class="progress-dot">3</div>
+          <div>
+            <strong>賽後摘要</strong>
+            <span>比分、勝敗救與比賽時間</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="progress-note" id="matchProgressNote">
+        二軍目前使用旁路 schedule 資料，不混入一軍 Match Center。
+      </p>
+    </section>
+
+    <section class="card match-quality-card">
+      <div class="section-title-row">
+        <h2>🧩 資料品質狀態</h2>
+        <span class="muted">Farm Data Quality</span>
+      </div>
+
+      <div id="matchDataQuality"></div>
+    </section>
+
+  </section>
+
+  <section class="card live-status-panel" id="liveStatusPanel">
+    <div class="live-status-head">
+      <div>
+        <span class="live-pill" id="liveStatusBadge">FARM</span>
+        <span class="live-inning" id="liveInningText">—</span>
+      </div>
+
+      <div class="live-last-update" id="liveLastUpdate">
+        最後更新：—
+      </div>
+    </div>
+
+    <div class="live-score-line" id="liveScoreLine">
+      —
+    </div>
+
+    <div class="live-detail-grid">
+
+      <div class="live-detail-card">
+        <span class="live-label">目前攻擊</span>
+        <strong id="liveBattingTeam">—</strong>
+      </div>
+
+      <div class="live-detail-card">
+        <span class="live-label">目前守備</span>
+        <strong id="liveFieldingTeam">—</strong>
+      </div>
+
+      <div class="live-detail-card">
+        <span class="live-label">目前打者</span>
+        <strong id="liveBatter">—</strong>
+      </div>
+
+      <div class="live-detail-card">
+        <span class="live-label">目前投手</span>
+        <strong id="livePitcher">—</strong>
+      </div>
+
+      <div class="live-detail-card">
+        <span class="live-label">資料來源</span>
+        <strong id="liveRHE">—</strong>
+      </div>
+
+    </div>
+
+    <div class="live-count-base-panel">
+      <div class="live-count-box">
+        <span>球數</span>
+        <strong id="liveBSO">B —｜S —｜O —</strong>
+      </div>
+
+      <div class="live-base-box">
+        <div class="base-diamond" aria-label="壘包狀態">
+          <div class="base base-second" id="baseSecond" title="二壘"></div>
+          <div class="base base-third" id="baseThird" title="三壘"></div>
+          <div class="base base-first" id="baseFirst" title="一壘"></div>
+          <div class="home-plate" title="本壘"></div>
+        </div>
+        <div class="live-bases-text" id="liveBasesText">壘包：—</div>
+      </div>
+    </div>
+
+    <p class="muted" id="liveStatusHint">
+      二軍第一版僅讀 schedule raw，不顯示假逐球、假壘包或假打者。
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>📊 R H E</h2>
+
+    <table style="width:100%; text-align:center;">
+      <thead>
+        <tr>
+          <th>隊伍</th>
+          <th>R</th>
+          <th>H</th>
+          <th>E</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td id="awayTeamRHE"></td>
+          <td id="awayR"></td>
+          <td id="awayH"></td>
+          <td id="awayE"></td>
+        </tr>
+
+        <tr>
+          <td id="homeTeamRHE"></td>
+          <td id="homeR"></td>
+          <td id="homeH"></td>
+          <td id="homeE"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p id="rheHint" class="muted"></p>
+  </section>
+
+  <section class="card">
+    <h2>📋 逐局比分</h2>
+
+    <table style="width:100%; text-align:center;">
+      <thead>
+        <tr id="inningsHeaderRow">
+          <th>隊伍</th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+          <th>6</th><th>7</th><th>8</th><th>9</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr id="awayInningsRow"></tr>
+        <tr id="homeInningsRow"></tr>
+      </tbody>
+    </table>
+
+    <p id="inningsHint" class="muted"></p>
+  </section>
+
+  <section class="card">
+    <h2>🏆 勝敗投 / MVP</h2>
+
+    <div class="decision-grid">
+      <div class="decision-item">
+        <span>勝投</span>
+        <strong id="winPitcher">—</strong>
+      </div>
+
+      <div class="decision-item">
+        <span>敗投</span>
+        <strong id="lossPitcher">—</strong>
+      </div>
+
+      <div class="decision-item">
+        <span>救援</span>
+        <strong id="savePitcher">—</strong>
+      </div>
+
+      <div class="decision-item">
+        <span>MVP</span>
+        <strong id="mvpPlayer">—</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="match-section">
+    <div class="section-head">
+      <h2>📡 LIVE 逐球事件</h2>
+
+      <div class="muted">
+        二軍旁路第一版尚未建立逐球事件爬蟲
+      </div>
+    </div>
+
+    <div id="playByPlayContainer" class="play-by-play-container">
+      <div class="play-loading">
+        載入逐球事件中…
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="section-title-row">
+      <h2>🔥 打者成績</h2>
+
+      <div class="team-switch" id="batterTeamSwitch">
+        <button type="button" class="team-tab away active" data-team-side="away" data-target="batters">客隊</button>
+        <button type="button" class="team-tab home" data-team-side="home" data-target="batters">主隊</button>
+      </div>
+    </div>
+
+    <div id="battersTable"></div>
+  </section>
+
+  <section class="card">
+    <div class="section-title-row">
+      <h2>🔥 投手成績</h2>
+
+      <div class="team-switch" id="pitcherTeamSwitch">
+        <button type="button" class="team-tab away active" data-team-side="away" data-target="pitchers">客隊</button>
+        <button type="button" class="team-tab home" data-team-side="home" data-target="pitchers">主隊</button>
+      </div>
+    </div>
+
+    <div id="pitchersTable"></div>
+  </section>
+
+  <section class="card">
+    <div class="section-title-row">
+      <h2>🧾 二軍原始資料摘要</h2>
+      <span class="muted">Schedule + Boxscore Raw</span>
+    </div>
+
+    <pre class="farm-raw" id="farmRawData">載入中…</pre>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 CPBL Data Site ｜ <span class="site-version"></span> ｜ 明叡 × ChatGPT
+</footer>
+
+<script type="module" src="js/pages/farm-match.js?v=535"></script>
+<script src="js/version.js"></script>
+
+</body>
+</html>

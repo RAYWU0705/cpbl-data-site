@@ -1,0 +1,478 @@
+/* =========================================================
+   Ray's CPBL Data Site
+   base.css
+   全站基礎設定
+   v4.9.0-RC Typography System
+========================================================= */
+
+/* =========================
+   0. 全站變數
+========================= */
+
+:root {
+  --primary: #0b3c5d;
+  --primary-dark: #082b43;
+  --primary-soft: #eaf3f8;
+
+  --bg: #f3f6fb;
+  --card-bg: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --border: rgba(15, 23, 42, 0.08);
+
+  --danger: #d60000;
+  --success: #0a8f2a;
+  --warning: #ff9800;
+
+  --team-color: #222222;
+  --team-bg: #f4f6f8;
+
+  --theme-color-light: #f5f5f5;
+  --home-color: #0b3c5d;
+  --away-color: #0b3c5d;
+  --home-color-light: #f5f5f5;
+  --away-color-light: #f5f5f5;
+
+  --shadow-soft: 0 10px 26px rgba(15, 23, 42, 0.06);
+  --shadow-card: 0 18px 44px rgba(15, 23, 42, 0.1);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 28px;
+
+  --font-main:
+    "Segoe UI",
+    "Noto Sans TC",
+    "Microsoft JhengHei",
+    Arial,
+    sans-serif;
+
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 22px;
+  --font-size-2xl: 28px;
+  --font-size-3xl: 36px;
+
+  --weight-normal: 700;
+  --weight-bold: 850;
+  --weight-heavy: 950;
+}
+
+/* =========================
+   1. 全站重設與基礎樣式
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+
+  font-size: 20px;
+}
+
+body {
+  margin: 0;
+
+  background: var(--bg);
+  color: var(--text);
+
+  font-family: var(--font-main);
+
+  font-size: var(--font-size-md);
+  line-height: 1.68;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+button,
+select,
+input,
+textarea {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+/* =========================
+   2. 全站文字階層
+========================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+
+  color: var(--text);
+
+  font-weight: var(--weight-heavy);
+  line-height: 1.18;
+
+  letter-spacing: 0.2px;
+}
+
+h1 {
+  font-size: clamp(38px, 5.6vw, 76px);
+}
+
+h2 {
+  font-size: clamp(26px, 2.6vw, 36px);
+}
+
+h3 {
+  font-size: clamp(22px, 2vw, 28px);
+}
+
+h4 {
+  font-size: 20px;
+}
+
+p {
+  margin-top: 0;
+}
+
+strong {
+  font-weight: var(--weight-heavy);
+}
+
+small {
+  font-size: var(--font-size-sm);
+}
+
+/* =========================
+   3. 表格基礎
+========================= */
+
+table {
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 13px 11px;
+  border-bottom: 1px solid var(--border);
+
+  font-size: 15px;
+}
+
+th {
+  font-weight: var(--weight-heavy);
+  background: rgba(11, 60, 93, 0.06);
+}
+
+td {
+  font-weight: var(--weight-bold);
+}
+
+/* =========================
+   4. 全站版面配置
+========================= */
+
+main {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: min(92vw, 1500px);
+
+  margin: 0 auto;
+
+  padding: 28px 0 56px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 28px;
+}
+
+section {
+  scroll-margin-top: 100px;
+}
+
+/* =========================
+   5. 常用工具類別
+========================= */
+
+.muted {
+  color: var(--muted);
+  font-weight: var(--weight-bold);
+}
+
+.hidden,
+.is-hidden {
+  display: none !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.empty-box {
+  padding: 20px;
+
+  border-radius: var(--radius-md);
+
+  background: rgba(15, 23, 42, 0.045);
+  color: var(--muted);
+
+  font-weight: var(--weight-bold);
+}
+
+/* =========================
+   6. 全站表單基礎
+========================= */
+
+input,
+select,
+textarea {
+  min-height: 44px;
+
+  padding: 11px 14px;
+
+  border-radius: 13px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+
+  background: #ffffff;
+  color: var(--text);
+
+  font-size: 15px;
+  font-weight: var(--weight-bold);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+
+  border-color: rgba(11, 60, 93, 0.55);
+
+  box-shadow:
+    0 0 0 4px rgb(243, 243, 244);
+}
+
+/* =========================
+   7. 底部樣式
+========================= */
+
+footer {
+  text-align: center;
+
+  padding: 24px 16px 28px;
+
+  font-size: 14px;
+  font-weight: var(--weight-bold);
+
+  color: var(--muted);
+}
+
+/* =========================
+   8. 響應式調整
+========================= */
+
+@media (max-width: 900px) {
+  .container {
+    width: min(96%, 1440px);
+
+    padding: 20px 12px 40px;
+
+    gap: 18px;
+  }
+
+  th,
+  td {
+    padding: 10px 8px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 520px) {
+  html {
+    font-size: 15px;
+  }
+
+  body {
+    line-height: 1.62;
+  }
+
+  .container {
+    width: 100%;
+    padding: 16px 10px 36px;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    font-size: 14px;
+  }
+}
+.hero h1,
+.hero-pro-main h1,
+.hero:not(.hero-pro) h1 {
+  color: #ffffff;
+
+  text-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.36);
+}
+/* =========================================================
+   v5.0.4 CPBL SIX-TEAM PAGE FRAME
+   全站六隊漸層背景框
+   目的：填滿原本白色外框區域，所有頁面都能看到六隊顏色
+========================================================= */
+
+:root {
+  --cpbl-brothers: #f6c400;
+  --cpbl-lions: #f26b21;
+  --cpbl-monkeys: #8a1538;
+  --cpbl-dragons: #c8102e;
+  --cpbl-guardians: #0047ab;
+  --cpbl-hawks: #007f7a;
+}
+
+/* 全站底色：六隊色完整漸層 */
+body {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(246, 196, 0, 0.20) 0%,
+      rgba(242, 107, 33, 0.18) 17%,
+      rgba(138, 21, 56, 0.17) 34%,
+      rgba(200, 16, 46, 0.17) 51%,
+      rgba(0, 71, 171, 0.18) 68%,
+      rgba(0, 127, 122, 0.20) 85%,
+      rgba(246, 196, 0, 0.16) 100%
+    ),
+    #f4f7fb;
+}
+
+/* 讓每一頁主內容區後方不要再是純白 */
+main.container {
+  position: relative;
+  z-index: 1;
+
+  padding-top: 34px;
+  padding-bottom: 54px;
+
+  border-radius: 42px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(246, 196, 0, 0.16) 0%,
+      rgba(242, 107, 33, 0.13) 16%,
+      rgba(138, 21, 56, 0.12) 33%,
+      rgba(200, 16, 46, 0.12) 50%,
+      rgba(0, 71, 171, 0.13) 67%,
+      rgba(0, 127, 122, 0.15) 84%,
+      rgba(246, 196, 0, 0.11) 100%
+    );
+}
+
+/* 在主內容上方加一層淡白霧面，避免顏色太刺眼 */
+main.container::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  z-index: -1;
+
+  border-radius: inherit;
+
+  background:
+    rgba(255, 255, 255, 0.58);
+
+  pointer-events: none;
+}
+
+/* 卡片本身保持乾淨，避免文字難讀 */
+.card,
+.home-card,
+.match-tab-section,
+.today-schedule-card,
+.home-score-card,
+.score-strip-card {
+  position: relative;
+  z-index: 2;
+}
+
+/* Hero 和內容銜接區不要出現死白斷層 */
+.hero + .container {
+  margin-top: 0;
+}
+
+/* 首頁今日賽程區可稍微保留深色卡片主視覺 */
+body[data-page="home"] main.container,
+body[data-page="index"] main.container {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(246, 196, 0, 0.18) 0%,
+      rgba(242, 107, 33, 0.15) 16%,
+      rgba(138, 21, 56, 0.13) 33%,
+      rgba(200, 16, 46, 0.13) 50%,
+      rgba(0, 71, 171, 0.15) 67%,
+      rgba(0, 127, 122, 0.17) 84%,
+      rgba(246, 196, 0, 0.12) 100%
+    );
+}
+
+/* 手機版：顏色保留，但降低壓迫感 */
+@media (max-width: 720px) {
+  main.container {
+    border-radius: 28px;
+
+    padding-top: 22px;
+    padding-bottom: 34px;
+
+    background:
+      linear-gradient(
+        145deg,
+        rgba(246, 196, 0, 0.14) 0%,
+        rgba(242, 107, 33, 0.12) 17%,
+        rgba(138, 21, 56, 0.11) 34%,
+        rgba(200, 16, 46, 0.11) 51%,
+        rgba(0, 71, 171, 0.12) 68%,
+        rgba(0, 127, 122, 0.14) 85%,
+        rgba(246, 196, 0, 0.10) 100%
+      );
+  }
+
+  main.container::before {
+    background:
+      rgba(255, 255, 255, 0.66);
+  }
+}

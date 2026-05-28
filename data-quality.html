@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>資料品質中心｜Ray's CPBL Data Site</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/data-quality.css">
+</head>
+
+<body data-page="data-quality">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a class="brand" href="index.html">CPBL</a>
+      <a class="nav-link" href="index.html">首頁</a>
+      <a class="nav-link" href="schedule.html">賽程</a>
+      <a class="nav-link" href="standings.html">戰績</a>
+      <a class="nav-link" href="teams.html">球隊</a>
+      <a class="nav-link" href="rules.html">棒球規則</a>
+      <a class="nav-link" href="game-day.html">今日戰情</a>
+      <a class="nav-link" href="version.html">版本</a>
+    </div>
+    <div class="nav-teams" aria-label="球隊快速入口">
+      <a href="team.html?team=brothers"><img src="assets/logo/brothers.png" alt="中信兄弟"></a>
+      <a href="team.html?team=lions"><img src="assets/logo/lions.png" alt="統一7-ELEVEn獅"></a>
+      <a href="team.html?team=monkeys"><img src="assets/logo/monkeys.png" alt="樂天桃猿"></a>
+      <a href="team.html?team=dragons"><img src="assets/logo/dragons.png" alt="味全龍"></a>
+      <a href="team.html?team=guardians"><img src="assets/logo/guardians.png" alt="富邦悍將"></a>
+      <a href="team.html?team=hawks"><img src="assets/logo/hawks.png" alt="台鋼雄鷹"></a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero data-quality-hero">
+  <p class="muted">Ray's CPBL Data Site · Data QA Console</p>
+  <h1>資料品質中心</h1>
+  <p>檢查 live-boxscore.json 的 confirmed、partial、debug、finalLock、fallback 與 LIVE 狀態。</p>
+
+  <div class="hero-actions">
+    <button id="btnReload" type="button">重新整理與檢查</button>
+    <a href="report.html">報告模式</a>
+    <a href="version.html">版本紀錄</a>
+    <a href="index.html">回首頁</a>
+  </div>
+
+  <p id="qaStatus" class="muted">資料載入中…</p>
+</header>
+
+<main class="container data-quality-main">
+
+  <section class="dq-grid" id="summaryGrid">
+    <div class="dq-card loading">讀取 live-boxscore.json 中…</div>
+  </section>
+
+  <section class="home-card dq-filter-card">
+    <div class="section-title-row">
+      <div>
+        <span class="dq-kicker">QUALITY FILTERS</span>
+        <h2>🔎 品質篩選</h2>
+      </div>
+      <button id="btnReset" type="button" class="dq-reset-btn">清除篩選</button>
+    </div>
+
+    <div class="dq-toolbar">
+      <select id="statusFilter">
+        <option value="ALL">全部狀態</option>
+        <option value="FINAL">FINAL</option>
+        <option value="LIVE">LIVE</option>
+        <option value="PREGAME">PREGAME</option>
+      </select>
+
+      <select id="qualityFilter">
+        <option value="ALL">全部品質</option>
+        <option value="confirmed">confirmed</option>
+        <option value="partial">partial</option>
+        <option value="debug">debug</option>
+        <option value="unknown">unknown</option>
+      </select>
+
+      <select id="teamFilter">
+        <option value="ALL">全部球隊</option>
+      </select>
+
+      <input id="searchInput" type="search" placeholder="搜尋 gameSno / 日期 / 球隊 / 球場">
+
+      <label class="dq-check">
+        <input id="onlyIssues" type="checkbox">
+        只看需要注意
+      </label>
+    </div>
+  </section>
+
+  <section class="home-card dq-board-card">
+    <div class="section-title-row">
+      <div>
+        <span class="dq-kicker">ISSUE BOARD</span>
+        <h2>🧩 資料品質看板</h2>
+      </div>
+      <span id="resultCount" class="dq-count-pill">—</span>
+    </div>
+
+    <div id="qaList" class="dq-list">
+      <div class="dq-empty">載入中…</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 CPBL Data Site ｜
+  <span class="site-version"></span> ｜
+  明叡 × ChatGPT
+</footer>
+
+<script>
+/* =========================================================
+   Ray's CPBL Data Site
+   data-quality.html
+   v5.1.2.1-DATA-QUALITY-FLAGS-FIX
+   修正 flags.some is not a function
+========================================================= */
+
+const VERSION = "v5.1.2.1-DATA-QUALITY-FLAGS-FIX";
+
+const TEAM_NAME_MAP = {
+  brothers: "中信兄弟",
+  lions: "統一7-ELEVEn獅",
+  monkeys: "樂天桃猿",
+  dragons: "味全龍",
+  guardians: "富邦悍將",
+  hawks: "台鋼雄鷹"
+};
+
+const TEAM_IDS = Object.fromEntries(
+  Object.entries(TEAM_NAME_MAP).map(([id, name]) => [name, id])
+);
+
+let rawRows = [];
+let qaRows = [];
+
+const $ = id => document.getElementById(id);
+
+document.addEventListener("DOMContentLoaded", () => {
+  bindEvents();
+  loadQA();
+});
+
+function bindEvents() {
+  $("btnReload")?.addEventListener("click", loadQA);
+  $("btnReset")?.addEventListener("click", resetFilters);
+
+  ["statusFilter", "qualityFilter", "teamFilter", "searchInput", "onlyIssues"].forEach(id => {
+    const el = $(id);
+    if (!el) return;
+    el.addEventListener(el.type === "search" ? "input" : "change", renderList);
+  });
+}
+
+async function loadQA() {
+  try {
+    setStatus("資料載入中…");
+
+    const res = await fetch(`data/live/live-boxscore.json?ts=${Date.now()}`, { cache: "no-store" });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    const json = await res.json();
+    rawRows = normalizeRoot(json);
+    qaRows = rawRows.map(toQARow);
+
+    initTeamFilter();
+    renderSummary();
+    renderList();
+
+    setStatus(`✅ 已載入 ${qaRows.length} 場比賽資料｜${VERSION}｜最後讀取 ${formatClock(new Date())}`);
+  } catch (err) {
+    console.error("❌ 資料品質中心載入失敗：", err);
+    setStatus("⚠️ 資料載入失敗，請查看 Console。");
+
+    $("summaryGrid").innerHTML = `
+      <div class="dq-card danger">
+        <span>讀取 live-boxscore.json 失敗</span>
+        <strong>ERROR</strong>
+      </div>
+    `;
+
+    $("qaList").innerHTML = `
+      <div class="dq-empty is-error">
+        live-boxscore.json 載入失敗。<br>
+        ${escapeHtml(err.message)}
+      </div>
+    `;
+  }
+}
+
+function normalizeRoot(json) {
+  if (Array.isArray(json)) return json;
+
+  if (Array.isArray(json?.games)) return json.games;
+  if (Array.isArray(json?.data)) return json.data;
+  if (Array.isArray(json?.items)) return json.items;
+
+  if (json && typeof json === "object") {
+    return Object.values(json)
+      .filter(v => v && typeof v === "object")
+      .flatMap(v => Array.isArray(v) ? v : [v]);
+  }
+
+  return [];
+}
+
+function toQARow(game) {
+  const meta = game.meta || {};
+
+  const away = cleanText(
+    meta.away ??
+    game.away ??
+    game.teams?.away ??
+    game.awayTeam ??
+    ""
+  );
+
+  const home = cleanText(
+    meta.home ??
+    game.home ??
+    game.teams?.home ??
+    game.homeTeam ??
+    ""
+  );
+
+  const date = cleanText(meta.date ?? game.date ?? game.gameDate ?? "");
+  const gameSno = cleanText(meta.gameSno ?? game.gameSno ?? game.game_no ?? game.id ?? "");
+  const venue = cleanText(meta.venue ?? game.venue ?? game.stadium ?? game.place ?? "");
+  const status = getStatus(game);
+
+  const dq = normalizeDataQuality(game.dataQuality || game.quality || {});
+  const flags = normalizeFlags(dq.flags ?? game.flags ?? meta.flags);
+
+  const allQualityValues = [
+    dq.score,
+    dq.rhe,
+    dq.lineScore,
+    dq.batters,
+    dq.pitchers,
+    dq.result,
+    dq.liveState,
+    dq.probablePitchers,
+    dq.lineups
+  ].filter(Boolean);
+
+  const level = computeLevel(allQualityValues, flags, game);
+
+  return {
+    raw: game,
+    meta,
+    date,
+    gameSno,
+    venue,
+    away,
+    home,
+    status,
+    dq,
+    flags,
+    level,
+    finalLock: Boolean(game.finalLock || meta.finalLock || game.status === "FINAL"),
+    hasRecentFinalGuard: hasFlag(flags, "recentFinalGuard") || Boolean(dq.recentFinalGuard || game.recentFinalGuard),
+    hasStatsFallback: hasFlag(flags, "statsFallback") || hasFlag(flags, "liveStatsFallback") || hasText(game, "stats"),
+    hasManualOverride: hasFlag(flags, "manualOverride") || Boolean(game.manualOverride || dq.manualOverride),
+    hasDuplicateGuard: hasFlag(flags, "duplicateTeamGuard") || Boolean(game.duplicateTeamGuard || dq.duplicateTeamGuard),
+    hasLiveStateDebug: String(dq.liveState || game.liveState?.quality || "").toLowerCase().includes("debug"),
+    battersCount: countSide(game.batters, "away") + countSide(game.batters, "home"),
+    pitchersCount: countSide(game.pitchers, "away") + countSide(game.pitchers, "home")
+  };
+}
+
+function normalizeDataQuality(dq) {
+  if (!dq || typeof dq !== "object") return {};
+
+  return {
+    ...dq,
+    score: normalizeQualityValue(dq.score ?? dq.scoreboard),
+    rhe: normalizeQualityValue(dq.rhe ?? dq.RHE),
+    lineScore: normalizeQualityValue(dq.lineScore ?? dq.linescore ?? dq.innings),
+    batters: normalizeQualityValue(dq.batters),
+    pitchers: normalizeQualityValue(dq.pitchers),
+    result: normalizeQualityValue(dq.result),
+    liveState: normalizeQualityValue(dq.liveState),
+    probablePitchers: normalizeQualityValue(dq.probablePitchers),
+    lineups: normalizeQualityValue(dq.lineups),
+    flags: normalizeFlags(dq.flags)
+  };
+}
+
+function normalizeQualityValue(value) {
+  if (value == null) return "";
+  if (typeof value === "string") return value;
+  if (typeof value === "boolean") return value ? "confirmed" : "debug";
+  if (typeof value === "object") {
+    return cleanText(value.level ?? value.status ?? value.quality ?? value.value ?? "");
+  }
+  return cleanText(value);
+}
+
+/* ⭐ 本次修正核心：flags 不一定是 Array，可能是 object / string / boolean */
+function normalizeFlags(flags) {
+  if (!flags) return [];
+
+  if (Array.isArray(flags)) {
+    return flags
+      .flatMap(normalizeFlags)
+      .map(cleanText)
+      .filter(Boolean);
+  }
+
+  if (typeof flags === "string") {
+    return flags
+      .split(/[,\s|/]+/)
+      .map(cleanText)
+      .filter(Boolean);
+  }
+
+  if (typeof flags === "object") {
+    return Object.entries(flags)
+      .filter(([, value]) => Boolean(value))
+      .map(([key]) => cleanText(key))
+      .filter(Boolean);
+  }
+
+  if (typeof flags === "boolean") {
+    return flags ? ["true"] : [];
+  }
+
+  return [cleanText(flags)].filter(Boolean);
+}
+
+function computeLevel(values, flags, game) {
+  const q = values.map(v => String(v || "").toLowerCase());
+  const f = normalizeFlags(flags).map(v => v.toLowerCase());
+
+  if (q.some(v => v.includes("debug")) || f.some(v => v.includes("debug"))) return "debug";
+  if (q.some(v => v.includes("partial")) || f.some(v => v.includes("partial"))) return "partial";
+
+  const battersAway = countSide(game.batters, "away");
+  const battersHome = countSide(game.batters, "home");
+  const pitchersAway = countSide(game.pitchers, "away");
+  const pitchersHome = countSide(game.pitchers, "home");
+
+  const hasPlayerData = battersAway + battersHome + pitchersAway + pitchersHome > 0;
+  const hasOneSideMissing =
+    (battersAway > 0 && battersHome === 0) ||
+    (battersHome > 0 && battersAway === 0) ||
+    (pitchersAway > 0 && pitchersHome === 0) ||
+    (pitchersHome > 0 && pitchersAway === 0);
+
+  if (hasPlayerData && hasOneSideMissing) return "partial";
+
+  if (q.length && q.every(v => v.includes("confirmed") || v === "ok")) return "confirmed";
+  if (q.some(v => v.includes("confirmed"))) return "confirmed";
+
+  return "unknown";
+}
+
+function countSide(obj, side) {
+  if (!obj) return 0;
+  const value = obj[side];
+  if (Array.isArray(value)) return value.length;
+  return 0;
+}
+
+function getStatus(game) {
+  const raw = cleanText(
+    game.status ??
+    game.meta?.status ??
+    game.meta?.gameStatus ??
+    game.meta?.statusText ??
+    game.gameStatus ??
+    ""
+  );
+
+  const upper = raw.toUpperCase();
+
+  if (upper === "FINAL" || /結束|已結束|final/i.test(raw) || game.finalLock) return "FINAL";
+  if (upper === "LIVE" || /比賽中|進行中|live/i.test(raw)) return "LIVE";
+  if (/延賽/.test(raw)) return "POSTPONED";
+  if (/取消/.test(raw)) return "CANCELED";
+
+  return "PREGAME";
+}
+
+function hasFlag(flags, keyword) {
+  const list = normalizeFlags(flags).map(v => v.toLowerCase());
+  const k = String(keyword || "").toLowerCase();
+  return list.some(v => v.includes(k.toLowerCase()));
+}
+
+function hasText(obj, keyword) {
+  try {
+    return JSON.stringify(obj).toLowerCase().includes(String(keyword).toLowerCase());
+  } catch {
+    return false;
+  }
+}
+
+function initTeamFilter() {
+  const teamFilter = $("teamFilter");
+  if (!teamFilter) return;
+
+  const teams = new Set();
+
+  qaRows.forEach(row => {
+    if (row.away) teams.add(row.away);
+    if (row.home) teams.add(row.home);
+  });
+
+  teamFilter.innerHTML = `
+    <option value="ALL">全部球隊</option>
+    ${[...teams].sort().map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("")}
+  `;
+}
+
+function renderSummary() {
+  const total = qaRows.length;
+  const confirmed = qaRows.filter(r => r.level === "confirmed").length;
+  const partial = qaRows.filter(r => r.level === "partial").length;
+  const debug = qaRows.filter(r => r.level === "debug").length;
+  const finalLock = qaRows.filter(r => r.finalLock).length;
+  const recentGuard = qaRows.filter(r => r.hasRecentFinalGuard).length;
+  const statsFallback = qaRows.filter(r => r.hasStatsFallback).length;
+  const liveStateDebug = qaRows.filter(r => r.hasLiveStateDebug).length;
+
+  $("summaryGrid").innerHTML = `
+    ${summaryCard("總場次", total, "全部 live-boxscore 資料", "neutral")}
+    ${summaryCard("Confirmed", confirmed, "完整或可用資料", "good")}
+    ${summaryCard("Partial", partial, "部分欄位待補", "warn")}
+    ${summaryCard("Debug", debug, "需觀察或偵錯", "danger")}
+    ${summaryCard("FinalLock", finalLock, "已鎖定 FINAL", "good")}
+    ${summaryCard("Recent Guard", recentGuard, "近期 FINAL 交叉驗證", "good")}
+    ${summaryCard("Stats Fallback", statsFallback, "使用 stats 補資料", "good")}
+    ${summaryCard("LIVE Debug", liveStateDebug, "liveState 待優化", "warn")}
+  `;
+}
+
+function summaryCard(label, value, desc, tone = "neutral") {
+  return `
+    <article class="dq-card ${tone}">
+      <span>${escapeHtml(label)}</span>
+      <strong>${escapeHtml(value)}</strong>
+      <small>${escapeHtml(desc)}</small>
+    </article>
+  `;
+}
+
+function renderList() {
+  const rows = getFilteredRows();
+
+  $("resultCount").textContent = `${rows.length} 場`;
+
+  if (!rows.length) {
+    $("qaList").innerHTML = `<div class="dq-empty">沒有符合條件的比賽。</div>`;
+    return;
+  }
+
+  $("qaList").innerHTML = rows
+    .sort((a, b) => {
+      const d = String(b.date).localeCompare(String(a.date));
+      if (d !== 0) return d;
+      return Number(b.gameSno || 0) - Number(a.gameSno || 0);
+    })
+    .map(renderQARow)
+    .join("");
+}
+
+function getFilteredRows() {
+  const status = $("statusFilter")?.value || "ALL";
+  const quality = $("qualityFilter")?.value || "ALL";
+  const team = $("teamFilter")?.value || "ALL";
+  const q = cleanText($("searchInput")?.value).toLowerCase();
+  const onlyIssues = Boolean($("onlyIssues")?.checked);
+
+  return qaRows.filter(row => {
+    if (status !== "ALL" && row.status !== status) return false;
+    if (quality !== "ALL" && row.level !== quality) return false;
+    if (team !== "ALL" && row.away !== team && row.home !== team) return false;
+
+    if (onlyIssues && row.level === "confirmed" && !row.hasLiveStateDebug) return false;
+
+    if (q) {
+      const hay = [
+        row.gameSno,
+        row.date,
+        row.venue,
+        row.away,
+        row.home,
+        row.status,
+        row.level,
+        row.flags.join(" ")
+      ].join(" ").toLowerCase();
+
+      if (!hay.includes(q)) return false;
+    }
+
+    return true;
+  });
+}
+
+function renderQARow(row) {
+  const dqItems = [
+    ["比分", row.dq.score],
+    ["RHE", row.dq.rhe],
+    ["逐局", row.dq.lineScore],
+    ["打者", row.dq.batters],
+    ["投手", row.dq.pitchers],
+    ["結果", row.dq.result],
+    ["LIVE", row.dq.liveState]
+  ].filter(([, v]) => v);
+
+  const chips = [
+    row.finalLock ? "finalLock" : "",
+    row.hasRecentFinalGuard ? "recentFinalGuard" : "",
+    row.hasStatsFallback ? "statsFallback" : "",
+    row.hasManualOverride ? "manualOverride" : "",
+    row.hasDuplicateGuard ? "duplicateGuard" : "",
+    ...row.flags
+  ].filter(Boolean);
+
+  return `
+    <article class="dq-row is-${escapeHtml(row.level)}">
+      <div class="dq-row-main">
+        <div>
+          <div class="dq-row-title">
+            <span class="dq-level ${escapeHtml(row.level)}">${escapeHtml(row.level)}</span>
+            <strong>#${escapeHtml(row.gameSno || "—")}｜${escapeHtml(row.away || "客隊")} vs ${escapeHtml(row.home || "主隊")}</strong>
+          </div>
+          <p>${escapeHtml(row.date || "日期未定")}｜${escapeHtml(row.venue || "球場未定")}｜${escapeHtml(row.status)}</p>
+        </div>
+
+        <a class="dq-match-link" href="match.html?gameSno=${encodeURIComponent(row.gameSno)}">比賽中心</a>
+      </div>
+
+      <div class="dq-detail-grid">
+        <span>打者：${escapeHtml(countSide(row.raw.batters, "away"))}/${escapeHtml(countSide(row.raw.batters, "home"))}</span>
+        <span>投手：${escapeHtml(countSide(row.raw.pitchers, "away"))}/${escapeHtml(countSide(row.raw.pitchers, "home"))}</span>
+        ${dqItems.map(([k, v]) => `<span>${escapeHtml(k)}：${escapeHtml(v)}</span>`).join("")}
+      </div>
+
+      <div class="dq-chip-row">
+        ${chips.length ? chips.map(c => `<span>${escapeHtml(c)}</span>`).join("") : `<span>no flags</span>`}
+      </div>
+    </article>
+  `;
+}
+
+function resetFilters() {
+  $("statusFilter").value = "ALL";
+  $("qualityFilter").value = "ALL";
+  $("teamFilter").value = "ALL";
+  $("searchInput").value = "";
+  $("onlyIssues").checked = false;
+  renderList();
+}
+
+function setStatus(text) {
+  const el = $("qaStatus");
+  if (el) el.textContent = text;
+}
+
+function cleanText(value) {
+  return String(value ?? "").trim();
+}
+
+function formatClock(date) {
+  return date.toLocaleTimeString("zh-TW", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
+  });
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+</script>
+
+<script src="js/version.js"></script>
+
+</body>
+</html>

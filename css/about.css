@@ -1,0 +1,587 @@
+/* =========================================================
+   Ray's CPBL Data Site
+   about.css
+   v5.2.6-ABOUT-FARM-DOCS
+========================================================= */
+
+body[data-page="about"] .about-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.about-container {
+  display: grid;
+  gap: 22px;
+}
+
+.about-lead-card {
+  position: relative;
+  overflow: hidden;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 190px;
+  align-items: center;
+  gap: 22px;
+
+  padding: 30px;
+  border-radius: 30px;
+
+  background:
+    radial-gradient(circle at 8% 0%, rgba(246,196,0,0.16), transparent 30%),
+    radial-gradient(circle at 96% 0%, rgba(0,127,122,0.16), transparent 32%),
+    linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,252,0.95));
+
+  border: 1px solid rgba(15,23,42,0.08);
+  box-shadow: 0 18px 42px rgba(15,23,42,0.08);
+}
+
+.about-lead-card::after {
+  content: "CPBL";
+  position: absolute;
+  right: 22px;
+  bottom: -20px;
+
+  font-size: clamp(70px, 12vw, 170px);
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: -6px;
+
+  color: rgba(15,23,42,0.035);
+  pointer-events: none;
+}
+
+.about-lead-main,
+.about-lead-badge {
+  position: relative;
+  z-index: 1;
+}
+
+.about-kicker {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 26px;
+  padding: 5px 10px;
+  border-radius: 999px;
+
+  background: rgba(11,60,93,0.08);
+  color: var(--primary);
+
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0.75px;
+}
+
+.about-lead-card h2,
+.about-section-card h2 {
+  margin: 10px 0 10px;
+  color: #0f172a;
+  font-weight: 950;
+  line-height: 1.18;
+}
+
+.about-lead-card p,
+.about-section-card p {
+  color: #475569;
+  font-size: 16px;
+  line-height: 1.85;
+  font-weight: 750;
+}
+
+.about-lead-badge {
+  display: grid;
+  place-items: center;
+  gap: 8px;
+
+  min-height: 150px;
+  padding: 18px;
+  border-radius: 28px;
+
+  color: #ffffff;
+  text-align: center;
+
+  background:
+    linear-gradient(135deg, #0b3c5d, #0f172a 52%, #007f7a);
+
+  box-shadow: 0 18px 38px rgba(15,23,42,0.18);
+}
+
+.about-lead-badge strong {
+  font-size: 38px;
+  line-height: 1;
+  font-weight: 950;
+}
+
+.about-lead-badge span {
+  color: rgba(255,255,255,0.78);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.about-grid-3,
+.about-grid-2 {
+  display: grid;
+  gap: 18px;
+}
+
+.about-grid-3 {
+  grid-template-columns: repeat(3, minmax(0,1fr));
+}
+
+.about-grid-2 {
+  grid-template-columns: repeat(2, minmax(0,1fr));
+}
+
+.about-feature-card,
+.about-link-card {
+  position: relative;
+  overflow: hidden;
+
+  padding: 22px;
+  border-radius: 26px;
+
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,252,0.95));
+  border: 1px solid rgba(15,23,42,0.08);
+  box-shadow: 0 12px 30px rgba(15,23,42,0.06);
+
+  text-decoration: none;
+}
+
+.about-feature-card::before,
+.about-link-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 6px;
+  background: linear-gradient(180deg, #f6c400, #f26b21, #c8102e, #0047ab, #007f7a);
+}
+
+.about-icon {
+  width: 54px;
+  height: 54px;
+
+  display: grid;
+  place-items: center;
+
+  margin-bottom: 14px;
+  border-radius: 18px;
+
+  background: rgba(11,60,93,0.08);
+  font-size: 26px;
+}
+
+.about-feature-card h3,
+.about-link-card strong {
+  display: block;
+  margin: 0 0 8px;
+  color: #0f172a;
+  font-size: 20px;
+  font-weight: 950;
+}
+
+.about-feature-card p,
+.about-link-card span {
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.7;
+  font-weight: 800;
+}
+
+.about-section-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.about-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 34px;
+  padding: 7px 13px;
+  border-radius: 999px;
+
+  background: rgba(10,143,42,0.12);
+  color: #0a7a24;
+
+  font-size: 13px;
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.about-feature-list {
+  display: grid;
+  gap: 12px;
+}
+
+.about-feature-row {
+  display: grid;
+  grid-template-columns: 190px minmax(0,1fr);
+  gap: 14px;
+  align-items: center;
+
+  padding: 16px;
+  border-radius: 18px;
+
+  background: rgba(15,23,42,0.04);
+  border: 1px solid rgba(15,23,42,0.06);
+}
+
+.about-feature-row strong {
+  color: var(--primary);
+  font-size: 15px;
+  font-weight: 950;
+}
+
+.about-feature-row span {
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.65;
+  font-weight: 800;
+}
+
+.about-flow {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.about-flow > div {
+  display: grid;
+  grid-template-columns: 44px minmax(0,1fr);
+  gap: 12px;
+  align-items: center;
+
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(11,60,93,0.055);
+  border: 1px solid rgba(11,60,93,0.07);
+}
+
+.about-flow b {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #ffffff;
+  font-weight: 950;
+}
+
+.about-flow span {
+  display: block;
+  color: #0f172a;
+  font-size: 15px;
+  font-weight: 950;
+}
+
+.about-flow p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.about-check-list {
+  display: grid;
+  gap: 12px;
+
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about-check-list li {
+  position: relative;
+  padding: 14px 14px 14px 42px;
+  border-radius: 18px;
+
+  background: rgba(10,143,42,0.07);
+  color: #334155;
+
+  font-size: 14px;
+  line-height: 1.65;
+  font-weight: 850;
+}
+
+.about-check-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 14px;
+  top: 13px;
+
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+
+  border-radius: 999px;
+  background: #0a8f2a;
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.about-report-box {
+  padding: 18px;
+  border-radius: 22px;
+
+  background:
+    radial-gradient(circle at 0% 0%, rgba(246,196,0,0.10), transparent 34%),
+    radial-gradient(circle at 100% 0%, rgba(0,127,122,0.10), transparent 34%),
+    rgba(15,23,42,0.035);
+
+  border: 1px solid rgba(15,23,42,0.07);
+}
+
+.about-report-box p {
+  margin: 0;
+}
+
+.about-report-box p + p {
+  margin-top: 14px;
+}
+
+.about-link-grid {
+  margin-bottom: 10px;
+}
+
+.about-link-card {
+  color: inherit;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.about-link-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 38px rgba(15,23,42,0.11);
+}
+
+@media (max-width: 980px) {
+  .about-lead-card,
+  .about-grid-2,
+  .about-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .about-lead-badge {
+    min-height: 120px;
+  }
+}
+
+@media (max-width: 720px) {
+  .about-lead-card {
+    padding: 22px 18px;
+    border-radius: 24px;
+  }
+
+  .about-feature-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .about-flow > div {
+    grid-template-columns: 38px minmax(0,1fr);
+  }
+
+  .about-flow b {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* =========================================================
+   v5.1.2 ABOUT FLOW GRID FIX
+   修正流程說明文字被擠到數字欄，導致直向斷行
+========================================================= */
+
+body[data-page="about"] .about-flow > div {
+  grid-template-columns: 74px minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+  min-height: 168px;
+  padding: 28px 32px;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at top right, rgba(255,255,255,0.72), transparent 34%),
+    rgba(11,60,93,0.055);
+}
+
+body[data-page="about"] .about-flow b {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  width: 66px;
+  height: 66px;
+  align-self: start;
+  font-size: 26px;
+  box-shadow: 0 12px 24px rgba(11,60,93,0.18);
+}
+
+body[data-page="about"] .about-flow span {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: clamp(22px, 2vw, 30px);
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+}
+
+body[data-page="about"] .about-flow p {
+  grid-column: 2;
+  grid-row: 2;
+  max-width: 880px;
+  margin: 12px 0 0;
+  font-size: clamp(18px, 1.45vw, 22px);
+  line-height: 1.9;
+  font-weight: 850;
+  color: #475569;
+}
+
+@media (max-width: 720px) {
+  body[data-page="about"] .about-flow > div {
+    grid-template-columns: 52px minmax(0,1fr);
+    min-height: auto;
+    padding: 22px 18px;
+    gap: 14px;
+  }
+
+  body[data-page="about"] .about-flow b {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
+
+  body[data-page="about"] .about-flow span {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 22px;
+  }
+
+  body[data-page="about"] .about-flow p {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+}
+
+
+/* =========================================================
+   v5.2.6 ABOUT FARM DOCS
+   二軍旁路系統介紹補強
+========================================================= */
+
+.about-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 18px;
+}
+
+.farm-feature-card::before,
+.farm-link-card::before {
+  background: linear-gradient(180deg, #16a34a, #facc15, #0f766e);
+}
+
+.about-farm-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.about-farm-card::after {
+  content: "FARM";
+  position: absolute;
+  right: 18px;
+  bottom: -18px;
+  font-size: clamp(64px, 10vw, 148px);
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: -5px;
+  color: rgba(15,23,42,0.035);
+  pointer-events: none;
+}
+
+.farm-pill {
+  background: rgba(250,204,21,0.18);
+  color: #854d0e;
+}
+
+.farm-report-box {
+  position: relative;
+  z-index: 1;
+}
+
+.farm-report-box code {
+  display: inline-flex;
+  padding: 2px 7px;
+  border-radius: 8px;
+  background: rgba(15,23,42,0.08);
+  color: #0f172a;
+  font-size: 0.92em;
+  font-weight: 900;
+}
+
+.about-farm-flow {
+  position: relative;
+  z-index: 1;
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 12px;
+}
+
+.about-farm-flow > div {
+  padding: 18px;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at top right, rgba(250,204,21,0.12), transparent 36%),
+    rgba(15,23,42,0.045);
+  border: 1px solid rgba(15,23,42,0.07);
+}
+
+.about-farm-flow b {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #16a34a, #0f766e);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 950;
+  box-shadow: 0 12px 24px rgba(15,118,110,0.18);
+}
+
+.about-farm-flow strong {
+  display: block;
+  color: #0f172a;
+  font-size: 18px;
+  line-height: 1.25;
+  font-weight: 950;
+  margin-bottom: 8px;
+}
+
+.about-farm-flow span {
+  display: block;
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.65;
+  font-weight: 830;
+  word-break: break-word;
+}
+
+@media (max-width: 1180px) {
+  .about-grid-4,
+  .about-farm-flow {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .about-grid-4,
+  .about-farm-flow {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,231 +1,350 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <title>比賽中心 | CPBL</title>
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body data-page="match">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>比賽中心｜Ray's CPBL Data Site</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body data-page="match">
 
 <nav class="nav">
   <div class="nav-inner">
-    <a class="brand" href="index.html">CPBL</a>
-    <a class="nav-link" href="index.html">首頁</a>
-    <a class="nav-link" href="schedule.html">賽程</a>
-    <a class="nav-link" href="standings.html">戰績</a>
-    <a class="nav-link" href="teams.html">球隊</a>
-    <a class="nav-link" href="season.html">賽季</a>
+    <div class="nav-left">
+      <a class="brand" href="index.html">CPBL</a>
+      <a class="nav-link" href="index.html">首頁</a>
+      <a class="nav-link" href="schedule.html">賽程</a>
+      <a class="nav-link" href="standings.html">戰績</a>
+      <a class="nav-link" href="teams.html">球隊</a>
+      <a class="nav-link" href="rules.html">棒球規則</a>
+      <a class="nav-link" href="season.html">賽季</a>
+      <a class="nav-link" href="version.html">版本</a>
+      <a class="nav-link" href="about.html">網站介紹</a>
+    </div>
+
+    <div class="nav-teams" aria-label="球隊快速入口">
+      <a href="team.html?team=brothers"><img src="assets/logo/brothers.png" alt="中信兄弟"></a>
+      <a href="team.html?team=lions"><img src="assets/logo/lions.png" alt="統一7-ELEVEn獅"></a>
+      <a href="team.html?team=monkeys"><img src="assets/logo/monkeys.png" alt="樂天桃猿"></a>
+      <a href="team.html?team=dragons"><img src="assets/logo/dragons.png" alt="味全龍"></a>
+      <a href="team.html?team=guardians"><img src="assets/logo/guardians.png" alt="富邦悍將"></a>
+      <a href="team.html?team=hawks"><img src="assets/logo/hawks.png" alt="台鋼雄鷹"></a>
+    </div>
   </div>
 </nav>
 
+<header class="hero">
+  <p class="muted">Ray's Unofficial CPBL Data Site</p>
+  <h1>比賽中心</h1>
+  <p id="matchHeaderSub">載入比賽資料中…</p>
+
+  <div class="hero-actions">
+    <a href="schedule.html">返回賽程</a>
+    <button id="btnRefreshMatch" type="button">刷新資料</button>
+    <button id="btnOfficial" type="button">官方成績看板</button>
+  </div>
+</header>
+
 <main class="container">
 
-  <!-- 返回 -->
-  <div style="margin-bottom:12px;">
-    <a href="schedule.html" class="muted">← 返回賽程</a>
-  </div>
+  <!-- 比賽主視覺 -->
+  <!-- 總覽 -->
+<section class="home-card match-tab-section" data-tab-section="overview">
+  <div id="gameIdDisplay" class="muted"></div>
 
-  <h1 style="margin-bottom:16px;">⚾ 比賽中心</h1>
+  <section class="match-hero">
 
-  <!-- ================= 比賽基本資訊 ================= -->
-  <div class="home-card">
-
-    <div id="matchDate" class="muted">📅 載入中…</div>
-
-    <!-- 新增：場地 / 時間 / 類型 -->
-    <div id="matchMeta" class="muted" style="margin-top:6px;">
-      📍 球場待公布 ｜ 🕒 時間待公布 ｜ 🎟 類型待公布
+    <div class="hero-team away">
+      <img id="awayLogo" src="" alt="客隊 Logo">
+      <div id="awayTeam" class="team-name"></div>
+      <div id="awayScore" class="hero-score">—</div>
     </div>
 
-    <div id="gameIdDisplay" class="muted" style="margin-top:4px; font-size:12px;">
-      Game ID: —
+    <div class="hero-center">
+      <div id="matchStatus" class="hero-status">⏳ 載入中...</div>
+      <div id="matchDate" class="hero-date"></div>
+      <div id="matchVenue" class="hero-meta"></div>
+      <div id="matchTime" class="hero-meta"></div>
+      <div id="matchType" class="hero-meta"></div>
     </div>
 
-   <section class="match-hero">
-
-  <div class="hero-team away">
-    <div id="awayTeam"></div>
-    <div id="awayScore" class="hero-score">—</div>
-  </div>
-
-  <div class="hero-center">
-    <div id="matchStatus" class="hero-status">⏳ 尚未開打</div>
-    <div id="matchDate" class="hero-date"></div>
-    <div id="ticketArea" style="margin-top:16px;"></div>
-  </div>
-
-  <div class="hero-team home">
-    <div id="homeTeam"></div>
-    <div id="homeScore" class="hero-score">—</div>
-  </div>
-
-</section>
-
-  </div>
-
-
-  <!-- ================= 兩隊數據切換 ================= -->
-  <div class="team-switch" id="teamSwitch" style="margin-top:20px;"></div>
-
-  <div id="teamDataHint" class="muted" style="margin-bottom:16px;">
-    請選擇球隊查看該隊比賽數據
-  </div>
-
-
-  <!-- ================= Box Score ================= -->
-  <section class="card boxscore">
-    <h2>📊 比賽數據（R H E）</h2>
-
-    <div id="boxScoreHint" class="muted">
-      ※ 比賽開始後顯示
+    <div class="hero-team home">
+      <img id="homeLogo" src="" alt="主隊 Logo">
+      <div id="homeTeam" class="team-name"></div>
+      <div id="homeScore" class="hero-score">—</div>
     </div>
 
-    <div class="boxscore-table">
-      <div class="boxscore-header">
-        <span>隊伍</span>
-        <span>R</span>
-        <span>H</span>
-        <span>E</span>
-      </div>
-
-      <div id="boxScoreRows"></div>
-    </div>
   </section>
 
+  <section class="home-card starter-duel-card" id="starterDuelCard"></section>
 
-  <!-- ================= 逐局比分 ================= -->
-  <section class="card linescore">
+  <section class="home-card pregame-ux-card" id="pregameUxCard" hidden></section>
+
+  <section class="home-card match-progress-card" id="matchProgressCard">
+    <div class="match-progress-head">
+      <div>
+        <span class="progress-kicker">MATCH FLOW</span>
+        <h2>比賽狀態時間軸</h2>
+      </div>
+      <div class="progress-current" id="progressCurrentStatus">載入中</div>
+    </div>
+
+    <div class="match-progress-timeline" id="matchProgressTimeline">
+      <div class="progress-step" data-progress-step="pregame">
+        <div class="progress-dot">1</div>
+        <div>
+          <strong>賽前資訊</strong>
+          <span>先發投手、球場與開賽時間</span>
+        </div>
+      </div>
+
+      <div class="progress-line"></div>
+
+      <div class="progress-step" data-progress-step="live">
+        <div class="progress-dot">2</div>
+        <div>
+          <strong>LIVE 戰況</strong>
+          <span>局數、打者、投手、壘包與 B/S/O</span>
+        </div>
+      </div>
+
+      <div class="progress-line"></div>
+
+      <div class="progress-step" data-progress-step="final">
+        <div class="progress-dot">3</div>
+        <div>
+          <strong>賽後數據</strong>
+          <span>最終比分、勝敗投、MVP 與球員成績</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="progress-note" id="matchProgressNote">
+      系統會依比賽狀態自動更新目前階段。
+    </p>
+  </section>
+  <section class="card match-quality-card">
+    <div class="section-title-row">
+      <h2>🧩 資料品質狀態</h2>
+      <span class="muted">Data Quality</span>
+    </div>
+
+    <div id="matchDataQuality"></div>
+  </section>
+
+</section>
+  <!-- 即時狀態面板 -->
+  <section class="card live-status-panel" id="liveStatusPanel">
+    <div class="live-status-head">
+      <div>
+        <span class="live-pill" id="liveStatusBadge">LIVE</span>
+        <span class="live-inning" id="liveInningText">—</span>
+      </div>
+
+      <div class="live-last-update" id="liveLastUpdate">
+        最後更新：—
+      </div>
+    </div>
+
+    <div class="live-score-line" id="liveScoreLine">
+      —
+    </div>
+
+    <div class="live-detail-grid">
+
+      <div class="live-detail-card">
+        <span class="live-label">目前攻擊</span>
+        <strong id="liveBattingTeam">—</strong>
+      </div>
+
+      <div class="live-detail-card">
+        <span class="live-label">目前守備</span>
+        <strong id="liveFieldingTeam">—</strong>
+      </div>
+
+      <div class="live-detail-card">
+        <span class="live-label">目前打者</span>
+        <strong id="liveBatter">—</strong>
+      </div>
+
+      <div class="live-detail-card">
+        <span class="live-label">目前投手</span>
+        <strong id="livePitcher">—</strong>
+      </div>
+
+      <div class="live-detail-card">
+        <span class="live-label">R / H / E</span>
+        <strong id="liveRHE">—</strong>
+      </div>
+
+    </div>
+
+    <div class="live-count-base-panel">
+      <div class="live-count-box">
+        <span>球數</span>
+        <strong id="liveBSO">B —｜S —｜O —</strong>
+      </div>
+
+      <div class="live-base-box">
+        <div class="base-diamond" aria-label="壘包狀態">
+          <div class="base base-second" id="baseSecond" title="二壘"></div>
+          <div class="base base-third" id="baseThird" title="三壘"></div>
+          <div class="base base-first" id="baseFirst" title="一壘"></div>
+          <div class="home-plate" title="本壘"></div>
+        </div>
+        <div class="live-bases-text" id="liveBasesText">壘包：—</div>
+      </div>
+    </div>
+
+    <p class="muted" id="liveStatusHint">
+      即時狀態會依目前 boxscore 資料自動整理。
+    </p>
+  </section>
+
+  <!-- RHE -->
+  <section class="card">
+    <h2>📊 R H E</h2>
+
+    <table style="width:100%; text-align:center;">
+      <thead>
+        <tr>
+          <th>隊伍</th>
+          <th>R</th>
+          <th>H</th>
+          <th>E</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td id="awayTeamRHE"></td>
+          <td id="awayR"></td>
+          <td id="awayH"></td>
+          <td id="awayE"></td>
+        </tr>
+
+        <tr>
+          <td id="homeTeamRHE"></td>
+          <td id="homeR"></td>
+          <td id="homeH"></td>
+          <td id="homeE"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p id="rheHint" class="muted"></p>
+  </section>
+
+  <!-- 逐局 -->
+  <section class="card">
     <h2>📋 逐局比分</h2>
 
-    <div class="linescore-table">
-      <div id="linescoreHeader" class="linescore-row header"></div>
-      <div id="linescoreRows"></div>
-    </div>
+    <table style="width:100%; text-align:center;">
+      <thead>
+        <tr>
+          <th>隊伍</th>
+          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+          <th>6</th><th>7</th><th>8</th><th>9</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr id="awayInningsRow"></tr>
+        <tr id="homeInningsRow"></tr>
+      </tbody>
+    </table>
+
+    <p id="inningsHint" class="muted"></p>
   </section>
 
+  <!-- 勝敗投 -->
+  <section class="card">
+    <h2>🏆 勝敗投 / MVP</h2>
 
-  <!-- ================= 先發投手 ================= -->
-  <section class="card starting-pitchers">
-    <h2>⚾ 先發投手</h2>
-
-    <div class="pitcher-grid">
-      <div class="pitcher-card">
-        <div class="muted">客隊先發</div>
-        <div id="awayStarter" class="pitcher-name placeholder">尚未公布</div>
+    <div class="decision-grid">
+      <div class="decision-item">
+        <span>勝投</span>
+        <strong id="winPitcher">—</strong>
       </div>
-      <div class="pitcher-card">
-        <div class="muted">主隊先發</div>
-        <div id="homeStarter" class="pitcher-name placeholder">尚未公布</div>
-      </div>
-    </div>
 
-    <div class="pitcher-hint muted">
-      ※ 通常於比賽前一日公布
+      <div class="decision-item">
+        <span>敗投</span>
+        <strong id="lossPitcher">—</strong>
+      </div>
+
+      <div class="decision-item">
+        <span>救援</span>
+        <strong id="savePitcher">—</strong>
+      </div>
+
+      <div class="decision-item">
+        <span>MVP</span>
+        <strong id="mvpPlayer">—</strong>
+      </div>
     </div>
   </section>
+  <!-- Play By Play -->
 
+  <section class="match-section">
 
-  <!-- ================= 先發打序 ================= -->
-  <section class="card lineup">
-    <h2>🧾 先發打序</h2>
+    <div class="section-head">
+      <h2>📡 LIVE 逐球事件</h2>
 
-    <div class="lineup-hint muted">
-      ※ 開打前 5–20 分鐘公布
+      <div class="muted">
+        即時比賽事件 / 關鍵攻勢 / 得分摘要
+      </div>
     </div>
 
-    <div class="lineup-table">
-      <div class="lineup-header">
-        <span>棒次</span>
-        <span>球員</span>
-        <span>守位</span>
-        <span>R</span>
-        <span>H</span>
-        <span>E</span>
+    <div
+      id="playByPlayContainer"
+      class="play-by-play-container"
+    >
+
+      <div class="play-loading">
+        載入逐球事件中…
       </div>
 
-      <div id="lineupRows"></div>
     </div>
+
+  </section>
+  <!-- 打者 -->
+  <section class="card">
+    <div class="section-title-row">
+      <h2>🔥 打者成績</h2>
+
+      <div class="team-switch" id="batterTeamSwitch">
+        <button type="button" class="team-tab away active" data-team-side="away" data-target="batters">客隊</button>
+        <button type="button" class="team-tab home" data-team-side="home" data-target="batters">主隊</button>
+      </div>
+    </div>
+
+    <div id="battersTable"></div>
   </section>
 
-  <!-- ================= 打者成績 ================= -->
-<section class="card batters">
-  <h2>🏏 打者成績</h2>
+  <!-- 投手 -->
+  <section class="card">
+    <div class="section-title-row">
+      <h2>🔥 投手成績</h2>
 
-  <div class="muted" style="margin-bottom:8px;">
-    ※ 比賽結束後顯示
-  </div>
-
-  <div class="batter-table">
-    <div class="batter-header">
-      <span>打者</span>
-      <span>AB</span>
-      <span>H</span>
-      <span>R</span>
-      <span>RBI</span>
-      <span>AVG</span>
-    </div>
-
-    <div id="batterRows"></div>
-  </div>
-</section>
-  <!-- ================= 投手成績 ================= -->
-  <section class="card pitchers">
-    <h2>🎯 投手成績</h2>
-
-    <div class="muted" style="margin-bottom:8px;">
-      ※ 比賽進行中顯示
-    </div>
-
-    <div class="pitcher-table">
-      <div class="pitcher-header">
-        <span>投手</span>
-        <span>局數</span>
-        <span>安打</span>
-        <span>失分</span>
-        <span>四壞</span>
-        <span>三振</span>
-      </div>
-
-      <div id="pitcherRows"></div>
-    </div>
-  </section>
-
-
-  <!-- ================= 賽後資訊 ================= -->
-  <section class="card postgame">
-    <h2>📊 賽後資訊</h2>
-
-    <div id="postgameStatus" class="muted" style="margin-bottom:10px;">
-      ※ 比賽結束後公布
-    </div>
-
-    <div class="postgame-grid">
-      <div class="postgame-item">
-        <span>觀眾人數</span>
-        <strong id="attendance">—</strong>
-      </div>
-      <div class="postgame-item">
-        <span>比賽時間</span>
-        <strong id="gameDuration">—</strong>
+      <div class="team-switch" id="pitcherTeamSwitch">
+        <button type="button" class="team-tab away active" data-team-side="away" data-target="pitchers">客隊</button>
+        <button type="button" class="team-tab home" data-team-side="home" data-target="pitchers">主隊</button>
       </div>
     </div>
+
+    <div id="pitchersTable"></div>
   </section>
 
 </main>
 
 <footer>
- © 2026 CPBL Data Site ｜ 
- <span class="site-version"></span> ｜ 
- 明叡 × ChatGPT
+  © 2026 CPBL Data Site ｜ <span class="site-version"></span> ｜ 明叡 × ChatGPT
 </footer>
 
-
+<script src="js/pages/match.js?v=501-pregame-ux"></script>
 <script src="js/version.js"></script>
-<script type="module">
-  import { initMatch } from "./js/pages/match.js";
-  initMatch();
-</script>
 
 </body>
 </html>

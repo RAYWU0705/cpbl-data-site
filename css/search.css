@@ -1,0 +1,79 @@
+/* =========================================================
+   Ray's CPBL Data Site
+   search.css
+   全站搜尋頁樣式
+   v1.0
+========================================================= */
+
+.search-page-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.search-page-box input {
+  flex: 1;
+  min-height: 52px;
+  border-radius: 999px;
+  padding: 0 20px;
+  font-size: 16px;
+  font-weight: 850;
+}
+
+.search-page-box button {
+  min-height: 52px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 950;
+  box-shadow: 0 10px 24px rgba(11, 60, 93, 0.22);
+}
+
+.search-results {
+  display: grid;
+  gap: 24px;
+}
+
+.search-group {
+  display: grid;
+  gap: 12px;
+}
+
+.search-group h3 {
+  margin: 0;
+  color: var(--primary);
+  font-size: 24px;
+  font-weight: 950;
+}
+
+.search-result-list {
+  display: grid;
+  gap: 12px;
+}
+
+.search-result-item {
+  display: grid;
+  gap: 8px;
+}
+
+.search-result-item strong {
+  font-size: 18px;
+}
+
+.search-result-item .badge {
+  width: fit-content;
+}
+
+@media (max-width: 720px) {
+  .search-page-box {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-page-box button {
+    width: 100%;
+  }
+}

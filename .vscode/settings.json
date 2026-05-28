@@ -1,0 +1,10 @@
+{
+  "files.exclude": {
+    "**/archive": true,
+    "**/_archive": true
+  },
+  "search.exclude": {
+    "**/archive": true,
+    "**/_archive": true
+  }
+}

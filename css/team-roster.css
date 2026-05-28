@@ -1,0 +1,693 @@
+/* =========================================================
+   Ray's CPBL Data Site
+   team-roster.css
+   v5.1.0-TEAMS-CSS-SPLIT-STABLE
+
+   team-roster.html 球隊名單頁專用樣式
+========================================================= */
+
+/* =========================================================
+   v5.0.4 TEAM ROSTER CARDS
+   球隊名單頁視覺升級
+========================================================= */
+
+body[data-page="team-roster"] main.container {
+  display: grid;
+  gap: 22px;
+}
+
+.team-roster-hero-card {
+  position: relative;
+  overflow: hidden;
+
+  padding: 28px;
+  border-radius: 30px;
+
+  background:
+    radial-gradient(circle at 10% 0%, rgba(255,255,255,0.24), transparent 32%),
+    radial-gradient(circle at 88% 10%, color-mix(in srgb, var(--team-color) 34%, transparent), transparent 36%),
+    linear-gradient(135deg, var(--team-color-dark, #0f172a), #071827 56%, var(--team-color, #0b3c5d));
+
+  color: #ffffff;
+
+  box-shadow:
+    0 24px 58px rgba(15,23,42,0.20);
+}
+
+.team-roster-hero-card::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+
+  background-size: 42px 42px;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.team-roster-hero-bg-text {
+  position: absolute;
+  right: 18px;
+  bottom: -20px;
+
+  font-size: clamp(76px, 11vw, 160px);
+  line-height: 1;
+
+  font-weight: 950;
+  letter-spacing: -5px;
+
+  color: rgba(255,255,255,0.055);
+
+  pointer-events: none;
+}
+
+.team-roster-hero-main {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.team-roster-logo-wrap {
+  width: 116px;
+  height: 116px;
+
+  display: grid;
+  place-items: center;
+
+  flex: 0 0 auto;
+
+  padding: 14px;
+  border-radius: 28px;
+
+  background: rgba(255,255,255,0.94);
+
+  box-shadow:
+    0 20px 38px rgba(0,0,0,0.20);
+}
+
+.team-roster-logo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.team-roster-hero-info {
+  min-width: 0;
+  flex: 1 1 360px;
+}
+
+.team-roster-kicker,
+.roster-kicker {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 26px;
+  padding: 5px 10px;
+
+  border-radius: 999px;
+
+  background: rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.88);
+
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0.7px;
+}
+
+.roster-kicker {
+  background: color-mix(in srgb, var(--team-color) 12%, white);
+  color: var(--team-color-dark, var(--primary));
+}
+
+.team-roster-hero-info h2 {
+  margin: 8px 0 0;
+
+  font-size: clamp(34px, 4vw, 58px);
+  line-height: 1.08;
+
+  font-weight: 950;
+}
+
+.team-roster-hero-info p {
+  margin: 8px 0 0;
+
+  color: rgba(255,255,255,0.76);
+  font-weight: 850;
+}
+
+.team-roster-hero-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  margin-top: 18px;
+}
+
+.team-roster-hero-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 38px;
+  padding: 8px 14px;
+
+  border-radius: 999px;
+
+  background: rgba(255,255,255,0.14);
+  border: 1px solid rgba(255,255,255,0.16);
+
+  color: #ffffff;
+  text-decoration: none;
+
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.team-roster-hero-actions a.active,
+.team-roster-hero-actions a:hover {
+  background: #ffffff;
+  color: var(--team-color-dark, #0f172a);
+}
+
+.team-roster-stat-grid {
+  position: relative;
+  z-index: 1;
+
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 12px;
+
+  margin-top: 22px;
+}
+
+.team-roster-stat {
+  min-width: 0;
+
+  padding: 14px;
+  border-radius: 18px;
+
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.16);
+}
+
+.team-roster-stat span {
+  display: block;
+  margin-bottom: 5px;
+
+  color: rgba(255,255,255,0.72);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.team-roster-stat strong {
+  display: block;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  font-size: 22px;
+  font-weight: 950;
+}
+
+.team-roster-panel {
+  position: relative;
+  overflow: hidden;
+
+  border-radius: 30px;
+
+  background:
+    radial-gradient(circle at 0% 0%, color-mix(in srgb, var(--team-color) 12%, transparent), transparent 28%),
+    linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,252,0.96));
+}
+
+.team-roster-panel::after {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 7px;
+
+  background: var(--team-color, var(--primary));
+
+  opacity: 0.85;
+}
+
+.roster-section-title-row {
+  position: relative;
+  z-index: 1;
+}
+
+.roster-section-title-row h2 {
+  margin-top: 4px;
+}
+
+.roster-count-pill,
+.roster-mini-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 34px;
+  padding: 7px 12px;
+
+  border-radius: 999px;
+
+  background: color-mix(in srgb, var(--team-color) 13%, white);
+  color: var(--team-color-dark, var(--primary));
+
+  font-size: 13px;
+  font-weight: 950;
+
+  white-space: nowrap;
+}
+
+.squad-tabs-pro,
+.squad-tabs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  margin-bottom: 20px;
+}
+
+.squad-tabs-pro a,
+.squad-tabs a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 40px;
+  padding: 9px 16px;
+
+  border-radius: 999px;
+
+  background: rgba(15,23,42,0.06);
+  color: #334155;
+
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 950;
+
+  transition:
+    transform 0.16s ease,
+    background 0.16s ease,
+    color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.squad-tabs-pro a:hover,
+.squad-tabs a:hover {
+  transform: translateY(-2px);
+}
+
+.squad-tabs-pro a.active,
+.squad-tabs a.active {
+  background: linear-gradient(135deg, var(--team-color), var(--team-color-dark, #0f172a));
+  color: #ffffff;
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--team-color) 26%, transparent);
+}
+
+.roster-group-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  margin-bottom: 14px;
+}
+
+.roster-group-head h3 {
+  margin: 5px 0 0;
+
+  color: #0f172a;
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 950;
+}
+
+.coach-card-grid,
+.player-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 12px;
+}
+
+.coach-card {
+  position: relative;
+  overflow: hidden;
+
+  display: grid;
+  grid-template-columns: 58px minmax(0,1fr) auto;
+  align-items: center;
+  gap: 12px;
+
+  padding: 15px;
+  border-radius: 20px;
+
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(15,23,42,0.08);
+
+  box-shadow: 0 10px 24px rgba(15,23,42,0.055);
+}
+
+.coach-card::before {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 5px;
+
+  background: var(--team-color, var(--primary));
+}
+
+.coach-number {
+  display: grid;
+  place-items: center;
+
+  width: 52px;
+  height: 52px;
+
+  border-radius: 18px;
+
+  background: color-mix(in srgb, var(--team-color) 13%, white);
+  color: var(--team-color-dark, var(--primary));
+
+  font-size: 16px;
+  font-weight: 950;
+}
+
+.coach-main {
+  min-width: 0;
+}
+
+.coach-main strong {
+  display: block;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  color: #0f172a;
+  font-size: 18px;
+  font-weight: 950;
+}
+
+.coach-main span {
+  display: block;
+  margin-top: 4px;
+
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.coach-tag {
+  padding: 6px 9px;
+  border-radius: 999px;
+
+  background: rgba(15,23,42,0.06);
+  color: #475569;
+
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.roster-section-pro {
+  margin-top: 24px;
+}
+
+.player-card-pro {
+  position: relative;
+  overflow: hidden;
+
+  min-height: 118px;
+
+  padding: 16px;
+  border-radius: 22px;
+
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--team-color) 15%, transparent), transparent 36%),
+    rgba(255,255,255,0.94);
+
+  border: 1px solid rgba(15,23,42,0.08);
+
+  box-shadow:
+    0 12px 28px rgba(15,23,42,0.06);
+
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    border-color 0.16s ease;
+}
+
+.player-card-pro:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--team-color) 35%, transparent);
+  box-shadow: 0 18px 34px rgba(15,23,42,0.10);
+}
+
+.player-card-glow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 6px;
+
+  background: var(--team-color, var(--primary));
+}
+
+.player-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.player-number-badge,
+.player-position-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 30px;
+  padding: 6px 10px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 950;
+
+  white-space: nowrap;
+}
+
+.player-number-badge {
+  background: color-mix(in srgb, var(--team-color) 14%, white);
+  color: var(--team-color-dark, var(--primary));
+}
+
+.player-position-badge {
+  background: rgba(15,23,42,0.06);
+  color: #475569;
+}
+
+.player-card-body {
+  margin-top: 18px;
+}
+
+.player-card-body strong {
+  display: block;
+
+  color: #0f172a;
+  font-size: 22px;
+  line-height: 1.15;
+  font-weight: 950;
+}
+
+.player-card-body span {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.transaction-list-pro {
+  gap: 10px;
+}
+
+.transaction-item-pro {
+  display: grid;
+  grid-template-columns: 120px minmax(0,1fr) auto;
+  align-items: center;
+  gap: 10px;
+
+  padding: 13px 15px;
+  border-radius: 18px;
+
+  background: rgba(255,255,255,0.86);
+  border: 1px solid rgba(15,23,42,0.08);
+}
+
+.transaction-item-pro span {
+  font-weight: 950;
+  color: #0f172a;
+}
+
+.transaction-item-pro em {
+  font-style: normal;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.roster-empty-state {
+  display: grid;
+  gap: 6px;
+
+  padding: 22px;
+  border-radius: 22px;
+
+  background: rgba(15,23,42,0.045);
+  border: 1px dashed rgba(15,23,42,0.14);
+
+  color: #475569;
+  text-align: center;
+}
+
+.roster-empty-state strong {
+  color: #0f172a;
+  font-size: 18px;
+  font-weight: 950;
+}
+
+.roster-empty-state span {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.roster-back-link {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 20px;
+}
+
+/* =========================
+   9. 手機版球隊頁
+========================= */
+
+@media (max-width: 1100px) {
+  .coach-card-grid,
+  .player-card-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+
+  .team-roster-stat-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .teams-grid,
+  .roster-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .team-info-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .team-roster-hero-card {
+    padding: 22px 18px;
+    border-radius: 24px;
+  }
+
+  .team-roster-logo-wrap {
+    width: 92px;
+    height: 92px;
+  }
+
+  .team-roster-hero-actions a {
+    flex: 1 1 auto;
+  }
+
+  .coach-card-grid,
+  .player-card-grid,
+  .team-roster-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .coach-card {
+    grid-template-columns: 52px minmax(0,1fr);
+  }
+
+  .coach-tag {
+    grid-column: 2;
+    width: fit-content;
+  }
+
+  .transaction-item-pro {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .teams-grid,
+  .roster-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .team-hero-card {
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .team-hero-logo {
+    width: 76px;
+    height: 76px;
+  }
+
+  .team-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .team-card-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .roster-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .roster-filter {
+    width: 100%;
+  }
+
+  .roster-filter button {
+    flex: 1;
+  }
+
+  .roster-table {
+    min-width: 640px;
+  }
+}

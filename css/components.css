@@ -1,0 +1,487 @@
+/* =========================================================
+   Ray's CPBL Data Site
+   components.css
+   全站共用元件樣式
+   v4.8.0-RC Home Card Pro
+========================================================= */
+
+/* =========================
+   1. 全站卡片系統
+========================= */
+
+.home-card,
+.card,
+.team-detail-card,
+.season-card {
+  position: relative;
+  overflow: hidden;
+
+  background:
+    radial-gradient(circle at top right, rgba(11, 60, 93, 0.045), transparent 32%),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.99),
+      rgba(248, 250, 252, 0.97)
+    );
+
+  border-radius: 28px;
+  padding: 32px;
+
+  border: 1px solid rgba(255, 255, 255, 0.75);
+
+  box-shadow:
+    0 14px 36px rgba(15, 23, 42, 0.08),
+    0 3px 10px rgba(15, 23, 42, 0.045);
+
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
+
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.home-card:hover,
+.card:hover,
+.team-detail-card:hover,
+.season-card:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 22px 48px rgba(15, 23, 42, 0.12),
+    0 5px 14px rgba(15, 23, 42, 0.08);
+
+  border-color: rgba(11, 60, 93, 0.16);
+}
+
+/* =========================
+   2. 卡片變體
+========================= */
+
+.home-card.primary,
+.card.primary {
+  background:
+    radial-gradient(circle at top right, rgba(11, 60, 93, 0.075), transparent 34%),
+    linear-gradient(180deg, #ffffff, #f8fafc);
+}
+
+.home-card.secondary,
+.card.secondary {
+  background:
+    radial-gradient(circle at top right, rgba(255, 214, 10, 0.08), transparent 34%),
+    linear-gradient(180deg, #ffffff, #f8fafc);
+}
+
+/* =========================
+   3. 卡片文字
+========================= */
+
+.home-card h2,
+.card h2,
+.team-detail-card h2,
+.season-card h2 {
+  margin: 0 0 20px;
+
+  font-size: clamp(24px, 2vw, 32px);
+  line-height: 1.22;
+
+  font-weight: 950;
+  letter-spacing: 0.35px;
+
+  color: #0f172a;
+}
+
+.home-card p,
+.card p,
+.team-detail-card p,
+.season-card p {
+  line-height: 1.78;
+  font-weight: 750;
+}
+
+.home-card ul,
+.card ul,
+.team-detail-card ul,
+.season-card ul {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.home-card li,
+.card li,
+.team-detail-card li,
+.season-card li {
+  margin: 14px 0;
+  line-height: 3.4;
+  font-weight: 750;
+}
+
+/* =========================
+   4. 共用連結與按鈕
+========================= */
+
+.card-link,
+.btn,
+button.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 44px;
+  margin-top: 12px;
+  padding: 11px 18px;
+
+  border: 0;
+  border-radius: 999px;
+
+  background:
+    linear-gradient(135deg, var(--primary), var(--primary-dark));
+
+  color: #ffffff;
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 950;
+
+  box-shadow:
+    0 8px 20px rgba(11, 60, 93, 0.2);
+
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease,
+    box-shadow 0.18s ease,
+    opacity 0.18s ease;
+}
+
+.card-link:hover,
+.btn:hover,
+button.btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.96;
+
+  box-shadow:
+    0 14px 30px rgba(11, 60, 93, 0.28);
+}
+
+.btn.secondary,
+.card-link.secondary {
+  background: rgba(11, 60, 93, 0.1);
+  color: var(--primary);
+  box-shadow: none;
+}
+
+/* =========================
+   5. 狀態標籤
+========================= */
+
+.status-badge,
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 28px;
+  padding: 6px 11px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 950;
+  line-height: 1;
+
+  background: rgba(11, 60, 93, 0.08);
+  color: var(--primary);
+}
+
+.status-badge.live,
+.badge.live {
+  background: rgba(214, 0, 0, 0.1);
+  color: var(--danger);
+}
+
+.status-badge.final,
+.badge.final {
+  background: rgba(10, 143, 42, 0.1);
+  color: var(--success);
+}
+
+.status-badge.scheduled,
+.badge.scheduled {
+  background: rgba(11, 60, 93, 0.08);
+  color: var(--primary);
+}
+
+.status-badge.warn,
+.badge.warn {
+  background: rgba(255, 152, 0, 0.12);
+  color: var(--warning);
+}
+
+/* =========================
+   6. 區塊標題列
+========================= */
+
+.section-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+  flex-wrap: wrap;
+
+  margin-bottom: 18px;
+}
+
+.section-title-row h2 {
+  margin: 0;
+}
+
+/* =========================
+   7. 隊伍切換按鈕
+========================= */
+
+.team-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 5px;
+  border-radius: 999px;
+
+  background: rgba(11, 60, 93, 0.08);
+}
+
+.team-tab {
+  border: 0;
+  border-radius: 999px;
+
+  padding: 8px 13px;
+  min-height: 34px;
+
+  background: transparent;
+  color: var(--primary);
+
+  font-size: 13px;
+  font-weight: 950;
+
+  transition:
+    background 0.16s ease,
+    color 0.16s ease,
+    transform 0.16s ease;
+}
+
+.team-tab:hover {
+  transform: translateY(-1px);
+}
+
+.team-tab.active {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+/* =========================
+   8. 表格容器
+========================= */
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+
+  border-radius: 18px;
+  border: 1px solid var(--border);
+
+  background: #ffffff;
+
+  box-shadow:
+    0 8px 22px rgba(15, 23, 42, 0.045);
+}
+
+.table-wrap table {
+  width: 100%;
+  min-width: 640px;
+}
+
+/* =========================
+   9. 排名與列表共用
+========================= */
+
+.rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 38px;
+  height: 30px;
+  padding: 0 10px;
+
+  border-radius: 999px;
+
+  background: rgba(11, 60, 93, 0.1);
+  color: var(--primary);
+
+  font-weight: 950;
+}
+
+/* =========================
+   10. 共用網格
+========================= */
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+/* =========================
+   11. 小型資訊卡
+========================= */
+
+.mini-game-card,
+.info-mini-card {
+  display: block;
+
+  padding: 16px 18px;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(180deg, #ffffff, #f8fafc);
+
+  border: 1px solid rgba(15, 23, 42, 0.08);
+
+  color: inherit;
+  text-decoration: none;
+
+  box-shadow:
+    0 6px 18px rgba(15, 23, 42, 0.045);
+
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    border-color 0.16s ease;
+}
+
+.mini-game-card:hover,
+.info-mini-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 26px rgba(15, 23, 42, 0.08);
+
+  border-color: rgba(11, 60, 93, 0.15);
+}
+
+/* =========================
+   12. 手機版共用元件
+========================= */
+
+@media (max-width: 720px) {
+  .home-card,
+  .card,
+  .team-detail-card,
+  .season-card {
+    padding: 22px;
+    border-radius: 22px;
+  }
+
+  .home-card h2,
+  .card h2,
+  .team-detail-card h2,
+  .season-card h2 {
+    font-size: 26px;
+  }
+
+  .section-title-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .team-switch {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .team-tab {
+    flex: 1;
+  }
+
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 460px) {
+  .home-card,
+  .card,
+  .team-detail-card,
+  .season-card {
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .home-card h2,
+  .card h2,
+  .team-detail-card h2,
+  .season-card h2 {
+    font-size: 24px;
+  }
+
+  .card-link,
+  .btn,
+  button.btn {
+    width: 100%;
+  }
+}
+/* =========================
+   13. Dashboard Layout Pro
+========================= */
+
+.dashboard-grid {
+  display: grid;
+
+  grid-template-columns:
+    1.3fr
+    1fr
+    1fr;
+
+  gap: 22px;
+
+  align-items: stretch;
+}
+
+.dashboard-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.dashboard-card-tall {
+  min-height: 100%;
+}
+
+.dashboard-card-wide {
+  grid-column: span 2;
+}
+
+.dashboard-card-full {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 1100px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-card-wide,
+  .dashboard-card-full {
+    grid-column: auto;
+  }
+}

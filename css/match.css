@@ -1,0 +1,1784 @@
+/* =========================================================
+   Ray's CPBL Data Site
+   match.css
+   Match Center Pro
+   v4.8.1-RC
+========================================================= */
+
+/* =========================
+   1. 比賽中心 Hero
+========================= */
+
+.match-hero {
+  position: relative;
+  overflow: hidden;
+
+  display: grid;
+  grid-template-columns: 1fr minmax(300px, 0.9fr) 1fr;
+  align-items: center;
+
+  gap: 28px;
+
+  margin-top: 18px;
+  padding: 38px 30px;
+
+  border-radius: 34px;
+
+  background:
+    radial-gradient(circle at top left, rgba(255,255,255,0.12), transparent 30%),
+    linear-gradient(
+      135deg,
+      var(--away-color),
+      #071625 50%,
+      var(--home-color)
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 24px 54px rgba(15,23,42,0.22);
+}
+
+.match-hero::after {
+  content: "MATCH";
+
+  position: absolute;
+  right: 24px;
+  bottom: -18px;
+
+  font-size: clamp(72px, 10vw, 150px);
+  line-height: 1;
+
+  font-weight: 950;
+  letter-spacing: -4px;
+
+  color: rgba(255,255,255,0.05);
+
+  pointer-events: none;
+}
+
+/* =========================
+   2. 隊伍區
+========================= */
+
+.hero-team {
+  display: grid;
+  justify-items: center;
+
+  gap: 12px;
+
+  text-align: center;
+}
+
+.hero-team img {
+  width: 110px;
+  height: 110px;
+
+  object-fit: contain;
+
+  padding: 12px;
+
+  border-radius: 28px;
+
+  background: rgba(255,255,255,0.96);
+
+  box-shadow:
+    0 18px 34px rgba(0,0,0,0.18);
+}
+
+.team-name {
+  font-size: clamp(24px, 2vw, 34px);
+  line-height: 1.15;
+
+  font-weight: 950;
+
+  text-shadow:
+    0 3px 10px rgba(0,0,0,0.18);
+}
+
+/* =========================
+   3. 中間資訊
+========================= */
+
+.hero-center {
+  text-align: center;
+}
+
+.hero-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 40px;
+  padding: 9px 18px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(255,255,255,0.12);
+
+  border:
+    1px solid rgba(255,255,255,0.14);
+
+  font-size: 14px;
+  font-weight: 950;
+
+  letter-spacing: 0.4px;
+
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.hero-score {
+  margin-top: 16px;
+
+  font-size: clamp(68px, 10vw, 120px);
+  line-height: 1;
+
+  font-weight: 950;
+  letter-spacing: 2px;
+
+  text-shadow:
+    0 8px 24px rgba(0,0,0,0.34);
+}
+
+.hero-score.winner {
+  color: #ffd54a;
+
+  text-shadow:
+    0 0 24px rgba(255,213,74,0.48);
+}
+
+.hero-score.loser {
+  opacity: 0.48;
+}
+
+.hero-date,
+.hero-meta {
+  margin-top: 15px;
+
+  color: rgba(255,255,255,0.76);
+
+  font-size: 20px;
+  font-weight: 850;
+}
+
+/* =========================
+   3.5 先發投手對決卡
+========================= */
+
+.starter-duel-card {
+  position: relative;
+  overflow: hidden;
+
+  margin-top: 18px;
+  padding: 26px;
+
+  border-radius: 30px;
+
+  background:
+    radial-gradient(circle at 10% 0%, var(--away-color-light), transparent 32%),
+    radial-gradient(circle at 90% 0%, var(--home-color-light), transparent 32%),
+    linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,252,0.96));
+
+  border:
+    1px solid rgba(15,23,42,0.08);
+
+  box-shadow:
+    0 18px 42px rgba(15,23,42,0.08);
+}
+
+.starter-duel-card::after {
+  content: "STARTERS";
+
+  position: absolute;
+  right: 18px;
+  bottom: -10px;
+
+  font-size: clamp(48px, 8vw, 108px);
+  line-height: 1;
+
+  font-weight: 950;
+  letter-spacing: -3px;
+
+  color: rgba(15,23,42,0.035);
+
+  pointer-events: none;
+}
+
+.starter-duel-head {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 14px;
+
+  margin-bottom: 20px;
+}
+
+.starter-duel-head h2 {
+  margin: 4px 0 0;
+
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.2;
+
+  font-weight: 950;
+
+  color: #0f172a;
+}
+
+.starter-kicker {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 26px;
+  padding: 5px 10px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(11,60,93,0.08);
+
+  color: var(--primary);
+
+  font-size: 11px;
+  font-weight: 950;
+
+  letter-spacing: 0.7px;
+}
+
+.starter-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 34px;
+  padding: 7px 13px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(15,23,42,0.06);
+
+  color: #334155;
+
+  font-size: 13px;
+  font-weight: 950;
+
+  white-space: nowrap;
+}
+
+.starter-duel-main {
+  position: relative;
+  z-index: 1;
+
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 90px minmax(0,1fr);
+  align-items: stretch;
+
+  gap: 16px;
+}
+
+.starter-team {
+  min-width: 0;
+
+  display: grid;
+  justify-items: center;
+  align-content: center;
+
+  gap: 10px;
+
+  padding: 22px 18px;
+
+  border-radius: 26px;
+
+  background:
+    rgba(255,255,255,0.86);
+
+  border:
+    1px solid rgba(15,23,42,0.08);
+
+  box-shadow:
+    0 12px 28px rgba(15,23,42,0.06);
+
+  text-align: center;
+}
+
+.starter-team.away {
+  box-shadow:
+    inset 5px 0 0 var(--away-color),
+    0 12px 28px rgba(15,23,42,0.06);
+}
+
+.starter-team.home {
+  box-shadow:
+    inset -5px 0 0 var(--home-color),
+    0 12px 28px rgba(15,23,42,0.06);
+}
+
+.starter-team img {
+  width: 74px;
+  height: 74px;
+
+  object-fit: contain;
+
+  padding: 8px;
+
+  border-radius: 20px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 10px 22px rgba(15,23,42,0.08);
+}
+
+.starter-team span {
+  color: #475569;
+
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.starter-team strong {
+  display: block;
+
+  color: #0f172a;
+
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.1;
+
+  font-weight: 950;
+
+  overflow-wrap: anywhere;
+}
+
+.starter-vs {
+  display: grid;
+  place-items: center;
+}
+
+.starter-vs span {
+  display: grid;
+  place-items: center;
+
+  width: 72px;
+  height: 72px;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--away-color),
+      #0f172a 50%,
+      var(--home-color)
+    );
+
+  color: #ffffff;
+
+  font-size: 20px;
+  font-weight: 950;
+
+  box-shadow:
+    0 16px 32px rgba(15,23,42,0.18);
+}
+
+.starter-note {
+  position: relative;
+  z-index: 1;
+
+  margin: 18px 0 0;
+
+  color: var(--muted);
+
+  font-size: 14px;
+  font-weight: 800;
+
+  text-align: center;
+}
+
+/* =========================
+   4. LIVE 狀態卡
+========================= */
+
+.live-status-panel {
+  position: relative;
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0f172a,
+      #16253a
+    );
+
+  color: #ffffff;
+
+  border:
+    1px solid rgba(255,255,255,0.08);
+
+  box-shadow:
+    0 20px 46px rgba(0,0,0,0.18);
+}
+
+.live-status-panel::after {
+  content: "";
+
+  position: absolute;
+
+  right: -40px;
+  top: -40px;
+
+  width: 120px;
+  height: 120px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(255,255,255,0.05);
+}
+
+.live-status-panel .muted {
+  color: rgba(255,255,255,0.68);
+}
+
+.live-status-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+  flex-wrap: wrap;
+
+  margin-bottom: 16px;
+}
+
+.live-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 34px;
+  padding: 7px 14px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(255,59,48,0.16);
+
+  color: #ff7c74;
+
+  font-size: 13px;
+  font-weight: 950;
+
+  letter-spacing: 0.5px;
+}
+
+@keyframes livePulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.08);
+    opacity: 0.82;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.live-inning {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 34px;
+  padding: 7px 14px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(255,255,255,0.1);
+
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.live-last-update {
+  font-size: 13px;
+  font-weight: 850;
+
+  color: rgba(255,255,255,0.66);
+}
+
+.live-score-line {
+  margin: 10px 0 20px;
+
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1.15;
+
+  font-weight: 950;
+
+  text-align: center;
+}
+
+/* =========================
+   5. 即時資訊格
+========================= */
+
+.live-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0,1fr));
+
+  gap: 12px;
+}
+
+.live-detail-card {
+  min-width: 0;
+
+  padding: 16px 14px;
+
+  border-radius: 20px;
+
+  background:
+    rgba(255,255,255,0.08);
+
+  border:
+    1px solid rgba(255,255,255,0.08);
+}
+
+.live-label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: rgba(255,255,255,0.68);
+
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.live-detail-card strong {
+  display: block;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  font-size: 18px;
+  font-weight: 950;
+}
+
+/* =========================
+   6. BSO / 壘包
+========================= */
+
+.live-count-base-panel {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1.4fr);
+
+  gap: 14px;
+
+  margin-top: 18px;
+}
+
+.live-count-box,
+.live-base-box {
+  padding: 18px;
+
+  border-radius: 22px;
+
+  background:
+    rgba(255,255,255,0.06);
+
+  border:
+    1px solid rgba(255,255,255,0.08);
+}
+
+.live-count-box span {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: rgba(255,255,255,0.7);
+
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.live-count-box strong {
+  font-size: 24px;
+  font-weight: 950;
+}
+
+.live-base-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.base-diamond {
+  position: relative;
+
+  width: 120px;
+  height: 90px;
+
+  flex: 0 0 auto;
+}
+
+.base,
+.home-plate {
+  position: absolute;
+
+  width: 22px;
+  height: 22px;
+
+  transform: rotate(45deg);
+
+  border-radius: 5px;
+
+  background:
+    rgba(255,255,255,0.14);
+
+  border:
+    1px solid rgba(255,255,255,0.24);
+}
+
+.base.on {
+  background: #ffd54a;
+
+  border-color:
+    rgba(255,213,74,0.95);
+
+  box-shadow:
+    0 0 20px rgba(255,213,74,0.52);
+}
+
+.base-first {
+  right: 14px;
+  top: 36px;
+}
+
+.base-second {
+  left: 49px;
+  top: 8px;
+}
+
+.base-third {
+  left: 14px;
+  top: 36px;
+}
+
+.home-plate {
+  left: 49px;
+  bottom: 6px;
+
+  width: 18px;
+  height: 18px;
+
+  opacity: 0.5;
+}
+
+.live-bases-text {
+  font-size: 15px;
+  font-weight: 950;
+
+  color: rgba(255,255,255,0.88);
+}
+
+/* =========================
+   7. RHE / Table
+========================= */
+
+.match-table,
+.card table {
+  width: 100%;
+  text-align: center;
+}
+
+.card table th {
+  background:
+    rgba(11,60,93,0.06);
+
+  color: var(--primary);
+
+  font-size: 20px;
+  font-weight: 950;
+}
+
+.card table td {
+  font-size: 20px;
+  font-weight: 850;
+}
+
+#awayR,
+#homeR {
+  font-size: 22px;
+  font-weight: 950;
+}
+
+/* =========================
+   8. 勝敗投 MVP
+========================= */
+
+.decision-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+
+  gap: 14px;
+}
+
+.decision-item {
+  padding: 18px;
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(11,60,93,0.05),
+      rgba(11,60,93,0.025)
+    );
+
+  border:
+    1px solid rgba(11,60,93,0.08);
+
+  text-align: center;
+}
+
+.decision-item span {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.decision-item strong {
+  display: block;
+
+  font-size: 22px;
+  line-height: 1.15;
+
+  color: var(--primary);
+
+  font-weight: 950;
+}
+
+/* =========================
+   9. 打者 / 投手標題
+========================= */
+
+.batter-team-title,
+.pitcher-team-title {
+  margin: 16px 0 12px;
+
+  padding: 14px 16px;
+
+  border-radius: 18px;
+
+  background:
+    rgba(11,60,93,0.08);
+
+  color: var(--primary);
+
+  font-size: 22px;
+  font-weight: 950;
+}
+
+/* =========================
+   10. 打者 / 投手表格
+========================= */
+
+.batter-header,
+.batter-row,
+.pitcher-header,
+.pitcher-row {
+  display: grid;
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 12px 14px;
+}
+
+.batter-header,
+.batter-row {
+  grid-template-columns:
+    minmax(160px,1.8fr)
+    repeat(5,minmax(60px,0.7fr));
+}
+
+.pitcher-header,
+.pitcher-row {
+  grid-template-columns:
+    minmax(160px,1.8fr)
+    repeat(5,minmax(60px,0.7fr));
+}
+
+.batter-header,
+.pitcher-header {
+  border-radius: 16px;
+
+  background:
+    rgba(11,60,93,0.08);
+
+  color: var(--primary);
+
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.batter-row,
+.pitcher-row {
+  border-bottom:
+    1px solid var(--border);
+
+  font-size: 15px;
+  font-weight: 850;
+}
+
+.batter-row span:first-child,
+.pitcher-row span:first-child {
+  font-weight: 950;
+}
+
+.batter-row:last-child,
+.pitcher-row:last-child {
+  border-bottom: 0;
+}
+
+/* =========================
+   11. 手機版
+========================= */
+
+@media (max-width: 980px) {
+  .match-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-center {
+    order: -1;
+  }
+
+  .starter-duel-main {
+    grid-template-columns: 1fr;
+  }
+
+  .starter-vs span {
+    width: 60px;
+    height: 60px;
+  }
+
+  .live-detail-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+
+  .decision-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .match-hero {
+    padding: 26px 18px;
+    border-radius: 26px;
+  }
+
+  .hero-team img {
+    width: 84px;
+    height: 84px;
+  }
+
+  .team-name {
+    font-size: 22px;
+  }
+
+  .hero-score {
+    font-size: 72px;
+  }
+
+  .starter-duel-card {
+    padding: 20px 16px;
+    border-radius: 24px;
+  }
+
+  .starter-duel-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .starter-team {
+    padding: 18px 14px;
+  }
+
+  .starter-team img {
+    width: 62px;
+    height: 62px;
+  }
+
+  .starter-team strong {
+    font-size: 30px;
+  }
+
+  .live-count-base-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .live-base-box {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .live-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .decision-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .batter-header,
+  .batter-row,
+  .pitcher-header,
+  .pitcher-row {
+    min-width: 700px;
+  }
+
+  #battersTable,
+  #pitchersTable {
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-score {
+    font-size: 60px;
+  }
+
+  .base-diamond {
+    width: 100px;
+  }
+
+  .live-status-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* =========================================================
+   Play By Play
+========================================================= */
+
+.play-by-play-container {
+  display: grid;
+  gap: 14px;
+}
+
+.play-event {
+  position: relative;
+
+  padding: 18px 20px;
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.98),
+      rgba(248,250,252,0.95)
+    );
+
+  border:
+    1px solid rgba(11,60,93,0.08);
+
+  box-shadow:
+    0 10px 28px rgba(15,23,42,0.06);
+
+  overflow: hidden;
+}
+
+.play-event::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 6px;
+
+  background: var(--primary);
+}
+
+.play-event.score::before {
+  background: #d60000;
+}
+
+.play-event.big::before {
+  background: #ff9800;
+}
+
+.play-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  flex-wrap: wrap;
+
+  margin-bottom: 10px;
+}
+
+.play-inning {
+  font-size: 15px;
+  font-weight: 950;
+  color: var(--primary);
+}
+
+.play-time {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.play-main {
+  font-size: 20px;
+  font-weight: 950;
+  line-height: 1.5;
+  color: #0f172a;
+}
+
+.play-desc {
+  margin-top: 8px;
+
+  font-size: 15px;
+  line-height: 1.7;
+
+  color: #475569;
+
+  font-weight: 700;
+}
+
+.play-score {
+  margin-top: 10px;
+
+  font-size: 14px;
+  font-weight: 900;
+
+  color: #d60000;
+}
+
+.play-loading {
+  padding: 28px;
+
+  border-radius: 22px;
+
+  background: rgba(11,60,93,0.05);
+
+  text-align: center;
+
+  color: var(--muted);
+
+  font-weight: 850;
+}
+
+/* =========================
+   手機版
+========================= */
+
+@media (max-width: 720px) {
+  .play-event {
+    padding: 16px;
+  }
+
+  .play-main {
+    font-size: 17px;
+  }
+
+  .play-desc {
+    font-size: 14px;
+  }
+}
+
+/* =========================================================
+   Match Tabs System
+========================================================= */
+
+.match-tabs-wrap {
+  position: sticky;
+
+  top: 74px;
+  z-index: 40;
+
+  margin-bottom: 10px;
+}
+
+.match-tabs {
+  display: flex;
+
+  gap: 10px;
+
+  overflow-x: auto;
+
+  padding: 12px;
+
+  border-radius: 24px;
+
+  background:
+    rgba(255,255,255,0.82);
+
+  border:
+    1px solid rgba(11,60,93,0.08);
+
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+
+  box-shadow:
+    0 12px 28px rgba(15,23,42,0.08);
+}
+
+.match-tab-btn {
+  border: 0;
+
+  min-height: 42px;
+
+  padding: 10px 18px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(11,60,93,0.06);
+
+  color: #334155;
+
+  font-size: 14px;
+  font-weight: 900;
+
+  white-space: nowrap;
+
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease,
+    color 0.18s ease;
+}
+
+.match-tab-btn:hover {
+  transform: translateY(-2px);
+}
+
+.match-tab-btn.active {
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      var(--primary-dark)
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 8px 22px rgba(11,60,93,0.28);
+}
+/* =========================================================
+   Match Progress Timeline
+========================================================= */
+
+.match-progress-card {
+  position: relative;
+  overflow: hidden;
+
+  margin-top: 18px;
+  padding: 26px;
+
+  border-radius: 30px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.98),
+      rgba(248,250,252,0.96)
+    );
+
+  border:
+    1px solid rgba(15,23,42,0.08);
+
+  box-shadow:
+    0 18px 42px rgba(15,23,42,0.08);
+}
+
+.match-progress-card::after {
+  content: "FLOW";
+
+  position: absolute;
+  right: 20px;
+  bottom: -14px;
+
+  font-size: clamp(60px, 9vw, 128px);
+  line-height: 1;
+
+  font-weight: 950;
+  letter-spacing: -4px;
+
+  color: rgba(15,23,42,0.035);
+
+  pointer-events: none;
+}
+
+.match-progress-head {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 14px;
+  flex-wrap: wrap;
+
+  margin-bottom: 22px;
+}
+
+.match-progress-head h2 {
+  margin: 4px 0 0;
+
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.2;
+
+  font-weight: 950;
+
+  color: #0f172a;
+}
+
+.progress-kicker {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 26px;
+  padding: 5px 10px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(11,60,93,0.08);
+
+  color: var(--primary);
+
+  font-size: 11px;
+  font-weight: 950;
+
+  letter-spacing: 0.7px;
+}
+
+.progress-current {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 36px;
+  padding: 8px 14px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(15,23,42,0.06);
+
+  color: #334155;
+
+  font-size: 13px;
+  font-weight: 950;
+
+  white-space: nowrap;
+}
+
+.match-progress-timeline {
+  position: relative;
+  z-index: 1;
+
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 70px minmax(0,1fr) 70px minmax(0,1fr);
+  align-items: center;
+
+  gap: 10px;
+}
+
+.progress-step {
+  min-width: 0;
+
+  display: grid;
+  grid-template-columns: 48px minmax(0,1fr);
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 16px;
+
+  border-radius: 22px;
+
+  background:
+    rgba(255,255,255,0.86);
+
+  border:
+    1px solid rgba(15,23,42,0.08);
+
+  box-shadow:
+    0 10px 26px rgba(15,23,42,0.05);
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.progress-step strong {
+  display: block;
+
+  color: #0f172a;
+
+  font-size: 17px;
+  font-weight: 950;
+}
+
+.progress-step span {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #64748b;
+
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.progress-dot {
+  width: 48px;
+  height: 48px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 999px;
+
+  background:
+    rgba(15,23,42,0.08);
+
+  color: #334155;
+
+  font-size: 18px;
+  font-weight: 950;
+}
+
+.progress-step.is-active {
+  transform: translateY(-3px);
+
+  border-color:
+    rgba(255,152,0,0.36);
+
+  box-shadow:
+    0 16px 34px rgba(255,152,0,0.14);
+}
+
+.progress-step.is-active .progress-dot {
+  background:
+    linear-gradient(135deg, #ff9800, #ffb74d);
+
+  color: #ffffff;
+
+  box-shadow:
+    0 0 0 6px rgba(255,152,0,0.14);
+}
+
+.progress-step.is-done {
+  border-color:
+    rgba(10,143,42,0.24);
+}
+
+.progress-step.is-done .progress-dot {
+  background:
+    linear-gradient(135deg, #0a8f2a, #39c96b);
+
+  color: #ffffff;
+}
+
+.progress-step.is-done .progress-dot::before {
+  content: "✓";
+}
+
+.progress-step.is-done .progress-dot {
+  font-size: 0;
+}
+
+.progress-step.is-done .progress-dot::before {
+  font-size: 20px;
+  font-weight: 950;
+}
+
+.progress-step.is-waiting {
+  opacity: 0.78;
+}
+
+.progress-line {
+  height: 8px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(15,23,42,0.08);
+
+  overflow: hidden;
+}
+
+.progress-line.is-done,
+.progress-line.is-active {
+  background:
+    linear-gradient(90deg, #0a8f2a, #ff9800);
+}
+
+.progress-note {
+  position: relative;
+  z-index: 1;
+
+  margin: 18px 0 0;
+
+  color: var(--muted);
+
+  font-size: 14px;
+  font-weight: 800;
+
+  text-align: center;
+}
+
+@media (max-width: 980px) {
+  .match-progress-timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .progress-line {
+    width: 8px;
+    height: 28px;
+
+    justify-self: center;
+  }
+}
+
+@media (max-width: 720px) {
+  .match-progress-card {
+    padding: 20px 16px;
+    border-radius: 24px;
+  }
+
+  .match-progress-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .progress-step {
+    grid-template-columns: 42px minmax(0,1fr);
+    padding: 14px;
+  }
+
+  .progress-dot {
+    width: 42px;
+    height: 42px;
+  }
+}
+.starter-duel-main.live-mode .starter-team {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,245,245,0.96),
+      rgba(255,255,255,0.92)
+    );
+}
+
+.starter-duel-main.final-mode .starter-team {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,251,235,0.96),
+      rgba(255,255,255,0.92)
+    );
+}
+
+.starter-duel-main.final-mode .starter-vs span {
+  font-size: 15px;
+}
+.starter-team.winner-side {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,251,235,0.98),
+      rgba(255,255,255,0.94)
+    );
+
+  border-color:
+    rgba(245,158,11,0.28);
+
+  box-shadow:
+    inset 5px 0 0 #f59e0b,
+    0 12px 28px rgba(245,158,11,0.08);
+}
+
+.starter-team.loser-side {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(248,250,252,0.98),
+      rgba(255,255,255,0.94)
+    );
+
+  border-color:
+    rgba(100,116,139,0.18);
+
+  box-shadow:
+    inset -5px 0 0 #64748b,
+    0 12px 28px rgba(15,23,42,0.05);
+}
+
+.starter-team em {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #64748b;
+
+  font-style: normal;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+/* =========================================================
+   Match Center v5.0.1 PREGAME UX
+   安全追加：賽前狀態卡 / 倒數 / 資料品質細節
+========================================================= */
+
+.pregame-ux-card {
+  position: relative;
+  overflow: hidden;
+
+  margin-top: 18px;
+  padding: 26px;
+
+  border-radius: 30px;
+
+  background:
+    radial-gradient(circle at 8% 0%, var(--away-color-light), transparent 30%),
+    radial-gradient(circle at 92% 0%, var(--home-color-light), transparent 30%),
+    linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,252,0.96));
+
+  border: 1px solid rgba(15,23,42,0.08);
+  box-shadow: 0 18px 42px rgba(15,23,42,0.08);
+}
+
+.pregame-ux-card[hidden] {
+  display: none !important;
+}
+
+.pregame-ux-card::after {
+  content: "PREGAME";
+
+  position: absolute;
+  right: 18px;
+  bottom: -12px;
+
+  font-size: clamp(52px, 8vw, 116px);
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: -4px;
+
+  color: rgba(15,23,42,0.035);
+  pointer-events: none;
+}
+
+.pregame-ux-head {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 14px;
+  flex-wrap: wrap;
+
+  margin-bottom: 20px;
+}
+
+.pregame-ux-head h2 {
+  margin: 4px 0 0;
+
+  color: #0f172a;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.2;
+  font-weight: 950;
+}
+
+.pregame-ux-kicker {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 26px;
+  padding: 5px 10px;
+
+  border-radius: 999px;
+  background: rgba(11,60,93,0.08);
+  color: var(--primary);
+
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0.7px;
+}
+
+.pregame-countdown {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 38px;
+  padding: 8px 14px;
+
+  border-radius: 999px;
+  background: rgba(15,23,42,0.06);
+  color: #334155;
+
+  font-size: 13px;
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.pregame-countdown.soon {
+  background: rgba(255,152,0,0.14);
+  color: #b45309;
+}
+
+.pregame-countdown.normal {
+  background: rgba(10,143,42,0.1);
+  color: #0a7a24;
+}
+
+.pregame-ux-grid {
+  position: relative;
+  z-index: 1;
+
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 12px;
+}
+
+.pregame-ux-item {
+  min-width: 0;
+
+  padding: 16px;
+  border-radius: 20px;
+
+  background: rgba(255,255,255,0.82);
+  border: 1px solid rgba(15,23,42,0.08);
+  box-shadow: 0 10px 24px rgba(15,23,42,0.05);
+}
+
+.pregame-ux-item span {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.pregame-ux-item strong {
+  display: block;
+
+  color: #0f172a;
+  font-size: 20px;
+  line-height: 1.2;
+  font-weight: 950;
+}
+
+.pregame-ux-item p {
+  margin: 8px 0 0;
+
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.55;
+  font-weight: 800;
+}
+
+.pregame-ux-item.is-ok {
+  border-color: rgba(10,143,42,0.22);
+  box-shadow: inset 5px 0 0 rgba(10,143,42,0.75), 0 10px 24px rgba(15,23,42,0.05);
+}
+
+.pregame-ux-item.is-waiting {
+  border-color: rgba(255,152,0,0.22);
+  box-shadow: inset 5px 0 0 rgba(255,152,0,0.78), 0 10px 24px rgba(15,23,42,0.05);
+}
+
+.pregame-ux-item.is-safe {
+  border-color: rgba(11,60,93,0.16);
+  box-shadow: inset 5px 0 0 rgba(11,60,93,0.68), 0 10px 24px rgba(15,23,42,0.05);
+}
+
+.pregame-ux-note {
+  position: relative;
+  z-index: 1;
+
+  margin: 16px 0 0;
+
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+  font-weight: 850;
+
+  text-align: center;
+}
+
+.dq-chip-manual {
+  background: rgba(37,99,235,0.1);
+  color: #1d4ed8;
+}
+
+.dq-chip-bad {
+  background: rgba(214,0,0,0.12);
+  color: #b91c1c;
+}
+
+@media (max-width: 980px) {
+  .pregame-ux-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .pregame-ux-card {
+    padding: 20px 16px;
+    border-radius: 24px;
+  }
+
+  .pregame-ux-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pregame-ux-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pregame-countdown {
+    width: 100%;
+  }
+}

@@ -1,0 +1,2108 @@
+/* =========================================================
+   Ray's CPBL Data Site
+   home.css
+   首頁樣式
+   v5.2.7 首頁二軍入口整合
+========================================================= */
+
+/* =========================
+   1. 首頁卡片排列
+========================= */
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  margin-top: 24px;
+  align-items: stretch;
+}
+
+.home-grid .home-card {
+  margin-bottom: 0;
+}
+
+/* =========================
+   2. 日期切換列
+========================= */
+
+.date-switch-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 14px 0 16px;
+}
+
+.date-switch-bar button {
+  width: 46px;
+  height: 46px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 950;
+  line-height: 1;
+  box-shadow: 0 10px 24px rgba(11, 60, 93, 0.18);
+  transition: transform 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
+}
+
+.date-switch-bar button:hover {
+  transform: translateY(-2px);
+  background: var(--primary-dark);
+  box-shadow: 0 14px 30px rgba(11, 60, 93, 0.24);
+}
+
+.date-info {
+  text-align: center;
+  min-width: 220px;
+}
+
+#currentDateText {
+  font-size: 24px;
+  font-weight: 950;
+  color: #0f172a;
+}
+
+#gameCountText {
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.date-games-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.date-game-item {
+  display: block;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: rgba(11, 60, 93, 0.035);
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+
+.date-game-item:hover {
+  transform: translateY(-2px);
+  background: #ffffff;
+  box-shadow: var(--shadow-soft);
+}
+
+/* =========================
+   3. 比分橫條外框
+========================= */
+
+.score-strip-wrap {
+  position: relative;
+  margin: 24px 0 20px;
+}
+
+.score-strip {
+  overflow: hidden;
+}
+
+#scoreTrack {
+  width: 100%;
+}
+
+.score-loading {
+  padding: 24px;
+  text-align: center;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+/* =========================
+   4. 比分左右切換按鈕
+========================= */
+
+.score-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--primary);
+  font-size: 30px;
+  font-weight: 950;
+  line-height: 1;
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.18);
+  transition: transform 0.16s ease, background 0.16s ease, color 0.16s ease;
+}
+
+.score-nav.left {
+  left: 12px;
+}
+
+.score-nav.right {
+  right: 12px;
+}
+
+.score-nav:hover {
+  transform: translateY(-50%) scale(1.08);
+  background: var(--primary);
+  color: #ffffff;
+}
+
+/* =========================
+   5. 官網風今日賽程大框
+========================= */
+
+.official-score-board {
+  position: relative;
+  overflow: hidden;
+  padding: 30px;
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at top right, rgb(255, 255, 255), transparent 30%),
+    linear-gradient(135deg, #f0f1f2, var(--primary), var(--primary));
+  color: #ffffff;
+  box-shadow: 0 20px 50px rgb(242, 242, 243);
+}
+
+.official-score-board-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgb(255, 255, 255);
+}
+
+.official-score-board-head h2 {
+  margin: 0 0 4px;
+  font-size: 30px;
+  font-weight: 950;
+  letter-spacing: 0.5px;
+}
+
+.official-score-board-head p {
+  margin: 0;
+  font-size: 15px;
+  opacity: 0.78;
+  font-weight: 800;
+}
+
+.official-score-summary {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+
+.official-score-summary span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgb(255, 255, 255);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 950;
+}
+
+/* =========================
+   6. Match Card Ultra
+========================= */
+
+@keyframes livePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(214, 0, 0, 0.42);
+  }
+
+  70% {
+    box-shadow: 0 0 0 12px rgba(214, 0, 0, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(214, 0, 0, 0);
+  }
+}
+
+.official-score-list {
+  display: grid;
+  gap: 18px;
+}
+
+.official-score-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 58px 1fr 1.4fr 1fr 140px;
+  align-items: center;
+  gap: 20px;
+  min-height: 180px;
+  padding: 26px 24px 92px;
+  border-radius: 26px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.98),
+      rgba(248, 250, 252, 0.94)
+    );
+  color: #1f2a33;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.66);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.09);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.official-score-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  background: #ffffff;
+  box-shadow: 0 30px 60px rgba(15, 23, 42, 0.18);
+}
+
+.official-game-no {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #8898aa, #526273);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 950;
+}
+
+.official-team {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  text-align: center;
+  min-width: 0;
+}
+
+.official-team img {
+  width: 74px;
+  height: 74px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(15, 23, 42, 0.12));
+}
+
+.official-team strong {
+  font-size: 19px;
+  font-weight: 950;
+  line-height: 1.25;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+
+.official-team span {
+  font-size: 16.5px;
+  color: var(--muted);
+  font-weight: 850;
+}
+
+.official-center {
+  text-align: center;
+  min-width: 0;
+}
+
+.official-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 15px;
+  margin-bottom: 12px;
+  border-radius: 999px;
+  background: rgba(11, 60, 93, 0.08);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.official-main {
+  font-size: clamp(54px, 5.5vw, 76px);
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: 1px;
+  color: #071d33;
+  text-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  white-space: nowrap;
+}
+
+.official-meta {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 850;
+  color: #4d5a65;
+  overflow-wrap: anywhere;
+}
+
+.official-sub {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.official-actions {
+  display: grid;
+  gap: 10px;
+}
+
+.official-btn,
+.official-more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.official-btn {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.official-more {
+  background: rgba(11, 60, 93, 0.08);
+  color: var(--primary);
+}
+
+.official-starters {
+  position: absolute;
+  left: 92px;
+  right: 164px;
+  bottom: 18px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.official-starters.official-final-extra {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.official-starters.official-live-extra {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.official-starters.official-pregame-extra {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.official-starters div {
+  min-width: 0;
+  padding: 14px 18px;
+  border-radius: 18px;
+  background: rgba(11, 60, 93, 0.055);
+  text-align: center;
+  overflow: hidden;
+}
+
+.official-starters span {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 13px;
+  color: #596673;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.official-starters strong {
+  display: block;
+  min-width: 0;
+  font-size: 18px;
+  color: #1f2a33;
+  font-weight: 950;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.official-final-extra div {
+  background: rgba(10, 143, 42, 0.075);
+}
+
+.official-final-extra span {
+  color: #0a8f2a;
+}
+
+.official-final-extra strong {
+  color: #075f1d;
+}
+
+.official-live-extra div {
+  background: rgba(214, 0, 0, 0.075);
+}
+
+.official-live-extra span {
+  color: var(--danger);
+}
+
+.official-live-extra strong {
+  color: #9f0000;
+}
+
+.official-pregame-extra div {
+  background: rgba(11, 60, 93, 0.055);
+}
+
+/* =========================
+   7. 比賽狀態色彩
+========================= */
+
+.official-score-card.is-live {
+  border-left: 7px solid var(--danger);
+  animation: livePulse 2s infinite;
+}
+
+.official-score-card.is-live .official-status {
+  background: rgba(214, 0, 0, 0.11);
+  color: var(--danger);
+}
+
+.official-score-card.is-final {
+  border-left: 7px solid var(--success);
+}
+
+.official-score-card.is-final .official-status {
+  background: rgba(10, 143, 42, 0.11);
+  color: var(--success);
+}
+
+.official-score-card.is-scheduled {
+  border-left: 7px solid #7b8b9b;
+}
+
+.official-score-card.is-postponed,
+.official-score-card.is-suspended {
+  border-left: 7px solid var(--warning);
+}
+
+.official-score-card.is-cancelled {
+  border-left: 7px solid #999999;
+  opacity: 0.72;
+}
+
+/* =========================
+   8. 最近賽程焦點
+========================= */
+
+.focus-slider {
+  min-height: 160px;
+}
+
+.focus-card {
+  display: block;
+  padding: 22px;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at top right, rgb(255, 255, 255), transparent 34%),
+    linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #ffffff;
+  text-decoration: none;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.focus-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card);
+}
+
+.focus-card h3 {
+  margin: 10px 0;
+  font-size: 30px;
+  font-weight: 950;
+}
+
+.focus-card p {
+  margin: 6px 0;
+  font-weight: 850;
+}
+
+.focus-card .muted {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.focus-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.focus-dots button {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(11, 60, 93, 0.22);
+  transition: width 0.16s ease, background 0.16s ease;
+}
+
+.focus-dots button.active {
+  width: 28px;
+  background: var(--primary);
+}
+
+/* =========================
+   9. TOP6 排名
+========================= */
+
+.top6-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.top6-item {
+  display: grid;
+  grid-template-columns: 52px 42px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.top6-item:last-child {
+  border-bottom: 0;
+}
+
+.top6-item img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+}
+
+.top6-item span {
+  min-width: 0;
+  font-weight: 850;
+}
+
+.top6-item strong {
+  font-weight: 950;
+}
+
+/* =========================
+   10. 賽前資訊小提示
+========================= */
+
+.pregame-mini {
+  margin-top: 10px;
+  padding: 11px 12px;
+  border-radius: 14px;
+  background: rgba(11, 60, 93, 0.06);
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 850;
+}
+
+/* =========================
+   11. 首頁 LIVE 系統卡
+========================= */
+
+.live-system-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.home-live-status-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 14px 0 16px;
+}
+
+.home-live-status-item {
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(11, 60, 93, 0.045);
+  border: 1px solid rgba(11, 60, 93, 0.1);
+}
+
+.home-live-status-item span {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  font-weight: 850;
+}
+
+.home-live-status-item strong {
+  font-size: 28px;
+  font-weight: 950;
+}
+
+.home-live-status-item.live {
+  border-color: rgba(0, 122, 255, 0.45);
+}
+
+.home-live-status-item.warn {
+  border-color: rgba(255, 193, 7, 0.45);
+}
+
+.home-live-status-item.bad {
+  border-color: rgba(255, 59, 48, 0.45);
+}
+
+/* =========================
+   12. 首頁資料摘要
+========================= */
+
+#todaySummary,
+#systemStatus,
+#focusGameContent {
+  line-height: 1.9;
+  font-weight: 800;
+}
+
+#systemStatus a {
+  margin-top: 10px;
+}
+
+/* =========================
+   13. TOP5 小卡
+========================= */
+
+.top-stat-list {
+  display: grid;
+  gap: 10px;
+}
+
+/* =========================
+   14. 首頁搜尋入口
+========================= */
+
+.home-search-box {
+  margin-top: 22px;
+  display: flex;
+  gap: 10px;
+  max-width: 640px;
+}
+
+.hero-pro-main .home-search-box {
+  justify-content: flex-start;
+}
+
+.home-search-box input {
+  flex: 1;
+  min-height: 48px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  padding: 0 18px;
+}
+
+.home-search-box input::placeholder {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.home-search-box button {
+  min-height: 48px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--primary);
+  font-weight: 950;
+}
+
+/* =========================================================
+   Home Public Feature Cards
+   今日看球指南 / 球隊賽程雷達 / 聯盟快訊 / 球迷資料庫
+========================================================= */
+
+.dashboard-grid .home-card h2 {
+  font-size: clamp(24px, 2.2vw, 32px);
+  line-height: 1.18;
+  margin-bottom: 16px;
+}
+
+.dashboard-grid .home-card {
+  font-size: 17px;
+}
+
+.home-feature-card {
+  min-height: 360px;
+}
+
+.feature-label {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.92);
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.8px;
+}
+
+.watch-guide-main {
+  display: grid;
+  gap: 16px;
+  min-height: 230px;
+  padding: 24px;
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at top right, rgba(255,255,255,0.18), transparent 34%),
+    linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #ffffff;
+  text-decoration: none;
+  box-shadow: 0 16px 36px rgba(15,23,42,0.14);
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.watch-guide-main:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 44px rgba(15,23,42,0.18);
+}
+
+.watch-guide-match strong {
+  display: block;
+  font-size: clamp(26px, 2.6vw, 38px);
+  line-height: 1.18;
+  font-weight: 950;
+}
+
+.watch-guide-match span {
+  display: block;
+  margin-top: 8px;
+  color: rgba(255,255,255,0.78);
+  font-size: 16px;
+  font-weight: 850;
+}
+
+.watch-guide-score {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  color: rgba(255,255,255,0.82);
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.watch-guide-score strong {
+  color: #ffffff;
+  font-size: clamp(38px, 4vw, 58px);
+  line-height: 1;
+  font-weight: 950;
+}
+
+.watch-guide-reasons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.watch-guide-reasons span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.16);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.watch-guide-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.watch-guide-mini {
+  display: grid;
+  gap: 3px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(11,60,93,0.055);
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.16s ease, background 0.16s ease;
+}
+
+.watch-guide-mini:hover {
+  transform: translateY(-2px);
+  background: rgba(11,60,93,0.09);
+}
+
+.watch-guide-mini strong {
+  font-size: 18px;
+  font-weight: 950;
+}
+
+.watch-guide-mini span {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.schedule-radar-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.schedule-radar-summary div {
+  padding: 18px;
+  border-radius: 22px;
+  background: rgba(255,255,255,0.88);
+  border: 1px solid rgba(11,60,93,0.08);
+}
+
+.schedule-radar-summary span {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.schedule-radar-summary strong {
+  display: block;
+  margin-top: 6px;
+  color: var(--primary);
+  font-size: clamp(23px, 2.4vw, 34px);
+  line-height: 1.14;
+  font-weight: 950;
+}
+
+.schedule-radar-summary em {
+  display: block;
+  margin-top: 5px;
+  color: #334155;
+  font-style: normal;
+  font-size: 15px;
+  font-weight: 850;
+}
+
+.schedule-radar-list {
+  display: grid;
+  gap: 10px;
+}
+
+.schedule-radar-row {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.9fr) minmax(0, 1.4fr);
+  align-items: center;
+  gap: 12px;
+  padding: 13px 14px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.74);
+  border: 1px solid rgba(11,60,93,0.075);
+}
+
+.radar-team {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.radar-team img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.radar-team strong {
+  min-width: 0;
+  color: #0f172a;
+  font-size: 17px;
+  line-height: 1.2;
+  font-weight: 950;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.radar-bars {
+  min-width: 0;
+}
+
+.radar-main {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.radar-main span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.radar-main strong {
+  color: var(--primary);
+  font-size: 24px;
+  font-weight: 950;
+}
+
+.radar-meta {
+  margin-top: 4px;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.league-news-list {
+  display: grid;
+  gap: 12px;
+}
+
+.league-news-item {
+  display: grid;
+  gap: 6px;
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: rgba(11,60,93,0.055);
+  border: 1px solid rgba(11,60,93,0.08);
+}
+
+.league-news-item span {
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.8px;
+}
+
+.league-news-item strong {
+  color: #0f172a;
+  font-size: 19px;
+  line-height: 1.25;
+  font-weight: 950;
+}
+
+.league-news-item em {
+  color: var(--muted);
+  font-style: normal;
+  font-size: 15px;
+  font-weight: 850;
+}
+
+.fan-db-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.fan-db-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: rgba(11,60,93,0.055);
+  border: 1px solid rgba(11,60,93,0.08);
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
+}
+
+.fan-db-link:hover {
+  transform: translateY(-2px);
+  background: #ffffff;
+  box-shadow: var(--shadow-soft);
+}
+
+.fan-db-link > span {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 16px;
+  background: rgba(11,60,93,0.08);
+  font-size: 24px;
+}
+
+.fan-db-link strong {
+  display: block;
+  color: #0f172a;
+  font-size: 19px;
+  font-weight: 950;
+}
+
+.fan-db-link em {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-style: normal;
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.feature-empty {
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+  padding: 24px;
+  border-radius: 24px;
+  background: rgba(11,60,93,0.055);
+  text-align: center;
+}
+
+.feature-empty strong {
+  display: block;
+  color: var(--primary);
+  font-size: 24px;
+  font-weight: 950;
+}
+
+.feature-empty span {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 16px;
+  font-weight: 850;
+}
+
+/* =========================
+   Today Summary Pro
+========================= */
+
+.today-summary-pro {
+  display: grid;
+  gap: 14px;
+}
+
+.today-summary-main {
+  padding: 18px;
+  border-radius: 22px;
+  background:
+    linear-gradient(
+      135deg,
+      var(--primary),
+      var(--primary-dark)
+    );
+  color: #ffffff;
+}
+
+.today-summary-main span {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 15px;
+  font-weight: 900;
+  color: rgba(255,255,255,0.76);
+}
+
+.today-summary-main strong {
+  display: block;
+  font-size: clamp(42px, 4vw, 64px);
+  line-height: 1;
+  font-weight: 950;
+}
+
+.today-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.today-summary-grid div {
+  padding: 14px 12px;
+  border-radius: 18px;
+  background: rgba(11,60,93,0.055);
+  border: 1px solid rgba(11,60,93,0.08);
+  text-align: center;
+}
+
+.today-summary-grid span {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.today-summary-grid strong {
+  display: block;
+  color: var(--primary);
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 950;
+}
+
+.today-summary-extra {
+  display: grid;
+  gap: 10px;
+}
+
+.today-summary-extra div {
+  padding: 13px 15px;
+  border-radius: 18px;
+  background: rgba(11,60,93,0.045);
+}
+
+.today-summary-extra span {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.today-summary-extra strong {
+  display: block;
+  color: #0f172a;
+  font-size: 17px;
+  line-height: 1.35;
+  font-weight: 950;
+}
+
+/* =========================
+   字體與細節
+========================= */
+
+#todaySummary,
+#systemStatus {
+  font-size: 17px;
+  line-height: 2;
+}
+
+.top6-item span,
+.top6-item strong {
+  font-size: 17px;
+}
+
+.top-stat-list .mini-game-card strong {
+  font-size: 18px;
+}
+
+.top-stat-list .mini-game-card .muted {
+  font-size: 15px;
+}
+
+/* =========================
+   手機版首頁
+========================= */
+
+@media (max-width: 1100px) {
+  .official-score-card {
+    grid-template-columns: 52px 1fr 1.2fr 1fr;
+    padding-right: 22px;
+  }
+
+  .official-actions {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .official-starters {
+    position: static;
+    grid-column: 1 / -1;
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 900px) {
+  .home-grid,
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-card,
+  .card,
+  .team-detail-card,
+  .season-card {
+    width: 100%;
+  }
+
+  .top6-item {
+    grid-template-columns: 46px 38px minmax(0, 1fr) auto;
+    gap: 10px;
+  }
+
+  .top6-item span,
+  .top6-item strong {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .focus-card h3 {
+    font-size: 28px;
+    line-height: 1.25;
+    word-break: keep-all;
+  }
+
+  .home-feature-card {
+    min-height: auto;
+  }
+
+  .schedule-radar-row {
+    grid-template-columns: 1fr;
+  }
+
+  .radar-team strong {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 720px) {
+  .official-score-board {
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .official-score-board-head h2 {
+    font-size: 24px;
+  }
+
+  .official-score-card {
+    grid-template-columns: 42px 1fr 1fr;
+    gap: 12px;
+    padding: 16px;
+    min-height: auto;
+  }
+
+  .official-center {
+    grid-column: 1 / -1;
+    order: 5;
+  }
+
+  .official-actions {
+    grid-column: 1 / -1;
+    order: 6;
+  }
+
+  .official-starters {
+    grid-column: 1 / -1;
+    order: 7;
+    grid-template-columns: 1fr;
+  }
+
+  .official-starters.official-final-extra,
+  .official-starters.official-live-extra,
+  .official-starters.official-pregame-extra {
+    grid-template-columns: 1fr;
+  }
+
+  .official-main {
+    font-size: 42px;
+  }
+
+  .official-team img {
+    width: 46px;
+    height: 46px;
+  }
+
+  .official-team strong {
+    font-size: 15px;
+  }
+
+  .home-live-status-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .home-search-box {
+    flex-direction: column;
+    max-width: none;
+  }
+
+  .score-nav.left {
+    left: -4px;
+  }
+
+  .score-nav.right {
+    right: -4px;
+  }
+}
+
+@media (max-width: 560px) {
+  .schedule-radar-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .watch-guide-main {
+    padding: 20px;
+  }
+
+  .watch-guide-match strong {
+    font-size: 25px;
+  }
+
+  .watch-guide-score strong {
+    font-size: 42px;
+  }
+
+  .today-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .home-grid,
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .top6-item {
+    grid-template-columns: 42px 34px minmax(0, 1fr);
+  }
+
+  .top6-item strong,
+  .top6-item .muted {
+    display: none;
+  }
+
+  .focus-card {
+    padding: 20px;
+  }
+
+  .focus-card h3 {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 460px) {
+  .date-switch-bar {
+    gap: 10px;
+  }
+
+  .date-info {
+    min-width: 140px;
+  }
+
+  #currentDateText {
+    font-size: 20px;
+  }
+
+  .official-score-board-head {
+    align-items: flex-start;
+  }
+
+  .official-score-summary {
+    width: 100%;
+  }
+
+  .official-score-card {
+    grid-template-columns: 36px 1fr 1fr;
+  }
+
+  .official-team img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .official-team strong {
+    font-size: 13px;
+  }
+
+  .official-main {
+    font-size: 36px;
+  }
+
+  .home-live-status-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   Home v5.0.1 PREGAME UX
+   低風險賽前資訊提示：先發、打序狀態、開賽倒數
+========================================================= */
+
+.pregame-ux-extra {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.pregame-ux-extra > div {
+  min-width: 0;
+}
+
+.pregame-ux-extra strong {
+  overflow-wrap: anywhere;
+}
+
+.pregame-mini-ux {
+  display: grid;
+  gap: 4px;
+}
+
+.today-pregame-ux {
+  grid-column: 1 / -1;
+}
+
+.today-pregame-ux em {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-style: normal;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.official-score-card.is-scheduled .official-sub {
+  color: #475569;
+  font-weight: 850;
+}
+
+.official-score-card.is-scheduled .official-more {
+  background: rgba(255, 152, 0, 0.12);
+  color: #b45309;
+}
+
+@media (max-width: 980px) {
+  .pregame-ux-extra {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .pregame-ux-extra {
+    grid-template-columns: 1fr;
+  }
+}
+/* =========================================================
+   v5.0.1 HOME PREGAME UX HOTFIX
+   修正首頁賽前資訊過度擁擠問題
+   貼到 css/home.css 最底部
+========================================================= */
+
+/* 比分卡主體不要被賽前資訊撐得太重 */
+.score-card,
+.game-card,
+.today-game-card {
+  position: relative;
+}
+
+/* 賽前資訊列：改成輕量化，不要像大灰塊 */
+.pregame-ux-row,
+.pregame-info-row,
+.score-pregame-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin-top: 8px;
+  padding: 0 12px;
+
+  color: #475569;
+
+  font-size: 13px;
+  font-weight: 850;
+}
+
+/* 預告先發文字縮小，避免搶走 VS 主視覺 */
+.pregame-ux-row strong,
+.pregame-info-row strong,
+.score-pregame-row strong {
+  color: #0f172a;
+  font-weight: 950;
+}
+
+/* 賽前狀態小晶片 */
+.pregame-chip,
+.lineup-chip,
+.countdown-chip,
+.starter-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 28px;
+  padding: 5px 10px;
+
+  border-radius: 999px;
+
+  background: rgba(15, 23, 42, 0.06);
+  color: #334155;
+
+  font-size: 12px;
+  font-weight: 900;
+
+  white-space: nowrap;
+}
+
+/* 先發已公布 */
+.starter-chip,
+.pregame-chip.is-ready {
+  background: rgba(10, 143, 42, 0.10);
+  color: #0a7a24;
+}
+
+/* 打序尚未同步 */
+.lineup-chip,
+.pregame-chip.is-waiting {
+  background: rgba(245, 158, 11, 0.13);
+  color: #92400e;
+}
+
+/* 倒數 */
+.countdown-chip,
+.pregame-chip.is-countdown {
+  background: rgba(11, 60, 93, 0.09);
+  color: var(--primary);
+}
+
+/* 如果首頁有被生成成大灰色賽前狀態卡，先降噪 */
+.pregame-status-grid,
+.pregame-status-panel,
+.pregame-extra-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  margin-top: 10px;
+}
+
+/* 把兩個大灰塊縮成小提示 */
+.pregame-status-item,
+.pregame-extra-item {
+  min-height: unset;
+
+  padding: 8px 12px;
+
+  border-radius: 999px;
+
+  background: rgba(15, 23, 42, 0.055);
+
+  border: 1px solid rgba(15, 23, 42, 0.06);
+
+  color: #334155;
+
+  font-size: 12px;
+  font-weight: 900;
+
+  box-shadow: none;
+}
+
+/* 裡面的 label 不要再上下分太開 */
+.pregame-status-item span,
+.pregame-extra-item span {
+  display: inline;
+
+  margin: 0 4px 0 0;
+
+  color: #64748b;
+
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.pregame-status-item strong,
+.pregame-extra-item strong {
+  display: inline;
+
+  color: #0f172a;
+
+  font-size: 12px;
+  font-weight: 950;
+}
+
+/* 比分卡中的按鈕不要太厚 */
+.score-card .match-link,
+.game-card .match-link,
+.today-game-card .match-link {
+  min-height: 38px;
+  padding: 8px 14px;
+
+  border-radius: 12px;
+
+  font-size: 13px;
+  font-weight: 950;
+}
+
+/* 先發公布按鈕/標籤改輕一點 */
+.score-card .starter-ready,
+.game-card .starter-ready,
+.today-game-card .starter-ready {
+  min-height: 34px;
+  padding: 7px 12px;
+
+  border-radius: 12px;
+
+  background: rgba(245, 158, 11, 0.15);
+  color: #92400e;
+
+  font-size: 13px;
+  font-weight: 950;
+}
+
+/* 今日賽程大卡內距稍微收斂 */
+.today-schedule-card,
+.home-score-card,
+.score-strip-card {
+  padding-bottom: 18px;
+}
+
+/* 桌機版：避免 VS 區和賽前提示擠在一起 */
+@media (min-width: 900px) {
+  .pregame-ux-row,
+  .pregame-info-row,
+  .score-pregame-row {
+    margin-top: 6px;
+  }
+
+  .pregame-status-grid,
+  .pregame-status-panel,
+  .pregame-extra-grid {
+    margin-top: 8px;
+  }
+}
+
+/* 手機版：資訊改成直向但不要爆版 */
+@media (max-width: 720px) {
+  .pregame-ux-row,
+  .pregame-info-row,
+  .score-pregame-row {
+    justify-content: flex-start;
+
+    padding: 0;
+
+    font-size: 12px;
+  }
+
+  .pregame-chip,
+  .lineup-chip,
+  .countdown-chip,
+  .starter-chip,
+  .pregame-status-item,
+  .pregame-extra-item {
+    max-width: 100%;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* =========================================================
+   v5.0.2 HOME DAILY SCORESTRIP
+   每天固定顯示比分橫條；無比賽顯示「本日尚無比賽」
+   先發未公布前不顯示先發投手兩格
+========================================================= */
+
+.official-score-board-empty {
+  min-height: 270px;
+}
+
+.official-no-game-card {
+  display: grid;
+  place-items: center;
+  gap: 10px;
+
+  min-height: 170px;
+  margin-top: 16px;
+  padding: 30px 20px;
+
+  border-radius: 28px;
+
+  background:
+    radial-gradient(circle at center, rgba(214, 0, 0, 0.08), transparent 58%),
+    linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,252,0.95));
+
+  border: 1px solid rgba(214, 0, 0, 0.12);
+
+  text-align: center;
+
+  box-shadow: 0 16px 34px rgba(15,23,42,0.08);
+}
+
+.official-no-game-main {
+  color: #d60000;
+
+  font-size: clamp(34px, 5vw, 62px);
+  line-height: 1.08;
+  font-weight: 950;
+  letter-spacing: -1.5px;
+}
+
+.official-no-game-sub {
+  color: #64748b;
+
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.official-pregame-clean.no-starters {
+  grid-column: 2 / 5;
+  margin-top: 6px;
+}
+
+.official-pregame-clean.no-starters .pregame-clean-chip {
+  background: rgba(15, 23, 42, 0.055);
+}
+
+.official-pregame-extra.pregame-starters-only:empty {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .official-pregame-clean.no-starters {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 720px) {
+  .official-score-board-empty {
+    min-height: 220px;
+  }
+
+  .official-no-game-card {
+    min-height: 140px;
+    padding: 24px 16px;
+    border-radius: 22px;
+  }
+
+  .official-no-game-sub {
+    font-size: 13px;
+  }
+}
+
+/* =========================================================
+   v5.1.6 HOME SCORESTRIP HEADER NAV INTEGRATION
+   左右鍵整合到比分卡 header；日期移到標題上方並放大
+========================================================= */
+
+body[data-page="home"] .score-strip-wrap {
+  position: relative;
+  margin: 24px 0 26px;
+}
+
+body[data-page="home"] .score-strip {
+  overflow: visible;
+}
+
+/* 舊版外層左右鍵若還存在，直接隱藏，避免殘留干擾 */
+body[data-page="home"] .score-strip-wrap > .score-nav {
+  display: none !important;
+}
+
+body[data-page="home"] .official-score-board {
+  position: relative;
+  padding: 32px 34px 36px;
+  border-radius: 30px;
+}
+
+body[data-page="home"] .official-score-board-head {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) auto;
+  align-items: center;
+  gap: 22px;
+  min-height: 82px;
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+}
+
+body[data-page="home"] .official-score-title-group {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+}
+
+body[data-page="home"] .official-score-date,
+body[data-page="home"] .official-score-board-head p {
+  margin: 0;
+  color: rgba(248,250,252,0.90);
+  font-size: clamp(20px, 1.55vw, 28px);
+  line-height: 1.12;
+  font-weight: 950;
+  letter-spacing: 0.02em;
+}
+
+body[data-page="home"] .official-score-board-head h2 {
+  margin: 0;
+  color: #facc15 !important;
+  font-size: clamp(30px, 2.4vw, 44px);
+  line-height: 1.06;
+  font-weight: 950;
+  letter-spacing: -0.04em;
+  text-shadow: 0 8px 24px rgba(0,0,0,0.35);
+}
+
+body[data-page="home"] .official-score-head-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+  min-width: 0;
+}
+
+body[data-page="home"] .official-score-summary {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+body[data-page="home"] .official-score-summary span {
+  min-height: 34px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.16);
+  color: #f8fafc;
+  border: 1px solid rgba(255,255,255,0.22);
+  font-size: 13px;
+  font-weight: 950;
+  backdrop-filter: blur(8px);
+}
+
+body[data-page="home"] .official-score-head-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  padding: 5px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.16);
+}
+
+body[data-page="home"] .score-board-nav {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.16);
+  color: #f8fafc;
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 950;
+  cursor: pointer;
+  transition: transform 0.16s ease, background 0.16s ease, color 0.16s ease;
+}
+
+body[data-page="home"] .score-board-nav:hover {
+  transform: translateY(-2px);
+  background: #facc15;
+  color: #071827;
+}
+
+body[data-page="home"] .official-score-list {
+  gap: 20px;
+}
+
+/* 最近賽程焦點深色卡片文字修正 */
+body[data-page="home"] .focus-card h3,
+body[data-page="home"] .focus-card h3 strong {
+  color: #f8fafc !important;
+  text-shadow: 0 8px 24px rgba(0,0,0,0.35);
+}
+
+body[data-page="home"] .focus-card p,
+body[data-page="home"] .focus-card span,
+body[data-page="home"] .focus-card .muted {
+  color: rgba(248,250,252,0.84) !important;
+}
+
+body[data-page="home"] .focus-dots button {
+  background: rgba(255,255,255,0.28);
+}
+
+body[data-page="home"] .focus-dots button.active {
+  background: #f8fafc;
+}
+
+@media (max-width: 1120px) {
+  body[data-page="home"] .official-score-board-head {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  body[data-page="home"] .official-score-head-right {
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  body[data-page="home"] .official-score-summary {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 720px) {
+  body[data-page="home"] .official-score-board {
+    padding: 24px 18px 28px;
+  }
+
+  body[data-page="home"] .official-score-board-head {
+    min-height: auto;
+    gap: 16px;
+  }
+
+  body[data-page="home"] .official-score-head-right {
+    display: grid;
+    gap: 12px;
+  }
+
+  body[data-page="home"] .official-score-head-nav {
+    justify-self: start;
+  }
+
+  body[data-page="home"] .official-score-board-head h2 {
+    font-size: 28px;
+  }
+
+  body[data-page="home"] .official-score-date,
+  body[data-page="home"] .official-score-board-head p {
+    font-size: 18px;
+  }
+
+  body[data-page="home"] .score-board-nav {
+    width: 40px;
+    height: 40px;
+    font-size: 26px;
+  }
+}
+
+
+/* =========================================================
+   v5.2.7 HOME FARM ENTRY
+   首頁二軍賽程入口整合
+========================================================= */
+
+body[data-page="home"] .hero-panel-link-grid {
+  display: grid;
+  gap: 10px;
+}
+
+body[data-page="home"] .hero-panel-farm-link {
+  background:
+    linear-gradient(135deg, #16a34a, #0f766e);
+}
+
+body[data-page="home"] .farm-entry-card {
+  position: relative;
+  overflow: hidden;
+
+  background:
+    radial-gradient(circle at top right, rgba(250,204,21,0.16), transparent 34%),
+    radial-gradient(circle at 0% 0%, rgba(22,163,74,0.12), transparent 36%),
+    linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,252,0.95));
+}
+
+body[data-page="home"] .farm-entry-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 7px;
+  background:
+    linear-gradient(180deg, #16a34a, #facc15, #0f766e);
+}
+
+body[data-page="home"] .farm-entry-card::after {
+  content: "FARM";
+  position: absolute;
+  right: 18px;
+  bottom: -14px;
+
+  color: rgba(15,23,42,0.035);
+  font-size: clamp(58px, 8vw, 120px);
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: -4px;
+  pointer-events: none;
+}
+
+body[data-page="home"] .farm-entry-head,
+body[data-page="home"] .farm-entry-card p,
+body[data-page="home"] .farm-entry-actions {
+  position: relative;
+  z-index: 1;
+}
+
+body[data-page="home"] .farm-entry-head {
+  display: grid;
+  gap: 12px;
+}
+
+body[data-page="home"] .farm-entry-head .feature-label {
+  justify-self: start;
+  background: rgba(22,163,74,0.12);
+  color: #0f766e;
+}
+
+body[data-page="home"] .farm-entry-card h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: clamp(28px, 2.5vw, 40px);
+  line-height: 1.12;
+  font-weight: 950;
+  letter-spacing: -0.04em;
+}
+
+body[data-page="home"] .farm-entry-card p {
+  margin: 18px 0 0;
+  color: #475569;
+  font-size: 16px;
+  line-height: 1.8;
+  font-weight: 850;
+}
+
+body[data-page="home"] .farm-entry-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+body[data-page="home"] .farm-entry-actions .card-link {
+  margin-top: 0;
+}
+
+body[data-page="home"] .farm-entry-actions .card-link.secondary {
+  background: rgba(15,23,42,0.07);
+  color: #0f172a;
+}
+
+body[data-page="home"] .fan-db-link.is-farm {
+  background:
+    radial-gradient(circle at top right, rgba(250,204,21,0.14), transparent 34%),
+    rgba(22,163,74,0.07);
+  border-color: rgba(22,163,74,0.20);
+}
+
+body[data-page="home"] .fan-db-link.is-farm > span {
+  background: rgba(22,163,74,0.12);
+}
+
+body[data-page="home"] .fan-db-link.is-farm strong {
+  color: #0f766e;
+}
+
+@media (max-width: 720px) {
+  body[data-page="home"] .farm-entry-actions {
+    display: grid;
+  }
+
+  body[data-page="home"] .farm-entry-actions .card-link {
+    width: 100%;
+  }
+}

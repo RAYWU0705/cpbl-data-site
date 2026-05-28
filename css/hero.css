@@ -1,0 +1,662 @@
+/* =========================================================
+   Ray's CPBL Data Site
+   hero.css
+   頁首主視覺區樣式
+   v4.7.1-RC Hero Pro Layout
+========================================================= */
+
+/* =========================
+   1. 頁首主視覺外層
+========================= */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+
+  color: #ffffff;
+
+  padding:
+    clamp(54px, 6vw, 88px)
+    clamp(16px, 4vw, 54px)
+    clamp(42px, 5vw, 70px);
+
+  background:
+    radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.18), transparent 32%),
+    radial-gradient(circle at 82% 20%, rgba(255, 214, 10, 0.14), transparent 34%),
+    linear-gradient(135deg, #061a2d 0%, var(--primary-dark) 45%, var(--primary) 100%);
+
+  box-shadow:
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+    0 18px 44px rgba(15, 23, 42, 0.18);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+
+  background-size: 42px 42px;
+  opacity: 0.18;
+
+  pointer-events: none;
+}
+
+.hero::after {
+  content: "CPBL";
+  position: absolute;
+  right: clamp(18px, 6vw, 88px);
+  bottom: -34px;
+
+  font-size: clamp(82px, 15vw, 190px);
+  line-height: 1;
+
+  font-weight: 950;
+  letter-spacing: -8px;
+
+  color: rgba(255, 255, 255, 0.055);
+
+  pointer-events: none;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* =========================
+   2. Hero Pro 雙欄版型
+========================= */
+
+.hero-pro-inner {
+  width: min(92vw, 1500px);
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+  align-items: center;
+  gap: clamp(28px, 5vw, 72px);
+}
+
+.hero-pro-main {
+  text-align: left;
+}
+
+.hero-pro-main h1 {
+  margin: 12px 0 12px;
+
+  font-size: clamp(44px, 6.8vw, 86px);
+  line-height: 1.04;
+
+  font-weight: 950;
+  letter-spacing: 0.8px;
+
+  text-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.28);
+}
+
+.hero-subtitle,
+.hero-pro-main p {
+  margin: 8px 0;
+
+  font-size: clamp(15px, 1.55vw, 20px);
+  font-weight: 850;
+  letter-spacing: 0.2px;
+}
+
+.hero .muted {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* =========================
+   3. 頁首操作按鈕區
+========================= */
+
+.hero-actions {
+  margin-top: 26px;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+
+  flex-wrap: wrap;
+}
+
+.hero-actions a,
+.hero-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 46px;
+  padding: 11px 20px;
+
+  border: 0;
+  border-radius: 999px;
+
+  background: #ffffff;
+  color: var(--primary);
+  text-decoration: none;
+
+  font-size: 15px;
+  font-weight: 950;
+
+  box-shadow:
+    0 10px 26px rgba(0, 0, 0, 0.18);
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease,
+    color 0.18s ease;
+}
+
+.hero-actions a:hover,
+.hero-actions button:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 16px 34px rgba(0, 0, 0, 0.24);
+}
+
+.hero-actions button {
+  cursor: pointer;
+}
+
+/* =========================
+   4. Hero Pro 右側資訊卡
+========================= */
+
+.hero-pro-panel {
+  position: relative;
+  overflow: hidden;
+
+  padding: 26px;
+
+  border-radius: 30px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.18),
+      rgba(255, 255, 255, 0.09)
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.24);
+
+  box-shadow:
+    0 22px 54px rgba(0, 0, 0, 0.22);
+
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+.hero-pro-panel::after {
+  content: "";
+  position: absolute;
+  right: -50px;
+  top: -50px;
+
+  width: 160px;
+  height: 160px;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.12);
+
+  pointer-events: none;
+}
+
+.hero-panel-label {
+  display: inline-flex;
+
+  padding: 7px 12px;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.16);
+
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.8px;
+}
+
+.hero-panel-main {
+  margin-top: 18px;
+}
+
+.hero-panel-main strong {
+  display: block;
+
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1.1;
+
+  font-weight: 950;
+}
+
+.hero-panel-main span {
+  display: block;
+
+  margin-top: 8px;
+
+  color: rgba(255, 255, 255, 0.76);
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.hero-panel-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+
+  margin-top: 22px;
+}
+
+.hero-panel-stats div {
+  padding: 14px 10px;
+
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.12);
+
+  text-align: center;
+}
+
+.hero-panel-stats span {
+  display: block;
+
+  margin-bottom: 6px;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.hero-panel-stats strong {
+  display: block;
+
+  font-size: 22px;
+  line-height: 1.05;
+
+  font-weight: 950;
+}
+
+.hero-panel-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  min-height: 46px;
+
+  margin-top: 18px;
+
+  border-radius: 999px;
+
+  background: #ffffff;
+  color: var(--primary);
+
+  text-decoration: none;
+
+  font-size: 15px;
+  font-weight: 950;
+
+  box-shadow:
+    0 10px 26px rgba(0, 0, 0, 0.18);
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.hero-panel-link:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 16px 34px rgba(0, 0, 0, 0.24);
+}
+
+/* =========================
+   5. 次要按鈕狀態
+========================= */
+
+.hero-actions .secondary,
+.hero-actions a.secondary,
+.hero-actions button.secondary {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+
+  border: 1px solid rgba(255, 255, 255, 0.24);
+
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.hero-actions .secondary:hover,
+.hero-actions a.secondary:hover,
+.hero-actions button.secondary:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* =========================
+   6. Hero 內資料文字
+========================= */
+
+#dataSourceText,
+#scheduleDataStatus {
+  margin-top: 24px;
+
+  font-size: 20px;
+  font-weight: 850;
+
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* =========================
+   7. 一般頁面 Hero 相容
+========================= */
+
+.hero:not(.hero-pro) {
+  text-align: center;
+}
+
+.hero:not(.hero-pro) h1 {
+  margin: 10px 0 10px;
+
+  font-size: clamp(38px, 6vw, 74px);
+  line-height: 1.08;
+
+  font-weight: 950;
+  letter-spacing: 0.8px;
+
+  text-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.28);
+}
+
+.hero:not(.hero-pro) p {
+  margin: 8px 0;
+
+  font-size: clamp(15px, 1.6vw, 19px);
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.hero:not(.hero-pro) .hero-actions {
+  justify-content: center;
+}
+
+/* =========================
+   8. 平板版
+========================= */
+
+@media (max-width: 960px) {
+  .hero-pro-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-pro-main {
+    text-align: center;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .hero-pro-panel {
+    max-width: 680px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+/* =========================
+   9. 手機版主視覺
+========================= */
+
+@media (max-width: 720px) {
+  .hero {
+    padding: 48px 14px 40px;
+  }
+
+  .hero::after {
+    right: 10px;
+    bottom: -18px;
+    font-size: 84px;
+    letter-spacing: -4px;
+  }
+
+  .hero-pro-main h1,
+  .hero:not(.hero-pro) h1 {
+    font-size: clamp(32px, 10vw, 46px);
+  }
+
+  .hero p,
+  .hero-subtitle,
+  .hero-pro-main p {
+    font-size: 14px;
+  }
+
+  .hero-actions {
+    gap: 9px;
+    margin-top: 22px;
+  }
+
+  .hero-actions a,
+  .hero-actions button {
+    min-height: 42px;
+    padding: 9px 15px;
+    font-size: 14px;
+  }
+
+  .hero-panel-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 460px) {
+  .hero {
+    padding: 42px 12px 36px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-actions a,
+  .hero-actions button {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .hero-pro-panel {
+    padding: 20px;
+    border-radius: 24px;
+  }
+}
+/* =========================================================
+   v5.0.4 CPBL HEADER STADIUM LIGHTS
+   只套用 Header / Hero：六隊色聚光燈 + 球場質感
+========================================================= */
+
+:root {
+  --cpbl-brothers-rgb: 246, 196, 0;
+  --cpbl-lions-rgb: 242, 107, 33;
+  --cpbl-monkeys-rgb: 138, 21, 56;
+  --cpbl-dragons-rgb: 200, 16, 46;
+  --cpbl-guardians-rgb: 0, 71, 171;
+  --cpbl-hawks-rgb: 0, 127, 122;
+}
+
+/* Header 主視覺 */
+.hero {
+  position: relative;
+  overflow: hidden;
+
+  background:
+    /* 六隊色聚光燈：明顯一點，但不刺眼 */
+    radial-gradient(circle at 7% 16%, rgba(var(--cpbl-brothers-rgb), 0.28), transparent 21%),
+    radial-gradient(circle at 23% 10%, rgba(var(--cpbl-lions-rgb), 0.24), transparent 22%),
+    radial-gradient(circle at 39% 18%, rgba(var(--cpbl-monkeys-rgb), 0.22), transparent 23%),
+    radial-gradient(circle at 58% 10%, rgba(var(--cpbl-dragons-rgb), 0.22), transparent 24%),
+    radial-gradient(circle at 78% 18%, rgba(var(--cpbl-guardians-rgb), 0.25), transparent 25%),
+    radial-gradient(circle at 96% 10%, rgba(var(--cpbl-hawks-rgb), 0.26), transparent 23%),
+
+    /* 球場燈光斜向層 */
+    linear-gradient(115deg, rgba(255,255,255,0.08) 0%, transparent 22%),
+    linear-gradient(245deg, rgba(255,255,255,0.06) 0%, transparent 24%),
+
+    /* 細格線 */
+    linear-gradient(rgba(255,255,255,0.030) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.030) 1px, transparent 1px),
+
+    /* 深藍底 */
+    linear-gradient(135deg, #061522 0%, #082b40 46%, #063235 100%);
+
+  background-size:
+    auto,
+    auto,
+    auto,
+    auto,
+    auto,
+    auto,
+    auto,
+    auto,
+    42px 42px,
+    42px 42px,
+    auto;
+}
+
+/* 上方六隊彩帶：每個角度都看得到六隊顏色 */
+.hero::before {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+
+  height: 7px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgb(var(--cpbl-brothers-rgb)) 0%,
+      rgb(var(--cpbl-lions-rgb)) 17%,
+      rgb(var(--cpbl-monkeys-rgb)) 34%,
+      rgb(var(--cpbl-dragons-rgb)) 51%,
+      rgb(var(--cpbl-guardians-rgb)) 68%,
+      rgb(var(--cpbl-hawks-rgb)) 85%,
+      rgb(var(--cpbl-brothers-rgb)) 100%
+    );
+
+  opacity: 0.85;
+
+  box-shadow:
+    0 0 22px rgba(255,255,255,0.18),
+    0 8px 34px rgba(0,0,0,0.22);
+
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* 中央微亮聚焦，不讓標題埋掉 */
+.hero::after {
+  content: "CPBL";
+
+  position: absolute;
+  right: 6%;
+  bottom: -38px;
+
+  font-size: clamp(100px, 16vw, 250px);
+  line-height: 1;
+
+  font-weight: 950;
+  letter-spacing: -8px;
+
+  color: rgba(255,255,255,0.055);
+
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Hero 內容在背景之上 */
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Hero 右側卡片稍微玻璃化，讓背景更有層次 */
+.hero .live-center,
+.hero .hero-live-card,
+.hero .home-live-card {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.14),
+      rgba(255,255,255,0.08)
+    );
+
+  border: 1px solid rgba(255,255,255,0.16);
+
+  box-shadow:
+    0 24px 56px rgba(0,0,0,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.18);
+
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+/* 搜尋列也融入球場夜景 */
+.hero input,
+.hero .search-input,
+.hero .home-search-input {
+  background: rgba(255,255,255,0.13);
+  border-color: rgba(255,255,255,0.18);
+  color: #ffffff;
+}
+
+.hero input::placeholder,
+.hero .search-input::placeholder,
+.hero .home-search-input::placeholder {
+  color: rgba(255,255,255,0.68);
+}
+
+/* 手機版：保留質感但降低複雜度 */
+@media (max-width: 720px) {
+  .hero {
+    background:
+      radial-gradient(circle at 10% 18%, rgba(var(--cpbl-brothers-rgb), 0.20), transparent 24%),
+      radial-gradient(circle at 30% 12%, rgba(var(--cpbl-lions-rgb), 0.18), transparent 25%),
+      radial-gradient(circle at 50% 18%, rgba(var(--cpbl-dragons-rgb), 0.18), transparent 25%),
+      radial-gradient(circle at 74% 14%, rgba(var(--cpbl-guardians-rgb), 0.19), transparent 26%),
+      radial-gradient(circle at 96% 12%, rgba(var(--cpbl-hawks-rgb), 0.20), transparent 24%),
+      linear-gradient(rgba(255,255,255,0.024) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.024) 1px, transparent 1px),
+      linear-gradient(135deg, #061522 0%, #082b40 46%, #063235 100%);
+
+    background-size:
+      auto,
+      auto,
+      auto,
+      auto,
+      auto,
+      34px 34px,
+      34px 34px,
+      auto;
+  }
+
+  .hero::before {
+    height: 5px;
+  }
+
+  .hero::after {
+    font-size: 96px;
+    right: -8%;
+    bottom: -16px;
+  }
+}

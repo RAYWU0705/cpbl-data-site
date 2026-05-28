@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>球隊資料總覽 Dashboard｜Ray's CPBL Data Site</title>
+  <link rel="stylesheet" href="css/teams-dashboard.css" />
+</head>
+<body data-page="teams-dashboard">
+<nav class="nav">
+  <div class="nav-inner">
+
+    <div class="nav-left">
+      <a class="brand" href="index.html">CPBL</a>
+      <a class="nav-link" href="index.html">首頁</a>
+      <a class="nav-link active" href="schedule.html">賽程</a>
+      <a class="nav-link" href="standings.html">戰績</a>
+      <a class="nav-link" href="teams.html">球隊</a>
+      <a class="nav-link" href="rules.html">棒球規則</a>
+      <a class="nav-link" href="game-day.html">今日戰情</a>
+      <a class="nav-link" href="version.html">版本</a>
+    </div>
+
+    <div class="nav-teams" aria-label="球隊快速入口">
+      <a href="team.html?team=brothers"><img src="assets/logo/brothers.png" alt="中信兄弟"></a>
+      <a href="team.html?team=lions"><img src="assets/logo/lions.png" alt="統一7-ELEVEn獅"></a>
+      <a href="team.html?team=monkeys"><img src="assets/logo/monkeys.png" alt="樂天桃猿"></a>
+      <a href="team.html?team=dragons"><img src="assets/logo/dragons.png" alt="味全龍"></a>
+      <a href="team.html?team=guardians"><img src="assets/logo/guardians.png" alt="富邦悍將"></a>
+      <a href="team.html?team=hawks"><img src="assets/logo/hawks.png" alt="台鋼雄鷹"></a>
+    </div>
+
+  </div>
+</nav>
+  <header class="site-header">
+    <div>
+      <p class="eyebrow">Ray's CPBL Data Site｜v5.1.3-STABLE-BETA</p>
+      <h1>球隊資料總覽 Dashboard</h1>
+      <p class="subtitle">旁路讀取頁面：整合六隊戰績、近況、最近一場、下一場、資料完整度與本季對戰摘要。</p>
+    </div>
+    <div class="top-actions">
+      <a href="index.html">回首頁</a>
+      <a href="data-quality.html">資料品質中心</a>
+      <a href="game-day.html">今日戰情中心</a>
+    </div>
+  </header>
+
+  <main class="dashboard-shell">
+    <section class="status-panel" id="statusPanel">
+      <div>
+        <span class="status-dot loading"></span>
+        <strong id="loadStatus">正在讀取本機資料...</strong>
+      </div>
+      <small id="sourceStatus">不寫入資料、不修改 fetch 主流程。</small>
+    </section>
+
+    <section class="summary-grid" id="summaryGrid">
+      <article class="summary-card">
+        <span>球隊數</span>
+        <strong id="teamCount">--</strong>
+      </article>
+      <article class="summary-card">
+        <span>已完成比賽</span>
+        <strong id="finalCount">--</strong>
+      </article>
+      <article class="summary-card">
+        <span>資料完整度平均</span>
+        <strong id="avgQuality">--</strong>
+      </article>
+      <article class="summary-card">
+        <span>最近更新來源</span>
+        <strong id="latestSource">--</strong>
+      </article>
+    </section>
+
+    <section class="toolbar">
+      <div class="tabs" role="tablist" aria-label="排序方式">
+        <button class="active" data-sort="rank">依排名</button>
+        <button data-sort="quality">依完整度</button>
+        <button data-sort="recent">依近況</button>
+      </div>
+      <div class="hint">讀取：standings、live-boxscore；旁路分析，不寫入資料、不修改 fetch 主流程。</div>
+    </section>
+
+    <section class="team-grid" id="teamGrid" aria-live="polite"></section>
+
+    <section class="headtohead-panel">
+      <div class="section-title">
+        <div>
+          <p class="eyebrow">Season Matchup</p>
+          <h2>本季對戰摘要</h2>
+        </div>
+        <small>只統計已完成或有比分的資料，不補假資料。</small>
+      </div>
+      <div class="h2h-grid" id="h2hGrid"></div>
+    </section>
+  </main>
+
+  <template id="teamCardTpl">
+    <article class="team-card">
+      <div class="team-card-bg"></div>
+      <header class="team-head">
+        <img class="team-logo" alt="" />
+        <div>
+          <h2 class="team-name"></h2>
+          <p class="team-rank"></p>
+        </div>
+      </header>
+      <div class="record-line">
+        <strong class="record-main"></strong>
+        <span class="record-pct"></span>
+      </div>
+      <div class="form-row"></div>
+      <div class="mini-info">
+        <div>
+          <span>最近一場</span>
+          <strong class="last-game">--</strong>
+        </div>
+        <div>
+          <span>下一場</span>
+          <strong class="next-game">--</strong>
+        </div>
+      </div>
+      <div class="quality-box">
+        <div class="quality-top">
+          <span>資料完整度</span>
+          <strong class="quality-text">--</strong>
+        </div>
+        <div class="bar"><i></i></div>
+        <p class="quality-note"></p>
+      </div>
+      <a class="team-link">查看球隊頁</a>
+    </article>
+  </template>
+
+  <script src="js/teams-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>今日戰情中心｜Ray's CPBL Data Site</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/game-day.css">
+</head>
+
+<body data-page="game-day">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a class="brand" href="index.html">CPBL</a>
+      <a class="nav-link" href="index.html">首頁</a>
+      <a class="nav-link" href="schedule.html">賽程</a>
+      <a class="nav-link" href="standings.html">戰績</a>
+      <a class="nav-link" href="teams.html">球隊</a>
+      <a class="nav-link" href="rules.html">棒球規則</a>
+      <a class="nav-link" href="game-day.html">今日戰情</a>
+      <a class="nav-link" href="version.html">版本</a>
+    </div>
+
+    <div class="nav-teams" aria-label="球隊快速入口">
+      <a href="team.html?team=brothers"><img src="assets/logo/brothers.png" alt="中信兄弟"></a>
+      <a href="team.html?team=lions"><img src="assets/logo/lions.png" alt="統一7-ELEVEn獅"></a>
+      <a href="team.html?team=monkeys"><img src="assets/logo/monkeys.png" alt="樂天桃猿"></a>
+      <a href="team.html?team=dragons"><img src="assets/logo/dragons.png" alt="味全龍"></a>
+      <a href="team.html?team=guardians"><img src="assets/logo/guardians.png" alt="富邦悍將"></a>
+      <a href="team.html?team=hawks"><img src="assets/logo/hawks.png" alt="台鋼雄鷹"></a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero game-day-hero">
+  <p class="muted">Ray's Unofficial CPBL Data Site</p>
+  <h1>今日戰情中心</h1>
+  <p>集中檢查今日賽前、LIVE、FINAL 與資料品質狀態</p>
+
+  <div class="hero-actions">
+    <button id="btnReloadGameDay" type="button">重新整理戰情</button>
+    <a href="index.html">回首頁</a>
+    <a href="schedule.html">賽程中心</a>
+    <a href="data-quality.html">資料品質中心</a>
+    <a href="report.html">報告模式</a>
+  </div>
+
+  <p id="gameDayStatus" class="muted">資料載入中…</p>
+</header>
+
+<main class="container game-day-container">
+
+  <section class="game-day-topline">
+    <div class="game-day-summary-card primary">
+      <span>今日場次</span>
+      <strong id="todayGameCount">—</strong>
+      <small id="todayDateLabel">—</small>
+    </div>
+
+    <div class="game-day-summary-card">
+      <span>賽前</span>
+      <strong id="pregameCount">—</strong>
+      <small>先發 / 打序狀態</small>
+    </div>
+
+    <div class="game-day-summary-card live">
+      <span>LIVE</span>
+      <strong id="liveCount">—</strong>
+      <small>即時比分 / 戰況</small>
+    </div>
+
+    <div class="game-day-summary-card final">
+      <span>FINAL</span>
+      <strong id="finalCount">—</strong>
+      <small>finalLock / 結果</small>
+    </div>
+  </section>
+
+  <section class="home-card game-day-card">
+    <div class="section-title-row">
+      <div>
+        <span class="game-day-kicker">GAME FLOW</span>
+        <h2>📡 今日比賽流程</h2>
+      </div>
+      <span id="gameDayQualityBadge" class="game-day-pill">載入中</span>
+    </div>
+
+    <div id="gameDayList" class="game-day-list">載入中…</div>
+  </section>
+
+  <section class="home-card game-day-card">
+    <div class="section-title-row">
+      <div>
+        <span class="game-day-kicker">REPORT NOTE</span>
+        <h2>🎤 報告重點提示</h2>
+      </div>
+    </div>
+
+    <div class="game-day-report-grid">
+      <div>
+        <h3>賽前</h3>
+        <p>檢查預告先發、先發打序是否同步，避免空資料被誤判成錯誤。</p>
+      </div>
+      <div>
+        <h3>LIVE</h3>
+        <p>比賽中同步比分、R/H/E、逐局、雙隊打者投手，以及 liveState 第三層資訊。</p>
+      </div>
+      <div>
+        <h3>FINAL</h3>
+        <p>賽後用 finalLock 鎖定結果，並用 recentFinalGuard / stats fallback 交叉驗證。</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 CPBL Data Site ｜ <span class="site-version"></span> ｜ 明叡 × ChatGPT
+</footer>
+
+<script>
+/* =========================================================
+   Ray's CPBL Data Site
+   game-day.html
+   v5.1.3-GAME-DAY-DASHBOARD
+========================================================= */
+
+const VERSION = "v5.1.3-GAME-DAY-DASHBOARD";
+
+const TEAM_ID_MAP = {
+  "中信兄弟": "brothers",
+  "統一7-ELEVEn獅": "lions",
+  "樂天桃猿": "monkeys",
+  "味全龍": "dragons",
+  "富邦悍將": "guardians",
+  "台鋼雄鷹": "hawks"
+};
+
+const TEAM_NAME_MAP = Object.fromEntries(Object.entries(TEAM_ID_MAP).map(([name, id]) => [id, name]));
+
+const els = {
+  status: document.getElementById("gameDayStatus"),
+  list: document.getElementById("gameDayList"),
+  todayCount: document.getElementById("todayGameCount"),
+  todayDate: document.getElementById("todayDateLabel"),
+  pregameCount: document.getElementById("pregameCount"),
+  liveCount: document.getElementById("liveCount"),
+  finalCount: document.getElementById("finalCount"),
+  qualityBadge: document.getElementById("gameDayQualityBadge"),
+  reload: document.getElementById("btnReloadGameDay")
+};
+
+let allGames = [];
+
+initGameDay();
+els.reload?.addEventListener("click", initGameDay);
+
+async function initGameDay() {
+  try {
+    setText(els.status, "資料載入中…");
+    setText(els.list, "載入中…");
+
+    allGames = await loadLiveBoxscore();
+    const today = getTodayString();
+    const games = allGames
+      .filter(g => getGameDate(g) === today)
+      .sort((a, b) => String(getGameTime(a)).localeCompare(String(getGameTime(b))) || Number(getGameSno(a)) - Number(getGameSno(b)));
+
+    renderSummary(games, today);
+    renderGames(games, today);
+
+    setText(els.status, `✅ 已載入 ${allGames.length} 場資料｜${VERSION}｜最後讀取 ${formatClock(new Date())}`);
+  } catch (err) {
+    console.error("❌ 今日戰情中心載入失敗：", err);
+    setText(els.status, "⚠️ 今日戰情中心載入失敗，請查看 Console。");
+    els.list.innerHTML = `<div class="game-day-empty">資料載入失敗，請檢查 data/live/live-boxscore.json。</div>`;
+  }
+}
+
+async function loadLiveBoxscore() {
+  const res = await fetch(`data/live/live-boxscore.json?ts=${Date.now()}`, { cache: "no-store" });
+  if (!res.ok) throw new Error("live-boxscore load failed");
+  const data = await res.json();
+  return normalizeGames(data);
+}
+
+function normalizeGames(data) {
+  if (Array.isArray(data)) return data;
+  if (Array.isArray(data?.games)) return data.games;
+  if (Array.isArray(data?.items)) return data.items;
+  if (data && typeof data === "object") return Object.values(data).filter(v => v && typeof v === "object");
+  return [];
+}
+
+function renderSummary(games, today) {
+  const counts = games.reduce((acc, g) => {
+    const phase = getPhase(g);
+    acc[phase] = (acc[phase] || 0) + 1;
+    return acc;
+  }, {});
+
+  setText(els.todayCount, games.length);
+  setText(els.todayDate, today);
+  setText(els.pregameCount, counts.pregame || 0);
+  setText(els.liveCount, counts.live || 0);
+  setText(els.finalCount, counts.final || 0);
+
+  const hasIssue = games.some(g => getQualityLevel(g) !== "confirmed");
+  els.qualityBadge.textContent = games.length ? (hasIssue ? "部分資料同步中" : "今日資料良好") : "本日尚無比賽";
+  els.qualityBadge.className = `game-day-pill ${!games.length ? "idle" : hasIssue ? "warn" : "good"}`;
+}
+
+function renderGames(games, today) {
+  if (!games.length) {
+    els.list.innerHTML = `
+      <div class="game-day-empty big">
+        <strong>本日尚無比賽</strong>
+        <span>${escapeHtml(today)}</span>
+        <p>今日戰情中心會在有賽事時顯示賽前、LIVE、FINAL 與資料品質狀態。</p>
+      </div>
+    `;
+    return;
+  }
+
+  els.list.innerHTML = games.map(renderGameCard).join("");
+}
+
+function renderGameCard(game) {
+  const meta = game.meta || {};
+  const gameSno = getGameSno(game);
+  const away = getAway(game);
+  const home = getHome(game);
+  const awayId = TEAM_ID_MAP[away] || toTeamId(away);
+  const homeId = TEAM_ID_MAP[home] || toTeamId(home);
+  const phase = getPhase(game);
+  const score = getScore(game);
+  const rhe = getRHE(game);
+  const dq = getDataQuality(game);
+  const liveState = game.liveState || {};
+  const finalLock = Boolean(game.finalLock?.locked || game.finalLock === true || meta.finalLock === true || game.finalLock);
+  const qualityLevel = getQualityLevel(game);
+
+  return `
+    <article class="game-day-game-card is-${phase}">
+      <div class="game-day-game-head">
+        <div>
+          <span class="game-day-phase ${phase}">${getPhaseText(phase)}</span>
+          <h3>G${escapeHtml(gameSno || "—")}｜${escapeHtml(away)} vs ${escapeHtml(home)}</h3>
+          <p>${escapeHtml(getGameDate(game))} ${escapeHtml(getGameTime(game) || "時間未定")}｜${escapeHtml(getVenue(game) || "球場待定")}</p>
+        </div>
+        <a class="game-day-match-link" href="match.html?gameSno=${encodeURIComponent(gameSno)}">進入 Match Center</a>
+      </div>
+
+      <div class="game-day-score-row">
+        ${renderTeamScore(away, awayId, score.away, rhe.away, "客隊")}
+        <div class="game-day-vs">VS</div>
+        ${renderTeamScore(home, homeId, score.home, rhe.home, "主隊")}
+      </div>
+
+      <div class="game-day-flow-grid">
+        <div class="game-day-flow-card">
+          <span>賽前狀態</span>
+          <strong>${renderPregameText(game)}</strong>
+          <small>${renderLineupText(game)}</small>
+        </div>
+
+        <div class="game-day-flow-card ${phase === "live" ? "hot" : ""}">
+          <span>LIVE 狀態</span>
+          <strong>${renderLiveStateMain(liveState, phase)}</strong>
+          <small>${renderLiveStateSub(liveState)}</small>
+        </div>
+
+        <div class="game-day-flow-card">
+          <span>FINAL 鎖定</span>
+          <strong>${finalLock ? "已鎖定" : "未鎖定"}</strong>
+          <small>${renderResultText(game)}</small>
+        </div>
+
+        <div class="game-day-flow-card ${qualityLevel}">
+          <span>資料品質</span>
+          <strong>${getQualityText(qualityLevel)}</strong>
+          <small>${renderQualityChips(dq)}</small>
+        </div>
+      </div>
+
+      ${renderFlags(game)}
+    </article>
+  `;
+}
+
+function renderTeamScore(teamName, teamId, score, rhe, label) {
+  const logo = teamId ? `assets/logo/${teamId}.png` : "";
+
+  return `
+    <div class="game-day-team-score">
+      <span>${escapeHtml(label)}</span>
+      <div class="game-day-team-name">
+        ${logo ? `<img src="${escapeHtml(logo)}" alt="${escapeHtml(teamName)}">` : ""}
+        <b>${escapeHtml(teamName || "—")}</b>
+      </div>
+      <strong>${score ?? "—"}</strong>
+      <small>R/H/E：${escapeHtml(rhe.R)} / ${escapeHtml(rhe.H)} / ${escapeHtml(rhe.E)}</small>
+    </div>
+  `;
+}
+
+function renderPregameText(game) {
+  const p = game.probablePitchers || game.probable || game.starters || {};
+  const away = p.away || game.awayStarter || game.meta?.awayStarter;
+  const home = p.home || game.homeStarter || game.meta?.homeStarter;
+
+  if (away || home) return `先發 ${away || "—"} vs ${home || "—"}`;
+  return "先發投手待同步";
+}
+
+function renderLineupText(game) {
+  const lineups = game.lineups || game.startingLineups || game.pregame?.lineups || {};
+  const awayLen = Array.isArray(lineups.away) ? lineups.away.length : 0;
+  const homeLen = Array.isArray(lineups.home) ? lineups.home.length : 0;
+
+  if (awayLen || homeLen) return `先發打序 客${awayLen} / 主${homeLen}`;
+  return "先發打序尚未同步";
+}
+
+function renderLiveStateMain(liveState, phase) {
+  const inning = liveState.inning || liveState.currentInning || liveState.inningText;
+  if (phase === "live" && inning) return inning;
+  if (phase === "live") return "比賽中";
+  if (phase === "final") return "比賽結束";
+  return "尚未開始";
+}
+
+function renderLiveStateSub(liveState) {
+  const batter = liveState.batter || liveState.currentBatter || "—";
+  const pitcher = liveState.pitcher || liveState.currentPitcher || "—";
+  const pitch = liveState.pitchNumber ?? liveState.pitchCount ?? liveState.pitch ?? "—";
+  const events = Array.isArray(liveState.lastEvents)
+    ? liveState.lastEvents.join(" / ")
+    : cleanText(liveState.lastEvents || liveState.events || "");
+
+  const main = `打者 ${batter}｜投手 ${pitcher}｜PITCH ${pitch}`;
+  return events ? `${main}｜${events}` : main;
+}
+
+function renderResultText(game) {
+  const meta = game.meta || {};
+  const win = meta.win || game.win || game.result?.win || "—";
+  const lose = meta.lose || game.lose || game.result?.lose || "—";
+  const save = meta.save || game.save || game.result?.save || "—";
+  const mvp = meta.mvp || game.mvp || game.result?.mvp || "—";
+
+  if (getPhase(game) !== "final") return "等待賽後鎖定";
+  return `勝 ${win}｜敗 ${lose}｜救 ${save}｜MVP ${mvp}`;
+}
+
+function renderQualityChips(dq) {
+  const keys = ["score", "rhe", "lineScore", "batters", "pitchers", "result", "liveState"];
+  return keys
+    .filter(k => dq[k])
+    .map(k => `${labelOfQualityKey(k)}:${dq[k]}`)
+    .join("｜") || "尚無 dataQuality";
+}
+
+function renderFlags(game) {
+  const flags = normalizeFlags(game.dataQuality?.flags || game.flags || game.meta?.flags);
+  const mode = game.meta?.mode || game.mode || game.parserMode;
+  const source = game.liveState?.source || game.source || game.dataSource;
+
+  const items = [
+    ...flags,
+    mode ? `mode:${mode}` : "",
+    source ? `source:${source}` : ""
+  ].filter(Boolean);
+
+  if (!items.length) return "";
+
+  return `
+    <div class="game-day-flag-row">
+      ${items.map(x => `<span>${escapeHtml(x)}</span>`).join("")}
+    </div>
+  `;
+}
+
+function getDataQuality(game) {
+  return game.dataQuality || game.meta?.dataQuality || {};
+}
+
+function getQualityLevel(game) {
+  const dq = getDataQuality(game);
+  const values = Object.entries(dq)
+    .filter(([k]) => k !== "flags" && k !== "version")
+    .map(([, v]) => String(v || "").toLowerCase());
+
+  if (!values.length) return "debug";
+  if (values.some(v => v.includes("debug") || v.includes("error") || v.includes("duplicate"))) return "debug";
+  if (values.some(v => v.includes("partial") || v.includes("sync") || v.includes("missing"))) return "partial";
+  return "confirmed";
+}
+
+function getQualityText(level) {
+  if (level === "confirmed") return "confirmed";
+  if (level === "partial") return "partial";
+  return "debug";
+}
+
+function labelOfQualityKey(key) {
+  return {
+    score: "比分",
+    rhe: "RHE",
+    lineScore: "逐局",
+    batters: "打者",
+    pitchers: "投手",
+    result: "結果",
+    liveState: "戰況"
+  }[key] || key;
+}
+
+function getPhase(game) {
+  const status = cleanText(game.status || game.meta?.status || game.meta?.statusText || game.liveState?.state).toLowerCase();
+  const finalLock = Boolean(game.finalLock?.locked || game.finalLock === true || game.meta?.finalLock === true);
+
+  if (finalLock || /final|結束|已結束/.test(status)) return "final";
+  if (/live|比賽中|進行中/.test(status)) return "live";
+
+  const score = getScore(game);
+  const hasScore = Number(score.away || 0) > 0 || Number(score.home || 0) > 0;
+  if (hasScore && !finalLock && !/尚未|未開始|scheduled|pregame/.test(status)) return "live";
+
+  return "pregame";
+}
+
+function getPhaseText(phase) {
+  if (phase === "live") return "LIVE";
+  if (phase === "final") return "FINAL";
+  return "PREGAME";
+}
+
+function getScore(game) {
+  return {
+    away: game.score?.away ?? game.awayScore ?? game.meta?.awayScore ?? game.rhe?.away?.R ?? "—",
+    home: game.score?.home ?? game.homeScore ?? game.meta?.homeScore ?? game.rhe?.home?.R ?? "—"
+  };
+}
+
+function getRHE(game) {
+  return {
+    away: {
+      R: game.rhe?.away?.R ?? game.totals?.away?.R ?? game.score?.away ?? game.awayScore ?? "—",
+      H: game.rhe?.away?.H ?? game.totals?.away?.H ?? "—",
+      E: game.rhe?.away?.E ?? game.totals?.away?.E ?? "—"
+    },
+    home: {
+      R: game.rhe?.home?.R ?? game.totals?.home?.R ?? game.score?.home ?? game.homeScore ?? "—",
+      H: game.rhe?.home?.H ?? game.totals?.home?.H ?? "—",
+      E: game.rhe?.home?.E ?? game.totals?.home?.E ?? "—"
+    }
+  };
+}
+
+function getAway(game) {
+  return cleanText(game.meta?.away || game.away || game.teams?.away || game.awayTeam || "客隊");
+}
+
+function getHome(game) {
+  return cleanText(game.meta?.home || game.home || game.teams?.home || game.homeTeam || "主隊");
+}
+
+function getVenue(game) {
+  return cleanText(game.meta?.venue || game.venue || game.stadium || "");
+}
+
+function getGameDate(game) {
+  return cleanText(game.date || game.meta?.date || game.gameDate || "");
+}
+
+function getGameTime(game) {
+  return cleanText(game.time || game.meta?.time || game.gameTime || "");
+}
+
+function getGameSno(game) {
+  return cleanText(game.gameSno || game.meta?.gameSno || game.id || "");
+}
+
+function toTeamId(value) {
+  return cleanText(value)
+    .replace("中信兄弟", "brothers")
+    .replace("統一7-ELEVEn獅", "lions")
+    .replace("樂天桃猿", "monkeys")
+    .replace("味全龍", "dragons")
+    .replace("富邦悍將", "guardians")
+    .replace("台鋼雄鷹", "hawks");
+}
+
+function normalizeFlags(flags) {
+  if (!flags) return [];
+  if (Array.isArray(flags)) return flags.map(String);
+  if (typeof flags === "string") return flags.split(/[，,|]/).map(s => s.trim()).filter(Boolean);
+  if (typeof flags === "object") {
+    return Object.entries(flags)
+      .filter(([, v]) => Boolean(v))
+      .map(([k, v]) => v === true ? k : `${k}:${v}`);
+  }
+  return [String(flags)];
+}
+
+function getTodayString() {
+  const now = new Date();
+  const yyyy = now.getFullYear();
+  const mm = String(now.getMonth() + 1).padStart(2, "0");
+  const dd = String(now.getDate()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
+}
+
+function formatClock(date) {
+  return date.toLocaleTimeString("zh-TW", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+}
+
+function setText(el, value) {
+  if (el) el.textContent = value;
+}
+
+function cleanText(value) {
+  return String(value ?? "").trim();
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+</script>
+
+<script src="js/version.js"></script>
+
+</body>
+</html>
