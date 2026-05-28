@@ -54,36 +54,103 @@
 
   <section class="card version-current-card">
     <p class="muted">目前版本</p>
-    <h2>v5.2.8-FARM-CHECKPOINT｜Farm Sidepath Checkpoint</h2>
+    <h2>v5.4.3-FINAL-VUE-RESCUE-DEPLOY｜Final Rescue & Dual Deploy Stable</h2>
 
     <p>
-      Ray's CPBL Data Site 在 v5.2 正式完成二軍旁路系統第一階段。這不是封版，而是二軍大坑開挖前的穩定檢查點：
-      二軍爬蟲、二軍賽程頁、二軍比賽中心、首頁入口、網站介紹與版本紀錄都已經串起來。
-      目前二軍資料仍走獨立 farm 資料流，爬蟲只寫入 data/farm/farm-schedule-2026.json，
-      farm-schedule.html 可依月份、球隊、場地與狀態篩選，並可點入 farm-match.html 二軍比賽中心。
-      二軍比賽中心採用一軍 Match Center 的視覺樣式，但仍只讀二軍 schedule raw，不使用假逐局、假打者或假投手表。
-      一軍主流程、live-boxscore.json、PREGAME / LIVE / FINAL fetch 都維持穩定不動，下一階段將進入 v5.3 二軍 boxscore 旁路大坑。
+      Ray's CPBL Data Site 在 v5.4.3 正式完成 FINAL Vue 補洞管線、首頁大量資料快取防爆與雙平台部署。
+      本版本的重點不是單一頁面美化，而是把一軍賽後資料補洞流程工具化：
+      當 live-boxscore.json 裡的舊場次仍停留在 scheduled 時，可透過指定 date / gameSno 強制抓取官方 Vue boxscore，
+      再由 merge force 流程將該場升級為 final，補入 R/H/E、逐局比分、打者成績、投手成績與勝敗救資訊。
+      5/22～5/27 的 113～126 場已成功由 FINAL Vue rescue pipeline 補齊，final-boxscore-vue-2026.json 由 106 筆提升到 120 筆。
+      同時首頁升級為 v5.2.8-HOME-LOCALSTORAGE-QUOTA-GUARD，避免完整 boxscore 資料塞爆 localStorage。
+      網站也完成 GitHub Pages 與 Netlify 雙平台部署，正式進入可公開展示與可回復版本控管階段。
     </p>
 
     <div class="version-status-grid">
       <div class="version-status-item good">
-        <span>資料主線</span>
-        <strong>一軍穩定</strong>
+        <span>FINAL 補洞</span>
+        <strong>Rescue Ready</strong>
       </div>
 
       <div class="version-status-item good">
-        <span>二軍賽程</span>
-        <strong>Farm Ready</strong>
+        <span>Vue Boxscore</span>
+        <strong>120 筆</strong>
       </div>
 
       <div class="version-status-item good">
-        <span>二軍比賽中心</span>
-        <strong>Match Style</strong>
+        <span>首頁快取</span>
+        <strong>Quota Guard</strong>
       </div>
 
       <div class="version-status-item good">
-        <span>旁路架構</span>
-        <strong>Safe Path</strong>
+        <span>公開部署</span>
+        <strong>GitHub + Netlify</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>🚀 公開部署與版本保存</h2>
+
+    <div class="roadmap-list">
+      <div class="roadmap-item next">
+        <span class="roadmap-badge">NEXT</span>
+        <div>
+          <h3>v5.4.4 UPDATE-ALL RESCUE INTEGRATION</h3>
+          <p>
+            將 rescue-final-vue-range.js 整合進 update-all 的補洞模式，
+            讓指定日期與 gameSno 的 FINAL Vue rescue 可以透過 --only=final-rescue 執行，
+            但維持日常更新流程不自動 force，避免把補洞工具誤當一般更新主線。
+          </p>
+        </div>
+      </div>
+
+      <div class="roadmap-item next">
+        <span class="roadmap-badge">LIVE</span>
+        <div>
+          <h3>GitHub Pages 主站</h3>
+          <p>
+            網站已部署到 GitHub Pages，可直接公開瀏覽。GitHub repo 同時保存程式碼、資料檔與版本紀錄，
+            未來大改前可先 commit，避免功能修壞後無法回復。
+          </p>
+          <p>
+            <a href="https://raywu0705.github.io/cpbl-data-site/" target="_blank" rel="noopener">
+              https://raywu0705.github.io/cpbl-data-site/
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <div class="roadmap-item">
+        <span class="roadmap-badge">BACKUP</span>
+        <div>
+          <h3>Netlify 備援站</h3>
+          <p>
+            網站已同步部署到 Netlify，作為展示與備援網址。之後只要 GitHub main 分支更新，
+            Netlify 也能自動重新部署，形成 GitHub Pages + Netlify 雙平台展示線。
+          </p>
+          <p>
+            <a href="https://raywu0705.netlify.app/" target="_blank" rel="noopener">
+              https://raywu0705.netlify.app/
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <div class="roadmap-item">
+        <span class="roadmap-badge">REPO</span>
+        <div>
+          <h3>GitHub Repository</h3>
+          <p>
+            專案程式碼已上傳至 GitHub，v5.4 final rescue pipeline stable 已完成 commit / sync。
+            這讓網站不只是本機作品，而是具備雲端版本控管與公開部署能力的資料網站。
+          </p>
+          <p>
+            <a href="https://github.com/RAYWU0705/cpbl-data-site" target="_blank" rel="noopener">
+              https://github.com/RAYWU0705/cpbl-data-site
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -92,8 +159,8 @@
     <h2>🧭 下一階段 Roadmap</h2>
 
     <div class="roadmap-list">
-      <div class="roadmap-item next">
-        <span class="roadmap-badge">NEXT</span>
+      <div class="roadmap-item">
+        <span class="roadmap-badge">DONE</span>
         <div>
           <h3>v5.3.0 FARM FINAL BOXSCORE SIDELOAD</h3>
           <p>
@@ -141,6 +208,97 @@
     <h2>📌 更新紀錄</h2>
 
     <div class="version-timeline">
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.4.3-FINAL-VUE-RESCUE-RANGE｜Rescue Pipeline Tool</h3>
+            <span>FINAL 補洞工具化</span>
+          </div>
+
+          <ul>
+            <li>新增 scripts/rescue-final-vue-range.js，將手動 PowerShell 補洞流程正式工具化。</li>
+            <li>支援 --from / --to、--date、--dates、--gameSno、--games、--limit 等參數。</li>
+            <li>預設 dry-run，必須加 --write 才會正式寫入，避免誤補資料。</li>
+            <li>自動串接 fetch-cpbl-final-boxscore-vue.js force gameSno 與 merge-first-team-final-vue-boxscore.js --force。</li>
+            <li>可用於未來任何指定日期或指定場次的 FINAL Vue 資料救援。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.4.2-FINAL-VUE-FORCE-GAMESNO / MERGE-FORCE-SCHEDULED</h3>
+            <span>FINAL Vue 補洞主線</span>
+          </div>
+
+          <ul>
+            <li>fetch-cpbl-final-boxscore-vue.js 新增指定 date + gameSno 的 force 模式。</li>
+            <li>當 live-boxscore.json 的舊場次仍為 scheduled 時，仍可直接抓取官方 Box Vue 資料。</li>
+            <li>merge-first-team-final-vue-boxscore.js 新增 --force / --include-scheduled-with-vue。</li>
+            <li>若 Vue boxscore 已 confirmed，可將 live-boxscore 對應場次由 scheduled 升級為 final。</li>
+            <li>5/22～5/27 的 113～126 場成功補齊，final-boxscore-vue-2026.json 從 106 筆提升至 120 筆。</li>
+            <li>補入 R/H/E、逐局比分、打者成績、投手成績、勝敗救與 finalLock / finalVueEnhanced 標記。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.2.8-HOME-LOCALSTORAGE-QUOTA-GUARD</h3>
+            <span>首頁快取防爆</span>
+          </div>
+
+          <ul>
+            <li>修正首頁將完整 live-boxscore 寫入 localStorage 造成 QuotaExceededError 的問題。</li>
+            <li>syncToLocalStorage 改為只存輕量版資料，不再把 batters、pitchers、raw、debug 等大包資料塞進瀏覽器快取。</li>
+            <li>新增 safeSetLocalStorage，即使 localStorage 爆容量也不會拖垮首頁初始化。</li>
+            <li>首頁仍以 data/live/live-boxscore.json 為主資料來源，可正常載入 360 場比賽資料。</li>
+            <li>GitHub Pages 與 Netlify 線上版已確認可正常顯示首頁 v5.2.8。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.4.0～v5.4.1-FIRST-TEAM-FINAL-VUE-PIPELINE</h3>
+            <span>一軍 FINAL Vue 補強</span>
+          </div>
+
+          <ul>
+            <li>建立一軍 FINAL Boxscore Vue 旁路偵查腳本 fetch-cpbl-final-boxscore-vue.js。</li>
+            <li>從 CPBL 官方 Vue data 補強一軍 FINAL 場次的 lineScore、R/H/E、打者成績與投手成績。</li>
+            <li>建立 merge-first-team-final-vue-boxscore.js，將 final-boxscore-vue 資料補入 live-boxscore。</li>
+            <li>保留三大主爬蟲流程，不直接覆蓋 live-inplay 主線，採用旁路補強降低風險。</li>
+            <li>第一階段先成功補強既有 confirmed FINAL 場次，再於 v5.4.2 擴展為 scheduled 補洞模式。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.4 Deployment Milestone｜GitHub Pages + Netlify</h3>
+            <span>公開部署</span>
+          </div>
+
+          <ul>
+            <li>專案正式同步到 GitHub repository：RAYWU0705/cpbl-data-site。</li>
+            <li>完成 GitHub Pages 部署，網站可由 raywu0705.github.io/cpbl-data-site 公開瀏覽。</li>
+            <li>完成 Netlify 部署，建立 raywu0705.netlify.app 作為備援與展示網址。</li>
+            <li>建立 Git commit / push / deploy 的版本控管流程，讓 v5.4 final rescue pipeline stable 成為可回復的雲端存檔點。</li>
+          </ul>
+        </div>
+      </article>
+
 
       <article class="version-entry">
         <div class="version-dot"></div>
