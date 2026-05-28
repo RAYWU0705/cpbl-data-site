@@ -3,6 +3,11 @@ name: Update CPBL Live Data
 on:
   workflow_dispatch:
 
+  schedule:
+    # 台灣時間 17:00 ~ 23:55
+    # UTC 09:00 ~ 15:55
+    - cron: "*/5 9-15 * * *"
+
 permissions:
   contents: write
 
@@ -24,12 +29,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install Puppeteer for GitHub Actions
+      - name: Install Puppeteer
         run: npm install puppeteer
 
-      - name: Check Chrome
+      - name: Check Puppeteer
         run: |
-          google-chrome --version || chromium-browser --version || true
           node -e "import('puppeteer').then(()=>console.log('puppeteer ok')).catch(e=>{console.error(e);process.exit(1)})"
 
       - name: Update CPBL live data
@@ -50,6 +54,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No live data changes to commit."
           else
-            git commit -m "auto update live inplay data"
+            git commit -m "auto scheduled live update"
             git push
           fi
