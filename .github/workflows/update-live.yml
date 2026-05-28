@@ -24,9 +24,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install Puppeteer for GitHub Actions
+        run: npm install puppeteer
+
       - name: Check Chrome
         run: |
           google-chrome --version || chromium-browser --version || true
+          node -e "import('puppeteer').then(()=>console.log('puppeteer ok')).catch(e=>{console.error(e);process.exit(1)})"
 
       - name: Update CPBL live data
         run: node scripts/fetch-cpbl-live-inplay-today.js
