@@ -1,7 +1,7 @@
 {
   "version": "v4.9.2",
   "source": "build-league-news",
-  "updatedAt": "2026-05-28T13:51:27.380Z",
+  "updatedAt": "2026-05-28T14:01:50.166Z",
   "targetDate": "2026-05-28",
   "today": "2026-05-28",
   "tomorrow": "2026-05-29",
@@ -16,7 +16,7 @@
   },
   "items": [
     {
-      "id": "final-127-cwkap9",
+      "id": "final-127-yu5tih",
       "type": "final",
       "tag": "FINAL",
       "title": "台鋼雄鷹 4：6 擊敗 中信兄弟",
@@ -29,10 +29,10 @@
       "venue": "澄清湖",
       "time": "18:34",
       "status": "final",
-      "createdAt": "2026-05-28T13:51:27.370Z"
+      "createdAt": "2026-05-28T14:01:50.162Z"
     },
     {
-      "id": "final-126-sdx8b8",
+      "id": "final-126-qsx2zw",
       "type": "final",
       "tag": "FINAL",
       "title": "台鋼雄鷹 0：6 擊敗 中信兄弟",
@@ -45,10 +45,10 @@
       "venue": "澄清湖",
       "time": "18:35",
       "status": "final",
-      "createdAt": "2026-05-28T13:51:27.371Z"
+      "createdAt": "2026-05-28T14:01:50.162Z"
     },
     {
-      "id": "final-125-cljj45",
+      "id": "final-125-t7zgmd",
       "type": "final",
       "tag": "FINAL",
       "title": "統一7-ELEVEn獅 5：8 擊敗 樂天桃猿",
@@ -61,10 +61,10 @@
       "venue": "嘉義市",
       "time": "18:34",
       "status": "final",
-      "createdAt": "2026-05-28T13:51:27.371Z"
+      "createdAt": "2026-05-28T14:01:50.162Z"
     },
     {
-      "id": "final-124-f5hsk7",
+      "id": "final-124-5b5mhg",
       "type": "final",
       "tag": "FINAL",
       "title": "富邦悍將 5：1 擊敗 味全龍",
@@ -77,10 +77,10 @@
       "venue": "大巨蛋",
       "time": "18:35",
       "status": "final",
-      "createdAt": "2026-05-28T13:51:27.371Z"
+      "createdAt": "2026-05-28T14:01:50.162Z"
     },
     {
-      "id": "final-123-0zg99f",
+      "id": "final-123-2ln2gz",
       "type": "final",
       "tag": "FINAL",
       "title": "樂天桃猿 1：0 擊敗 統一7-ELEVEn獅",
@@ -93,10 +93,10 @@
       "venue": "嘉義市",
       "time": "18:35",
       "status": "final",
-      "createdAt": "2026-05-28T13:51:27.371Z"
+      "createdAt": "2026-05-28T14:01:50.162Z"
     },
     {
-      "id": "final-122-frmk4z",
+      "id": "final-122-z9gvz9",
       "type": "final",
       "tag": "FINAL",
       "title": "味全龍 3：4 擊敗 富邦悍將",
@@ -109,10 +109,10 @@
       "venue": "大巨蛋",
       "time": "18:35",
       "status": "final",
-      "createdAt": "2026-05-28T13:51:27.371Z"
+      "createdAt": "2026-05-28T14:01:50.162Z"
     },
     {
-      "id": "final-121-za7wfd",
+      "id": "final-121-p1z5ij",
       "type": "final",
       "tag": "FINAL",
       "title": "樂天桃猿 1：4 擊敗 富邦悍將",
@@ -125,10 +125,10 @@
       "venue": "樂天桃園",
       "time": "17:05",
       "status": "final",
-      "createdAt": "2026-05-28T13:51:27.371Z"
+      "createdAt": "2026-05-28T14:01:50.162Z"
     },
     {
-      "id": "final-120-i4w2r9",
+      "id": "final-120-7f6vno",
       "type": "final",
       "tag": "FINAL",
       "title": "統一7-ELEVEn獅 7：5 擊敗 台鋼雄鷹",
@@ -141,10 +141,10 @@
       "venue": "澄清湖",
       "time": "16:05",
       "status": "final",
-      "createdAt": "2026-05-28T13:51:27.371Z"
+      "createdAt": "2026-05-28T14:01:50.162Z"
     },
     {
-      "id": "final-119-gpd4ub",
+      "id": "final-119-vtr3gh",
       "type": "final",
       "tag": "FINAL",
       "title": "味全龍 5：0 擊敗 中信兄弟",
@@ -157,10 +157,10 @@
       "venue": "大巨蛋",
       "time": "15:05",
       "status": "final",
-      "createdAt": "2026-05-28T13:51:27.371Z"
+      "createdAt": "2026-05-28T14:01:50.162Z"
     },
     {
-      "id": "final-118-lffbat",
+      "id": "final-118-riufyp",
       "type": "final",
       "tag": "FINAL",
       "title": "味全龍 2：0 擊敗 中信兄弟",
@@ -173,10 +173,10 @@
       "venue": "大巨蛋",
       "time": "17:06",
       "status": "final",
-      "createdAt": "2026-05-28T13:51:27.371Z"
+      "createdAt": "2026-05-28T14:01:50.162Z"
     },
     {
-      "id": "final-117-vs85cw",
+      "id": "final-117-en782y",
       "type": "final",
       "tag": "FINAL",
       "title": "富邦悍將 3：1 擊敗 樂天桃猿",
@@ -189,10 +189,10 @@
       "venue": "樂天桃園",
       "time": "17:05",
       "status": "final",
-      "createdAt": "2026-05-28T13:51:27.371Z"
+      "createdAt": "2026-05-28T14:01:50.162Z"
     },
     {
-      "id": "final-116-aenp33",
+      "id": "final-116-vhdpdv",
       "type": "final",
       "tag": "FINAL",
       "title": "台鋼雄鷹 0：2 擊敗 統一7-ELEVEn獅",
@@ -205,7 +205,7 @@
       "venue": "澄清湖",
       "time": "16:05",
       "status": "final",
-      "createdAt": "2026-05-28T13:51:27.371Z"
+      "createdAt": "2026-05-28T14:01:50.162Z"
     }
   ]
 }
