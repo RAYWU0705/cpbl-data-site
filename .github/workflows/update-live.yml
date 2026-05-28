@@ -4,9 +4,8 @@ on:
   workflow_dispatch:
 
   schedule:
-    # 台灣時間 17:00 ~ 23:55
-    # UTC 09:00 ~ 15:55
-    - cron: "*/5 9-15 * * *"
+  # Test mode: every 5 minutes, all day
+  - cron: "*/5 * * * *"
 
 permissions:
   contents: write
