@@ -1,7 +1,7 @@
 /* =========================================================
    Ray's CPBL Data Site
    player.js
-   v5.5.0-PLAYER-PROFILE-PAGE
+   v5.5.1-PLAYER-TEAM-FALLBACK
 
    不碰 fetch：
    - 只讀 data/live/live-boxscore.json
@@ -115,8 +115,8 @@ function buildPlayerProfile(targetName, games) {
   const teamCount = new Map();
 
   for (const game of games) {
-    const batting = collectRows(game.batters, targetName);
-    const pitching = collectRows(game.pitchers, targetName);
+    const batting = collectRows(game.batters, targetName, game);
+    const pitching = collectRows(game.pitchers, targetName, game);
 
     if (!batting.length && !pitching.length) continue;
 
@@ -161,7 +161,7 @@ function buildPlayerProfile(targetName, games) {
   };
 }
 
-function collectRows(sideData, targetName) {
+function collectRows(sideData, targetName, game = {}) {
   const rows = [];
   const target = normalizeName(targetName);
 
@@ -174,10 +174,12 @@ function collectRows(sideData, targetName) {
       if (!rowName) continue;
 
       if (rowName === target) {
+        const fallbackTeam = side === "away" ? game.away : game.home;
+
         rows.push({
           ...raw,
           side,
-          team: raw.team || raw.teamName || raw.club || ""
+          team: raw.team || raw.teamName || raw.club || fallbackTeam || ""
         });
       }
     }
@@ -414,6 +416,7 @@ function renderRecentGames(profile) {
 
 function renderRowPills(rows, label) {
   return rows.map(({ row }) => {
+    const teamText = row.team ? `${row.team}｜` : "";
     const useful = label === "打者"
       ? [
           `AB ${display(pick(row, ["AB", "ab", "打數"]))}`,
@@ -428,7 +431,7 @@ function renderRowPills(rows, label) {
           `SO ${display(pick(row, ["SO", "so", "K", "三振"]))}`
         ];
 
-    return `<span class="player-game-pill">${label}｜${useful.join("｜")}</span>`;
+    return `<span class="player-game-pill">${teamText}${label}｜${useful.join("｜")}</span>`;
   }).join("");
 }
 
