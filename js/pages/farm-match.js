@@ -1,8 +1,8 @@
-console.log("✅ farm-match.js v5.3.5-FARM-MATCH-BOXSCORE-INTEGRATION 已載入");
+console.log("✅ farm-match.js v5.5.2-FARM-GAME-COUNTDOWN-SYNC 已載入");
 
 /* =========================================================
    Ray's CPBL Data Site
-   Farm Match Center v5.3.5-FARM-MATCH-BOXSCORE-INTEGRATION
+   Farm Match Center v5.5.2-FARM-GAME-COUNTDOWN-SYNC
 
    旁路二軍比賽中心：
    - 讀 data/farm/farm-schedule-2026.json
@@ -13,7 +13,7 @@ console.log("✅ farm-match.js v5.3.5-FARM-MATCH-BOXSCORE-INTEGRATION 已載入"
    - 不顯示假資料
 ========================================================= */
 
-const VERSION = "v5.3.5-FARM-MATCH-BOXSCORE-INTEGRATION";
+const VERSION = "v5.5.2-FARM-GAME-COUNTDOWN-SYNC";
 const FARM_SCHEDULE_URL = "data/farm/farm-schedule-2026.json";
 const FARM_BOXSCORE_URL = "data/farm/farm-boxscore-2026.json";
 
@@ -65,6 +65,7 @@ let farmGames = [];
 let farmBoxscores = [];
 let currentGame = null;
 let currentBoxscore = null;
+let FARM_GAME_COUNTDOWN_TIMER = null;
 
 document.addEventListener("DOMContentLoaded", initFarmMatch);
 
@@ -221,6 +222,7 @@ function renderAll(game, boxscore = null) {
   currentBoxscore = boxscore || game.boxscore || null;
 
   renderBasic(game, currentBoxscore);
+  renderGameCountdown(game);
   renderScore(game);
   renderStarterDuel(game, currentBoxscore);
   renderPregameUX(game);
@@ -455,7 +457,7 @@ function renderPregameUX(game) {
         <span class="pregame-ux-kicker">FARM PREGAME CENTER</span>
         <h2>賽前資料狀態</h2>
       </div>
-      <div class="pregame-countdown neutral">等待開賽</div>
+      <div class="pregame-countdown" id="farmPregameCountdownMini">開賽倒數 --:--:--</div>
     </div>
 
     <div class="pregame-ux-grid">
@@ -489,6 +491,117 @@ function renderPregameUX(game) {
     </p>
   `;
 }
+
+
+function renderGameCountdown(game) {
+  const panel = document.getElementById("gameCountdownPanel");
+  const clock = document.getElementById("gameCountdownClock");
+  const label = panel?.querySelector(".game-countdown-label");
+  const mini = document.getElementById("farmPregameCountdownMini");
+
+  if (!panel || !clock) return;
+
+  if (FARM_GAME_COUNTDOWN_TIMER) {
+    clearInterval(FARM_GAME_COUNTDOWN_TIMER);
+    FARM_GAME_COUNTDOWN_TIMER = null;
+  }
+
+  const status = game?.status || "scheduled";
+  const start = parseGameStartDate(game?.date, game?.time);
+
+  panel.classList.remove("is-soon", "is-started", "is-final");
+
+  if (!start) {
+    panel.hidden = true;
+    if (mini) mini.textContent = "開賽時間待確認";
+    return;
+  }
+
+  if (status === "final") {
+    panel.hidden = false;
+    panel.classList.add("is-final");
+    if (label) label.textContent = "比賽狀態";
+    clock.textContent = "FINAL";
+    if (mini) mini.textContent = "比賽已結束";
+    return;
+  }
+
+  if (["postponed", "cancelled", "suspended"].includes(status)) {
+    panel.hidden = false;
+    if (label) label.textContent = "比賽狀態";
+    clock.textContent = getStatusText(status).replace(/[^\u4e00-\u9fa5A-Z]/g, "") || getStatusText(status);
+    if (mini) mini.textContent = getStatusText(status);
+    return;
+  }
+
+  panel.hidden = false;
+  if (label) label.textContent = "開賽倒數";
+
+  const tick = () => {
+    const diffMs = start.getTime() - Date.now();
+    panel.classList.remove("is-soon", "is-started");
+
+    if (diffMs > 0) {
+      const text = formatCountdownClock(diffMs);
+      clock.textContent = text;
+
+      if (mini) {
+        mini.textContent = `開賽倒數 ${text}`;
+        mini.classList.toggle("soon", diffMs <= 60 * 60 * 1000);
+        mini.classList.toggle("normal", diffMs > 60 * 60 * 1000);
+      }
+
+      if (diffMs <= 60 * 60 * 1000) {
+        panel.classList.add("is-soon");
+      }
+
+      return;
+    }
+
+    if (status === "live") {
+      panel.classList.add("is-started");
+      if (label) label.textContent = "比賽狀態";
+      clock.textContent = "LIVE";
+      if (mini) mini.textContent = "比賽進行中";
+      return;
+    }
+
+    panel.classList.add("is-started");
+    if (label) label.textContent = "比賽狀態";
+    clock.textContent = "即將開賽";
+    if (mini) mini.textContent = "已到開賽時間，等待 LIVE 同步";
+  };
+
+  tick();
+  FARM_GAME_COUNTDOWN_TIMER = setInterval(tick, 1000);
+}
+
+function parseGameStartDate(dateText, timeText) {
+  const date = cleanText(dateText);
+  const time = cleanText(timeText);
+
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return null;
+  if (!/^\d{1,2}:\d{2}$/.test(time)) return null;
+
+  const [year, month, day] = date.split("-").map(Number);
+  const [hour, minute] = time.split(":").map(Number);
+
+  return new Date(year, month - 1, day, hour, minute, 0, 0);
+}
+
+function formatCountdownClock(ms) {
+  const totalSeconds = Math.max(0, Math.floor(ms / 1000));
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  return [
+    String(hours).padStart(2, "0"),
+    String(minutes).padStart(2, "0"),
+    String(seconds).padStart(2, "0")
+  ].join(":");
+}
+
 
 function renderMatchProgress(game, boxscore = null) {
   const status = game.status || "scheduled";

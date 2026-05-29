@@ -1,8 +1,8 @@
-console.log("✅ match.js v5.0.8-LINESCORE-ZERO-BACKFILL-UI 已載入");
+console.log("✅ match.js v5.5.2-GAME-COUNTDOWN-SYNC 已載入");
 
 /* =========================================================
    Ray's CPBL Data Site
-   Match Center v5.0.8-LINESCORE-ZERO-BACKFILL-UI
+   Match Center v5.5.2-GAME-COUNTDOWN-SYNC
    覆蓋位置：js/pages/match.js
 
    重點：
@@ -30,6 +30,7 @@ let CURRENT_GAME_SNO = null;
 let CURRENT_QUERY = null;
 let LIVE_REFRESH_TIMER = null;
 let PROBABLE_PITCHERS_MAP = {};
+let GAME_COUNTDOWN_TIMER = null;
 
 const MATCH_TAB_STATE = {
   batters: "away",
@@ -798,6 +799,7 @@ function renderAll(data) {
   CURRENT_MATCH_DATA = data;
 
   renderBasic(data);
+  renderGameCountdown(data);
   renderScore(data);
   renderStarterDuel(data);
   renderPregameUX(data);
@@ -1052,22 +1054,15 @@ function getGameCountdown(dateText, timeText) {
   }
 
   const diffMs = start.getTime() - Date.now();
-  const diffMin = Math.round(diffMs / 60000);
 
-  if (diffMin > 0) {
-    const hours = Math.floor(diffMin / 60);
-    const mins = diffMin % 60;
-    const label = hours > 0
-      ? `距離開賽約 ${hours} 小時 ${mins} 分`
-      : `距離開賽約 ${mins} 分`;
-
+  if (diffMs > 0) {
     return {
-      label,
-      tone: diffMin <= 60 ? "soon" : "normal"
+      label: `開賽倒數 ${formatCountdownClock(diffMs)}`,
+      tone: diffMs <= 60 * 60 * 1000 ? "soon" : "normal"
     };
   }
 
-  if (diffMin > -240) {
+  if (diffMs > -240 * 60 * 1000) {
     return {
       label: "已到開賽時間，等待 LIVE 同步",
       tone: "soon"
@@ -1092,6 +1087,92 @@ function parseGameStartDate(dateText, timeText) {
 
   return new Date(year, month - 1, day, hour, minute, 0, 0);
 }
+
+
+function renderGameCountdown(data) {
+  const panel = document.getElementById("gameCountdownPanel");
+  const clock = document.getElementById("gameCountdownClock");
+  const label = panel?.querySelector(".game-countdown-label");
+
+  if (!panel || !clock) return;
+
+  if (GAME_COUNTDOWN_TIMER) {
+    clearInterval(GAME_COUNTDOWN_TIMER);
+    GAME_COUNTDOWN_TIMER = null;
+  }
+
+  const meta = data?.meta || {};
+  const status = meta.status || "scheduled";
+  const start = parseGameStartDate(meta.date, meta.time);
+
+  panel.classList.remove("is-soon", "is-started", "is-final");
+
+  if (!start) {
+    panel.hidden = true;
+    return;
+  }
+
+  if (status === "final") {
+    panel.hidden = false;
+    panel.classList.add("is-final");
+    if (label) label.textContent = "比賽狀態";
+    clock.textContent = "FINAL";
+    return;
+  }
+
+  if (["postponed", "cancelled", "suspended"].includes(status)) {
+    panel.hidden = false;
+    if (label) label.textContent = "比賽狀態";
+    clock.textContent = getStatusText(status).replace(/[^\u4e00-\u9fa5A-Z]/g, "") || getStatusText(status);
+    return;
+  }
+
+  panel.hidden = false;
+  if (label) label.textContent = "開賽倒數";
+
+  const tick = () => {
+    const diffMs = start.getTime() - Date.now();
+    panel.classList.remove("is-soon", "is-started");
+
+    if (diffMs > 0) {
+      clock.textContent = formatCountdownClock(diffMs);
+
+      if (diffMs <= 60 * 60 * 1000) {
+        panel.classList.add("is-soon");
+      }
+
+      return;
+    }
+
+    if (status === "live") {
+      panel.classList.add("is-started");
+      if (label) label.textContent = "比賽狀態";
+      clock.textContent = "LIVE";
+      return;
+    }
+
+    panel.classList.add("is-started");
+    if (label) label.textContent = "比賽狀態";
+    clock.textContent = "即將開賽";
+  };
+
+  tick();
+  GAME_COUNTDOWN_TIMER = setInterval(tick, 1000);
+}
+
+function formatCountdownClock(ms) {
+  const totalSeconds = Math.max(0, Math.floor(ms / 1000));
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  return [
+    String(hours).padStart(2, "0"),
+    String(minutes).padStart(2, "0"),
+    String(seconds).padStart(2, "0")
+  ].join(":");
+}
+
 
 function qualityToneFromValue(value) {
   const s = String(value || "").toLowerCase();

@@ -266,3 +266,14 @@ body[data-page="farm-match"] .farm-play-item em {
     gap: 5px;
   }
 }
+
+
+/* =========================================================
+   v5.5.2 FARM GAME COUNTDOWN SYNC
+========================================================= */
+
+body[data-page="farm-match"] .game-countdown-panel {
+  box-shadow:
+    0 14px 30px rgba(0,0,0,0.16),
+    inset 0 0 0 1px rgba(255,255,255,0.04);
+}
