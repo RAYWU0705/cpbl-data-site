@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>球員頁｜Ray's CPBL Data Site</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/player.css">
+</head>
+
+<body data-page="player">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a class="brand" href="index.html">CPBL</a>
+      <a class="nav-link" href="index.html">首頁</a>
+      <a class="nav-link" href="schedule.html">賽程</a>
+      <a class="nav-link" href="standings.html">戰績</a>
+      <a class="nav-link" href="teams.html">球隊</a>
+      <a class="nav-link" href="rules.html">棒球規則</a>
+      <a class="nav-link" href="season.html">賽季</a>
+      <a class="nav-link" href="version.html">版本</a>
+      <a class="nav-link" href="about.html">網站介紹</a>
+    </div>
+
+    <div class="nav-teams" aria-label="球隊快速入口">
+      <a href="team.html?team=brothers"><img src="assets/logo/brothers.png" alt="中信兄弟"></a>
+      <a href="team.html?team=lions"><img src="assets/logo/lions.png" alt="統一7-ELEVEn獅"></a>
+      <a href="team.html?team=monkeys"><img src="assets/logo/monkeys.png" alt="樂天桃猿"></a>
+      <a href="team.html?team=dragons"><img src="assets/logo/dragons.png" alt="味全龍"></a>
+      <a href="team.html?team=guardians"><img src="assets/logo/guardians.png" alt="富邦悍將"></a>
+      <a href="team.html?team=hawks"><img src="assets/logo/hawks.png" alt="台鋼雄鷹"></a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero player-hero">
+  <div class="hero-badge">PLAYER PROFILE</div>
+  <h1 id="playerNameTitle">球員個人頁</h1>
+  <p id="playerSubtitle">從既有 boxscore 資料整理球員出賽紀錄與累計成績</p>
+
+  <div class="hero-actions">
+    <a href="teams.html">返回球隊</a>
+    <a href="schedule.html">賽程中心</a>
+    <a href="standings.html">戰績</a>
+    <a href="version.html">版本紀錄</a>
+  </div>
+</header>
+
+<main class="container player-container">
+
+  <section class="card player-search-card">
+    <h2>🔎 球員查詢</h2>
+    <p class="muted">
+      可用網址參數進入，例如：
+      <code>player.html?name=江坤宇</code>、<code>player.html?name=羅戈</code>
+    </p>
+
+    <form id="playerSearchForm" class="player-search-form">
+      <input id="playerSearchInput" type="search" placeholder="輸入球員姓名，例如：江坤宇、羅戈、張育成">
+      <button type="submit">查詢球員</button>
+    </form>
+
+    <div id="playerQuickList" class="player-quick-list" aria-label="常見球員快速入口"></div>
+  </section>
+
+  <section id="playerMainCard" class="card player-profile-card">
+    <div id="playerLoading" class="player-loading">讀取球員資料中...</div>
+
+    <div id="playerEmpty" class="player-empty" hidden>
+      <h2>找不到球員資料</h2>
+      <p>請確認姓名是否與 boxscore 裡的姓名一致，或改用其他球員查詢。</p>
+    </div>
+
+    <div id="playerProfile" hidden>
+      <div class="player-profile-head">
+        <div class="player-avatar" id="playerAvatar">?</div>
+
+        <div class="player-main-info">
+          <p class="muted">球員</p>
+          <h2 id="playerName">—</h2>
+          <p id="playerMetaLine">—</p>
+          <div class="player-tags" id="playerTags"></div>
+        </div>
+      </div>
+
+      <div class="player-stat-grid" id="playerSummaryGrid"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>📊 本季 Boxscore 累計</h2>
+    <p class="muted" id="playerStatsHint">依 live-boxscore.json 中已存在的打者 / 投手表統計，不額外呼叫 fetch。</p>
+
+    <div id="batterStatsBlock" class="player-stat-block" hidden>
+      <h3>打者累計</h3>
+      <div class="table-wrap">
+        <table class="player-table">
+          <thead>
+            <tr>
+              <th>出賽</th>
+              <th>PA</th>
+              <th>AB</th>
+              <th>R</th>
+              <th>H</th>
+              <th>2B</th>
+              <th>3B</th>
+              <th>HR</th>
+              <th>RBI</th>
+              <th>BB</th>
+              <th>SO</th>
+              <th>AVG</th>
+            </tr>
+          </thead>
+          <tbody id="batterStatsBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="pitcherStatsBlock" class="player-stat-block" hidden>
+      <h3>投手累計</h3>
+      <div class="table-wrap">
+        <table class="player-table">
+          <thead>
+            <tr>
+              <th>出賽</th>
+              <th>IP</th>
+              <th>H</th>
+              <th>R</th>
+              <th>ER</th>
+              <th>BB</th>
+              <th>SO</th>
+              <th>HR</th>
+              <th>NP</th>
+              <th>ERA</th>
+            </tr>
+          </thead>
+          <tbody id="pitcherStatsBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="noStatsBlock" class="player-empty" hidden>
+      <p>目前沒有可累計的打者或投手 boxscore 資料。</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>🧾 最近出賽</h2>
+    <p class="muted">列出此球員在 live-boxscore.json 中最近出現的比賽。</p>
+
+    <div id="recentGamesList" class="player-game-list"></div>
+  </section>
+
+  <section class="card">
+    <h2>🧩 資料來源與限制</h2>
+    <ul class="player-notes">
+      <li>本頁第一版不新增 fetch，不抓官方球員頁。</li>
+      <li>資料來源以 <code>data/live/live-boxscore.json</code> 既有 boxscore 為主。</li>
+      <li>若球員尚未出現在已補齊的 boxscore 內，可能暫時查不到。</li>
+      <li>打者 / 投手欄位名稱會依現有 JSON 自動容錯，若不同場次欄位不一致，會盡量轉換。</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 CPBL Data Site ｜ <span class="site-version"></span> ｜ 明叡 × ChatGPT
+</footer>
+
+<script src="js/version.js"></script>
+<script src="js/pages/player.js"></script>
+
+</body>
+</html>
