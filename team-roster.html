@@ -6,6 +6,26 @@
 
   <title>CPBL 球隊名單｜Ray's CPBL Data Site</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .player-card-link {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .player-card-link:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+    }
+
+    .player-card-footer {
+      margin-top: 12px;
+      font-size: 12px;
+      font-weight: 800;
+      color: rgba(147, 197, 253, .95);
+    }
+  </style>
 </head>
 
 <body data-page="team-roster">
@@ -91,7 +111,7 @@
   明叡 × ChatGPT
 </footer>
 
-<script src="js/team-roster.js?v=504"></script>
+<script src="js/team-roster.js?v=550-player-link"></script>
 <script src="js/version.js"></script>
 
 </body>

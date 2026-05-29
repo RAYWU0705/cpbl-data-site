@@ -1,8 +1,8 @@
-console.log("✅ team-roster.js v5.0.4-TEAM-ROSTER-CARDS 已載入");
+console.log("✅ team-roster.js v5.5.0-PLAYER-PROFILE-LINK 已載入");
 
 /* =========================================================
    Ray's CPBL Data Site
-   Team Roster v5.0.4-TEAM-ROSTER-CARDS
+   Team Roster v5.5.0-PLAYER-PROFILE-LINK
    覆蓋位置：js/team-roster.js
 
    重點：
@@ -12,7 +12,7 @@ console.log("✅ team-roster.js v5.0.4-TEAM-ROSTER-CARDS 已載入");
    - 沒資料時清楚顯示，不爆版
 ========================================================= */
 
-const VERSION = "v5.0.4-TEAM-ROSTER-CARDS";
+const VERSION = "v5.5.0-PLAYER-PROFILE-LINK";
 
 const TEAM_META = {
   brothers: {
@@ -354,9 +354,13 @@ function renderPlayerCard(player, group, squadKey) {
   const position = player.position || group.group || cleanGroupTitle(group.title || "球員");
   const number = player.number || "—";
   const name = player.name || "—";
+  const playerUrl = makePlayerProfileUrl(name);
 
   return `
-    <article class="player-card player-card-pro" data-squad="${escapeHtml(squadKey)}">
+    <a class="player-card player-card-pro player-card-link"
+       data-squad="${escapeHtml(squadKey)}"
+       href="${escapeHtml(playerUrl)}"
+       title="查看 ${escapeHtml(name)} 的個人頁">
       <div class="player-card-glow"></div>
       <div class="player-card-top">
         <span class="player-number-badge">#${escapeHtml(number)}</span>
@@ -367,8 +371,22 @@ function renderPlayerCard(player, group, squadKey) {
         <strong>${escapeHtml(name)}</strong>
         <span>${escapeHtml(SQUAD_TEXT[squadKey] || "一軍")} ${escapeHtml(position)}</span>
       </div>
-    </article>
+
+      <div class="player-card-footer">
+        <span>查看個人頁 →</span>
+      </div>
+    </a>
   `;
+}
+
+function makePlayerProfileUrl(name) {
+  const playerName = cleanText(name);
+
+  if (!playerName || playerName === "—") {
+    return "player.html";
+  }
+
+  return `player.html?name=${encodeURIComponent(playerName)}`;
 }
 
 function cleanGroupTitle(title = "") {
