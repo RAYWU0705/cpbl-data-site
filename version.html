@@ -63,7 +63,7 @@
       再由 merge force 流程將該場升級為 final，補入 R/H/E、逐局比分、打者成績、投手成績與勝敗救資訊。
       5/22～5/27 的 113～126 場已成功由 FINAL Vue rescue pipeline 補齊，final-boxscore-vue-2026.json 由 106 筆提升到 120 筆。
       同時首頁升級為 v5.2.8-HOME-LOCALSTORAGE-QUOTA-GUARD，避免完整 boxscore 資料塞爆 localStorage。
-      網站也完成 GitHub Pages 與 Netlify 雙平台部署，正式進入可公開展示與可回復版本控管階段。
+      網站目前以 GitHub Pages 作為主力公開站，Vercel 作為高可用備援站，Netlify 則因 credit 額度限制改為低頻備援。正式進入可公開展示、可自動更新與可回復版本控管階段。
     </p>
 
     <div class="version-status-grid">
@@ -84,7 +84,7 @@
 
       <div class="version-status-item good">
         <span>公開部署</span>
-        <strong>GitHub + Netlify</strong>
+        <strong>GitHub 主站</strong>
       </div>
     </div>
   </section>
@@ -94,24 +94,12 @@
 
     <div class="roadmap-list">
       <div class="roadmap-item next">
-        <span class="roadmap-badge">NEXT</span>
-        <div>
-          <h3>v5.4.4 UPDATE-ALL RESCUE INTEGRATION</h3>
-          <p>
-            將 rescue-final-vue-range.js 整合進 update-all 的補洞模式，
-            讓指定日期與 gameSno 的 FINAL Vue rescue 可以透過 --only=final-rescue 執行，
-            但維持日常更新流程不自動 force，避免把補洞工具誤當一般更新主線。
-          </p>
-        </div>
-      </div>
-
-      <div class="roadmap-item next">
-        <span class="roadmap-badge">LIVE</span>
+        <span class="roadmap-badge">MAIN</span>
         <div>
           <h3>GitHub Pages 主站</h3>
           <p>
-            網站已部署到 GitHub Pages，可直接公開瀏覽。GitHub repo 同時保存程式碼、資料檔與版本紀錄，
-            未來大改前可先 commit，避免功能修壞後無法回復。
+            GitHub Pages 是目前 Ray's CPBL Data Site 的主力公開網址。網站資料與程式碼都以 GitHub repo 為中心，
+            GitHub Actions 自動更新資料後，GitHub Pages 會直接以 main 分支的最新版本作為主要展示站。
           </p>
           <p>
             <a href="https://raywu0705.github.io/cpbl-data-site/" target="_blank" rel="noopener">
@@ -124,10 +112,26 @@
       <div class="roadmap-item">
         <span class="roadmap-badge">BACKUP</span>
         <div>
-          <h3>Netlify 備援站</h3>
+          <h3>Vercel 備援站</h3>
           <p>
-            網站已同步部署到 Netlify，作為展示與備援網址。之後只要 GitHub main 分支更新，
-            Netlify 也能自動重新部署，形成 GitHub Pages + Netlify 雙平台展示線。
+            Vercel 作為主要備援部署平台，可成功載入最新版網站。當 GitHub Pages 部署延遲或需要不同平台測試時，
+            可使用 Vercel 網址作為展示與驗收備援。
+          </p>
+          <p>
+            <a href="https://raywu0705.vercel.app/" target="_blank" rel="noopener">
+              https://raywu0705.vercel.app/
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <div class="roadmap-item">
+        <span class="roadmap-badge">LIMITED</span>
+        <div>
+          <h3>Netlify 低頻備援站</h3>
+          <p>
+            Netlify 已完成部署並可作為備援網址，但因 credit 額度制度與高頻自動更新可能快速消耗額度，
+            因此不再作為主展示站，只保留為低頻備援與部署比較用途。
           </p>
           <p>
             <a href="https://raywu0705.netlify.app/" target="_blank" rel="noopener">
@@ -143,7 +147,7 @@
           <h3>GitHub Repository</h3>
           <p>
             專案程式碼已上傳至 GitHub，v5.4 final rescue pipeline stable 已完成 commit / sync。
-            這讓網站不只是本機作品，而是具備雲端版本控管與公開部署能力的資料網站。
+            GitHub repo 是版本控管、GitHub Actions 自動更新與 GitHub Pages 主站部署的核心。
           </p>
           <p>
             <a href="https://github.com/RAYWU0705/cpbl-data-site" target="_blank" rel="noopener">
@@ -159,6 +163,28 @@
     <h2>🧭 下一階段 Roadmap</h2>
 
     <div class="roadmap-list">
+      <div class="roadmap-item next">
+        <span class="roadmap-badge">NEXT</span>
+        <div>
+          <h3>v5.4.6 GITHUB ACTIONS LIVE AUTO UPDATE</h3>
+          <p>
+            持續驗收 GitHub Actions 自動更新流程，讓 LIVE 資料能由 GitHub 雲端定時執行腳本、更新 JSON、
+            自動 commit / push，並由 GitHub Pages 主站同步展示最新資料。
+          </p>
+        </div>
+      </div>
+
+      <div class="roadmap-item">
+        <span class="roadmap-badge">PLAN</span>
+        <div>
+          <h3>v5.4.7 DEPLOYMENT STRATEGY CLEANUP</h3>
+          <p>
+            整理多平台部署策略：GitHub Pages 作為主站，Vercel 作為備援，
+            Netlify 因 credit 額度限制調整為低頻備援，並評估是否新增 Cloudflare Pages 作為高速備援站。
+          </p>
+        </div>
+      </div>
+
       <div class="roadmap-item">
         <span class="roadmap-badge">DONE</span>
         <div>
@@ -208,6 +234,59 @@
     <h2>📌 更新紀錄</h2>
 
     <div class="version-timeline">
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.4.6-GITHUB-ACTIONS-LIVE-AUTO-UPDATE</h3>
+            <span>自動更新管線</span>
+          </div>
+
+          <ul>
+            <li>建立 GitHub Actions LIVE 更新 workflow，支援手動執行與排程模式。</li>
+            <li>workflow 可在 GitHub 雲端安裝 Node.js、Puppeteer，執行 fetch-cpbl-live-inplay-today.js。</li>
+            <li>資料更新後自動 commit / push live-boxscore.json 等資料檔。</li>
+            <li>主站策略改為 GitHub Actions → GitHub repo → GitHub Pages，讓資料更新與展示平台同源。</li>
+            <li>已確認手動版 GitHub Actions 可成功執行，排程版進入觀察與微調階段。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.4.5-GITHUB-ACTIONS-PUPPETEER-FIX</h3>
+            <span>Actions 環境修復</span>
+          </div>
+
+          <ul>
+            <li>修正 GitHub Actions 乾淨環境找不到 puppeteer 的問題。</li>
+            <li>workflow 新增 npm install puppeteer，確保雲端 runner 可執行 Puppeteer 爬蟲。</li>
+            <li>加入 Puppeteer import 檢查，確認套件可正常載入後再執行 LIVE 更新。</li>
+            <li>GitHub Actions 手動更新流程成功跑通，代表網站具備半自動雲端更新能力。</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.4 Deployment Strategy Update｜GitHub Pages Main</h3>
+            <span>部署策略調整</span>
+          </div>
+
+          <ul>
+            <li>主力公開網站改為 GitHub Pages：raywu0705.github.io/cpbl-data-site。</li>
+            <li>Vercel 確認可成功載入最新版網站，調整為主要備援站。</li>
+            <li>Netlify 因 credit 額度消耗較快，從展示主站調整為低頻備援站。</li>
+            <li>未來若需要第三備援，可評估 Cloudflare Pages。</li>
+          </ul>
+        </div>
+      </article>
+
 
       <article class="version-entry">
         <div class="version-dot"></div>
@@ -286,14 +365,15 @@
         <div class="version-dot"></div>
         <div class="version-content">
           <div class="version-head">
-            <h3>v5.4 Deployment Milestone｜GitHub Pages + Netlify</h3>
+            <h3>v5.4 Deployment Milestone｜GitHub Pages + Vercel + Netlify</h3>
             <span>公開部署</span>
           </div>
 
           <ul>
             <li>專案正式同步到 GitHub repository：RAYWU0705/cpbl-data-site。</li>
             <li>完成 GitHub Pages 部署，網站可由 raywu0705.github.io/cpbl-data-site 公開瀏覽。</li>
-            <li>完成 Netlify 部署，建立 raywu0705.netlify.app 作為備援與展示網址。</li>
+            <li>完成 Vercel 部署並確認可載入最新版網站，作為主要備援站。</li>
+            <li>完成 Netlify 部署，建立 raywu0705.netlify.app；因 credit 額度限制，調整為低頻備援站。</li>
             <li>建立 Git commit / push / deploy 的版本控管流程，讓 v5.4 final rescue pipeline stable 成為可回復的雲端存檔點。</li>
           </ul>
         </div>
