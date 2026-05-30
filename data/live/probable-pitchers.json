@@ -217,5 +217,38 @@
     "source": "fetch-cpbl-pregame-today",
     "version": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
     "updatedAt": "2026-05-30T06:31:13.474Z"
+  },
+  "134": {
+    "gameSno": 134,
+    "date": "2026-05-31",
+    "awayTeam": "統一7-ELEVEn獅",
+    "homeTeam": "味全龍",
+    "away": "喬登",
+    "home": "鋼龍",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
+    "updatedAt": "2026-05-30T15:38:43.019Z"
+  },
+  "135": {
+    "gameSno": 135,
+    "date": "2026-05-31",
+    "awayTeam": "中信兄弟",
+    "homeTeam": "富邦悍將",
+    "away": "勝騎士",
+    "home": "江國豪",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
+    "updatedAt": "2026-05-30T15:38:43.019Z"
+  },
+  "136": {
+    "gameSno": 136,
+    "date": "2026-05-31",
+    "awayTeam": "台鋼雄鷹",
+    "homeTeam": "樂天桃猿",
+    "away": "江承諺",
+    "home": "麥斯威尼",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
+    "updatedAt": "2026-05-30T15:38:43.019Z"
   }
 }
