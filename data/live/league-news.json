@@ -1,22 +1,70 @@
 {
   "version": "v4.9.2",
   "source": "build-league-news",
-  "updatedAt": "2026-05-28T14:01:50.166Z",
-  "targetDate": "2026-05-28",
-  "today": "2026-05-28",
-  "tomorrow": "2026-05-29",
+  "updatedAt": "2026-05-30T06:18:00.638Z",
+  "targetDate": "2026-05-30",
+  "today": "2026-05-30",
+  "tomorrow": "2026-05-31",
   "summary": {
     "totalGames": 360,
-    "todayGames": 1,
+    "todayGames": 3,
     "live": 0,
-    "final": 1,
-    "scheduled": 0,
+    "final": 0,
+    "scheduled": 3,
     "special": 0,
-    "probablePitcherGames": 19
+    "probablePitcherGames": 22
   },
   "items": [
     {
-      "id": "final-127-yu5tih",
+      "id": "final-130-tbry02",
+      "type": "final",
+      "tag": "FINAL",
+      "title": "台鋼雄鷹 9：3 擊敗 樂天桃猿",
+      "desc": "坎南奪勝投，艾菩樂承擔敗投，坎南獲選單場 MVP。",
+      "priority": 100,
+      "gameSno": 130,
+      "date": "2026-05-29",
+      "away": "台鋼雄鷹",
+      "home": "樂天桃猿",
+      "venue": "樂天桃園",
+      "time": "18:35",
+      "status": "final",
+      "createdAt": "2026-05-30T06:18:00.627Z"
+    },
+    {
+      "id": "final-129-2wgq4e",
+      "type": "final",
+      "tag": "FINAL",
+      "title": "富邦悍將 2：4 擊敗 中信兄弟",
+      "desc": "賴鴻誠奪勝投，德保拉承擔敗投，曾峻岳收下救援成功，林書逸獲選單場 MVP。",
+      "priority": 100,
+      "gameSno": 129,
+      "date": "2026-05-29",
+      "away": "中信兄弟",
+      "home": "富邦悍將",
+      "venue": "大巨蛋",
+      "time": "18:35",
+      "status": "final",
+      "createdAt": "2026-05-30T06:18:00.628Z"
+    },
+    {
+      "id": "final-128-w3lpei",
+      "type": "final",
+      "tag": "FINAL",
+      "title": "味全龍 7：8 擊敗 統一7-ELEVEn獅",
+      "desc": "林凱威奪勝投，黃竣彥承擔敗投，張祐嘉獲選單場 MVP。",
+      "priority": 100,
+      "gameSno": 128,
+      "date": "2026-05-29",
+      "away": "統一7-ELEVEn獅",
+      "home": "味全龍",
+      "venue": "天母",
+      "time": "18:35",
+      "status": "final",
+      "createdAt": "2026-05-30T06:18:00.628Z"
+    },
+    {
+      "id": "final-127-f3e2et",
       "type": "final",
       "tag": "FINAL",
       "title": "台鋼雄鷹 4：6 擊敗 中信兄弟",
@@ -29,10 +77,10 @@
       "venue": "澄清湖",
       "time": "18:34",
       "status": "final",
-      "createdAt": "2026-05-28T14:01:50.162Z"
+      "createdAt": "2026-05-30T06:18:00.628Z"
     },
     {
-      "id": "final-126-qsx2zw",
+      "id": "final-126-dx34mz",
       "type": "final",
       "tag": "FINAL",
       "title": "台鋼雄鷹 0：6 擊敗 中信兄弟",
@@ -45,10 +93,10 @@
       "venue": "澄清湖",
       "time": "18:35",
       "status": "final",
-      "createdAt": "2026-05-28T14:01:50.162Z"
+      "createdAt": "2026-05-30T06:18:00.628Z"
     },
     {
-      "id": "final-125-t7zgmd",
+      "id": "final-125-u8zos7",
       "type": "final",
       "tag": "FINAL",
       "title": "統一7-ELEVEn獅 5：8 擊敗 樂天桃猿",
@@ -61,10 +109,10 @@
       "venue": "嘉義市",
       "time": "18:34",
       "status": "final",
-      "createdAt": "2026-05-28T14:01:50.162Z"
+      "createdAt": "2026-05-30T06:18:00.628Z"
     },
     {
-      "id": "final-124-5b5mhg",
+      "id": "final-124-o5bvqx",
       "type": "final",
       "tag": "FINAL",
       "title": "富邦悍將 5：1 擊敗 味全龍",
@@ -77,10 +125,10 @@
       "venue": "大巨蛋",
       "time": "18:35",
       "status": "final",
-      "createdAt": "2026-05-28T14:01:50.162Z"
+      "createdAt": "2026-05-30T06:18:00.628Z"
     },
     {
-      "id": "final-123-2ln2gz",
+      "id": "final-123-0nujr5",
       "type": "final",
       "tag": "FINAL",
       "title": "樂天桃猿 1：0 擊敗 統一7-ELEVEn獅",
@@ -93,10 +141,10 @@
       "venue": "嘉義市",
       "time": "18:35",
       "status": "final",
-      "createdAt": "2026-05-28T14:01:50.162Z"
+      "createdAt": "2026-05-30T06:18:00.628Z"
     },
     {
-      "id": "final-122-z9gvz9",
+      "id": "final-122-4m7tvk",
       "type": "final",
       "tag": "FINAL",
       "title": "味全龍 3：4 擊敗 富邦悍將",
@@ -109,10 +157,10 @@
       "venue": "大巨蛋",
       "time": "18:35",
       "status": "final",
-      "createdAt": "2026-05-28T14:01:50.162Z"
+      "createdAt": "2026-05-30T06:18:00.628Z"
     },
     {
-      "id": "final-121-p1z5ij",
+      "id": "final-121-t1rpex",
       "type": "final",
       "tag": "FINAL",
       "title": "樂天桃猿 1：4 擊敗 富邦悍將",
@@ -125,10 +173,10 @@
       "venue": "樂天桃園",
       "time": "17:05",
       "status": "final",
-      "createdAt": "2026-05-28T14:01:50.162Z"
+      "createdAt": "2026-05-30T06:18:00.628Z"
     },
     {
-      "id": "final-120-7f6vno",
+      "id": "final-120-m5qeyk",
       "type": "final",
       "tag": "FINAL",
       "title": "統一7-ELEVEn獅 7：5 擊敗 台鋼雄鷹",
@@ -141,10 +189,10 @@
       "venue": "澄清湖",
       "time": "16:05",
       "status": "final",
-      "createdAt": "2026-05-28T14:01:50.162Z"
+      "createdAt": "2026-05-30T06:18:00.628Z"
     },
     {
-      "id": "final-119-vtr3gh",
+      "id": "final-119-oz5gw5",
       "type": "final",
       "tag": "FINAL",
       "title": "味全龍 5：0 擊敗 中信兄弟",
@@ -157,55 +205,7 @@
       "venue": "大巨蛋",
       "time": "15:05",
       "status": "final",
-      "createdAt": "2026-05-28T14:01:50.162Z"
-    },
-    {
-      "id": "final-118-riufyp",
-      "type": "final",
-      "tag": "FINAL",
-      "title": "味全龍 2：0 擊敗 中信兄弟",
-      "desc": "梅賽鍶奪勝投，德保拉承擔敗投，林凱威收下救援成功，蔣少宏獲選單場 MVP。",
-      "priority": 100,
-      "gameSno": 118,
-      "date": "2026-05-23",
-      "away": "味全龍",
-      "home": "中信兄弟",
-      "venue": "大巨蛋",
-      "time": "17:06",
-      "status": "final",
-      "createdAt": "2026-05-28T14:01:50.162Z"
-    },
-    {
-      "id": "final-117-en782y",
-      "type": "final",
-      "tag": "FINAL",
-      "title": "富邦悍將 3：1 擊敗 樂天桃猿",
-      "desc": "鈴木駿輔奪勝投，艾菩樂承擔敗投，曾峻岳收下救援成功，張育成獲選單場 MVP。",
-      "priority": 100,
-      "gameSno": 117,
-      "date": "2026-05-23",
-      "away": "富邦悍將",
-      "home": "樂天桃猿",
-      "venue": "樂天桃園",
-      "time": "17:05",
-      "status": "final",
-      "createdAt": "2026-05-28T14:01:50.162Z"
-    },
-    {
-      "id": "final-116-vhdpdv",
-      "type": "final",
-      "tag": "FINAL",
-      "title": "台鋼雄鷹 0：2 擊敗 統一7-ELEVEn獅",
-      "desc": "坎南奪勝投，布雷克承擔敗投，林詩翔收下救援成功，坎南獲選單場 MVP。",
-      "priority": 100,
-      "gameSno": 116,
-      "date": "2026-05-23",
-      "away": "統一7-ELEVEn獅",
-      "home": "台鋼雄鷹",
-      "venue": "澄清湖",
-      "time": "16:05",
-      "status": "final",
-      "createdAt": "2026-05-28T14:01:50.162Z"
+      "createdAt": "2026-05-30T06:18:00.628Z"
     }
   ]
 }
