@@ -1,0 +1,75 @@
+{
+  "name": "Ray's CPBL Data Site",
+  "short_name": "CPBL Data",
+  "description": "Ray's Unofficial CPBL Data Site｜中華職棒一軍、二軍、球隊、球員與比賽資料站",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#071625",
+  "theme_color": "#0b3c5d",
+  "lang": "zh-Hant-TW",
+  "categories": [
+    "sports",
+    "news",
+    "utilities"
+  ],
+  "icons": [
+    {
+      "src": "assets/logo/cpbl.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/logo/cpbl.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/logo/cpbl.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "今日賽程",
+      "short_name": "賽程",
+      "description": "查看今日與近期賽程",
+      "url": "./schedule.html",
+      "icons": [
+        {
+          "src": "assets/logo/cpbl.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "球隊列表",
+      "short_name": "球隊",
+      "description": "查看六隊資料",
+      "url": "./teams.html",
+      "icons": [
+        {
+          "src": "assets/logo/cpbl.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "全站搜尋",
+      "short_name": "搜尋",
+      "description": "搜尋球隊、球員與比賽",
+      "url": "./search.html",
+      "icons": [
+        {
+          "src": "assets/logo/cpbl.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}
