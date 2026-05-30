@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>棒球即時記錄台｜Ray's Baseball Live Logger</title>
+
+  <link rel="stylesheet" href="css/live-logger.css">
+</head>
+
+<body>
+
+<header class="logger-hero">
+  <div>
+    <p class="kicker">RAY'S BASEBALL LIVE LOGGER</p>
+    <h1>棒球即時記錄台</h1>
+    <p class="hero-subtitle">
+      人工記錄比賽局數、比分、壘包、投打與事件時間軸。純前端儲存，不需要後端。
+    </p>
+  </div>
+
+  <div class="hero-actions">
+    <button id="btnExportJson" type="button">匯出 JSON</button>
+    <button id="btnCopyJson" type="button">複製 JSON</button>
+    <button id="btnResetGame" type="button" class="danger">清空比賽</button>
+  </div>
+</header>
+
+<main class="logger-layout">
+
+  <section class="card setup-card">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">GAME SETUP</p>
+        <h2>比賽資訊</h2>
+      </div>
+      <span id="saveStatus" class="save-status">尚未儲存</span>
+    </div>
+
+    <div class="form-grid">
+      <label>
+        日期
+        <input id="gameDate" type="date">
+      </label>
+
+      <label>
+        開賽時間
+        <input id="gameTime" type="time">
+      </label>
+
+      <label>
+        球場
+        <input id="venue" type="text" placeholder="例如：洲際棒球場">
+      </label>
+
+      <label>
+        賽事名稱
+        <input id="gameTitle" type="text" placeholder="例如：練習賽 / 中信兄弟 vs 富邦悍將">
+      </label>
+
+      <label>
+        客隊
+        <input id="awayTeam" type="text" placeholder="客隊">
+      </label>
+
+      <label>
+        主隊
+        <input id="homeTeam" type="text" placeholder="主隊">
+      </label>
+    </div>
+  </section>
+
+  <section class="scoreboard-card">
+    <div class="team-score away">
+      <span id="awayTeamLabel">客隊</span>
+      <strong id="awayScoreDisplay">0</strong>
+      <div class="score-buttons">
+        <button type="button" data-score-side="away" data-delta="-1">-1</button>
+        <button type="button" data-score-side="away" data-delta="1">+1</button>
+      </div>
+    </div>
+
+    <div class="score-center">
+      <span id="gameStatusBadge">LIVE LOGGER</span>
+      <h2 id="inningDisplay">1局上</h2>
+      <p id="scoreLine">客隊 0：0 主隊</p>
+    </div>
+
+    <div class="team-score home">
+      <span id="homeTeamLabel">主隊</span>
+      <strong id="homeScoreDisplay">0</strong>
+      <div class="score-buttons">
+        <button type="button" data-score-side="home" data-delta="-1">-1</button>
+        <button type="button" data-score-side="home" data-delta="1">+1</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="card control-card">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">LIVE CONTROL</p>
+        <h2>目前局面</h2>
+      </div>
+      <button id="btnNextHalf" type="button">切換半局</button>
+    </div>
+
+    <div class="control-grid">
+      <label>
+        局數
+        <input id="inning" type="number" min="1" max="99" value="1">
+      </label>
+
+      <label>
+        半局
+        <select id="half">
+          <option value="top">上</option>
+          <option value="bottom">下</option>
+        </select>
+      </label>
+
+      <label>
+        出局數
+        <select id="outs">
+          <option value="0">0 出局</option>
+          <option value="1">1 出局</option>
+          <option value="2">2 出局</option>
+        </select>
+      </label>
+
+      <label>
+        目前打者
+        <input id="batter" type="text" placeholder="打者姓名">
+      </label>
+
+      <label>
+        目前投手
+        <input id="pitcher" type="text" placeholder="投手姓名">
+      </label>
+
+      <label>
+        打席結果
+        <select id="eventType">
+          <option value="安打">安打</option>
+          <option value="二壘安打">二壘安打</option>
+          <option value="三壘安打">三壘安打</option>
+          <option value="全壘打">全壘打</option>
+          <option value="保送">保送</option>
+          <option value="觸身球">觸身球</option>
+          <option value="三振">三振</option>
+          <option value="滾地出局">滾地出局</option>
+          <option value="飛球出局">飛球出局</option>
+          <option value="失誤">失誤</option>
+          <option value="雙殺">雙殺</option>
+          <option value="換投">換投</option>
+          <option value="換代打">換代打</option>
+          <option value="得分">得分</option>
+          <option value="其他">其他</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="base-control">
+      <div class="base-panel">
+        <div class="diamond">
+          <button id="baseSecond" type="button" class="base" data-base="second">二</button>
+          <button id="baseThird" type="button" class="base" data-base="third">三</button>
+          <button id="baseFirst" type="button" class="base" data-base="first">一</button>
+          <div class="plate">本</div>
+        </div>
+
+        <p id="basesText">壘包：無人在壘</p>
+      </div>
+
+      <div class="quick-actions">
+        <button type="button" data-quick-event="三振">三振</button>
+        <button type="button" data-quick-event="安打">安打</button>
+        <button type="button" data-quick-event="保送">保送</button>
+        <button type="button" data-quick-event="全壘打">全壘打</button>
+        <button type="button" data-quick-event="滾地出局">滾地出局</button>
+        <button type="button" data-quick-event="飛球出局">飛球出局</button>
+      </div>
+    </div>
+
+    <label class="event-note-label">
+      事件備註
+      <textarea id="eventNote" rows="3" placeholder="例如：江坤宇左外野安打，二壘跑者回本壘得分"></textarea>
+    </label>
+
+    <div class="event-submit-row">
+      <button id="btnAddEvent" type="button" class="primary">新增事件</button>
+      <button id="btnUndoEvent" type="button">復原上一筆</button>
+    </div>
+  </section>
+
+  <section class="card timeline-card">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">PLAY LOG</p>
+        <h2>事件時間軸</h2>
+      </div>
+      <span id="eventCount">0 筆事件</span>
+    </div>
+
+    <div id="timeline" class="timeline">
+      <div class="empty-state">
+        尚未新增事件。看球時可以從左側控制台開始記錄。
+      </div>
+    </div>
+  </section>
+
+  <section class="card json-card">
+    <div class="section-head">
+      <div>
+        <p class="section-kicker">EXPORT</p>
+        <h2>JSON 預覽</h2>
+      </div>
+      <button id="btnRefreshPreview" type="button">更新預覽</button>
+    </div>
+
+    <pre id="jsonPreview">{}</pre>
+  </section>
+
+</main>
+
+<footer>
+  Ray's Baseball Live Logger｜v1.0.0-LIVE-GAME-LOGGER
+</footer>
+
+<script src="js/pages/live-logger.js"></script>
+
+</body>
+</html>
