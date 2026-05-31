@@ -51,6 +51,13 @@ const __dirname = path.dirname(__filename);
 const OUTPUT_DIR = path.join(__dirname, "../data/rosters");
 const OUTPUT_ALL = path.join(OUTPUT_DIR, "team-rosters.json");
 
+/* =========================
+   v5.5.4-ROSTER-TRANSACTIONS-PRESERVE
+   roster 更新時保留既有 transactions：
+   - 官方異動頁抓到新資料：使用新資料
+   - 官方異動頁抓到 0 筆或失敗：保留原 data/rosters/<team>.json 的 transactions
+========================= */
+
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -68,6 +75,46 @@ function cleanText(v) {
     .replace(/\u00a0/g, " ")
     .replace(/[ \t\r\f\v]+/g, " ")
     .trim();
+}
+
+async function readJsonIfExists(filepath, fallback = null) {
+  try {
+    const text = await fs.readFile(filepath, "utf-8");
+    return JSON.parse(text);
+  } catch {
+    return fallback;
+  }
+}
+
+function pickTransactions(newTransactions, oldRoster, teamName) {
+  const fresh = Array.isArray(newTransactions) ? newTransactions : [];
+  const previous = Array.isArray(oldRoster?.transactions) ? oldRoster.transactions : [];
+
+  if (fresh.length > 0) {
+    console.log(`🆕 ${teamName} 使用官方最新異動：${fresh.length} 筆`);
+    return fresh;
+  }
+
+  if (previous.length > 0) {
+    console.log(`🛡️ ${teamName} 官方異動為 0，保留既有異動：${previous.length} 筆`);
+    return previous;
+  }
+
+  console.log(`⚠️ ${teamName} 沒有可用異動資料`);
+  return [];
+}
+
+function preserveRosterLocalFields(newRoster, oldRoster) {
+  if (!oldRoster || typeof oldRoster !== "object") {
+    return newRoster;
+  }
+
+  return {
+    ...newRoster,
+    transactions: Array.isArray(newRoster.transactions)
+      ? newRoster.transactions
+      : (Array.isArray(oldRoster.transactions) ? oldRoster.transactions : [])
+  };
 }
 
 function isNumberLine(v) {
@@ -450,14 +497,18 @@ async function main() {
 
   for (const [teamId, club] of Object.entries(CPBL_CLUBS)) {
     try {
+      const teamOutput = path.join(OUTPUT_DIR, `${teamId}.json`);
+      const oldRoster = await readJsonIfExists(teamOutput, null);
+
       const roster = await fetchTeamRoster(browser, teamId, club);
       const transactions = await fetchTeamTransactions(browser, club);
 
-      roster.transactions = transactions;
-      all[teamId] = roster;
+      roster.transactions = pickTransactions(transactions, oldRoster, club.name);
 
-      const teamOutput = path.join(OUTPUT_DIR, `${teamId}.json`);
-      await fs.writeFile(teamOutput, JSON.stringify(roster, null, 2), "utf-8");
+      const finalRoster = preserveRosterLocalFields(roster, oldRoster);
+      all[teamId] = finalRoster;
+
+      await fs.writeFile(teamOutput, JSON.stringify(finalRoster, null, 2), "utf-8");
 
       console.log(`💾 已輸出：data/rosters/${teamId}.json`);
       console.log("--------------------------------------------------");
@@ -474,6 +525,7 @@ async function main() {
   console.log("==============");
   console.log("📦 全部球隊名單完成");
   console.log("💾 已輸出：data/rosters/team-rosters.json");
+  console.log("🛡️ transactions preserve guard 已啟用");
 }
 
 main().catch(err => {

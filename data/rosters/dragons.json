@@ -3,7 +3,7 @@
   "teamName": "味全龍",
   "clubNo": "AAA",
   "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=AAA",
-  "updatedAt": "2026-05-28T07:00:45.078Z",
+  "updatedAt": "2026-05-31T03:43:38.310Z",
   "coaches": {
     "first": {
       "title": "一軍教練團",
@@ -146,6 +146,12 @@
           "position": "投手"
         },
         {
+          "number": "5",
+          "name": "陳禹勳",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
           "number": "33",
           "name": "蔣銲",
           "group": "投手",
@@ -190,6 +196,12 @@
         {
           "number": "71",
           "name": "林子昱",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "74",
+          "name": "張鈞守",
           "group": "投手",
           "position": "投手"
         },
@@ -330,12 +342,6 @@
           "position": "投手"
         },
         {
-          "number": "5",
-          "name": "陳禹勳",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
           "number": "10",
           "name": "魔神龍",
           "group": "投手",
@@ -434,12 +440,6 @@
         {
           "number": "73",
           "name": "*吳承翰",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
-          "number": "74",
-          "name": "張鈞守",
           "group": "投手",
           "position": "投手"
         },
@@ -630,6 +630,16 @@
     }
   },
   "transactions": [
+    {
+      "date": "2026-05-29",
+      "player": "陳禹勳",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-05-29",
+      "player": "張鈞守",
+      "reason": "升一軍"
+    },
     {
       "date": "2026-05-28",
       "player": "林鋅杰",

@@ -3,7 +3,7 @@
   "teamName": "樂天桃猿",
   "clubNo": "AJL",
   "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=AJL",
-  "updatedAt": "2026-05-28T07:00:16.636Z",
+  "updatedAt": "2026-05-31T03:43:10.753Z",
   "coaches": {
     "first": {
       "title": "一軍教練團",
@@ -194,12 +194,6 @@
           "position": "投手"
         },
         {
-          "number": "63",
-          "name": "賴胤豪",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
           "number": "64",
           "name": "王志煊",
           "group": "投手",
@@ -262,6 +256,12 @@
           "position": "二壘手"
         },
         {
+          "number": "24",
+          "name": "游承勳",
+          "group": "內野手",
+          "position": "游擊手"
+        },
+        {
           "number": "33",
           "name": "張趙紘",
           "group": "內野手",
@@ -305,16 +305,16 @@
       "group": "外野手",
       "list": [
         {
-          "number": "35",
-          "name": "成晉",
-          "group": "外野手",
-          "position": "右外野手"
-        },
-        {
           "number": "65",
           "name": "林政華",
           "group": "外野手",
           "position": "中外野手"
+        },
+        {
+          "number": "66",
+          "name": "何品室融",
+          "group": "外野手",
+          "position": "左外野手"
         },
         {
           "number": "98",
@@ -398,6 +398,12 @@
         {
           "number": "61",
           "name": "◎榊原元稀",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "63",
+          "name": "賴胤豪",
           "group": "投手",
           "position": "投手"
         },
@@ -518,12 +524,6 @@
           "position": "一壘手"
         },
         {
-          "number": "24",
-          "name": "游承勳",
-          "group": "內野手",
-          "position": "游擊手"
-        },
-        {
           "number": "31",
           "name": "杜禹鋒",
           "group": "內野手",
@@ -579,16 +579,16 @@
           "position": "中外野手"
         },
         {
-          "number": "39",
-          "name": "林立",
+          "number": "35",
+          "name": "成晉",
           "group": "外野手",
           "position": "右外野手"
         },
         {
-          "number": "66",
-          "name": "何品室融",
+          "number": "39",
+          "name": "林立",
           "group": "外野手",
-          "position": "左外野手"
+          "position": "右外野手"
         },
         {
           "number": "76",
@@ -606,6 +606,26 @@
     }
   },
   "transactions": [
+    {
+      "date": "2026-05-30",
+      "player": "賴胤豪",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-05-29",
+      "player": "游承勳",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-05-29",
+      "player": "何品室融",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-05-29",
+      "player": "成晉",
+      "reason": "降二軍"
+    },
     {
       "date": "2026-05-28",
       "player": "劉家翔",

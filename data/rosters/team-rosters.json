@@ -4,7 +4,7 @@
     "teamName": "中信兄弟",
     "clubNo": "ACN",
     "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=ACN",
-    "updatedAt": "2026-05-28T06:59:46.937Z",
+    "updatedAt": "2026-05-31T03:42:42.024Z",
     "coaches": {
       "first": {
         "title": "一軍教練團",
@@ -187,12 +187,6 @@
             "position": "投手"
           },
           {
-            "number": "46",
-            "name": "德保拉",
-            "group": "投手",
-            "position": "投手"
-          },
-          {
             "number": "50",
             "name": "蔡齊哲",
             "group": "投手",
@@ -279,12 +273,6 @@
             "position": "二壘手"
           },
           {
-            "number": "29",
-            "name": "陳俊秀",
-            "group": "內野手",
-            "position": "一壘手"
-          },
-          {
             "number": "61",
             "name": "王政順",
             "group": "內野手",
@@ -297,10 +285,22 @@
             "position": "一壘手"
           },
           {
-            "number": "98",
-            "name": "岳東華",
+            "number": "74",
+            "name": "許基宏",
+            "group": "內野手",
+            "position": "一壘手"
+          },
+          {
+            "number": "75",
+            "name": "林瑞鈞",
             "group": "內野手",
             "position": "二壘手"
+          },
+          {
+            "number": "90",
+            "name": "江坤宇",
+            "group": "內野手",
+            "position": "游擊手"
           }
         ]
       },
@@ -309,12 +309,6 @@
         "squad": "first",
         "group": "外野手",
         "list": [
-          {
-            "number": "2",
-            "name": "李聖裕",
-            "group": "外野手",
-            "position": "中外野手"
-          },
           {
             "number": "7",
             "name": "張志豪",
@@ -328,8 +322,8 @@
             "position": "中外野手"
           },
           {
-            "number": "88",
-            "name": "宋晟睿",
+            "number": "39",
+            "name": "詹子賢",
             "group": "外野手",
             "position": "左外野手"
           },
@@ -421,6 +415,12 @@
           {
             "number": "43",
             "name": "*馬奎爾",
+            "group": "投手",
+            "position": "投手"
+          },
+          {
+            "number": "46",
+            "name": "德保拉",
             "group": "投手",
             "position": "投手"
           },
@@ -577,6 +577,12 @@
             "position": "三壘手"
           },
           {
+            "number": "29",
+            "name": "陳俊秀",
+            "group": "內野手",
+            "position": "一壘手"
+          },
+          {
             "number": "38",
             "name": "*蔡琞傑",
             "group": "內野手",
@@ -589,28 +595,16 @@
             "position": "一壘手"
           },
           {
-            "number": "74",
-            "name": "許基宏",
-            "group": "內野手",
-            "position": "一壘手"
-          },
-          {
-            "number": "75",
-            "name": "林瑞鈞",
-            "group": "內野手",
-            "position": "二壘手"
-          },
-          {
-            "number": "90",
-            "name": "江坤宇",
-            "group": "內野手",
-            "position": "游擊手"
-          },
-          {
             "number": "96",
             "name": "*蘇緯達",
             "group": "內野手",
             "position": "一壘手"
+          },
+          {
+            "number": "98",
+            "name": "岳東華",
+            "group": "內野手",
+            "position": "二壘手"
           },
           {
             "number": "102",
@@ -638,10 +632,10 @@
             "position": "中外野手"
           },
           {
-            "number": "39",
-            "name": "詹子賢",
+            "number": "2",
+            "name": "李聖裕",
             "group": "外野手",
-            "position": "左外野手"
+            "position": "中外野手"
           },
           {
             "number": "47",
@@ -662,6 +656,12 @@
             "position": "中外野手"
           },
           {
+            "number": "88",
+            "name": "宋晟睿",
+            "group": "外野手",
+            "position": "左外野手"
+          },
+          {
             "number": "89",
             "name": "*施季定華",
             "group": "外野手",
@@ -672,9 +672,59 @@
     },
     "transactions": [
       {
+        "date": "2026-05-30",
+        "player": "德保拉",
+        "reason": "降二軍"
+      },
+      {
+        "date": "2026-05-30",
+        "player": "陳俊秀",
+        "reason": "降二軍"
+      },
+      {
+        "date": "2026-05-30",
+        "player": "許基宏",
+        "reason": "升一軍"
+      },
+      {
+        "date": "2026-05-29",
+        "player": "李聖裕",
+        "reason": "降二軍"
+      },
+      {
+        "date": "2026-05-29",
+        "player": "宋晟睿",
+        "reason": "降二軍"
+      },
+      {
+        "date": "2026-05-29",
+        "player": "詹子賢",
+        "reason": "升一軍"
+      },
+      {
+        "date": "2026-05-29",
+        "player": "江坤宇",
+        "reason": "升一軍"
+      },
+      {
+        "date": "2026-05-28",
+        "player": "岳東華",
+        "reason": "降二軍"
+      },
+      {
+        "date": "2026-05-28",
+        "player": "林瑞鈞",
+        "reason": "升一軍"
+      },
+      {
         "date": "2026-05-27",
         "player": "菲力士",
         "reason": "升一軍"
+      },
+      {
+        "date": "2026-05-26",
+        "player": "◎黃冠倫",
+        "reason": "自主培訓"
       },
       {
         "date": "2026-05-26",
@@ -690,11 +740,6 @@
         "date": "2026-05-26",
         "player": "菲力士",
         "reason": "新註冊"
-      },
-      {
-        "date": "2026-05-26",
-        "player": "◎黃冠倫",
-        "reason": "自主培訓"
       },
       {
         "date": "2026-05-22",
@@ -843,7 +888,7 @@
     "teamName": "統一7-ELEVEn獅",
     "clubNo": "ADD",
     "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=ADD",
-    "updatedAt": "2026-05-28T07:00:03.449Z",
+    "updatedAt": "2026-05-31T03:42:56.173Z",
     "coaches": {
       "first": {
         "title": "一軍教練團",
@@ -980,12 +1025,6 @@
         "group": "投手",
         "list": [
           {
-            "number": "17",
-            "name": "林子崴",
-            "group": "投手",
-            "position": "投手"
-          },
-          {
             "number": "28",
             "name": "髙塩將樹",
             "group": "投手",
@@ -1010,14 +1049,14 @@
             "position": "投手"
           },
           {
-            "number": "40",
-            "name": "黃竣彥",
+            "number": "37",
+            "name": "邱浩鈞",
             "group": "投手",
             "position": "投手"
           },
           {
-            "number": "48",
-            "name": "鄭副豪",
+            "number": "40",
+            "name": "黃竣彥",
             "group": "投手",
             "position": "投手"
           },
@@ -1194,6 +1233,12 @@
             "position": "投手"
           },
           {
+            "number": "17",
+            "name": "林子崴",
+            "group": "投手",
+            "position": "投手"
+          },
+          {
             "number": "19",
             "name": "*林原裕",
             "group": "投手",
@@ -1218,12 +1263,6 @@
             "position": "投手"
           },
           {
-            "number": "37",
-            "name": "邱浩鈞",
-            "group": "投手",
-            "position": "投手"
-          },
-          {
             "number": "41",
             "name": "王鏡銘",
             "group": "投手",
@@ -1244,6 +1283,12 @@
           {
             "number": "45",
             "name": "*周彥農",
+            "group": "投手",
+            "position": "投手"
+          },
+          {
+            "number": "48",
+            "name": "鄭副豪",
             "group": "投手",
             "position": "投手"
           },
@@ -1470,6 +1515,31 @@
       }
     },
     "transactions": [
+      {
+        "date": "2026-05-30",
+        "player": "林詔恩",
+        "reason": "降二軍"
+      },
+      {
+        "date": "2026-05-30",
+        "player": "鄭副豪",
+        "reason": "降二軍"
+      },
+      {
+        "date": "2026-05-30",
+        "player": "邱浩鈞",
+        "reason": "升一軍"
+      },
+      {
+        "date": "2026-05-29",
+        "player": "林子崴",
+        "reason": "降二軍"
+      },
+      {
+        "date": "2026-05-29",
+        "player": "林詔恩",
+        "reason": "升一軍"
+      },
       {
         "date": "2026-05-27",
         "player": "張宥謙",
@@ -1702,7 +1772,7 @@
     "teamName": "樂天桃猿",
     "clubNo": "AJL",
     "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=AJL",
-    "updatedAt": "2026-05-28T07:00:16.636Z",
+    "updatedAt": "2026-05-31T03:43:10.753Z",
     "coaches": {
       "first": {
         "title": "一軍教練團",
@@ -1893,12 +1963,6 @@
             "position": "投手"
           },
           {
-            "number": "63",
-            "name": "賴胤豪",
-            "group": "投手",
-            "position": "投手"
-          },
-          {
             "number": "64",
             "name": "王志煊",
             "group": "投手",
@@ -1961,6 +2025,12 @@
             "position": "二壘手"
           },
           {
+            "number": "24",
+            "name": "游承勳",
+            "group": "內野手",
+            "position": "游擊手"
+          },
+          {
             "number": "33",
             "name": "張趙紘",
             "group": "內野手",
@@ -2004,16 +2074,16 @@
         "group": "外野手",
         "list": [
           {
-            "number": "35",
-            "name": "成晉",
-            "group": "外野手",
-            "position": "右外野手"
-          },
-          {
             "number": "65",
             "name": "林政華",
             "group": "外野手",
             "position": "中外野手"
+          },
+          {
+            "number": "66",
+            "name": "何品室融",
+            "group": "外野手",
+            "position": "左外野手"
           },
           {
             "number": "98",
@@ -2097,6 +2167,12 @@
           {
             "number": "61",
             "name": "◎榊原元稀",
+            "group": "投手",
+            "position": "投手"
+          },
+          {
+            "number": "63",
+            "name": "賴胤豪",
             "group": "投手",
             "position": "投手"
           },
@@ -2217,12 +2293,6 @@
             "position": "一壘手"
           },
           {
-            "number": "24",
-            "name": "游承勳",
-            "group": "內野手",
-            "position": "游擊手"
-          },
-          {
             "number": "31",
             "name": "杜禹鋒",
             "group": "內野手",
@@ -2278,16 +2348,16 @@
             "position": "中外野手"
           },
           {
-            "number": "39",
-            "name": "林立",
+            "number": "35",
+            "name": "成晉",
             "group": "外野手",
             "position": "右外野手"
           },
           {
-            "number": "66",
-            "name": "何品室融",
+            "number": "39",
+            "name": "林立",
             "group": "外野手",
-            "position": "左外野手"
+            "position": "右外野手"
           },
           {
             "number": "76",
@@ -2305,6 +2375,26 @@
       }
     },
     "transactions": [
+      {
+        "date": "2026-05-30",
+        "player": "賴胤豪",
+        "reason": "降二軍"
+      },
+      {
+        "date": "2026-05-29",
+        "player": "游承勳",
+        "reason": "升一軍"
+      },
+      {
+        "date": "2026-05-29",
+        "player": "何品室融",
+        "reason": "升一軍"
+      },
+      {
+        "date": "2026-05-29",
+        "player": "成晉",
+        "reason": "降二軍"
+      },
       {
         "date": "2026-05-28",
         "player": "劉家翔",
@@ -2432,7 +2522,7 @@
     "teamName": "富邦悍將",
     "clubNo": "AEO",
     "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=AEO",
-    "updatedAt": "2026-05-28T07:00:30.012Z",
+    "updatedAt": "2026-05-31T03:43:24.275Z",
     "coaches": {
       "first": {
         "title": "一軍教練團",
@@ -2740,10 +2830,10 @@
         "group": "外野手",
         "list": [
           {
-            "number": "7",
-            "name": "陳真",
+            "number": "25",
+            "name": "林書逸",
             "group": "外野手",
-            "position": "左外野手"
+            "position": "中外野手"
           },
           {
             "number": "29",
@@ -3062,6 +3152,12 @@
             "position": "中外野手"
           },
           {
+            "number": "7",
+            "name": "陳真",
+            "group": "外野手",
+            "position": "左外野手"
+          },
+          {
             "number": "9",
             "name": "*林莛淯",
             "group": "外野手",
@@ -3078,12 +3174,6 @@
             "name": "*鄭昭誠",
             "group": "外野手",
             "position": "左外野手"
-          },
-          {
-            "number": "25",
-            "name": "林書逸",
-            "group": "外野手",
-            "position": "中外野手"
           },
           {
             "number": "33",
@@ -3126,6 +3216,16 @@
     },
     "transactions": [
       {
+        "date": "2026-05-29",
+        "player": "林書逸",
+        "reason": "升一軍"
+      },
+      {
+        "date": "2026-05-28",
+        "player": "陳真",
+        "reason": "降二軍"
+      },
+      {
         "date": "2026-05-27",
         "player": "童堉誠",
         "reason": "降二軍"
@@ -3137,12 +3237,12 @@
       },
       {
         "date": "2026-05-26",
-        "player": "林岱安",
+        "player": "張育豪",
         "reason": "升一軍"
       },
       {
         "date": "2026-05-26",
-        "player": "張育豪",
+        "player": "林岱安",
         "reason": "升一軍"
       },
       {
@@ -3302,7 +3402,7 @@
     "teamName": "味全龍",
     "clubNo": "AAA",
     "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=AAA",
-    "updatedAt": "2026-05-28T07:00:45.078Z",
+    "updatedAt": "2026-05-31T03:43:38.310Z",
     "coaches": {
       "first": {
         "title": "一軍教練團",
@@ -3445,6 +3545,12 @@
             "position": "投手"
           },
           {
+            "number": "5",
+            "name": "陳禹勳",
+            "group": "投手",
+            "position": "投手"
+          },
+          {
             "number": "33",
             "name": "蔣銲",
             "group": "投手",
@@ -3489,6 +3595,12 @@
           {
             "number": "71",
             "name": "林子昱",
+            "group": "投手",
+            "position": "投手"
+          },
+          {
+            "number": "74",
+            "name": "張鈞守",
             "group": "投手",
             "position": "投手"
           },
@@ -3629,12 +3741,6 @@
             "position": "投手"
           },
           {
-            "number": "5",
-            "name": "陳禹勳",
-            "group": "投手",
-            "position": "投手"
-          },
-          {
             "number": "10",
             "name": "魔神龍",
             "group": "投手",
@@ -3733,12 +3839,6 @@
           {
             "number": "73",
             "name": "*吳承翰",
-            "group": "投手",
-            "position": "投手"
-          },
-          {
-            "number": "74",
-            "name": "張鈞守",
             "group": "投手",
             "position": "投手"
           },
@@ -3930,6 +4030,16 @@
     },
     "transactions": [
       {
+        "date": "2026-05-29",
+        "player": "陳禹勳",
+        "reason": "升一軍"
+      },
+      {
+        "date": "2026-05-29",
+        "player": "張鈞守",
+        "reason": "升一軍"
+      },
+      {
         "date": "2026-05-28",
         "player": "林鋅杰",
         "reason": "降二軍"
@@ -4106,7 +4216,7 @@
     "teamName": "台鋼雄鷹",
     "clubNo": "AKP",
     "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=AKP",
-    "updatedAt": "2026-05-28T07:00:59.832Z",
+    "updatedAt": "2026-05-31T03:43:54.596Z",
     "coaches": {
       "first": {
         "title": "一軍教練團",
@@ -4283,6 +4393,12 @@
             "position": "投手"
           },
           {
+            "number": "40",
+            "name": "後勁",
+            "group": "投手",
+            "position": "投手"
+          },
+          {
             "number": "46",
             "name": "黃群",
             "group": "投手",
@@ -4311,12 +4427,6 @@
             "name": "許峻暘",
             "group": "投手",
             "position": "投手"
-          },
-          {
-            "number": "98",
-            "name": "坎南",
-            "group": "投手",
-            "position": "投手"
           }
         ]
       },
@@ -4332,8 +4442,8 @@
             "position": "捕手"
           },
           {
-            "number": "31",
-            "name": "吳明鴻",
+            "number": "33",
+            "name": "陳致嘉",
             "group": "捕手",
             "position": "捕手"
           },
@@ -4355,6 +4465,12 @@
             "name": "曾子祐",
             "group": "內野手",
             "position": "游擊手"
+          },
+          {
+            "number": "16",
+            "name": "林家鋐",
+            "group": "內野手",
+            "position": "二壘手"
           },
           {
             "number": "36",
@@ -4497,12 +4613,6 @@
             "position": "投手"
           },
           {
-            "number": "40",
-            "name": "後勁",
-            "group": "投手",
-            "position": "投手"
-          },
-          {
             "number": "41",
             "name": "王躍霖",
             "group": "投手",
@@ -4579,6 +4689,12 @@
             "name": "*張誠恩",
             "group": "投手",
             "position": "投手"
+          },
+          {
+            "number": "98",
+            "name": "坎南",
+            "group": "投手",
+            "position": "投手"
           }
         ]
       },
@@ -4606,8 +4722,8 @@
             "position": "捕手"
           },
           {
-            "number": "33",
-            "name": "陳致嘉",
+            "number": "31",
+            "name": "吳明鴻",
             "group": "捕手",
             "position": "捕手"
           },
@@ -4639,12 +4755,6 @@
           {
             "number": "7",
             "name": "郭永維",
-            "group": "內野手",
-            "position": "二壘手"
-          },
-          {
-            "number": "16",
-            "name": "林家鋐",
             "group": "內野手",
             "position": "二壘手"
           },
@@ -4719,6 +4829,41 @@
       }
     },
     "transactions": [
+      {
+        "date": "2026-05-30",
+        "player": "後勁",
+        "reason": "升一軍"
+      },
+      {
+        "date": "2026-05-30",
+        "player": "坎南",
+        "reason": "降二軍"
+      },
+      {
+        "date": "2026-05-29",
+        "player": "林家鋐",
+        "reason": "升一軍"
+      },
+      {
+        "date": "2026-05-29",
+        "player": "黃子豪",
+        "reason": "降二軍"
+      },
+      {
+        "date": "2026-05-28",
+        "player": "吳明鴻",
+        "reason": "降二軍"
+      },
+      {
+        "date": "2026-05-28",
+        "player": "黃子豪",
+        "reason": "升一軍"
+      },
+      {
+        "date": "2026-05-28",
+        "player": "陳致嘉",
+        "reason": "升一軍"
+      },
       {
         "date": "2026-05-27",
         "player": "許育銘",

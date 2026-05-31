@@ -3,7 +3,7 @@
   "teamName": "統一7-ELEVEn獅",
   "clubNo": "ADD",
   "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=ADD",
-  "updatedAt": "2026-05-28T07:00:03.449Z",
+  "updatedAt": "2026-05-31T03:42:56.173Z",
   "coaches": {
     "first": {
       "title": "一軍教練團",
@@ -140,12 +140,6 @@
       "group": "投手",
       "list": [
         {
-          "number": "17",
-          "name": "林子崴",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
           "number": "28",
           "name": "髙塩將樹",
           "group": "投手",
@@ -170,14 +164,14 @@
           "position": "投手"
         },
         {
-          "number": "40",
-          "name": "黃竣彥",
+          "number": "37",
+          "name": "邱浩鈞",
           "group": "投手",
           "position": "投手"
         },
         {
-          "number": "48",
-          "name": "鄭副豪",
+          "number": "40",
+          "name": "黃竣彥",
           "group": "投手",
           "position": "投手"
         },
@@ -354,6 +348,12 @@
           "position": "投手"
         },
         {
+          "number": "17",
+          "name": "林子崴",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
           "number": "19",
           "name": "*林原裕",
           "group": "投手",
@@ -378,12 +378,6 @@
           "position": "投手"
         },
         {
-          "number": "37",
-          "name": "邱浩鈞",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
           "number": "41",
           "name": "王鏡銘",
           "group": "投手",
@@ -404,6 +398,12 @@
         {
           "number": "45",
           "name": "*周彥農",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "48",
+          "name": "鄭副豪",
           "group": "投手",
           "position": "投手"
         },
@@ -630,6 +630,31 @@
     }
   },
   "transactions": [
+    {
+      "date": "2026-05-30",
+      "player": "林詔恩",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-05-30",
+      "player": "鄭副豪",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-05-30",
+      "player": "邱浩鈞",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-05-29",
+      "player": "林子崴",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-05-29",
+      "player": "林詔恩",
+      "reason": "升一軍"
+    },
     {
       "date": "2026-05-27",
       "player": "張宥謙",

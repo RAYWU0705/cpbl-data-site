@@ -3,7 +3,7 @@
   "teamName": "富邦悍將",
   "clubNo": "AEO",
   "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=AEO",
-  "updatedAt": "2026-05-28T07:00:30.012Z",
+  "updatedAt": "2026-05-31T03:43:24.275Z",
   "coaches": {
     "first": {
       "title": "一軍教練團",
@@ -311,10 +311,10 @@
       "group": "外野手",
       "list": [
         {
-          "number": "7",
-          "name": "陳真",
+          "number": "25",
+          "name": "林書逸",
           "group": "外野手",
-          "position": "左外野手"
+          "position": "中外野手"
         },
         {
           "number": "29",
@@ -633,6 +633,12 @@
           "position": "中外野手"
         },
         {
+          "number": "7",
+          "name": "陳真",
+          "group": "外野手",
+          "position": "左外野手"
+        },
+        {
           "number": "9",
           "name": "*林莛淯",
           "group": "外野手",
@@ -649,12 +655,6 @@
           "name": "*鄭昭誠",
           "group": "外野手",
           "position": "左外野手"
-        },
-        {
-          "number": "25",
-          "name": "林書逸",
-          "group": "外野手",
-          "position": "中外野手"
         },
         {
           "number": "33",
@@ -697,6 +697,16 @@
   },
   "transactions": [
     {
+      "date": "2026-05-29",
+      "player": "林書逸",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-05-28",
+      "player": "陳真",
+      "reason": "降二軍"
+    },
+    {
       "date": "2026-05-27",
       "player": "童堉誠",
       "reason": "降二軍"
@@ -708,12 +718,12 @@
     },
     {
       "date": "2026-05-26",
-      "player": "林岱安",
+      "player": "張育豪",
       "reason": "升一軍"
     },
     {
       "date": "2026-05-26",
-      "player": "張育豪",
+      "player": "林岱安",
       "reason": "升一軍"
     },
     {
