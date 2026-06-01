@@ -250,5 +250,36 @@
     "source": "fetch-cpbl-pregame-today",
     "version": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
     "updatedAt": "2026-05-30T15:38:43.019Z"
-  }
+  },
+  "games": [
+    {
+      "gameSno": 24,
+      "gameNo": 24,
+      "date": "2026-06-02",
+      "away": "樂天桃猿",
+      "home": "味全龍",
+      "venue": "天母",
+      "time": "18:35",
+      "awayProbablePitcher": "魔爾曼",
+      "homeProbablePitcher": "蔣銲",
+      "awayStarter": "魔爾曼",
+      "homeStarter": "蔣銲",
+      "probablePitchers": {
+        "away": "魔爾曼",
+        "home": "蔣銲",
+        "awayName": "魔爾曼",
+        "homeName": "蔣銲"
+      },
+      "starters": {
+        "away": "魔爾曼",
+        "home": "蔣銲",
+        "awayName": "魔爾曼",
+        "homeName": "蔣銲"
+      },
+      "dataQuality": {
+        "probablePitchers": "manual",
+        "starters": "manual"
+      }
+    }
+  ]
 }
