@@ -450168,7 +450168,11 @@
       "lose": null,
       "save": null,
       "mvp": null,
-      "duration": ""
+      "duration": "",
+      "awayProbablePitcher": "魔爾曼",
+      "homeProbablePitcher": "蔣銲",
+      "awayStarter": "魔爾曼",
+      "homeStarter": "蔣銲"
     },
     "lineScore": {
       "home": [],
@@ -450193,6 +450197,24 @@
     "pitchers": {
       "home": [],
       "away": []
+    },
+    "awayProbablePitcher": "魔爾曼",
+    "homeProbablePitcher": "蔣銲",
+    "awayStarter": "魔爾曼",
+    "homeStarter": "蔣銲",
+    "awayPitcher": "魔爾曼",
+    "homePitcher": "蔣銲",
+    "probablePitchers": {
+      "away": "魔爾曼",
+      "home": "蔣銲",
+      "awayName": "魔爾曼",
+      "homeName": "蔣銲"
+    },
+    "starters": {
+      "away": "魔爾曼",
+      "home": "蔣銲",
+      "awayName": "魔爾曼",
+      "homeName": "蔣銲"
     }
   },
   {
