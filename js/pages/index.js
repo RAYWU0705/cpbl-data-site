@@ -243,7 +243,7 @@ async function loadGames() {
       probableData = await probableRes.json();
     }
 
-    probablePitchersMap = probableData || {};
+    probablePitchersMap = normalizeProbablePitchersMap(probableData);
 
     const arr = normalizeGames(toArray(liveData));
 
@@ -289,6 +289,110 @@ async function loadLeagueNews() {
   }
 }
 
+
+function normalizeProbablePitchersMap(input = {}) {
+  const map = {};
+
+  function getGameKey(item) {
+    if (!item || typeof item !== "object") return "";
+    return cleanSafe(
+      item.gameSno ??
+      item.gameNo ??
+      item.game_no ??
+      item.id ??
+      item.no ??
+      item.GameSno ??
+      item.GameNo ??
+      ""
+    );
+  }
+
+  function pickAwayPitcher(item) {
+    if (!item || typeof item !== "object") return "";
+
+    const nested = item.probablePitchers || item.starters || item.pitchers || {};
+
+    return cleanSafe(
+      item.awayProbablePitcher ||
+      item.awayStarter ||
+      item.awayPitcher ||
+      item.visitingProbablePitcher ||
+      item.visitingStarter ||
+      item.VisitingPitcherName ||
+      item.AwayPitcherName ||
+      nested.awayName ||
+      nested.awayPitcher ||
+      nested.visiting ||
+      nested.away ||
+      item.awayName
+    );
+  }
+
+  function pickHomePitcher(item) {
+    if (!item || typeof item !== "object") return "";
+
+    const nested = item.probablePitchers || item.starters || item.pitchers || {};
+
+    return cleanSafe(
+      item.homeProbablePitcher ||
+      item.homeStarter ||
+      item.homePitcher ||
+      item.HomePitcherName ||
+      nested.homeName ||
+      nested.homePitcher ||
+      nested.home ||
+      item.homeName
+    );
+  }
+
+  function addItem(item, fallbackKey = "") {
+    if (!item || typeof item !== "object") return;
+
+    const key = cleanSafe(getGameKey(item) || fallbackKey);
+    if (!key) return;
+
+    const away = pickAwayPitcher(item);
+    const home = pickHomePitcher(item);
+
+    if (!away && !home) return;
+
+    map[key] = {
+      ...(map[key] || {}),
+      ...item,
+      away,
+      home,
+      awayName: away,
+      homeName: home
+    };
+  }
+
+  if (Array.isArray(input)) {
+    input.forEach(item => addItem(item));
+    return map;
+  }
+
+  if (Array.isArray(input?.games)) {
+    input.games.forEach(item => addItem(item));
+  }
+
+  if (Array.isArray(input?.items)) {
+    input.items.forEach(item => addItem(item));
+  }
+
+  if (Array.isArray(input?.data)) {
+    input.data.forEach(item => addItem(item));
+  }
+
+  if (input && typeof input === "object") {
+    Object.entries(input).forEach(([key, value]) => {
+      if (!value || typeof value !== "object" || Array.isArray(value)) return;
+      addItem(value, key);
+    });
+  }
+
+  return map;
+}
+
 function mergeProbablePitchers(games, probableData = {}) {
   games.forEach(game => {
     const probable = probableData?.[String(game.gameSno)];
@@ -328,11 +432,13 @@ function loadFromLocal() {
 
     return JSON.parse(raw);
   } catch (err) {
-    console.warn("⚠️ localStorage 快取讀取失敗，清除快取", err);
+    console.warn("⚠️ localStorage 快取讀取失敗，已清除 cpbl_boxscore", err?.message || err);
 
     try {
       localStorage.removeItem(LOCAL_BOX_KEY);
-    } catch {}
+    } catch {
+      // ignore
+    }
 
     return [];
   }
@@ -344,10 +450,8 @@ function syncToLocalStorage(games) {
   const map = {};
 
   games.forEach(g => {
-    const light = makeLocalStorageGameLite(g);
-
-    if (light?.gameSno != null) {
-      map[light.gameSno] = light;
+    if (g?.gameSno != null) {
+      map[g.gameSno] = makeLocalStorageGameLite(g);
     }
   });
 
@@ -355,99 +459,31 @@ function syncToLocalStorage(games) {
 }
 
 function makeLocalStorageGameLite(g) {
-  if (!g || typeof g !== "object") return null;
-
-  const meta = g.meta || {};
+  if (!g || typeof g !== "object") return g;
 
   return {
-    gameSno: g.gameSno ?? meta.gameSno ?? null,
-    kindCode: g.kindCode || "A",
-    meta: {
-      date: meta.date || "",
-      time: meta.time || "",
-      venue: meta.venue || "",
-      home: meta.home || "",
-      away: meta.away || "",
-      status: meta.status || "",
-      statusText: meta.statusText || "",
-      type: meta.type || "regular",
-      typeText: meta.typeText || "一軍例行賽",
-      duration: meta.duration || "",
-      win: meta.win || "",
-      lose: meta.lose || "",
-      save: meta.save || "",
-      mvp: meta.mvp || "",
-      finalLock: meta.finalLock ?? undefined,
-      finalLockSource: meta.finalLockSource || "",
-      finalVueEnhanced: meta.finalVueEnhanced ?? undefined
-    },
-    totals: cloneStorageSmall(g.totals || {}),
-    lineScore: cloneStorageSmall(g.lineScore || {}),
-    pregame: cloneStorageSmall(g.pregame || {}),
-    liveState: makeLocalStorageLiveStateLite(g.liveState),
-    decision: cloneStorageSmall(g.decision || {}),
-    finalLock: cloneStorageSmall(g.finalLock || null),
-    dataQuality: cloneStorageSmall(g.dataQuality || {})
+    gameSno: g.gameSno ?? null,
+    meta: g.meta || {},
+    totals: g.totals || {},
+    lineScore: g.lineScore || {},
+    pregame: g.pregame || {},
+    liveState: g.liveState || null,
+    dataQuality: g.dataQuality || {},
+    finalLock: g.finalLock || null
   };
-}
-
-function makeLocalStorageLiveStateLite(liveState) {
-  if (!liveState || typeof liveState !== "object") return null;
-
-  const bases = liveState.bases || {};
-
-  return {
-    inningText: liveState.inningText || "",
-    battingTeam: liveState.battingTeam || "",
-    fieldingTeam: liveState.fieldingTeam || "",
-    battingSide: liveState.battingSide || "",
-    fieldingSide: liveState.fieldingSide || "",
-    batter: liveState.batter || "",
-    pitcher: liveState.pitcher || "",
-    balls: liveState.balls ?? null,
-    strikes: liveState.strikes ?? null,
-    outs: liveState.outs ?? null,
-    pitchCount: liveState.pitchCount ?? null,
-    message: liveState.message || "",
-    confidence: liveState.confidence || "",
-    bases: {
-      first: !!bases.first,
-      second: !!bases.second,
-      third: !!bases.third
-    }
-  };
-}
-
-function cloneStorageSmall(value) {
-  try {
-    return JSON.parse(JSON.stringify(value));
-  } catch {
-    return null;
-  }
 }
 
 function safeSetLocalStorage(key, value) {
   try {
     localStorage.setItem(key, value);
-    return true;
   } catch (err) {
-    console.warn(`⚠️ localStorage 寫入失敗：${key}，改用輕量快取/跳過快取`, err);
+    console.warn(`⚠️ localStorage 寫入失敗，已略過快取：${key}`, err?.message || err);
 
     try {
       localStorage.removeItem(key);
-    } catch {}
-
-    try {
-      const fallback = JSON.stringify({
-        version: VERSION,
-        savedAt: new Date().toISOString(),
-        message: "localStorage quota exceeded; full live-boxscore is loaded from JSON instead."
-      });
-
-      localStorage.setItem(`${key}_meta`, fallback);
-    } catch {}
-
-    return false;
+    } catch {
+      // ignore
+    }
   }
 }
 
