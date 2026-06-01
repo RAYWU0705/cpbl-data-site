@@ -6,7 +6,7 @@ import puppeteer from "puppeteer";
 /* =========================================================
    Ray's CPBL Data Site
    fetch-cpbl-final-boxscore-vue.js
-   v5.4.2-FIRST-TEAM-FINAL-VUE-FORCE-GAMESNO
+   v5.4.3-FIRST-TEAM-FINAL-VUE-FORCE-GAMESNO-HOTFIX
 
    目標：
    - 一軍 FINAL boxscore Vue data 旁路偵查
@@ -22,7 +22,7 @@ import puppeteer from "puppeteer";
    - 不接 update-all
 ========================================================= */
 
-const VERSION = "v5.4.2-FIRST-TEAM-FINAL-VUE-FORCE-GAMESNO";
+const VERSION = "v5.4.3-FIRST-TEAM-FINAL-VUE-FORCE-GAMESNO-HOTFIX";
 
 const YEAR = Number(getArg("--year", "2026"));
 const LIMIT = Number(getArg("--limit", "0"));
@@ -67,13 +67,14 @@ async function main() {
 
   if (FORCE_TARGET) {
     games = normalizedGames
-      .filter(g => String(g.gameSno) === String(GAME_SNO))
-      .filter(g => g.meta.date === DATE)
+      .filter(g => !GAME_SNO || String(g.gameSno) === String(GAME_SNO))
+      .filter(g => !DATE || g.meta.date === DATE)
       .map(forceAsFinalTarget);
 
     if (!games.length) {
       console.log("⚠️ force 指定場次模式：live-boxscore 找不到指定場次。");
-      console.log("   請確認 --date 與 --gameSno 是否存在於 data/live/live-boxscore.json");
+      console.log("   請確認 --gameSno 或 --date 是否存在於 data/live/live-boxscore.json");
+      console.log(`   目前條件：gameSno=${GAME_SNO || "未指定"}｜date=${DATE || "未指定"}`);
     }
   } else {
     games = normalizedGames
