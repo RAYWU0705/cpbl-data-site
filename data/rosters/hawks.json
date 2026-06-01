@@ -3,7 +3,7 @@
   "teamName": "台鋼雄鷹",
   "clubNo": "AKP",
   "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=AKP",
-  "updatedAt": "2026-05-31T03:43:54.596Z",
+  "updatedAt": "2026-06-01T11:50:07.805Z",
   "coaches": {
     "first": {
       "title": "一軍教練團",
@@ -174,6 +174,12 @@
           "position": "投手"
         },
         {
+          "number": "20",
+          "name": "江承諺",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
           "number": "30",
           "name": "艾速特",
           "group": "投手",
@@ -256,12 +262,6 @@
         {
           "number": "16",
           "name": "林家鋐",
-          "group": "內野手",
-          "position": "二壘手"
-        },
-        {
-          "number": "36",
-          "name": "湯家豪",
           "group": "內野手",
           "position": "二壘手"
         },
@@ -366,12 +366,6 @@
         {
           "number": "12",
           "name": "王柏傑",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
-          "number": "20",
-          "name": "江承諺",
           "group": "投手",
           "position": "投手"
         },
@@ -550,6 +544,12 @@
           "name": "黃秉揚",
           "group": "內野手",
           "position": "三壘手"
+        },
+        {
+          "number": "36",
+          "name": "湯家豪",
+          "group": "內野手",
+          "position": "二壘手"
         },
         {
           "number": "42",

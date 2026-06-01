@@ -3,7 +3,7 @@
   "teamName": "樂天桃猿",
   "clubNo": "AJL",
   "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=AJL",
-  "updatedAt": "2026-05-31T03:43:10.753Z",
+  "updatedAt": "2026-06-01T11:49:21.576Z",
   "coaches": {
     "first": {
       "title": "一軍教練團",
@@ -160,6 +160,12 @@
         {
           "number": "19",
           "name": "陳克羿",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "20",
+          "name": "麥斯威尼",
           "group": "投手",
           "position": "投手"
         },
@@ -344,12 +350,6 @@
         {
           "number": "18",
           "name": "劉家翔",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
-          "number": "20",
-          "name": "麥斯威尼",
           "group": "投手",
           "position": "投手"
         },

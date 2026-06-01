@@ -3,7 +3,7 @@
   "teamName": "中信兄弟",
   "clubNo": "ACN",
   "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=ACN",
-  "updatedAt": "2026-05-31T03:42:42.024Z",
+  "updatedAt": "2026-06-01T11:48:52.861Z",
   "coaches": {
     "first": {
       "title": "一軍教練團",
@@ -164,6 +164,12 @@
         {
           "number": "27",
           "name": "游竣宥",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "30",
+          "name": "勝騎士",
           "group": "投手",
           "position": "投手"
         },
@@ -384,12 +390,6 @@
         {
           "number": "25",
           "name": "*陳英睿",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
-          "number": "30",
-          "name": "勝騎士",
           "group": "投手",
           "position": "投手"
         },
