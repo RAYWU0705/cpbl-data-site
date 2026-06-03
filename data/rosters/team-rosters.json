@@ -4,7 +4,7 @@
     "teamName": "中信兄弟",
     "clubNo": "ACN",
     "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=ACN",
-    "updatedAt": "2026-06-01T11:48:52.861Z",
+    "updatedAt": "2026-06-03T02:23:05.368Z",
     "coaches": {
       "first": {
         "title": "一軍教練團",
@@ -888,7 +888,7 @@
     "teamName": "統一7-ELEVEn獅",
     "clubNo": "ADD",
     "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=ADD",
-    "updatedAt": "2026-06-01T11:49:07.698Z",
+    "updatedAt": "2026-06-03T02:23:22.251Z",
     "coaches": {
       "first": {
         "title": "一軍教練團",
@@ -1081,6 +1081,12 @@
           {
             "number": "63",
             "name": "高偉強",
+            "group": "投手",
+            "position": "投手"
+          },
+          {
+            "number": "75",
+            "name": "郭俊麟",
             "group": "投手",
             "position": "投手"
           },
@@ -1329,12 +1335,6 @@
             "position": "投手"
           },
           {
-            "number": "75",
-            "name": "郭俊麟",
-            "group": "投手",
-            "position": "投手"
-          },
-          {
             "number": "76",
             "name": "江少慶",
             "group": "投手",
@@ -1516,6 +1516,11 @@
     },
     "transactions": [
       {
+        "date": "2026-06-02",
+        "player": "郭俊麟",
+        "reason": "升一軍"
+      },
+      {
         "date": "2026-06-01",
         "player": "潘磊",
         "reason": "降二軍"
@@ -1527,7 +1532,7 @@
     "teamName": "樂天桃猿",
     "clubNo": "AJL",
     "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=AJL",
-    "updatedAt": "2026-06-01T11:49:21.576Z",
+    "updatedAt": "2026-06-03T02:23:35.413Z",
     "coaches": {
       "first": {
         "title": "一軍教練團",
@@ -2277,7 +2282,7 @@
     "teamName": "富邦悍將",
     "clubNo": "AEO",
     "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=AEO",
-    "updatedAt": "2026-06-01T11:49:35.942Z",
+    "updatedAt": "2026-06-03T02:23:48.556Z",
     "coaches": {
       "first": {
         "title": "一軍教練團",
@@ -2987,7 +2992,7 @@
     "teamName": "味全龍",
     "clubNo": "AAA",
     "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=AAA",
-    "updatedAt": "2026-06-01T11:49:50.539Z",
+    "updatedAt": "2026-06-03T02:24:01.897Z",
     "coaches": {
       "first": {
         "title": "一軍教練團",
@@ -3801,7 +3806,7 @@
     "teamName": "台鋼雄鷹",
     "clubNo": "AKP",
     "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=AKP",
-    "updatedAt": "2026-06-01T11:50:07.805Z",
+    "updatedAt": "2026-06-03T02:24:17.039Z",
     "coaches": {
       "first": {
         "title": "一軍教練團",
@@ -4107,12 +4112,6 @@
         "group": "外野手",
         "list": [
           {
-            "number": "3",
-            "name": "陳文杰",
-            "group": "外野手",
-            "position": "中外野手"
-          },
-          {
             "number": "6",
             "name": "王博玄",
             "group": "外野手",
@@ -4381,6 +4380,12 @@
             "position": "右外野手"
           },
           {
+            "number": "3",
+            "name": "陳文杰",
+            "group": "外野手",
+            "position": "中外野手"
+          },
+          {
             "number": "8",
             "name": "*林威漢",
             "group": "外野手",
@@ -4415,199 +4420,9 @@
     },
     "transactions": [
       {
-        "date": "2026-05-30",
-        "player": "後勁",
-        "reason": "升一軍"
-      },
-      {
-        "date": "2026-05-30",
-        "player": "坎南",
+        "date": "2026-06-02",
+        "player": "陳文杰",
         "reason": "降二軍"
-      },
-      {
-        "date": "2026-05-29",
-        "player": "林家鋐",
-        "reason": "升一軍"
-      },
-      {
-        "date": "2026-05-29",
-        "player": "黃子豪",
-        "reason": "降二軍"
-      },
-      {
-        "date": "2026-05-28",
-        "player": "吳明鴻",
-        "reason": "降二軍"
-      },
-      {
-        "date": "2026-05-28",
-        "player": "黃子豪",
-        "reason": "升一軍"
-      },
-      {
-        "date": "2026-05-28",
-        "player": "陳致嘉",
-        "reason": "升一軍"
-      },
-      {
-        "date": "2026-05-27",
-        "player": "許育銘",
-        "reason": "升一軍"
-      },
-      {
-        "date": "2026-05-26",
-        "player": "陳正毅",
-        "reason": "降二軍"
-      },
-      {
-        "date": "2026-05-25",
-        "player": "韋宏亮",
-        "reason": "降二軍"
-      },
-      {
-        "date": "2026-05-23",
-        "player": "伍祐城",
-        "reason": "升一軍"
-      },
-      {
-        "date": "2026-05-22",
-        "player": "王躍霖",
-        "reason": "降二軍"
-      },
-      {
-        "date": "2026-05-22",
-        "player": "李欣穎",
-        "reason": "升一軍"
-      },
-      {
-        "date": "2026-05-22",
-        "player": "胡冠俞",
-        "reason": "升一軍"
-      },
-      {
-        "date": "2026-05-21",
-        "player": "江承諺",
-        "reason": "降二軍"
-      },
-      {
-        "date": "2026-05-21",
-        "player": "黃劼希",
-        "reason": "降二軍"
-      },
-      {
-        "date": "2026-05-21",
-        "player": "胡冠俞",
-        "reason": "新註冊"
-      },
-      {
-        "date": "2026-05-20",
-        "player": "高聖恩",
-        "reason": "升一軍"
-      },
-      {
-        "date": "2026-05-20",
-        "player": "黃子鵬",
-        "reason": "降二軍"
-      },
-      {
-        "date": "2026-05-17",
-        "player": "賴智垣",
-        "reason": "降二軍"
-      },
-      {
-        "date": "2026-05-17",
-        "player": "許育銘",
-        "reason": "降二軍"
-      },
-      {
-        "date": "2026-05-17",
-        "player": "陳正毅",
-        "reason": "升一軍"
-      },
-      {
-        "date": "2026-05-17",
-        "player": "韋宏亮",
-        "reason": "升一軍"
-      },
-      {
-        "date": "2026-05-16",
-        "player": "朱盟",
-        "reason": "降二軍"
-      },
-      {
-        "date": "2026-05-16",
-        "player": "黃劼希",
-        "reason": "升一軍"
-      },
-      {
-        "date": "2026-05-14",
-        "player": "顏采丞",
-        "reason": "降二軍"
-      },
-      {
-        "date": "2026-05-14",
-        "player": "劉時豪",
-        "reason": "升一軍"
-      },
-      {
-        "date": "2026-05-13",
-        "player": "黃子鵬",
-        "reason": "升一軍"
-      },
-      {
-        "date": "2026-05-13",
-        "player": "湯家豪",
-        "reason": "升一軍"
-      },
-      {
-        "date": "2026-05-11",
-        "player": "藍寅倫",
-        "reason": "降二軍"
-      },
-      {
-        "date": "2026-05-11",
-        "player": "林家鋐",
-        "reason": "降二軍"
-      },
-      {
-        "date": "2026-05-10",
-        "player": "坎南",
-        "reason": "升一軍"
-      },
-      {
-        "date": "2026-05-10",
-        "player": "後勁",
-        "reason": "降二軍"
-      },
-      {
-        "date": "2026-05-06",
-        "player": "顏采丞",
-        "reason": "升一軍"
-      },
-      {
-        "date": "2026-05-06",
-        "player": "宋柏翰",
-        "reason": "升一軍"
-      },
-      {
-        "date": "2026-05-04",
-        "player": "吳柏萱",
-        "reason": "降二軍"
-      },
-      {
-        "date": "2026-05-04",
-        "player": "顏郁軒",
-        "reason": "降二軍"
-      },
-      {
-        "date": "2026-05-03",
-        "player": "黃子鵬",
-        "reason": "降二軍"
-      },
-      {
-        "date": "2026-05-03",
-        "player": "黃群",
-        "reason": "升一軍"
       }
     ]
   }

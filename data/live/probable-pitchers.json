@@ -277,6 +277,39 @@
     "awayStarter": "郭俊麟",
     "homeStarter": "菲力士"
   },
+  "138": {
+    "gameSno": 138,
+    "date": "2026-06-03",
+    "awayTeam": "統一7-ELEVEn獅",
+    "homeTeam": "中信兄弟",
+    "away": "銳力獅",
+    "home": "羅戈",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
+    "updatedAt": "2026-06-03T02:25:42.497Z"
+  },
+  "139": {
+    "gameSno": 139,
+    "date": "2026-06-03",
+    "awayTeam": "味全龍",
+    "homeTeam": "樂天桃猿",
+    "away": "郭郁政",
+    "home": "陳克羿",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
+    "updatedAt": "2026-06-03T02:25:42.497Z"
+  },
+  "140": {
+    "gameSno": 140,
+    "date": "2026-06-03",
+    "awayTeam": "富邦悍將",
+    "homeTeam": "台鋼雄鷹",
+    "away": "阿部雄大",
+    "home": "艾速特",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
+    "updatedAt": "2026-06-03T02:25:42.497Z"
+  },
   "games": [
     {
       "gameSno": 24,

@@ -3,7 +3,7 @@
   "teamName": "統一7-ELEVEn獅",
   "clubNo": "ADD",
   "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=ADD",
-  "updatedAt": "2026-06-01T11:49:07.698Z",
+  "updatedAt": "2026-06-03T02:23:22.251Z",
   "coaches": {
     "first": {
       "title": "一軍教練團",
@@ -196,6 +196,12 @@
         {
           "number": "63",
           "name": "高偉強",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "75",
+          "name": "郭俊麟",
           "group": "投手",
           "position": "投手"
         },
@@ -444,12 +450,6 @@
           "position": "投手"
         },
         {
-          "number": "75",
-          "name": "郭俊麟",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
           "number": "76",
           "name": "江少慶",
           "group": "投手",
@@ -630,6 +630,11 @@
     }
   },
   "transactions": [
+    {
+      "date": "2026-06-02",
+      "player": "郭俊麟",
+      "reason": "升一軍"
+    },
     {
       "date": "2026-06-01",
       "player": "潘磊",
