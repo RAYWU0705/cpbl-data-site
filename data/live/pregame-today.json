@@ -451,5 +451,84 @@
       "message": "PREGAME 安全模式：只更新 scheduled / pregame 區塊，不覆蓋 LIVE / FINAL 狀態。",
       "updatedAt": "2026-06-03T02:25:12.088Z"
     }
+  },
+  {
+    "gameSno": 141,
+    "meta": {
+      "date": "2026-06-04",
+      "home": "台鋼雄鷹",
+      "away": "富邦悍將",
+      "status": "scheduled",
+      "statusText": "比賽尚未開始",
+      "type": "regular",
+      "typeText": "一軍例行賽",
+      "time": "18:35",
+      "venue": "澄清湖",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?year=2026&kindCode=A&gameSno=141",
+      "urlMode": "manual-pregame-timeout-fallback"
+    },
+    "kindCode": "A",
+    "totals": {
+      "away": {
+        "R": null,
+        "H": null,
+        "E": null
+      },
+      "home": {
+        "R": null,
+        "H": null,
+        "E": null
+      }
+    },
+    "lineScore": {
+      "away": [],
+      "home": []
+    },
+    "batters": {
+      "away": [],
+      "home": []
+    },
+    "pitchers": {
+      "away": [],
+      "home": []
+    },
+    "pregame": {
+      "starters": {
+        "away": "李東洺",
+        "home": "黃子鵬"
+      },
+      "lineups": {
+        "away": [],
+        "home": []
+      }
+    },
+    "dataQuality": {
+      "score": "debug",
+      "rhe": "debug",
+      "lineScore": "debug",
+      "batters": "debug",
+      "pitchers": "debug",
+      "starters": "manual",
+      "lineups": "debug",
+      "source": "manual-pregame-timeout-fallback",
+      "message": "6/4 pregame script timeout at official score strip; schedule shell inserted manually.",
+      "probablePitchers": "manual"
+    },
+    "awayProbablePitcher": "李東洺",
+    "homeProbablePitcher": "黃子鵬",
+    "awayStarter": "李東洺",
+    "homeStarter": "黃子鵬",
+    "probablePitchers": {
+      "away": "李東洺",
+      "home": "黃子鵬",
+      "awayName": "李東洺",
+      "homeName": "黃子鵬"
+    },
+    "starters": {
+      "away": "李東洺",
+      "home": "黃子鵬",
+      "awayName": "李東洺",
+      "homeName": "黃子鵬"
+    }
   }
 ]

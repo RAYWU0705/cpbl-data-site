@@ -1,7 +1,7 @@
 {
   "version": "v5.4.2-FIRST-TEAM-FINAL-VUE-MERGE-FORCE-SCHEDULED",
   "year": 2026,
-  "generatedAt": "2026-06-03T02:48:45.447Z",
+  "generatedAt": "2026-06-04T06:35:48.606Z",
   "dryRun": false,
   "force": true,
   "source": {
@@ -10,12 +10,12 @@
   },
   "counts": {
     "liveTotal": 360,
-    "vueTotal": 132,
-    "liveFinal": 130,
-    "matched": 132,
-    "merged": 132,
-    "skippedNotFinal": 228,
-    "forcedScheduledToFinal": 2,
+    "vueTotal": 135,
+    "liveFinal": 135,
+    "matched": 135,
+    "merged": 135,
+    "skippedNotFinal": 225,
+    "forcedScheduledToFinal": 0,
     "skippedNoVue": 0,
     "skippedVueNotConfirmed": 0
   },
@@ -10166,38 +10166,38 @@
       "away": "樂天桃猿",
       "home": "味全龍",
       "before": {
-        "status": "scheduled",
-        "finalLock": null,
-        "finalVueEnhanced": false,
+        "status": "final",
+        "finalLock": true,
+        "finalVueEnhanced": true,
         "totals": {
-          "home": {
-            "R": null,
-            "H": null,
-            "E": null
-          },
           "away": {
-            "R": null,
-            "H": null,
-            "E": null
+            "R": 0,
+            "H": 1,
+            "E": 1
+          },
+          "home": {
+            "R": 3,
+            "H": 9,
+            "E": 1
           }
         },
         "lineScore": {
-          "away": 0,
-          "home": 0
+          "away": 9,
+          "home": 9
         },
         "batters": {
-          "away": 0,
-          "home": 0
+          "away": 13,
+          "home": 9
         },
         "pitchers": {
-          "away": 0,
-          "home": 0
+          "away": 3,
+          "home": 3
         },
         "decision": {
-          "win": "",
-          "lose": "",
-          "save": "",
-          "mvp": ""
+          "win": "蔣銲",
+          "lose": "魔爾曼",
+          "save": "林凱威",
+          "mvp": "蔣銲"
         }
       },
       "after": {
@@ -10244,38 +10244,38 @@
       "away": "統一7-ELEVEn獅",
       "home": "中信兄弟",
       "before": {
-        "status": "scheduled",
-        "finalLock": null,
-        "finalVueEnhanced": false,
+        "status": "final",
+        "finalLock": true,
+        "finalVueEnhanced": true,
         "totals": {
-          "home": {
-            "R": null,
-            "H": null,
-            "E": null
-          },
           "away": {
-            "R": null,
-            "H": null,
-            "E": null
+            "R": 7,
+            "H": 12,
+            "E": 0
+          },
+          "home": {
+            "R": 3,
+            "H": 5,
+            "E": 0
           }
         },
         "lineScore": {
-          "away": 0,
-          "home": 0
+          "away": 9,
+          "home": 9
         },
         "batters": {
-          "away": 0,
-          "home": 0
+          "away": 11,
+          "home": 10
         },
         "pitchers": {
-          "away": 0,
-          "home": 0
+          "away": 6,
+          "home": 4
         },
         "decision": {
-          "win": "",
-          "lose": "",
+          "win": "郭俊麟",
+          "lose": "菲力士",
           "save": "",
-          "mvp": ""
+          "mvp": "邱智呈"
         }
       },
       "after": {
@@ -10311,6 +10311,240 @@
           "lose": "菲力士",
           "save": "",
           "mvp": "邱智呈"
+        }
+      },
+      "vueStatus": "confirmed",
+      "vueCrawler": "v5.4.3-FIRST-TEAM-FINAL-VUE-FORCE-GAMESNO-HOTFIX"
+    },
+    {
+      "gameSno": 138,
+      "date": "2026-06-03",
+      "away": "統一7-ELEVEn獅",
+      "home": "中信兄弟",
+      "before": {
+        "status": "final",
+        "finalLock": true,
+        "finalVueEnhanced": true,
+        "totals": {
+          "away": {
+            "R": 2,
+            "H": 4,
+            "E": 0
+          },
+          "home": {
+            "R": 0,
+            "H": 4,
+            "E": 1
+          }
+        },
+        "lineScore": {
+          "away": 9,
+          "home": 9
+        },
+        "batters": {
+          "away": 13,
+          "home": 11
+        },
+        "pitchers": {
+          "away": 3,
+          "home": 4
+        },
+        "decision": {
+          "win": "銳力獅",
+          "lose": "羅戈",
+          "save": "鍾允華",
+          "mvp": "銳力獅"
+        }
+      },
+      "after": {
+        "status": "final",
+        "finalLock": true,
+        "finalVueEnhanced": true,
+        "totals": {
+          "away": {
+            "R": 2,
+            "H": 4,
+            "E": 0
+          },
+          "home": {
+            "R": 0,
+            "H": 4,
+            "E": 1
+          }
+        },
+        "lineScore": {
+          "away": 9,
+          "home": 9
+        },
+        "batters": {
+          "away": 13,
+          "home": 11
+        },
+        "pitchers": {
+          "away": 3,
+          "home": 4
+        },
+        "decision": {
+          "win": "銳力獅",
+          "lose": "羅戈",
+          "save": "鍾允華",
+          "mvp": "銳力獅"
+        }
+      },
+      "vueStatus": "confirmed",
+      "vueCrawler": "v5.4.3-FIRST-TEAM-FINAL-VUE-FORCE-GAMESNO-HOTFIX"
+    },
+    {
+      "gameSno": 139,
+      "date": "2026-06-03",
+      "away": "味全龍",
+      "home": "樂天桃猿",
+      "before": {
+        "status": "final",
+        "finalLock": true,
+        "finalVueEnhanced": true,
+        "totals": {
+          "away": {
+            "R": 7,
+            "H": 10,
+            "E": 0
+          },
+          "home": {
+            "R": 3,
+            "H": 11,
+            "E": 0
+          }
+        },
+        "lineScore": {
+          "away": 9,
+          "home": 9
+        },
+        "batters": {
+          "away": 11,
+          "home": 10
+        },
+        "pitchers": {
+          "away": 6,
+          "home": 5
+        },
+        "decision": {
+          "win": "郭郁政",
+          "lose": "陳克羿",
+          "save": "林子昱",
+          "mvp": "李凱威"
+        }
+      },
+      "after": {
+        "status": "final",
+        "finalLock": true,
+        "finalVueEnhanced": true,
+        "totals": {
+          "away": {
+            "R": 7,
+            "H": 10,
+            "E": 0
+          },
+          "home": {
+            "R": 3,
+            "H": 11,
+            "E": 0
+          }
+        },
+        "lineScore": {
+          "away": 9,
+          "home": 9
+        },
+        "batters": {
+          "away": 11,
+          "home": 10
+        },
+        "pitchers": {
+          "away": 6,
+          "home": 5
+        },
+        "decision": {
+          "win": "郭郁政",
+          "lose": "陳克羿",
+          "save": "林子昱",
+          "mvp": "李凱威"
+        }
+      },
+      "vueStatus": "confirmed",
+      "vueCrawler": "v5.4.3-FIRST-TEAM-FINAL-VUE-FORCE-GAMESNO-HOTFIX"
+    },
+    {
+      "gameSno": 140,
+      "date": "2026-06-03",
+      "away": "富邦悍將",
+      "home": "台鋼雄鷹",
+      "before": {
+        "status": "final",
+        "finalLock": true,
+        "finalVueEnhanced": true,
+        "totals": {
+          "away": {
+            "R": 2,
+            "H": 8,
+            "E": 0
+          },
+          "home": {
+            "R": 13,
+            "H": 13,
+            "E": 2
+          }
+        },
+        "lineScore": {
+          "away": 9,
+          "home": 9
+        },
+        "batters": {
+          "away": 13,
+          "home": 13
+        },
+        "pitchers": {
+          "away": 4,
+          "home": 5
+        },
+        "decision": {
+          "win": "艾速特",
+          "lose": "阿部雄大",
+          "save": "",
+          "mvp": "魔鷹"
+        }
+      },
+      "after": {
+        "status": "final",
+        "finalLock": true,
+        "finalVueEnhanced": true,
+        "totals": {
+          "away": {
+            "R": 2,
+            "H": 8,
+            "E": 0
+          },
+          "home": {
+            "R": 13,
+            "H": 13,
+            "E": 2
+          }
+        },
+        "lineScore": {
+          "away": 9,
+          "home": 9
+        },
+        "batters": {
+          "away": 13,
+          "home": 13
+        },
+        "pitchers": {
+          "away": 4,
+          "home": 5
+        },
+        "decision": {
+          "win": "艾速特",
+          "lose": "阿部雄大",
+          "save": "",
+          "mvp": "魔鷹"
         }
       },
       "vueStatus": "confirmed",

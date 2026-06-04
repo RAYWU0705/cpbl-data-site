@@ -310,6 +310,23 @@
     "version": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
     "updatedAt": "2026-06-03T02:25:42.497Z"
   },
+  "141": {
+    "gameSno": 141,
+    "gameNo": 141,
+    "date": "2026-06-04",
+    "awayTeam": "富邦悍將",
+    "homeTeam": "台鋼雄鷹",
+    "away": "李東洺",
+    "home": "黃子鵬",
+    "awayName": "李東洺",
+    "homeName": "黃子鵬",
+    "awayProbablePitcher": "李東洺",
+    "homeProbablePitcher": "黃子鵬",
+    "awayStarter": "李東洺",
+    "homeStarter": "黃子鵬",
+    "source": "manual-official-site",
+    "updatedAt": "2026-06-04T06:10:13.742Z"
+  },
   "games": [
     {
       "gameSno": 24,
