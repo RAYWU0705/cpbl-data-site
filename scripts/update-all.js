@@ -37,6 +37,29 @@ const IMPORTANT_DATA_FILES = [
   "data/live/player-transactions.json"
 ];
 
+const MAINTENANCE_DIRECTORIES = [
+  "data/live/backups",
+  "data/live/backups/important",
+  "data/live/backups/dense-snapshots",
+  "data/live/backups/old-runs",
+  "data/live/backup",
+  "data/live/backup/early-builds",
+  "data/live/backup/dense-vue-baks",
+  "data/live/backup/latest-checkpoints",
+  "data/farm/backup",
+  "data/farm/backup/schedule",
+  "data/farm/backup/boxscore",
+  "scripts/danger"
+];
+
+const DASHBOARD_DATA_FILES = [
+  "data/live/final-boxscore-vue-2026.json",
+  "data/live/final-boxscore-vue-merge-2026.report.json",
+  "data/live/final-vue-rescue-2026.report.json",
+  "data/farm/farm-schedule-2026.json",
+  "data/farm/farm-boxscore-2026.json",
+  "data/manual/manual-boxscore-overrides.json"
+];
 const STAGES = [
   {
     key: "players",
@@ -446,7 +469,9 @@ async function runHealthCheck(tasks) {
 
   items.push(await checkDirectory(ROOT_DIR, "專案根目錄"));
   items.push(await checkDirectory(LOG_DIR, "Log 目錄", true));
-
+  for (const dir of MAINTENANCE_DIRECTORIES) {
+    items.push(await checkDirectory(path.join(ROOT_DIR, dir), dir));
+  }
   for (const task of tasks) {
     if (isCandidateOnlyTask(task)) {
       const found = await resolveTaskScripts(task);
@@ -486,7 +511,68 @@ async function runHealthCheck(tasks) {
         : "目前不存在，若腳本成功可能會建立"
     });
   }
+  
+  for (const file of DASHBOARD_DATA_FILES) {
+    const filepath = path.join(ROOT_DIR, file);
 
+    items.push({
+      label: file,
+      ok: true,
+      message: await fileExists(filepath)
+        ? "存在"
+        : "目前不存在，若對應功能未啟用可忽略"
+    });
+  }
+  const taskScriptText = STAGES
+    .flatMap(stage => getTaskScripts(stage))
+    .join("\n");
+
+  items.push({
+    label: "danger guard",
+    ok: !taskScriptText.includes("fetch-cpbl-schedule-score"),
+    message: taskScriptText.includes("fetch-cpbl-schedule-score")
+      ? "主流程疑似引用高風險 schedule-score 腳本"
+      : "主流程未引用 fetch-cpbl-schedule-score"
+  });
+
+  const pendingLiveBackups = await countFilesInDirectory(
+    path.join(ROOT_DIR, "data/live/backups"),
+    file => file.endsWith(".json")
+  );
+
+  const pendingVueBaks = await countFilesInDirectory(
+    path.join(ROOT_DIR, "data/live/backup"),
+    file => file.endsWith(".bak")
+  );
+
+  const pendingFarmBaks = await countFilesInDirectory(
+    path.join(ROOT_DIR, "data/farm/backup"),
+    file => file.endsWith(".bak")
+  );
+
+  items.push({
+    label: "data/live/backups 根目錄待分類",
+    ok: true,
+    message: pendingLiveBackups > 0
+      ? `目前有 ${pendingLiveBackups} 個新備份待分類`
+      : "目前無新備份待分類"
+  });
+
+  items.push({
+    label: "data/live/backup 根目錄待分類",
+    ok: true,
+    message: pendingVueBaks > 0
+      ? `目前有 ${pendingVueBaks} 個 .bak 待分類`
+      : "目前無新 .bak 待分類"
+  });
+
+  items.push({
+    label: "data/farm/backup 根目錄待分類",
+    ok: true,
+    message: pendingFarmBaks > 0
+      ? `目前有 ${pendingFarmBaks} 個 .bak 待分類`
+      : "目前無新 .bak 待分類"
+  });
   const ok = items
     .filter(item => {
       return !IMPORTANT_DATA_FILES.includes(item.label);
@@ -530,6 +616,18 @@ async function checkDirectory(dir, label, create = false) {
   }
 }
 
+async function countFilesInDirectory(dir, predicate = () => true) {
+  try {
+    const entries = await fs.readdir(dir, { withFileTypes: true });
+
+    return entries.filter(entry => {
+      if (!entry.isFile()) return false;
+      return predicate(entry.name);
+    }).length;
+  } catch {
+    return 0;
+  }
+}
 /* =========================
    Backup
 ========================= */
