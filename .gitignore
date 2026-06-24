@@ -6,3 +6,4 @@ data/live/backup/
 scripts/backup/
 *.bak
 .DS_Store
+local-tools/

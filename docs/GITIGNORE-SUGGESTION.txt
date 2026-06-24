@@ -1,0 +1,6 @@
+# v5.6.1-B 搬移 LOCAL TOOL 後再加入
+local-tools/
+
+# 可選：若未來產生 HTML snapshot
+*.snapshot.html
+*.debug.html

@@ -1,30 +1,96 @@
 {
-  "version": "v5.4.3-FINAL-VUE-RESCUE-RANGE",
+  "version": "v5.4.4-FINAL-VUE-RESCUE-TARGETED-MERGE",
   "year": 2026,
-  "generatedAt": "2026-05-28T08:45:29.969Z",
+  "generatedAt": "2026-06-17T02:08:37.544Z",
   "dryRun": false,
   "write": true,
   "mergeEach": false,
   "skipMerge": false,
   "args": {
-    "date": "2026-05-22",
+    "date": "",
     "dates": "",
-    "from": "",
-    "to": "",
-    "gameSno": "113",
+    "from": "2026-06-12",
+    "to": "2026-06-16",
+    "gameSno": "",
     "games": "",
     "limit": 0
   },
   "targets": [
     {
-      "gameSno": 113,
-      "date": "2026-05-22",
-      "away": "富邦悍將",
-      "home": "樂天桃猿",
+      "gameSno": 159,
+      "date": "2026-06-12",
+      "away": "樂天桃猿",
+      "home": "台鋼雄鷹",
       "status": "final",
       "score": {
-        "away": 2,
-        "home": 3
+        "away": 1,
+        "home": 0
+      }
+    },
+    {
+      "gameSno": 160,
+      "date": "2026-06-13",
+      "away": "統一7-ELEVEn獅",
+      "home": "味全龍",
+      "status": "final",
+      "score": {
+        "away": 6,
+        "home": 1
+      }
+    },
+    {
+      "gameSno": 161,
+      "date": "2026-06-13",
+      "away": "台鋼雄鷹",
+      "home": "富邦悍將",
+      "status": "final",
+      "score": {
+        "away": 9,
+        "home": 0
+      }
+    },
+    {
+      "gameSno": 162,
+      "date": "2026-06-13",
+      "away": "樂天桃猿",
+      "home": "中信兄弟",
+      "status": "final",
+      "score": {
+        "away": 9,
+        "home": 9
+      }
+    },
+    {
+      "gameSno": 163,
+      "date": "2026-06-14",
+      "away": "統一7-ELEVEn獅",
+      "home": "味全龍",
+      "status": "final",
+      "score": {
+        "away": 7,
+        "home": 5
+      }
+    },
+    {
+      "gameSno": 164,
+      "date": "2026-06-14",
+      "away": "台鋼雄鷹",
+      "home": "富邦悍將",
+      "status": "final",
+      "score": {
+        "away": 0,
+        "home": 7
+      }
+    },
+    {
+      "gameSno": 166,
+      "date": "2026-06-16",
+      "away": "中信兄弟",
+      "home": "台鋼雄鷹",
+      "status": "final",
+      "score": {
+        "away": 1,
+        "home": 6
       }
     }
   ],
@@ -32,30 +98,132 @@
     {
       "type": "fetch",
       "target": {
-        "gameSno": 113,
-        "date": "2026-05-22",
-        "away": "富邦悍將",
-        "home": "樂天桃猿",
+        "gameSno": 159,
+        "date": "2026-06-12",
+        "away": "樂天桃猿",
+        "home": "台鋼雄鷹",
         "status": "final",
         "score": {
-          "away": 2,
-          "home": 3
+          "away": 1,
+          "home": 0
         }
       },
       "ok": true,
       "code": 0,
-      "durationMs": 8789
+      "durationMs": 48082
+    },
+    {
+      "type": "fetch",
+      "target": {
+        "gameSno": 160,
+        "date": "2026-06-13",
+        "away": "統一7-ELEVEn獅",
+        "home": "味全龍",
+        "status": "final",
+        "score": {
+          "away": 6,
+          "home": 1
+        }
+      },
+      "ok": true,
+      "code": 0,
+      "durationMs": 17659
+    },
+    {
+      "type": "fetch",
+      "target": {
+        "gameSno": 161,
+        "date": "2026-06-13",
+        "away": "台鋼雄鷹",
+        "home": "富邦悍將",
+        "status": "final",
+        "score": {
+          "away": 9,
+          "home": 0
+        }
+      },
+      "ok": true,
+      "code": 0,
+      "durationMs": 52856
+    },
+    {
+      "type": "fetch",
+      "target": {
+        "gameSno": 162,
+        "date": "2026-06-13",
+        "away": "樂天桃猿",
+        "home": "中信兄弟",
+        "status": "final",
+        "score": {
+          "away": 9,
+          "home": 9
+        }
+      },
+      "ok": true,
+      "code": 0,
+      "durationMs": 49131
+    },
+    {
+      "type": "fetch",
+      "target": {
+        "gameSno": 163,
+        "date": "2026-06-14",
+        "away": "統一7-ELEVEn獅",
+        "home": "味全龍",
+        "status": "final",
+        "score": {
+          "away": 7,
+          "home": 5
+        }
+      },
+      "ok": true,
+      "code": 0,
+      "durationMs": 51076
+    },
+    {
+      "type": "fetch",
+      "target": {
+        "gameSno": 164,
+        "date": "2026-06-14",
+        "away": "台鋼雄鷹",
+        "home": "富邦悍將",
+        "status": "final",
+        "score": {
+          "away": 0,
+          "home": 7
+        }
+      },
+      "ok": true,
+      "code": 0,
+      "durationMs": 56323
+    },
+    {
+      "type": "fetch",
+      "target": {
+        "gameSno": 166,
+        "date": "2026-06-16",
+        "away": "中信兄弟",
+        "home": "台鋼雄鷹",
+        "status": "final",
+        "score": {
+          "away": 1,
+          "home": 6
+        }
+      },
+      "ok": true,
+      "code": 0,
+      "durationMs": 52008
     },
     {
       "type": "merge-final",
       "ok": true,
       "code": 0,
-      "durationMs": 2782
+      "durationMs": 20593
     }
   ],
   "summary": {
-    "targets": 1,
-    "fetchOk": 1,
+    "targets": 7,
+    "fetchOk": 7,
     "fetchFailed": 0,
     "mergeOk": 1,
     "mergeFailed": 0

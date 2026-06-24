@@ -1,0 +1,455 @@
+[
+  {
+    "gameSno": 154,
+    "sourceStage": "pregame",
+    "meta": {
+      "date": "2026-06-11",
+      "home": "味全龍",
+      "away": "中信兄弟",
+      "status": "scheduled",
+      "statusText": "比賽尚未開始",
+      "type": "regular",
+      "typeText": "一軍例行賽",
+      "time": "18:35",
+      "duration": "",
+      "venue": "天母",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?year=2026&kindCode=A&gameSno=154",
+      "urlMode": "pregame",
+      "win": null,
+      "lose": null,
+      "save": null,
+      "mvp": null
+    },
+    "lineScore": {
+      "away": [],
+      "home": []
+    },
+    "totals": {
+      "away": {
+        "R": 0,
+        "H": null,
+        "E": null
+      },
+      "home": {
+        "R": 0,
+        "H": null,
+        "E": null
+      }
+    },
+    "batters": {
+      "away": [],
+      "home": []
+    },
+    "pitchers": {
+      "away": [],
+      "home": []
+    },
+    "pregame": {
+      "starters": {
+        "away": "菲力士",
+        "home": "蔣銲"
+      },
+      "lineups": {
+        "away": [],
+        "home": []
+      }
+    },
+    "liveState": null,
+    "debug": {
+      "source": "fetch-cpbl-pregame-today",
+      "scheduleRaw": {
+        "PresentStatus": 1,
+        "IsGameStop": "0",
+        "GameDateTimeS": "2026-06-11T18:35:00",
+        "GameDateTimeE": null,
+        "GameDuringTime": "",
+        "MultyGame": "N",
+        "Year": "2026",
+        "KindCode": "A",
+        "GameSeasonCode": "1",
+        "GameSno": 154,
+        "GameDate": "2026-06-11T00:00:00",
+        "GameResult": "",
+        "PreExeDate": "2026-06-11T18:35:00",
+        "VisitingTeamCode": "ACN011",
+        "VisitingTeamName": "中信兄弟",
+        "HomeTeamCode": "AAA011",
+        "HomeTeamName": "味全龍",
+        "FieldAbbe": "天母",
+        "VisitingScore": 0,
+        "HomeScore": 0,
+        "MvpAcnt": "",
+        "MvpCount": null,
+        "VisitingPitcherAcnt": "0000007560",
+        "HomePitcherAcnt": "0000007779",
+        "WinningPitcherAcnt": "",
+        "LoserPitcherAcnt": "",
+        "CloserAcnt": "",
+        "VisitingClubSmallImgPath": "/files/atts/0L021497108709222204/logo_brothers.png",
+        "HomeClubSmallImgPath": "/files/atts/0L021497845061333235/logo_dragon.png",
+        "WinningPitcherName": "",
+        "LoserPitcherName": "",
+        "CloserName": "",
+        "MvpName": "",
+        "VisitingPitcherName": "",
+        "HomePitcherName": "",
+        "IsPlayBall": "N",
+        "ReserveDate": null
+      },
+      "homeCard": {
+        "gameSno": 154,
+        "awayStarter": "菲力士",
+        "homeStarter": "蔣銲",
+        "lineups": {
+          "away": [],
+          "home": []
+        },
+        "foundCard": true,
+        "source": "official-home-score-strip-body-fallback+official-home-game-card+official-box-vue-pregame-lineup",
+        "starterSource": "official-home-score-strip-body-fallback",
+        "lineupSourceAway": "official-home-score-strip-body-fallback",
+        "lineupSourceHome": "official-home-score-strip-body-fallback",
+        "starterPriority": 30,
+        "lineupPriorityAway": 40,
+        "lineupPriorityHome": 40,
+        "debugText": "English 中華職棒大聯盟全球資訊網 The Official Site of CPBL 最新消息 賽程 成績看板 球隊戰績 數據統計 球員 進階數據 聯盟商城 中信兄弟 統一7-ELEVEn獅 樂天桃猿 富邦悍將 味全龍 台鋼雄鷹 CPBLTV 成績看板BOX SCORE 首頁 2026/06/11 中信兄弟 VS. 味全龍 成績看板 一軍例行賽 一軍總冠軍賽 一軍季後挑戰賽 一軍熱身賽 一軍明星賽 二軍例行賽 二軍總冠軍賽 未來之星邀請賽 國際交流賽 年 2026 2025 2024 2023 2022 2021 2020 2019 2018 2017 2016 2015 2014 2013 2012 2011 2010 2009 2008 2007 2006 2005 2004 2003 2002 2001 2000 1999 1998 1997 1996 1995 1994 1993 1992 1991 1990 月 3 4 5 6 7 8 9 日 2 3 5 6 7 11 12 13 14 16 17 18 19 20 21 23 24 25 26 27 28 previous next 2026/06/11 (星期四) 154 中信兄弟 VS. 天母 18:35 味全龍 155 統一7-ELEVEn獅 VS. 新莊 18:35 富邦悍將 156 樂天桃猿 VS. 澄清湖 18:35 台鋼雄鷹 比賽尚未開始 中信兄弟 統一7-ELEVEn獅 樂天桃猿 富邦悍將 味全龍 台鋼雄鷹 中華職棒大聯盟全球資訊網 The Official Site of CPBL 關於中職 聯絡我們 線上文物館 球場介紹 球隊沿革 棒球規則 棒球補述 聯盟規章 網站地圖 中華職棒 版權所有 © 2026 All rights reserved. 關注我們： Facebook粉絲團 Instagram YouTube頻道",
+        "debugLines": [
+          "154 15-31-1 VS. 32-16-0 天母 18:35 陰 攝氏25度 降雨機率20% 客場先發 菲力士 主場先發 蔣銲 售票資訊"
+        ],
+        "cardRect": null,
+        "scoreStripCandidates": [],
+        "mergeGuard": {
+          "version": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
+          "rule": "starter-and-lineup-separated-priority",
+          "starterRule": "home-game-card > body-fallback > score-strip; box-vue does not override starters",
+          "lineupRule": "box-vue > home-game-card > fallback",
+          "finalStarterSource": "official-home-score-strip-body-fallback",
+          "finalAwayLineupSource": "official-home-score-strip-body-fallback",
+          "finalHomeLineupSource": "official-home-score-strip-body-fallback",
+          "selectedAwayStarter": "菲力士",
+          "selectedHomeStarter": "蔣銲",
+          "awayLineupCount": 0,
+          "homeLineupCount": 0
+        }
+      },
+      "beforeGameStart": true,
+      "parserMode": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
+      "updatedAt": "2026-06-10T14:44:41.326Z"
+    },
+    "dataQuality": {
+      "version": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
+      "source": "fetch-cpbl-pregame-today",
+      "stage": "pregame",
+      "schedule": "confirmed",
+      "starters": "confirmed",
+      "lineups": "debug",
+      "liveSafe": "confirmed",
+      "finalSafe": "confirmed",
+      "mode": "pregame-safe-parser",
+      "message": "PREGAME 安全模式：只更新 scheduled / pregame 區塊，不覆蓋 LIVE / FINAL 狀態。",
+      "updatedAt": "2026-06-10T14:44:41.326Z"
+    }
+  },
+  {
+    "gameSno": 155,
+    "sourceStage": "pregame",
+    "meta": {
+      "date": "2026-06-11",
+      "home": "富邦悍將",
+      "away": "統一7-ELEVEn獅",
+      "status": "scheduled",
+      "statusText": "比賽尚未開始",
+      "type": "regular",
+      "typeText": "一軍例行賽",
+      "time": "18:35",
+      "duration": "",
+      "venue": "新莊",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?year=2026&kindCode=A&gameSno=155",
+      "urlMode": "pregame",
+      "win": null,
+      "lose": null,
+      "save": null,
+      "mvp": null
+    },
+    "lineScore": {
+      "away": [],
+      "home": []
+    },
+    "totals": {
+      "away": {
+        "R": 0,
+        "H": null,
+        "E": null
+      },
+      "home": {
+        "R": 0,
+        "H": null,
+        "E": null
+      }
+    },
+    "batters": {
+      "away": [],
+      "home": []
+    },
+    "pitchers": {
+      "away": [],
+      "home": []
+    },
+    "pregame": {
+      "starters": {
+        "away": "林詔恩",
+        "home": "阿部雄大"
+      },
+      "lineups": {
+        "away": [],
+        "home": []
+      }
+    },
+    "liveState": null,
+    "debug": {
+      "source": "fetch-cpbl-pregame-today",
+      "scheduleRaw": {
+        "PresentStatus": 1,
+        "IsGameStop": "0",
+        "GameDateTimeS": "2026-06-11T18:35:00",
+        "GameDateTimeE": null,
+        "GameDuringTime": "",
+        "MultyGame": "N",
+        "Year": "2026",
+        "KindCode": "A",
+        "GameSeasonCode": "1",
+        "GameSno": 155,
+        "GameDate": "2026-06-11T00:00:00",
+        "GameResult": "",
+        "PreExeDate": "2026-06-11T18:35:00",
+        "VisitingTeamCode": "ADD011",
+        "VisitingTeamName": "統一7-ELEVEn獅",
+        "HomeTeamCode": "AEO011",
+        "HomeTeamName": "富邦悍將",
+        "FieldAbbe": "新莊",
+        "VisitingScore": 0,
+        "HomeScore": 0,
+        "MvpAcnt": "",
+        "MvpCount": null,
+        "VisitingPitcherAcnt": "0000006848",
+        "HomePitcherAcnt": "0000007783",
+        "WinningPitcherAcnt": "",
+        "LoserPitcherAcnt": "",
+        "CloserAcnt": "",
+        "VisitingClubSmallImgPath": "/files/atts/0L021496162893869773/logo_lions.png",
+        "HomeClubSmallImgPath": "/files/atts/0L021495969510091777/logo_fubon.png",
+        "WinningPitcherName": "",
+        "LoserPitcherName": "",
+        "CloserName": "",
+        "MvpName": "",
+        "VisitingPitcherName": "",
+        "HomePitcherName": "",
+        "IsPlayBall": "N",
+        "ReserveDate": null
+      },
+      "homeCard": {
+        "gameSno": 155,
+        "awayStarter": "林詔恩",
+        "homeStarter": "阿部雄大",
+        "lineups": {
+          "away": [],
+          "home": []
+        },
+        "foundCard": true,
+        "source": "official-home-score-strip-body-fallback+official-home-game-card+official-box-vue-pregame-lineup",
+        "starterSource": "official-home-score-strip-body-fallback",
+        "lineupSourceAway": "official-home-score-strip-body-fallback",
+        "lineupSourceHome": "official-home-score-strip-body-fallback",
+        "starterPriority": 30,
+        "lineupPriorityAway": 40,
+        "lineupPriorityHome": 40,
+        "debugText": "English 中華職棒大聯盟全球資訊網 The Official Site of CPBL 最新消息 賽程 成績看板 球隊戰績 數據統計 球員 進階數據 聯盟商城 中信兄弟 統一7-ELEVEn獅 樂天桃猿 富邦悍將 味全龍 台鋼雄鷹 CPBLTV 成績看板BOX SCORE 首頁 2026/06/11 統一7-ELEVEn獅 VS. 富邦悍將 成績看板 一軍例行賽 一軍總冠軍賽 一軍季後挑戰賽 一軍熱身賽 一軍明星賽 二軍例行賽 二軍總冠軍賽 未來之星邀請賽 國際交流賽 年 2026 2025 2024 2023 2022 2021 2020 2019 2018 2017 2016 2015 2014 2013 2012 2011 2010 2009 2008 2007 2006 2005 2004 2003 2002 2001 2000 1999 1998 1997 1996 1995 1994 1993 1992 1991 1990 月 3 4 5 6 7 8 9 日 2 3 5 6 7 11 12 13 14 16 17 18 19 20 21 23 24 25 26 27 28 previous next 2026/06/11 (星期四) 154 中信兄弟 VS. 天母 18:35 味全龍 155 統一7-ELEVEn獅 VS. 新莊 18:35 富邦悍將 156 樂天桃猿 VS. 澄清湖 18:35 台鋼雄鷹 比賽尚未開始 中信兄弟 統一7-ELEVEn獅 樂天桃猿 富邦悍將 味全龍 台鋼雄鷹 中華職棒大聯盟全球資訊網 The Official Site of CPBL 關於中職 聯絡我們 線上文物館 球場介紹 球隊沿革 棒球規則 棒球補述 聯盟規章 網站地圖 中華職棒 版權所有 © 2026 All rights reserved. 關注我們： Facebook粉絲團 Instagram YouTube頻道",
+        "debugLines": [
+          "155 24-24-1 VS. 25-21-0 新莊 18:35 雨 攝氏24至25度 降雨機率30% 客場先發 林詔恩 主場先發 阿部雄大 售票資訊"
+        ],
+        "cardRect": null,
+        "scoreStripCandidates": [],
+        "mergeGuard": {
+          "version": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
+          "rule": "starter-and-lineup-separated-priority",
+          "starterRule": "home-game-card > body-fallback > score-strip; box-vue does not override starters",
+          "lineupRule": "box-vue > home-game-card > fallback",
+          "finalStarterSource": "official-home-score-strip-body-fallback",
+          "finalAwayLineupSource": "official-home-score-strip-body-fallback",
+          "finalHomeLineupSource": "official-home-score-strip-body-fallback",
+          "selectedAwayStarter": "林詔恩",
+          "selectedHomeStarter": "阿部雄大",
+          "awayLineupCount": 0,
+          "homeLineupCount": 0
+        }
+      },
+      "beforeGameStart": true,
+      "parserMode": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
+      "updatedAt": "2026-06-10T14:44:41.326Z"
+    },
+    "dataQuality": {
+      "version": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
+      "source": "fetch-cpbl-pregame-today",
+      "stage": "pregame",
+      "schedule": "confirmed",
+      "starters": "confirmed",
+      "lineups": "debug",
+      "liveSafe": "confirmed",
+      "finalSafe": "confirmed",
+      "mode": "pregame-safe-parser",
+      "message": "PREGAME 安全模式：只更新 scheduled / pregame 區塊，不覆蓋 LIVE / FINAL 狀態。",
+      "updatedAt": "2026-06-10T14:44:41.326Z"
+    }
+  },
+  {
+    "gameSno": 156,
+    "sourceStage": "pregame",
+    "meta": {
+      "date": "2026-06-11",
+      "home": "台鋼雄鷹",
+      "away": "樂天桃猿",
+      "status": "scheduled",
+      "statusText": "比賽尚未開始",
+      "type": "regular",
+      "typeText": "一軍例行賽",
+      "time": "18:35",
+      "duration": "",
+      "venue": "澄清湖",
+      "officialUrl": "https://www.cpbl.com.tw/box/index?year=2026&kindCode=A&gameSno=156",
+      "urlMode": "pregame",
+      "win": null,
+      "lose": null,
+      "save": null,
+      "mvp": null
+    },
+    "lineScore": {
+      "away": [],
+      "home": []
+    },
+    "totals": {
+      "away": {
+        "R": 0,
+        "H": null,
+        "E": null
+      },
+      "home": {
+        "R": 0,
+        "H": null,
+        "E": null
+      }
+    },
+    "batters": {
+      "away": [],
+      "home": []
+    },
+    "pitchers": {
+      "away": [],
+      "home": []
+    },
+    "pregame": {
+      "starters": {
+        "away": "魔爾曼",
+        "home": "艾速特"
+      },
+      "lineups": {
+        "away": [],
+        "home": []
+      }
+    },
+    "liveState": null,
+    "debug": {
+      "source": "fetch-cpbl-pregame-today",
+      "scheduleRaw": {
+        "PresentStatus": 1,
+        "IsGameStop": "0",
+        "GameDateTimeS": "2026-06-11T18:35:00",
+        "GameDateTimeE": null,
+        "GameDuringTime": "",
+        "MultyGame": "N",
+        "Year": "2026",
+        "KindCode": "A",
+        "GameSeasonCode": "1",
+        "GameSno": 156,
+        "GameDate": "2026-06-11T00:00:00",
+        "GameResult": "",
+        "PreExeDate": "2026-06-11T18:35:00",
+        "VisitingTeamCode": "AJL011",
+        "VisitingTeamName": "樂天桃猿",
+        "HomeTeamCode": "AKP011",
+        "HomeTeamName": "台鋼雄鷹",
+        "FieldAbbe": "澄清湖",
+        "VisitingScore": 0,
+        "HomeScore": 0,
+        "MvpAcnt": "",
+        "MvpCount": null,
+        "VisitingPitcherAcnt": "0000007790",
+        "HomePitcherAcnt": "0000007053",
+        "WinningPitcherAcnt": "",
+        "LoserPitcherAcnt": "",
+        "CloserAcnt": "",
+        "VisitingClubSmallImgPath": "/files/atts/0L015574823122453305/2024_CPBL六隊Logo_R2_官網.png",
+        "HomeClubSmallImgPath": "/files/atts/0M259522048557486065/單色T-100x100.png",
+        "WinningPitcherName": "",
+        "LoserPitcherName": "",
+        "CloserName": "",
+        "MvpName": "",
+        "VisitingPitcherName": "",
+        "HomePitcherName": "",
+        "IsPlayBall": "N",
+        "ReserveDate": null
+      },
+      "homeCard": {
+        "gameSno": 156,
+        "awayStarter": "魔爾曼",
+        "homeStarter": "艾速特",
+        "lineups": {
+          "away": [],
+          "home": []
+        },
+        "foundCard": true,
+        "source": "official-home-score-strip-body-fallback+official-home-game-card+official-box-vue-pregame-lineup",
+        "starterSource": "official-home-score-strip-body-fallback",
+        "lineupSourceAway": "official-home-score-strip-body-fallback",
+        "lineupSourceHome": "official-home-score-strip-body-fallback",
+        "starterPriority": 30,
+        "lineupPriorityAway": 40,
+        "lineupPriorityHome": 40,
+        "debugText": "English 中華職棒大聯盟全球資訊網 The Official Site of CPBL 最新消息 賽程 成績看板 球隊戰績 數據統計 球員 進階數據 聯盟商城 中信兄弟 統一7-ELEVEn獅 樂天桃猿 富邦悍將 味全龍 台鋼雄鷹 CPBLTV 成績看板BOX SCORE 首頁 2026/06/11 樂天桃猿 VS. 台鋼雄鷹 成績看板 一軍例行賽 一軍總冠軍賽 一軍季後挑戰賽 一軍熱身賽 一軍明星賽 二軍例行賽 二軍總冠軍賽 未來之星邀請賽 國際交流賽 年 2026 2025 2024 2023 2022 2021 2020 2019 2018 2017 2016 2015 2014 2013 2012 2011 2010 2009 2008 2007 2006 2005 2004 2003 2002 2001 2000 1999 1998 1997 1996 1995 1994 1993 1992 1991 1990 月 3 4 5 6 7 8 9 日 2 3 5 6 7 11 12 13 14 16 17 18 19 20 21 23 24 25 26 27 28 previous next 2026/06/11 (星期四) 154 中信兄弟 VS. 天母 18:35 味全龍 155 統一7-ELEVEn獅 VS. 新莊 18:35 富邦悍將 156 樂天桃猿 VS. 澄清湖 18:35 台鋼雄鷹 比賽尚未開始 中信兄弟 統一7-ELEVEn獅 樂天桃猿 富邦悍將 味全龍 台鋼雄鷹 中華職棒大聯盟全球資訊網 The Official Site of CPBL 關於中職 聯絡我們 線上文物館 球場介紹 球隊沿革 棒球規則 棒球補述 聯盟規章 網站地圖 中華職棒 版權所有 © 2026 All rights reserved. 關注我們： Facebook粉絲團 Instagram YouTube頻道",
+        "debugLines": [
+          "156 18-27-1 VS. 26-21-1 澄清湖 18:35 雨 攝氏28至29度 降雨機率30% 客場先發 魔爾曼 主場先發 艾速特 售票資訊"
+        ],
+        "cardRect": null,
+        "scoreStripCandidates": [],
+        "mergeGuard": {
+          "version": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
+          "rule": "starter-and-lineup-separated-priority",
+          "starterRule": "home-game-card > body-fallback > score-strip; box-vue does not override starters",
+          "lineupRule": "box-vue > home-game-card > fallback",
+          "finalStarterSource": "official-home-score-strip-body-fallback",
+          "finalAwayLineupSource": "official-home-score-strip-body-fallback",
+          "finalHomeLineupSource": "official-home-score-strip-body-fallback",
+          "selectedAwayStarter": "魔爾曼",
+          "selectedHomeStarter": "艾速特",
+          "awayLineupCount": 0,
+          "homeLineupCount": 0
+        }
+      },
+      "beforeGameStart": true,
+      "parserMode": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
+      "updatedAt": "2026-06-10T14:44:41.326Z"
+    },
+    "dataQuality": {
+      "version": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
+      "source": "fetch-cpbl-pregame-today",
+      "stage": "pregame",
+      "schedule": "confirmed",
+      "starters": "confirmed",
+      "lineups": "debug",
+      "liveSafe": "confirmed",
+      "finalSafe": "confirmed",
+      "mode": "pregame-safe-parser",
+      "message": "PREGAME 安全模式：只更新 scheduled / pregame 區塊，不覆蓋 LIVE / FINAL 狀態。",
+      "updatedAt": "2026-06-10T14:44:41.326Z"
+    }
+  }
+]

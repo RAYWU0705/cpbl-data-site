@@ -1,4 +1,4 @@
-console.log("✅ team-roster.js v5.5.0-PLAYER-PROFILE-LINK 已載入");
+console.log("✅ team-roster.js v5.5.1-ROUTE-SAFE 已載入");
 
 /* =========================================================
    Ray's CPBL Data Site
@@ -12,7 +12,15 @@ console.log("✅ team-roster.js v5.5.0-PLAYER-PROFILE-LINK 已載入");
    - 沒資料時清楚顯示，不爆版
 ========================================================= */
 
-const VERSION = "v5.5.0-PLAYER-PROFILE-LINK";
+const VERSION = "v5.5.1-ROUTE-SAFE";
+
+function routeSafeUrl(relativePath) {
+  if (window.CPBLSiteRoot?.url) {
+    return window.CPBLSiteRoot.url(relativePath);
+  }
+
+  return relativePath;
+}
 
 const TEAM_META = {
   brothers: {
@@ -130,9 +138,14 @@ async function initRosterPage() {
 }
 
 async function loadRoster(id) {
-  const res = await fetch(`data/rosters/${encodeURIComponent(id)}.json?ts=${Date.now()}`, {
-    cache: "no-store"
-  });
+  const res = await fetch(
+    routeSafeUrl(
+      `data/rosters/${encodeURIComponent(id)}.json?ts=${Date.now()}`
+    ),
+    {
+      cache: "no-store"
+    }
+  );
 
   if (!res.ok) throw new Error("roster not found");
   return res.json();

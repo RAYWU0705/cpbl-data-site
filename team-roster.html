@@ -1,11 +1,37 @@
 <!DOCTYPE html>
+
+<!--
+=========================================================
+CPBL Data Site Page Metadata
+Page Type: PUBLIC
+Page Name: 球隊名單
+Route: /team-roster.html
+Deploy: YES
+Navigation: CONTEXT
+Maintainer: Ray
+Status: ACTIVE
+=========================================================
+-->
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>CPBL 球隊名單｜Ray's CPBL Data Site</title>
-  <link rel="stylesheet" href="css/style.css">
+    <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem("cpbl-theme");
+        const dark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+        const theme = saved === "dark" || saved === "light" ? saved : (dark ? "dark" : "light");
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch {
+        document.documentElement.dataset.theme = "light";
+      }
+    })();
+  </script>
+<link rel="stylesheet" href="css/style.css">
   <style>
     .player-card-link {
       display: block;
@@ -32,6 +58,8 @@
   <meta name="apple-mobile-web-app-title" content="CPBL Data">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="apple-touch-icon" href="assets/logo/cpbl.png">
+  <link rel="stylesheet" href="css/theme.css?v=560c">
+  <link rel="stylesheet" href="css/teams-theme.css?v=560c">
 </head>
 
 <body data-page="team-roster">
@@ -117,8 +145,10 @@
   明叡 × ChatGPT
 </footer>
 
+<script src="js/site-root.js?v=561d"></script>
 <script src="js/team-roster.js?v=550-player-link"></script>
 <script src="js/version.js"></script>
 
+<script src="js/theme.js?v=560c"></script>
 </body>
 </html>

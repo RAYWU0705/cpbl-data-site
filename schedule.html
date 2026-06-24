@@ -1,4 +1,17 @@
 <!DOCTYPE html>
+
+<!--
+=========================================================
+CPBL Data Site Page Metadata
+Page Type: PUBLIC
+Page Name: 一軍賽程
+Route: /schedule.html
+Deploy: YES
+Navigation: MAIN
+Maintainer: Ray
+Status: ACTIVE
+=========================================================
+-->
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
@@ -11,7 +24,24 @@
   <meta name="apple-mobile-web-app-title" content="CPBL Data">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="apple-touch-icon" href="assets/logo/cpbl.png">
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem("cpbl-theme");
+        const systemDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+        const theme = saved === "dark" || saved === "light"
+          ? saved
+          : (systemDark ? "dark" : "light");
+
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch {
+        document.documentElement.dataset.theme = "light";
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/theme.css?v=560a">
   <link rel="stylesheet" href="css/schedule.css">
 </head>
 
@@ -193,7 +223,9 @@
   明叡 × ChatGPT
 </footer>
 
+<script src="js/site-root.js?v=561d"></script>
 <script type="module" src="js/pages/schedule.js?v=524"></script>
+<script src="js/theme.js?v=560a"></script>
 <script src="js/version.js"></script>
 <script src="js/pwa-register.js"></script>
 </body>

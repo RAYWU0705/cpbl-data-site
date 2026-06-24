@@ -1,5 +1,5 @@
 /* =========================
-   index.js v5.2.8-HOME-LOCALSTORAGE-QUOTA-GUARD
+   index.js v5.2.9-HOME-SPECIAL-STATUS-BANNER
    首頁穩定化 + dataQuality 安全顯示 + 二軍入口
    - 讀取 data/live/live-boxscore.json
    - 讀取 data/live/probable-pitchers.json
@@ -17,12 +17,20 @@
 
 import { calculateStandings } from "../standingsEngine.js";
 
-const VERSION = "v5.2.8-HOME-LOCALSTORAGE-QUOTA-GUARD";
+const VERSION = "v5.2.10-HOME-ROUTE-SAFE-SEARCH";
 
 const LIVE_JSON_URL = "data/live/live-boxscore.json";
 const PROBABLE_JSON_URL = "data/live/probable-pitchers.json";
 const LEAGUE_NEWS_JSON_URL = "data/live/league-news.json";
 const LOCAL_BOX_KEY = "cpbl_boxscore";
+
+function routeSafeUrl(relativePath) {
+  if (window.CPBLSiteRoot?.url) {
+    return window.CPBLSiteRoot.url(relativePath);
+  }
+
+  return relativePath;
+}
 
 const TEAM_ID_MAP = {
   "中信兄弟": "brothers",
@@ -1117,7 +1125,11 @@ function renderOfficialScoreCard(g) {
         <div class="official-status">${getStatusText(g.status)}</div>
         <div class="official-main">${mainText}</div>
         <div class="official-meta">
-          ${escapeHtml(g.venue || "球場待定")}｜${escapeHtml(g.time || g.duration || "時間未定")}
+          ${
+            ["postponed", "suspended", "cancelled"].includes(g.status)
+              ? escapeHtml(g.venue || "球場待定")
+              : `${escapeHtml(g.venue || "球場待定")}｜${escapeHtml(g.time || g.duration || "時間未定")}`
+          }
         </div>
         <div class="official-sub">${subText}</div>
       </div>
@@ -1139,6 +1151,14 @@ function renderOfficialScoreCard(g) {
 }
 
 function renderOfficialExtraInfo(g) {
+  if (
+    g.status === "postponed" ||
+    g.status === "suspended" ||
+    g.status === "cancelled"
+  ) {
+    return "";
+  }
+
   if (g.status === "final") {
     const items = [];
 
@@ -1320,6 +1340,18 @@ function getHomeStarter(g) {
 }
 
 function getOfficialMainText(g) {
+  if (g.status === "postponed") {
+    return `<span class="official-special-status-text is-postponed">延賽</span>`;
+  }
+
+  if (g.status === "suspended") {
+    return `<span class="official-special-status-text is-suspended">保留比賽</span>`;
+  }
+
+  if (g.status === "cancelled") {
+    return `<span class="official-special-status-text is-cancelled">取消</span>`;
+  }
+
   if (hasScore(g)) {
     const awayScore =
       typeof g.awayScore === "number"
@@ -2404,7 +2436,9 @@ function bindHomeSearch() {
       return;
     }
 
-    location.href = `search.html?q=${encodeURIComponent(q)}`;
+    location.href = routeSafeUrl(
+      `search.html?q=${encodeURIComponent(q)}`
+    );
   }
 
   btn.addEventListener("click", goSearch);

@@ -1,5 +1,5 @@
 // =========================
-// CPBL ADMIN BOXSCORE v2
+// CPBL ADMIN BOXSCORE v2.1 ROUTE-SAFE
 // JSON + localStorage 雙模式
 // =========================
 
@@ -9,6 +9,14 @@ let currentGameId = "";
 let currentBox = null;
 
 const LOCAL_KEY = "cpbl_boxscore";
+
+function routeSafeUrl(relativePath) {
+  if (window.CPBLSiteRoot?.url) {
+    return window.CPBLSiteRoot.url(relativePath);
+  }
+
+  return relativePath;
+}
 
 // DOM
 const monthInput = document.getElementById("monthInput");
@@ -57,7 +65,10 @@ async function loadMonthData(m){
   month = m;
 
   try{
-    const res = await fetch(`data/boxscore-${m}.json`);
+    const res = await fetch(
+      routeSafeUrl(`data/boxscore-${m}.json`),
+      { cache: "no-store" }
+    );
     if (!res.ok) throw new Error();
 
     boxscoreData = await res.json();

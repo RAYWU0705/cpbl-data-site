@@ -327,6 +327,116 @@
     "source": "manual-official-site",
     "updatedAt": "2026-06-04T06:10:13.742Z"
   },
+  "142": {
+    "gameSno": 142,
+    "date": "2026-06-05",
+    "awayTeam": "樂天桃猿",
+    "homeTeam": "中信兄弟",
+    "away": "艾菩樂",
+    "home": "鄭浩均",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
+    "updatedAt": "2026-06-05T07:49:04.027Z"
+  },
+  "143": {
+    "gameSno": 143,
+    "date": "2026-06-05",
+    "awayTeam": "富邦悍將",
+    "homeTeam": "統一7-ELEVEn獅",
+    "away": "魔力藍",
+    "home": "布雷克",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
+    "updatedAt": "2026-06-05T07:49:04.027Z"
+  },
+  "144": {
+    "gameSno": 144,
+    "date": "2026-06-05",
+    "awayTeam": "味全龍",
+    "homeTeam": "台鋼雄鷹",
+    "away": "例行賽編號",
+    "home": "賽事將延至補賽週",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
+    "updatedAt": "2026-06-05T07:49:04.027Z"
+  },
+  "153": {
+    "gameSno": 153,
+    "date": "2026-06-10",
+    "awayTeam": "統一7-ELEVEn獅",
+    "homeTeam": "樂天桃猿",
+    "away": "例行賽編號",
+    "home": "桃園",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
+    "updatedAt": "2026-06-10T14:10:15.847Z"
+  },
+  "154": {
+    "gameSno": 154,
+    "date": "2026-06-11",
+    "awayTeam": "中信兄弟",
+    "homeTeam": "味全龍",
+    "away": "菲力士",
+    "home": "蔣銲",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
+    "updatedAt": "2026-06-10T14:44:50.091Z"
+  },
+  "155": {
+    "gameSno": 155,
+    "date": "2026-06-11",
+    "awayTeam": "統一7-ELEVEn獅",
+    "homeTeam": "富邦悍將",
+    "away": "林詔恩",
+    "home": "阿部雄大",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
+    "updatedAt": "2026-06-10T14:44:50.091Z"
+  },
+  "156": {
+    "gameSno": 156,
+    "date": "2026-06-11",
+    "awayTeam": "樂天桃猿",
+    "homeTeam": "台鋼雄鷹",
+    "away": "魔爾曼",
+    "home": "艾速特",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD",
+    "updatedAt": "2026-06-10T14:44:50.091Z"
+  },
+  "157": {
+    "gameSno": 157,
+    "date": "2026-06-12",
+    "awayTeam": "中信兄弟",
+    "homeTeam": "味全龍",
+    "away": "羅戈",
+    "home": "魔神龍",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-11-PREGAME-LOOSE-PLAYERS-PRESERVE-HOTFIX",
+    "updatedAt": "2026-06-12T06:59:47.668Z"
+  },
+  "158": {
+    "gameSno": 158,
+    "date": "2026-06-12",
+    "awayTeam": "統一7-ELEVEn獅",
+    "homeTeam": "富邦悍將",
+    "away": "布雷克",
+    "home": "魔力藍",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-11-PREGAME-LOOSE-PLAYERS-PRESERVE-HOTFIX",
+    "updatedAt": "2026-06-12T06:59:47.668Z"
+  },
+  "159": {
+    "gameSno": 159,
+    "date": "2026-06-12",
+    "awayTeam": "樂天桃猿",
+    "homeTeam": "台鋼雄鷹",
+    "away": "魔爾曼",
+    "home": "後勁",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-11-PREGAME-LOOSE-PLAYERS-PRESERVE-HOTFIX",
+    "updatedAt": "2026-06-12T06:59:47.668Z"
+  },
   "games": [
     {
       "gameSno": 24,

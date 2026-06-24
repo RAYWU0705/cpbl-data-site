@@ -5,7 +5,7 @@ import path from "path";
 /* =========================================================
    Ray's CPBL Data Site
    merge-first-team-final-vue-boxscore.js
-   v5.4.2-FIRST-TEAM-FINAL-VUE-MERGE-FORCE-SCHEDULED
+   v5.5.1-EXACT-SPECIAL-STATUS-CATASTROPHIC-GUARD
 
    一軍 FINAL Vue boxscore 旁路補強合併：
    - 讀 data/live/live-boxscore.json
@@ -16,11 +16,17 @@ import path from "path";
    - 不改三大主爬蟲
 ========================================================= */
 
-const VERSION = "v5.4.2-FIRST-TEAM-FINAL-VUE-MERGE-FORCE-SCHEDULED";
+const VERSION = "v5.5.1-EXACT-SPECIAL-STATUS-CATASTROPHIC-GUARD";
 const YEAR = Number(getArg("--year", "2026"));
 const DRY_RUN = hasArg("--dry-run");
 const WRITE = hasArg("--write") || !DRY_RUN;
 const FORCE = hasArg("--force") || hasArg("--include-scheduled-with-vue");
+const ONLY_GAMES = new Set(
+  getArg("--games", "")
+    .split(",")
+    .map(v => String(v || "").trim())
+    .filter(Boolean)
+);
 
 const ROOT = process.cwd();
 
@@ -63,6 +69,7 @@ async function main() {
       matched: 0,
       merged: 0,
       skippedNotFinal: 0,
+      skippedProtectedStatus: 0,
       forcedScheduledToFinal: 0,
       skippedNoVue: 0,
       skippedVueNotConfirmed: 0
@@ -73,6 +80,20 @@ async function main() {
   };
 
   const mergedGames = liveGames.map(game => {
+    const gameSno = String(pickGameSno(game));
+
+    if (ONLY_GAMES.size && !ONLY_GAMES.has(gameSno)) {
+      return game;
+    }
+
+    const protectedStatus = getProtectedStatus(game);
+
+    if (protectedStatus) {
+      report.counts.skippedProtectedStatus++;
+      report.skippedGames.push(makeSkipRow(game, `protected-status-${protectedStatus}`));
+      return sanitizeProtectedGame(game, protectedStatus);
+    }
+
     const status = normalizeStatus(game?.meta?.status || game?.status || "");
     const vue = findVueGame(game, vueMap);
 
@@ -124,10 +145,12 @@ async function main() {
   });
 
   validateMergedGames(mergedGames, report);
+  assertNoCatastrophicStatusDowngrade(liveGames, mergedGames);
 
   console.log(`📦 live-boxscore 總筆數：${report.counts.liveTotal}`);
   console.log(`📦 Vue boxscore 總筆數：${report.counts.vueTotal}`);
   console.log(`🏁 live final 場次：${report.counts.liveFinal}`);
+  console.log(`🛡️ 特殊狀態保護跳過：${report.counts.skippedProtectedStatus}`);
   console.log(`🧲 force scheduled→final：${report.counts.forcedScheduledToFinal}`);
   console.log(`🔗 匹配 Vue 場次：${report.counts.matched}`);
   console.log(`✅ 補強完成：${report.counts.merged}`);
@@ -213,6 +236,9 @@ function getGameKeys(game) {
 }
 
 function mergeGame(game, vue, options = {}) {
+  const protectedStatus = getProtectedStatus(game);
+  if (protectedStatus) return sanitizeProtectedGame(game, protectedStatus);
+
   const merged = cloneJson(game);
 
   merged.gameSno = pickGameSno(game) || pickGameSno(vue);
@@ -328,6 +354,30 @@ function buildMergedDataQuality(merged, original, vue) {
   };
 }
 
+function assertNoCatastrophicStatusDowngrade(beforeGames, afterGames) {
+  const countStatus = (games, wanted) =>
+    games.filter(game =>
+      normalizeStatus(game?.meta?.status || game?.status || "") === wanted
+    ).length;
+
+  const beforeFinal = countStatus(beforeGames, "final");
+  const afterFinal = countStatus(afterGames, "final");
+  const afterSuspended = countStatus(afterGames, "suspended");
+  const finalLoss = beforeFinal - afterFinal;
+
+  if (finalLoss > 3 || (beforeFinal >= 20 && afterFinal < beforeFinal * 0.9)) {
+    throw new Error(
+      `災難防護啟動：FINAL ${beforeFinal} → ${afterFinal}，拒絕寫入`
+    );
+  }
+
+  if (afterSuspended > 10) {
+    throw new Error(
+      `災難防護啟動：suspended 異常增加至 ${afterSuspended} 場，拒絕寫入`
+    );
+  }
+}
+
 function validateMergedGames(games, report) {
   games.forEach(game => {
     if (normalizeStatus(game?.meta?.status) !== "final") return;
@@ -416,6 +466,68 @@ async function backupExistingFile(filePath) {
 
 function pickGameSno(game) {
   return Number(game?.gameSno || game?.meta?.gameSno || game?.officialGameSno || 0);
+}
+
+function getProtectedStatus(game = {}) {
+  const metaStatus = normalizeStatus(game?.meta?.status || "");
+  const topStatus = normalizeStatus(game?.status || "");
+  const stage = normalizeStatus(game?.dataQuality?.stage || "");
+
+  for (const value of [metaStatus, topStatus, stage]) {
+    if (value === "suspended") return "suspended";
+    if (value === "postponed") return "postponed";
+    if (value === "cancelled" || value === "canceled") return "cancelled";
+  }
+
+  const statusTexts = [
+    String(game?.meta?.statusText || "").trim(),
+    String(game?.statusText || "").trim()
+  ];
+
+  if (statusTexts.some(v =>
+    /^(保留比賽|比賽保留|續賽|比賽中止|中止比賽)$/.test(v)
+  )) return "suspended";
+
+  if (statusTexts.some(v =>
+    /^(延賽|因雨延賽|時間未定)$/.test(v)
+  )) return "postponed";
+
+  if (statusTexts.some(v =>
+    /^(取消|比賽取消)$/.test(v)
+  )) return "cancelled";
+
+  return "";
+}
+
+function sanitizeProtectedGame(game, status) {
+  const sanitized = cloneJson(game);
+  sanitized.status = status;
+  sanitized.statusText = status === "suspended" ? "保留比賽" : status === "postponed" ? "延賽" : "取消";
+  sanitized.meta = {
+    ...(sanitized.meta || {}),
+    status,
+    statusText: sanitized.statusText
+  };
+
+  for (const key of [
+    "finalLock", "finalLockSource", "finalVueEnhanced", "finalVueForceMerged",
+    "finalVueForcedFromStatus", "finalVueEnhancedAt", "finalVueEnhancedVersion",
+    "statusBeforeFinalVueMerge"
+  ]) {
+    delete sanitized[key];
+    delete sanitized.meta[key];
+  }
+
+  sanitized.dataQuality = {
+    ...(sanitized.dataQuality || {}),
+    stage: status,
+    finalLock: "debug",
+    flags: Array.isArray(sanitized.dataQuality?.flags)
+      ? sanitized.dataQuality.flags.filter(flag => flag !== "finalLock")
+      : []
+  };
+
+  return sanitized;
 }
 
 function normalizeStatus(status) {

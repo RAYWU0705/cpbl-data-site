@@ -1,8 +1,8 @@
-console.log("✅ match.js v5.0.8-LINESCORE-ZERO-BACKFILL-UI 已載入");
+console.log("✅ match.js v5.5.2-FRONTEND-STATUS-GUARD-FIX 已載入");
 
 /* =========================================================
    Ray's CPBL Data Site
-   Match Center v5.0.8-LINESCORE-ZERO-BACKFILL-UI
+   Match Center v5.5.2-FRONTEND-STATUS-GUARD-FIX
    覆蓋位置：js/pages/match.js
 
    重點：
@@ -788,8 +788,74 @@ function normalizePlayByPlay(input) {
     .filter(item => item.title || item.desc);
 }
 
+function getProtectedFrontendStatus(game = {}) {
+  const statusValues = [
+    game?.meta?.status,
+    game?.status,
+    game?.dataQuality?.stage
+  ].map(v => String(v || "").trim().toLowerCase());
+
+  const statusTextValues = [
+    game?.meta?.statusText,
+    game?.statusText
+  ].map(v => String(v || "").trim());
+
+  if (
+    statusValues.some(v => v === "suspended") ||
+    statusTextValues.some(v => /^(保留比賽|保留賽|賽事中止|中止比賽|續賽)$/.test(v))
+  ) {
+    return "suspended";
+  }
+
+  if (
+    statusValues.some(v => v === "postponed") ||
+    statusTextValues.some(v => /^(延賽|時間未定|因雨延賽)$/.test(v))
+  ) {
+    return "postponed";
+  }
+
+  if (
+    statusValues.some(v => v === "cancelled" || v === "canceled") ||
+    statusTextValues.some(v => /^(取消|比賽取消|取消比賽)$/.test(v))
+  ) {
+    return "cancelled";
+  }
+
+  return "";
+}
+
 function applyFrontendLocks(game) {
   if (!game) return game;
+
+  const protectedStatus = getProtectedFrontendStatus(game);
+
+  // 延賽／保留比賽／取消的狀態優先級高於任何殘留 finalLock。
+  if (protectedStatus) {
+    const statusText = protectedStatus === "suspended"
+      ? "保留比賽"
+      : protectedStatus === "postponed"
+        ? "延賽"
+        : "取消";
+
+    return {
+      ...game,
+      status: protectedStatus,
+      statusText,
+      meta: {
+        ...game.meta,
+        status: protectedStatus,
+        statusText
+      },
+      finalLock: null,
+      dataQuality: {
+        ...(game.dataQuality || {}),
+        stage: protectedStatus,
+        flags: Array.isArray(game.dataQuality?.flags)
+          ? game.dataQuality.flags.filter(flag => flag !== "finalLock")
+          : []
+      }
+    };
+  }
 
   const finalLocked =
     game.finalLock === true ||
@@ -2110,25 +2176,71 @@ function renderBatterTeam(teamName, players) {
     `;
   }
 
-  return `
-    <div class="batter-team-title">${escapeHtml(teamName)}</div>
-    <div class="batter-header">
-      <span>球員</span><span>AB</span><span>R</span><span>H</span><span>RBI</span><span>AVG</span>
-    </div>
-    ${players.map(p => {
-      const playerName = formatBatterName(p);
+  const sortedPlayers = [...players].sort((a, b) => {
+    const orderA = Number(a?.order ?? 999);
+    const orderB = Number(b?.order ?? 999);
 
-      return `
-        <div class="batter-row">
-          <span>${escapeHtml(playerName)}</span>
-          <span>${escapeHtml(pick(p, "AB", "打數"))}</span>
-          <span>${escapeHtml(pick(p, "R", "得分"))}</span>
-          <span>${escapeHtml(pick(p, "H", "安打"))}</span>
-          <span>${escapeHtml(pick(p, "RBI", "打點"))}</span>
-          <span>${escapeHtml(pick(p, "AVG", "打擊率"))}</span>
+    if (orderA !== orderB) return orderA - orderB;
+
+    const roleA = cleanText(a?.roleType);
+    const roleB = cleanText(b?.roleType);
+
+    if (roleA === "先發" && roleB !== "先發") return -1;
+    if (roleA !== "先發" && roleB === "先發") return 1;
+
+    return 0;
+  });
+
+  return `
+    <div class="batter-team-title">${escapeHtml(teamName)}｜打者 ${sortedPlayers.length} 人</div>
+    <div class="batter-table-scroll">
+      <div class="batter-table-detail">
+        <div class="batter-header">
+          <span>棒次</span>
+          <span>球員</span>
+          <span>守位</span>
+          <span>AB</span>
+          <span>R</span>
+          <span>H</span>
+          <span>RBI</span>
+          <span>2B</span>
+          <span>3B</span>
+          <span>HR</span>
+          <span>BB</span>
+          <span>SO</span>
+          <span>SB</span>
+          <span>AVG</span>
         </div>
-      `;
-    }).join("")}
+        ${sortedPlayers.map(p => {
+          const playerName = p.name || p.rawName || "—";
+          const position = p.position || "—";
+          const roleType = cleanText(p.roleType);
+          const hot = p.isMvp || p.gameWinningRbi;
+
+          return `
+            <div class="batter-row ${hot ? "is-highlight" : ""}">
+              <span>${escapeHtml(p.order ?? "—")}</span>
+              <span class="player-name-cell">
+                ${escapeHtml(playerName)}
+                ${hot ? `<em title="MVP／勝利打點">🔥</em>` : ""}
+              </span>
+              <span>${escapeHtml(position)}${roleType && roleType !== "先發" ? ` <small>${escapeHtml(roleType)}</small>` : ""}</span>
+              <span>${escapeHtml(pick(p, "AB", "打數"))}</span>
+              <span>${escapeHtml(pick(p, "R", "得分"))}</span>
+              <span>${escapeHtml(pick(p, "H", "安打"))}</span>
+              <span>${escapeHtml(pick(p, "RBI", "打點"))}</span>
+              <span>${escapeHtml(pick(p, "2B", "二安"))}</span>
+              <span>${escapeHtml(pick(p, "3B", "三安"))}</span>
+              <span>${escapeHtml(pick(p, "HR", "全壘打"))}</span>
+              <span>${escapeHtml(pick(p, "BB", "四壞"))}</span>
+              <span>${escapeHtml(pick(p, "SO", "被三振"))}</span>
+              <span>${escapeHtml(pick(p, "SB", "盜壘"))}</span>
+              <span>${escapeHtml(pick(p, "AVG", "打擊率"))}</span>
+            </div>
+          `;
+        }).join("")}
+      </div>
+    </div>
   `;
 }
 
@@ -2168,25 +2280,56 @@ function renderPitcherTeam(teamName, players) {
     `;
   }
 
-  return `
-    <div class="pitcher-team-title">${escapeHtml(teamName)}</div>
-    <div class="pitcher-header">
-      <span>投手</span><span>IP</span><span>H</span><span>ER</span><span>BB</span><span>ERA</span>
-    </div>
-    ${players.map(p => {
-      const pitcherName = formatPitcherName(p);
+  const sortedPlayers = [...players].sort((a, b) => {
+    const orderA = Number(a?.order ?? a?.seq ?? 999);
+    const orderB = Number(b?.order ?? b?.seq ?? 999);
 
-      return `
-        <div class="pitcher-row">
-          <span>${escapeHtml(pitcherName)}</span>
-          <span>${escapeHtml(pick(p, "IP", "投球局數"))}</span>
-          <span>${escapeHtml(pick(p, "H", "安打"))}</span>
-          <span>${escapeHtml(pick(p, "ER", "自責分"))}</span>
-          <span>${escapeHtml(pick(p, "BB", "四壞"))}</span>
-          <span>${escapeHtml(pick(p, "ERA", "防禦率"))}</span>
+    return orderA - orderB;
+  });
+
+  return `
+    <div class="pitcher-team-title">${escapeHtml(teamName)}｜投手 ${sortedPlayers.length} 人</div>
+    <div class="pitcher-table-scroll">
+      <div class="pitcher-table-detail">
+        <div class="pitcher-header">
+          <span>順序</span>
+          <span>投手</span>
+          <span>結果</span>
+          <span>IP</span>
+          <span>BF</span>
+          <span>NP</span>
+          <span>H</span>
+          <span>HR</span>
+          <span>BB</span>
+          <span>SO</span>
+          <span>R</span>
+          <span>ER</span>
+          <span>WHIP</span>
         </div>
-      `;
-    }).join("")}
+        ${sortedPlayers.map((p, index) => {
+          const pitcherName = p.name || p.rawName || "—";
+          const result = formatPitcherDecision(p);
+
+          return `
+            <div class="pitcher-row">
+              <span>${escapeHtml(p.order ?? p.seq ?? index + 1)}</span>
+              <span class="player-name-cell">${escapeHtml(pitcherName)}</span>
+              <span>${escapeHtml(result)}</span>
+              <span>${escapeHtml(pick(p, "IP", "投球局數"))}</span>
+              <span>${escapeHtml(pick(p, "BF", "面對打者"))}</span>
+              <span>${escapeHtml(pick(p, "NP", "投球數", "PITCH"))}</span>
+              <span>${escapeHtml(pick(p, "H", "安打"))}</span>
+              <span>${escapeHtml(pick(p, "HR", "全壘打"))}</span>
+              <span>${escapeHtml(pick(p, "BB", "四壞"))}</span>
+              <span>${escapeHtml(pick(p, "SO", "三振"))}</span>
+              <span>${escapeHtml(pick(p, "R", "失分"))}</span>
+              <span>${escapeHtml(pick(p, "ER", "自責分"))}</span>
+              <span>${escapeHtml(pick(p, "WHIP"))}</span>
+            </div>
+          `;
+        }).join("")}
+      </div>
+    </div>
   `;
 }
 
@@ -2614,6 +2757,32 @@ function formatBatterName(p) {
   const note = p.note ? ` ${p.note}` : "";
 
   return `${name}${pos}${note}`;
+}
+
+function formatPitcherDecision(p) {
+  const decision = p?.decision;
+
+  if (decision && typeof decision === "object") {
+    const text = cleanText(decision.text);
+    const record = cleanText(decision.record);
+    const type = cleanText(decision.type);
+
+    if (text && record) return `${text} ${record}`;
+    if (text) return text;
+
+    if (type === "W") return "勝投";
+    if (type === "L") return "敗投";
+    if (type === "S") return "救援成功";
+    if (type === "H") return "中繼成功";
+  }
+
+  if (typeof decision === "string" && decision.trim()) {
+    return decision.trim();
+  }
+
+  const fallback = pick(p, "result", "note", "勝敗", "結果");
+
+  return fallback === "—" ? "—" : String(fallback);
 }
 
 function formatPitcherName(p) {

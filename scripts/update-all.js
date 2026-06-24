@@ -105,9 +105,10 @@ const STAGES = [
 ];
 
 const PIPELINES = {
-  all: ["players", "transactions", "pregame", "live", "final", "news"],
-  core: ["players", "transactions", "pregame", "live", "final", "news"],
-  data: ["players", "transactions", "pregame", "live", "final", "news"],
+  // 球員異動已由 fetch-cpbl-rosters.js 一併處理，預設流程不再重複跑空的 transactions 階段。
+  all: ["players", "pregame", "live", "final", "news"],
+  core: ["players", "pregame", "live", "final", "news"],
+  data: ["players", "pregame", "live", "final", "news"],
 
   game: ["pregame", "live", "final", "news"],
   safe: ["players", "transactions", "pregame", "final", "news"],
@@ -255,7 +256,9 @@ function buildArgsForTask(task) {
   const args = [];
   const date = getTargetDate();
 
-  if (date) {
+  // 只把日期傳給真正支援日期語意的腳本。
+  // LIVE 腳本目前只抓「台北今日」，傳入歷史日期只會造成日誌誤導。
+  if (date && ["pregame", "final", "news"].includes(task.key)) {
     args.push(`--date=${date}`);
   }
 
@@ -884,7 +887,7 @@ function logSummary(tasks, results) {
   logLine("======================================");
 
   tasks.forEach(task => {
-    const result = results.find(r => r.script === task.script);
+    const result = results.find(r => r.key === task.key);
 
     if (!result) {
       logLine(`⏭️ 未執行：${task.name}`);

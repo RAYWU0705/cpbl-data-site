@@ -1,4 +1,4 @@
-console.log("✅ team-transactions.js v5.0.9-TEAM-TRANSACTIONS-PRO 已載入");
+console.log("✅ team-transactions.js v5.0.10-ROUTE-SAFE 已載入");
 
 /* =========================================================
    Ray's CPBL Data Site
@@ -82,6 +82,14 @@ const teamBadgeText = document.getElementById("teamBadgeText");
 let rosterData = null;
 let transactions = [];
 
+function routeSafeUrl(relativePath) {
+  if (window.CPBLSiteRoot?.url) {
+    return window.CPBLSiteRoot.url(relativePath);
+  }
+
+  return relativePath;
+}
+
 document.addEventListener("DOMContentLoaded", initTransactionsPage);
 
 async function initTransactionsPage() {
@@ -94,9 +102,14 @@ async function initTransactionsPage() {
     setupLinks();
     applyTeamTheme();
 
-    const res = await fetch(`data/rosters/${encodeURIComponent(teamId)}.json?ts=${Date.now()}`, {
-      cache: "no-store"
-    });
+    const res = await fetch(
+      routeSafeUrl(
+        `data/rosters/${encodeURIComponent(teamId)}.json?ts=${Date.now()}`
+      ),
+      {
+        cache: "no-store"
+      }
+    );
 
     if (!res.ok) {
       throw new Error(`roster not found: HTTP ${res.status}`);

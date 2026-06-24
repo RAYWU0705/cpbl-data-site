@@ -66,9 +66,17 @@ async function main() {
   let games = [];
 
   if (FORCE_TARGET) {
-    games = normalizedGames
+    const forcedCandidates = normalizedGames
       .filter(g => !GAME_SNO || String(g.gameSno) === String(GAME_SNO))
-      .filter(g => !DATE || g.meta.date === DATE)
+      .filter(g => !DATE || g.meta.date === DATE);
+
+    const protectedTargets = forcedCandidates.filter(isProtectedStatusGame);
+    protectedTargets.forEach(g => {
+      console.log(`🛡️ 跳過特殊狀態 #${g.gameSno}：${g.meta.statusText || g.meta.status}`);
+    });
+
+    games = forcedCandidates
+      .filter(g => !isProtectedStatusGame(g))
       .map(forceAsFinalTarget);
 
     if (!games.length) {
@@ -291,7 +299,8 @@ async function loadExistingVueBoxscores() {
 
     return toArray(data)
       .map(game => normalizeExistingVueGame(game))
-      .filter(Boolean);
+      .filter(Boolean)
+      .filter(game => !isProtectedStatusGame(game));
   } catch (err) {
     console.log(`⚠️ 讀取既有 Vue boxscore 失敗，將只寫入本次解析：${err.message || err}`);
     return [];
@@ -314,7 +323,27 @@ function normalizeExistingVueGame(game) {
   };
 }
 
+function isProtectedStatusGame(game = {}) {
+  const values = [
+    game?.meta?.status,
+    game?.status,
+    game?.meta?.statusText,
+    game?.statusText,
+    game?.dataQuality?.stage,
+    game?.dataQuality?.message
+  ].map(v => String(v || "").toLowerCase());
+
+  return values.some(value =>
+    value === "suspended" || value === "postponed" || value === "cancelled" || value === "canceled" ||
+    /保留|續賽|中止|延賽|時間未定|取消/.test(value)
+  );
+}
+
 function forceAsFinalTarget(game) {
+  if (isProtectedStatusGame(game)) {
+    throw new Error(`特殊狀態場次不可進入 FINAL force：#${game.gameSno}`);
+  }
+
   return {
     ...game,
     gameSno: Number(game.gameSno),

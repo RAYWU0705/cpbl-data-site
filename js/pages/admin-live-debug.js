@@ -5,7 +5,25 @@
 // 不寫檔、不污染主資料
 // =========================
 
-const OPS_VERSION = "v5.1.5-ADMIN-OPS-CENTER";
+const OPS_VERSION = "v5.1.6-ADMIN-OPS-CENTER-SITE-ROOT-FIX";
+
+const SITE_ROOT = (() => {
+  const currentPath = location.pathname.replace(/\\/g, "/");
+  const nestedFolders = ["/ops/", "/admin/", "/local-tools/"];
+
+  if (nestedFolders.some(folder => currentPath.includes(folder))) {
+    return new URL("../", document.baseURI);
+  }
+
+  return new URL("./", document.baseURI);
+})();
+
+function siteUrl(relativePath) {
+  return new URL(
+    String(relativePath || "").replace(/^\/+/, ""),
+    SITE_ROOT
+  ).href;
+}
 
 const DEBUG_STATIC_URL = "data/live/live-boxscore.json";
 const PREGAME_URL = "data/live/pregame-today.json";
@@ -26,6 +44,9 @@ let OPS_DATA = {
 };
 
 document.addEventListener("DOMContentLoaded", initLiveDebug);
+
+console.log("✅ admin-live-debug.js v5.1.6 loaded");
+console.log("📍 SITE_ROOT:", SITE_ROOT.href);
 
 async function initLiveDebug() {
   bindDebugButtons();
@@ -124,17 +145,22 @@ async function loadDebugData() {
 
 async function fetchJsonSafe(url) {
   try {
-    const res = await fetch(`${url}?ts=${Date.now()}`, { cache: "no-store" });
+    const resolvedUrl = siteUrl(url);
+    const separator = resolvedUrl.includes("?") ? "&" : "?";
+    const res = await fetch(
+      `${resolvedUrl}${separator}ts=${Date.now()}`,
+      { cache: "no-store" }
+    );
 
     if (!res.ok) {
-      return { ok: false, url, status: res.status, error: `HTTP ${res.status}`, data: null };
+      return { ok: false, url: resolvedUrl, status: res.status, error: `HTTP ${res.status}`, data: null };
     }
 
     const data = await res.json();
-    return { ok: true, url, status: res.status, error: "", data };
+    return { ok: true, url: resolvedUrl, status: res.status, error: "", data };
 
   } catch (err) {
-    return { ok: false, url, status: 0, error: err.message || String(err), data: null };
+    return { ok: false, url: siteUrl(url), status: 0, error: err.message || String(err), data: null };
   }
 }
 
@@ -544,10 +570,16 @@ function buildMatchUrl(game) {
   const away = meta.away || "";
 
   if (date && home && away) {
-    return `match.html?date=${encodeURIComponent(date)}&home=${encodeURIComponent(home)}&away=${encodeURIComponent(away)}`;
+    return siteUrl(
+      `match.html?date=${encodeURIComponent(date)}` +
+      `&home=${encodeURIComponent(home)}` +
+      `&away=${encodeURIComponent(away)}`
+    );
   }
 
-  return `match.html?gameSno=${encodeURIComponent(game.gameSno || "")}`;
+  return siteUrl(
+    `match.html?gameSno=${encodeURIComponent(game.gameSno || "")}`
+  );
 }
 
 function escapeHtml(value) {

@@ -1,4 +1,17 @@
 <!DOCTYPE html>
+
+<!--
+=========================================================
+CPBL Data Site Page Metadata
+Page Type: PUBLIC
+Page Name: 比賽中心
+Route: /match.html
+Deploy: YES
+Navigation: CONTEXT
+Maintainer: Ray
+Status: ACTIVE
+=========================================================
+-->
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
@@ -10,7 +23,24 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="apple-touch-icon" href="assets/logo/cpbl.png">
   <title>比賽中心｜Ray's CPBL Data Site</title>
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem("cpbl-theme");
+        const systemDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+        const theme = saved === "dark" || saved === "light"
+          ? saved
+          : (systemDark ? "dark" : "light");
+
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch {
+        document.documentElement.dataset.theme = "light";
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/theme.css?v=560a">
 </head>
 
 <body data-page="match">
@@ -353,7 +383,9 @@
   © 2026 CPBL Data Site ｜ <span class="site-version"></span> ｜ 明叡 × ChatGPT
 </footer>
 
+<script src="js/site-root.js?v=561d"></script>
 <script src="js/pages/match.js?v=552-countdown-sync"></script>
+<script src="js/theme.js?v=560a"></script>
 <script src="js/version.js"></script>
 <script src="js/pwa-register.js"></script>
 </body>

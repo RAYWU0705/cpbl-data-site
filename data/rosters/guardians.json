@@ -3,7 +3,7 @@
   "teamName": "富邦悍將",
   "clubNo": "AEO",
   "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=AEO",
-  "updatedAt": "2026-06-03T02:23:48.556Z",
+  "updatedAt": "2026-06-10T02:23:54.464Z",
   "coaches": {
     "first": {
       "title": "一軍教練團",
@@ -176,6 +176,12 @@
           "position": "投手"
         },
         {
+          "number": "34",
+          "name": "王浩原",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
           "number": "44",
           "name": "魔力藍",
           "group": "投手",
@@ -250,10 +256,10 @@
           "position": "二壘手"
         },
         {
-          "number": "3",
-          "name": "王勝偉",
+          "number": "4",
+          "name": "高捷",
           "group": "內野手",
-          "position": "游擊手"
+          "position": "二壘手"
         },
         {
           "number": "5",
@@ -268,16 +274,16 @@
           "position": "一壘手"
         },
         {
-          "number": "22",
-          "name": "李宗賢",
-          "group": "內野手",
-          "position": "游擊手"
-        },
-        {
           "number": "46",
           "name": "范國宸",
           "group": "內野手",
           "position": "一壘手"
+        },
+        {
+          "number": "78",
+          "name": "董子恩",
+          "group": "內野手",
+          "position": "三壘手"
         },
         {
           "number": "85",
@@ -305,10 +311,10 @@
       "group": "外野手",
       "list": [
         {
-          "number": "25",
-          "name": "林書逸",
+          "number": "00",
+          "name": "童堉誠",
           "group": "外野手",
-          "position": "中外野手"
+          "position": "右外野手"
         },
         {
           "number": "29",
@@ -368,12 +374,6 @@
         {
           "number": "24",
           "name": "石梓霖",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
-          "number": "34",
-          "name": "王浩原",
           "group": "投手",
           "position": "投手"
         },
@@ -530,10 +530,10 @@
       "group": "內野手",
       "list": [
         {
-          "number": "4",
-          "name": "高捷",
+          "number": "3",
+          "name": "王勝偉",
           "group": "內野手",
-          "position": "二壘手"
+          "position": "游擊手"
         },
         {
           "number": "6",
@@ -552,6 +552,12 @@
           "name": "◎楊笑虎",
           "group": "內野手",
           "position": "一壘手"
+        },
+        {
+          "number": "22",
+          "name": "李宗賢",
+          "group": "內野手",
+          "position": "游擊手"
         },
         {
           "number": "56",
@@ -580,12 +586,6 @@
         {
           "number": "71",
           "name": "*馬鋼",
-          "group": "內野手",
-          "position": "三壘手"
-        },
-        {
-          "number": "78",
-          "name": "董子恩",
           "group": "內野手",
           "position": "三壘手"
         },
@@ -621,12 +621,6 @@
           "position": "中外野手"
         },
         {
-          "number": "00",
-          "name": "童堉誠",
-          "group": "外野手",
-          "position": "右外野手"
-        },
-        {
           "number": "1",
           "name": "林哲瑄",
           "group": "外野手",
@@ -655,6 +649,12 @@
           "name": "*鄭昭誠",
           "group": "外野手",
           "position": "左外野手"
+        },
+        {
+          "number": "25",
+          "name": "林書逸",
+          "group": "外野手",
+          "position": "中外野手"
         },
         {
           "number": "33",
@@ -696,6 +696,41 @@
     }
   },
   "transactions": [
+    {
+      "date": "2026-06-07",
+      "player": "童堉誠",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-06-07",
+      "player": "董子恩",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-06-07",
+      "player": "高捷",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-06-07",
+      "player": "王勝偉",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-06-07",
+      "player": "李宗賢",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-06-07",
+      "player": "林書逸",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-06-03",
+      "player": "王浩原",
+      "reason": "升一軍"
+    },
     {
       "date": "2026-06-01",
       "player": "王浩原",

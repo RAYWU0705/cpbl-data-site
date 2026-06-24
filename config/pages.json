@@ -1,0 +1,271 @@
+{
+  "version": "v5.6.1-C3",
+  "description": "CPBL Data Site registry with existing legacy redirects only.",
+  "rules": {
+    "rootHtmlPolicy": "Stage A keeps current files in root. Future stages may move OPS/ADMIN/LOCAL_TOOL pages.",
+    "generatedIgnore": [
+      "debug/**",
+      "node_modules/**",
+      "server/node_modules/**"
+    ],
+    "themeRequiredFor": [
+      "PUBLIC",
+      "OPS_PUBLIC"
+    ],
+    "versionRequiredFor": [
+      "PUBLIC",
+      "OPS_PUBLIC",
+      "OPS",
+      "ADMIN"
+    ]
+  },
+  "pages": [
+    {
+      "file": "index.html",
+      "name": "首頁",
+      "type": "PUBLIC",
+      "deploy": true,
+      "navigation": "MAIN",
+      "status": "ACTIVE",
+      "notes": "網站正式首頁"
+    },
+    {
+      "file": "schedule.html",
+      "name": "一軍賽程",
+      "type": "PUBLIC",
+      "deploy": true,
+      "navigation": "MAIN",
+      "status": "ACTIVE"
+    },
+    {
+      "file": "standings.html",
+      "name": "戰績排名",
+      "type": "PUBLIC",
+      "deploy": true,
+      "navigation": "MAIN",
+      "status": "ACTIVE"
+    },
+    {
+      "file": "match.html",
+      "name": "比賽中心",
+      "type": "PUBLIC",
+      "deploy": true,
+      "navigation": "CONTEXT",
+      "status": "ACTIVE"
+    },
+    {
+      "file": "teams.html",
+      "name": "球隊列表",
+      "type": "PUBLIC",
+      "deploy": true,
+      "navigation": "MAIN",
+      "status": "ACTIVE"
+    },
+    {
+      "file": "team.html",
+      "name": "球隊總覽",
+      "type": "PUBLIC",
+      "deploy": true,
+      "navigation": "CONTEXT",
+      "status": "ACTIVE"
+    },
+    {
+      "file": "team-roster.html",
+      "name": "球隊名單",
+      "type": "PUBLIC",
+      "deploy": true,
+      "navigation": "CONTEXT",
+      "status": "ACTIVE"
+    },
+    {
+      "file": "team-schedule.html",
+      "name": "球隊賽程",
+      "type": "PUBLIC",
+      "deploy": true,
+      "navigation": "CONTEXT",
+      "status": "ACTIVE"
+    },
+    {
+      "file": "team-stats.html",
+      "name": "球隊分析",
+      "type": "PUBLIC",
+      "deploy": true,
+      "navigation": "CONTEXT",
+      "status": "ACTIVE"
+    },
+    {
+      "file": "team-transactions.html",
+      "name": "球員異動",
+      "type": "PUBLIC",
+      "deploy": true,
+      "navigation": "CONTEXT",
+      "status": "ACTIVE"
+    },
+    {
+      "file": "season.html",
+      "name": "賽季中心",
+      "type": "PUBLIC",
+      "deploy": true,
+      "navigation": "MAIN",
+      "status": "ACTIVE"
+    },
+    {
+      "file": "h2h.html",
+      "name": "對戰分析",
+      "type": "PUBLIC",
+      "deploy": true,
+      "navigation": "CONTEXT",
+      "status": "ACTIVE"
+    },
+    {
+      "file": "search.html",
+      "name": "搜尋",
+      "type": "PUBLIC",
+      "deploy": true,
+      "navigation": "CONTEXT",
+      "status": "ACTIVE"
+    },
+    {
+      "file": "about.html",
+      "name": "網站介紹",
+      "type": "PUBLIC",
+      "deploy": true,
+      "navigation": "MAIN",
+      "status": "ACTIVE"
+    },
+    {
+      "file": "version.html",
+      "name": "版本紀錄",
+      "type": "PUBLIC",
+      "deploy": true,
+      "navigation": "MAIN",
+      "status": "ACTIVE"
+    },
+    {
+      "file": "rules.html",
+      "name": "棒球規則",
+      "type": "PUBLIC",
+      "deploy": true,
+      "navigation": "MAIN",
+      "status": "ACTIVE"
+    },
+    {
+      "file": "farm-schedule.html",
+      "name": "二軍賽程",
+      "type": "PUBLIC",
+      "deploy": true,
+      "navigation": "CONTEXT",
+      "status": "ACTIVE"
+    },
+    {
+      "file": "farm-match.html",
+      "name": "二軍比賽中心",
+      "type": "PUBLIC",
+      "deploy": true,
+      "navigation": "CONTEXT",
+      "status": "ACTIVE"
+    },
+    {
+      "file": "player.html",
+      "name": "球員頁",
+      "type": "PUBLIC",
+      "deploy": true,
+      "navigation": "CONTEXT",
+      "status": "ACTIVE"
+    },
+    {
+      "file": "report.html",
+      "name": "報告模式",
+      "type": "PUBLIC",
+      "deploy": true,
+      "navigation": "CONTEXT",
+      "status": "ACTIVE",
+      "notes": "成果展示與簡報頁"
+    },
+    {
+      "file": "game-day.html",
+      "name": "今日戰情中心",
+      "type": "OPS_PUBLIC",
+      "deploy": true,
+      "navigation": "MAIN_OR_OPS",
+      "status": "ACTIVE",
+      "notes": "可公開查看，但兼具維運用途"
+    },
+    {
+      "file": "ops/data-quality.html",
+      "name": "資料品質中心",
+      "type": "OPS",
+      "deploy": true,
+      "navigation": "OPS_ONLY",
+      "status": "ACTIVE",
+      "legacyRoute": "data-quality.html"
+    },
+    {
+      "file": "ops/teams-dashboard.html",
+      "name": "球隊資料 Dashboard",
+      "type": "OPS",
+      "deploy": true,
+      "navigation": "OPS_ONLY",
+      "status": "ACTIVE",
+      "legacyRoute": "teams-dashboard.html"
+    },
+    {
+      "file": "ops/live-logger.html",
+      "name": "LIVE Logger",
+      "type": "OPS",
+      "deploy": true,
+      "navigation": "OPS_ONLY",
+      "status": "REVIEW",
+      "notes": "需再確認是否包含敏感維運資訊",
+      "legacyRoute": "live-logger.html"
+    },
+    {
+      "file": "admin/ops-center.html",
+      "name": "Admin Ops Center",
+      "type": "ADMIN",
+      "deploy": true,
+      "navigation": "ADMIN_ONLY",
+      "status": "ACTIVE",
+      "legacyRoute": "admin-live-debug.html"
+    },
+    {
+      "file": "local-tools/manual-override.html",
+      "name": "Manual Override Generator",
+      "type": "LOCAL_TOOL",
+      "deploy": false,
+      "navigation": "NONE",
+      "status": "ACTIVE",
+      "legacyRoute": "admin-manual-override.html"
+    }
+  ],
+  "legacyRedirects": [
+    {
+      "file": "data-quality.html",
+      "target": "ops/data-quality.html",
+      "type": "LEGACY_REDIRECT",
+      "deploy": true,
+      "status": "ACTIVE"
+    },
+    {
+      "file": "teams-dashboard.html",
+      "target": "ops/teams-dashboard.html",
+      "type": "LEGACY_REDIRECT",
+      "deploy": true,
+      "status": "ACTIVE"
+    },
+    {
+      "file": "live-logger.html",
+      "target": "ops/live-logger.html",
+      "type": "LEGACY_REDIRECT",
+      "deploy": true,
+      "status": "ACTIVE"
+    },
+    {
+      "file": "admin-live-debug.html",
+      "target": "admin/ops-center.html",
+      "type": "LEGACY_REDIRECT",
+      "deploy": true,
+      "status": "ACTIVE"
+    }
+  ]
+}

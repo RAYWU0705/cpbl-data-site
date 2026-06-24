@@ -1,4 +1,18 @@
 <!DOCTYPE html>
+
+<!--
+=========================================================
+CPBL Data Site Page Metadata
+Page Type: PUBLIC
+Page Name: 首頁
+Route: /index.html
+Deploy: YES
+Navigation: MAIN
+Maintainer: Ray
+Status: ACTIVE
+Notes: 網站正式首頁
+=========================================================
+-->
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
@@ -11,7 +25,24 @@
   <meta name="apple-mobile-web-app-title" content="CPBL Data">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="apple-touch-icon" href="assets/logo/cpbl.png">
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem("cpbl-theme");
+        const systemDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+        const theme = saved === "dark" || saved === "light"
+          ? saved
+          : (systemDark ? "dark" : "light");
+
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch {
+        document.documentElement.dataset.theme = "light";
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/theme.css?v=560a">
   <link rel="stylesheet" href="css/home.css">
 </head>
 
@@ -27,9 +58,8 @@
       <a class="nav-link" href="standings.html">戰績</a>
       <a class="nav-link" href="teams.html">球隊</a>
       <a class="nav-link" href="rules.html">棒球規則</a>
-      <a class="nav-link" href="season.html">賽季</a>
+      <a class="nav-link" href="ops/teams-dashboard.html">今日戰情</a>
       <a class="nav-link" href="version.html">版本</a>
-      <a class="nav-link" href="about.html">網站介紹</a>
     </div>
 
     <div class="nav-teams" aria-label="球隊快速入口">
@@ -199,7 +229,9 @@
   明叡 × ChatGPT
 </footer>
 
-<script src="js/pages/index.js?v=527-home-farm-entry" type="module"></script>
+<script src="js/site-root.js?v=561d"></script>
+<script src="js/pages/index.js?v=529-special-status-banner" type="module"></script>
+<script src="js/theme.js?v=560a"></script>
 <script src="js/version.js"></script>
 <script src="js/pwa-register.js"></script>
 </body>

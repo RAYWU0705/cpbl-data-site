@@ -3,7 +3,7 @@ import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 
-const VERSION = "v5.0-8-PREGAME-PAGE-EVALUATE-CLEAN-GUARD";
+const VERSION = "v5.0-11-PREGAME-LOOSE-PLAYERS-PRESERVE-HOTFIX";
 const SEASON_YEAR = 2026;
 const KIND_CODE = "A";
 
@@ -1643,12 +1643,20 @@ async function discoverScoreStripPregameCards(browser, scheduleGames, targetDate
 
       const loosePlayers = extractLoosePlayers(text, game);
 
-      if (!awayStarter && loosePlayers[0]) {
-        awayStarter = loosePlayers[0];
+      // 單場候選必須剛好兩人，否則視為可能抓到整條比分橫條。
+      const looseFallbackSafe = loosePlayers.length === 2;
+
+      if (!awayStarter && looseFallbackSafe) {
+        awayStarter = loosePlayers[0] || "";
       }
 
-      if (!homeStarter && loosePlayers[1]) {
-        homeStarter = loosePlayers[1];
+      if (!homeStarter && looseFallbackSafe) {
+        homeStarter = loosePlayers[1] || "";
+      }
+
+      if (loosePlayers.length > 2) {
+        awayStarter = compact.awayStarter || "";
+        homeStarter = compact.homeStarter || "";
       }
 
       return {
@@ -3225,6 +3233,19 @@ function mergePregameCards(...cardGroups) {
         debugLines: card.debugLines?.length ? card.debugLines : old.debugLines || [],
         cardRect: card.cardRect || old.cardRect || null,
         scoreStripCandidates: old.scoreStripCandidates || card.candidates || null,
+
+        // v5.0.11：保留比分橫條候選名單，供後續全域順序救援使用。
+        // 過去這裡漏掉 loosePlayers，導致 159 雖抓到完整 6 人，
+        // 後續 sanitizeDuplicateStarterPairs() 卻拿不到資料。
+        loosePlayers:
+          (
+            Array.isArray(card.loosePlayers) &&
+            card.loosePlayers.length >
+              (Array.isArray(old.loosePlayers) ? old.loosePlayers.length : 0)
+          )
+            ? card.loosePlayers
+            : (old.loosePlayers || []),
+
         mergeGuard: {
           version: VERSION,
           rule: "starter-and-lineup-separated-priority",
@@ -3244,6 +3265,187 @@ function mergePregameCards(...cardGroups) {
 
   return [...map.values()]
     .sort((a, b) => Number(a.gameSno) - Number(b.gameSno));
+}
+
+/* =========================
+   同日先發污染防護＋整條橫條配對救援
+========================= */
+
+function getStarterSourceTrust(source = "") {
+  const s = String(source || "");
+
+  if (s.includes("official-home-game-card")) return 40;
+  if (s.includes("official-home-score-strip-body-fallback")) return 30;
+  if (s.includes("official-home-score-strip")) return 10;
+  return 0;
+}
+
+function sanitizeDuplicateStarterPairs(cards, scheduleGames) {
+  const cardList = Array.isArray(cards) ? cards : [];
+  const sortedGames = [...(scheduleGames || [])]
+    .sort((a, b) => Number(a.gameSno) - Number(b.gameSno));
+
+  const cardMap = new Map(
+    cardList.map(card => [Number(card.gameSno), card])
+  );
+
+  // 第一道：若某張卡抓到整條比分橫條，
+  // 且前 2 × 場數 名候選可和已確認的前幾場對上，
+  // 就按官方橫條順序每兩人分配一場。
+  const globalCandidateCard = cardList
+    .filter(card =>
+      Array.isArray(card?.loosePlayers) &&
+      card.loosePlayers.length >= sortedGames.length * 2
+    )
+    .sort((a, b) =>
+      b.loosePlayers.length - a.loosePlayers.length
+    )[0];
+
+  if (globalCandidateCard) {
+    const needed = sortedGames.length * 2;
+    const sequence = globalCandidateCard.loosePlayers
+      .map(cleanOneLine)
+      .filter(Boolean)
+      .slice(0, needed);
+
+    const uniqueEnough = new Set(sequence).size === sequence.length;
+    let confirmedMatches = 0;
+    let conflicts = 0;
+
+    sortedGames.forEach((game, index) => {
+      const card = cardMap.get(Number(game.gameSno));
+      const expectedAway = sequence[index * 2] || "";
+      const expectedHome = sequence[index * 2 + 1] || "";
+
+      if (!card || !expectedAway || !expectedHome) return;
+
+      const currentAway = cleanOneLine(card.awayStarter || "");
+      const currentHome = cleanOneLine(card.homeStarter || "");
+
+      if (
+        currentAway &&
+        currentHome &&
+        currentAway === expectedAway &&
+        currentHome === expectedHome
+      ) {
+        confirmedMatches++;
+      } else if (
+        currentAway &&
+        currentHome &&
+        getStarterSourceTrust(card.starterSource || card.source) >= 30
+      ) {
+        conflicts++;
+      }
+    });
+
+    // 至少有一場已確認吻合，且沒有高可信來源衝突，才啟用順序救援。
+    if (
+      sequence.length === needed &&
+      uniqueEnough &&
+      confirmedMatches >= 1 &&
+      conflicts === 0
+    ) {
+      sortedGames.forEach((game, index) => {
+        const card = cardMap.get(Number(game.gameSno));
+        if (!card) return;
+
+        const away = sequence[index * 2] || "";
+        const home = sequence[index * 2 + 1] || "";
+
+        if (!away || !home) return;
+
+        const currentTrust = getStarterSourceTrust(
+          card.starterSource || card.source
+        );
+
+        // 高可信來源已存在時保留；空值或低可信污染值才由全域順序救援。
+        if (
+          currentTrust < 30 ||
+          !card.awayStarter ||
+          !card.homeStarter
+        ) {
+          card.awayStarter = away;
+          card.homeStarter = home;
+          card.starterSource =
+            "official-home-score-strip-global-sequence";
+          card.starterPriority = 25;
+
+          card.mergeGuard = {
+            ...(card.mergeGuard || {}),
+            globalSequenceRecovered: true,
+            globalSequenceSourceGameSno:
+              Number(globalCandidateCard.gameSno),
+            sequenceIndex: index,
+            recoveredAwayStarter: away,
+            recoveredHomeStarter: home
+          };
+
+          console.log(
+            `🧭 ${card.gameSno} 依比分橫條順序救援先發：` +
+            `${away} vs ${home}`
+          );
+        }
+      });
+    }
+  }
+
+  // 第二道：完全相同先發組合出現在不同場時，只清除低可信來源，
+  // 絕不再把正確的 body-fallback / game-card 一起清空。
+  const pairMap = new Map();
+
+  for (const card of cardList) {
+    const away = cleanOneLine(card?.awayStarter || "");
+    const home = cleanOneLine(card?.homeStarter || "");
+
+    if (!away || !home) continue;
+
+    const key = `${away}|||${home}`;
+    if (!pairMap.has(key)) pairMap.set(key, []);
+    pairMap.get(key).push(card);
+  }
+
+  for (const [pairKey, duplicated] of pairMap.entries()) {
+    if (duplicated.length < 2) continue;
+
+    const ranked = [...duplicated].sort((a, b) =>
+      getStarterSourceTrust(b.starterSource || b.source) -
+      getStarterSourceTrust(a.starterSource || a.source)
+    );
+
+    const bestTrust = getStarterSourceTrust(
+      ranked[0].starterSource || ranked[0].source
+    );
+
+    for (let i = 1; i < ranked.length; i++) {
+      const card = ranked[i];
+      const trust = getStarterSourceTrust(
+        card.starterSource || card.source
+      );
+
+      if (trust >= bestTrust && trust >= 30) continue;
+
+      card.awayStarter = "";
+      card.homeStarter = "";
+      card.starterSource = "";
+      card.starterPriority = -1;
+
+      card.mergeGuard = {
+        ...(card.mergeGuard || {}),
+        duplicateStarterPairRejected: true,
+        duplicatePair: pairKey.replace("|||", " vs "),
+        keptGameSno: Number(ranked[0].gameSno),
+        rejectedGameSno: Number(card.gameSno)
+      };
+
+      console.log(
+        `🛡️ ${card.gameSno} 拒絕低可信重複先發：` +
+        `${pairKey.replace("|||", " vs ")}｜` +
+        `保留 ${ranked[0].gameSno}`
+      );
+    }
+  }
+
+  return cardList;
 }
 
 /* =========================
@@ -3596,10 +3798,13 @@ async function main() {
       scheduleGames
     );
 
-    const mergedPregameCards = mergePregameCards(
-      scoreStripPregameCards,
-      homePregameCards,
-      boxPregameLineupCards
+    const mergedPregameCards = sanitizeDuplicateStarterPairs(
+      mergePregameCards(
+        scoreStripPregameCards,
+        homePregameCards,
+        boxPregameLineupCards
+      ),
+      scheduleGames
     );
 
     await safeCloseBrowser(browser);

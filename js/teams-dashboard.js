@@ -7,15 +7,33 @@
    4. 只讀資料、不寫檔、不污染 fetch 主流程
 */
 (() => {
-  const VERSION = "v5.1.4-TEAMS-DASHBOARD-LIVE-FIRST-FIXED";
+  const VERSION = "v5.1.5-TEAMS-DASHBOARD-SITE-ROOT-FIX";
+
+  const SITE_ROOT = (() => {
+    const currentPath = location.pathname.replace(/\\/g, "/");
+    const nestedFolders = ["/ops/", "/admin/", "/local-tools/"];
+
+    if (nestedFolders.some(folder => currentPath.includes(folder))) {
+      return new URL("../", document.baseURI);
+    }
+
+    return new URL("./", document.baseURI);
+  })();
+
+  function siteUrl(relativePath) {
+    return new URL(
+      String(relativePath || "").replace(/^\/+/, ""),
+      SITE_ROOT
+    ).href;
+  }
 
   const TEAMS = [
-    { id: "brothers", name: "中信兄弟", short: "兄弟", color: "#f6c800", logo: "assets/logo/brothers.png" },
-    { id: "lions", name: "統一7-ELEVEn獅", short: "統一", color: "#f05a28", logo: "assets/logo/lions.png" },
-    { id: "monkeys", name: "樂天桃猿", short: "桃猿", color: "#7a1226", logo: "assets/logo/monkeys.png" },
-    { id: "dragons", name: "味全龍", short: "味全", color: "#c8102e", logo: "assets/logo/dragons.png" },
-    { id: "guardians", name: "富邦悍將", short: "富邦", color: "#004a98", logo: "assets/logo/guardians.png" },
-    { id: "hawks", name: "台鋼雄鷹", short: "台鋼", color: "#116149", logo: "assets/logo/hawks.png" }
+    { id: "brothers", name: "中信兄弟", short: "兄弟", color: "#f6c800", logo: siteUrl("assets/logo/brothers.png") },
+    { id: "lions", name: "統一7-ELEVEn獅", short: "統一", color: "#f05a28", logo: siteUrl("assets/logo/lions.png") },
+    { id: "monkeys", name: "樂天桃猿", short: "桃猿", color: "#7a1226", logo: siteUrl("assets/logo/monkeys.png") },
+    { id: "dragons", name: "味全龍", short: "味全", color: "#c8102e", logo: siteUrl("assets/logo/dragons.png") },
+    { id: "guardians", name: "富邦悍將", short: "富邦", color: "#004a98", logo: siteUrl("assets/logo/guardians.png") },
+    { id: "hawks", name: "台鋼雄鷹", short: "台鋼", color: "#116149", logo: siteUrl("assets/logo/hawks.png") }
   ];
 
   const NAME_TO_ID = new Map();
@@ -61,6 +79,9 @@
   };
 
   document.addEventListener("DOMContentLoaded", init);
+
+  console.log("✅ teams-dashboard.js v5.1.5 loaded");
+  console.log("📍 SITE_ROOT:", SITE_ROOT.href);
 
   async function init() {
     bindSortButtons();
@@ -110,7 +131,8 @@
 
   async function fetchJson(path) {
     try {
-      const res = await fetch(path, { cache: "no-store" });
+      const resolvedUrl = siteUrl(path);
+      const res = await fetch(resolvedUrl, { cache: "no-store" });
       if (!res.ok) return null;
       return await res.json();
     } catch (_) {
@@ -357,7 +379,7 @@
       node.querySelector(".quality-note").textContent = quality.note;
 
       const link = node.querySelector(".team-link");
-      link.href = `team.html?team=${team.id}`;
+      link.href = siteUrl(`team.html?team=${team.id}`);
       link.textContent = `進入 ${team.short} 球隊頁`;
 
       grid.appendChild(node);

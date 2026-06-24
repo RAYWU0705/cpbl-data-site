@@ -273,9 +273,22 @@ function buildFinalItems(games) {
     const save = cleanText(getMeta(game).save);
     const mvp = cleanText(getMeta(game).mvp);
 
-    const title = winner
-      ? `${winner} ${score} 擊敗 ${loser}`
-      : `${away} ${score} ${home} 比賽結束`;
+    const awayScore = getAwayScore(game);
+        const homeScore = getHomeScore(game);
+    
+        const winnerScore =
+          awayScore > homeScore ? awayScore :
+          homeScore > awayScore ? homeScore :
+          null;
+    
+        const loserScore =
+          awayScore > homeScore ? homeScore :
+          homeScore > awayScore ? awayScore :
+          null;
+    
+        const title = winner
+          ? `${winner} ${winnerScore}：${loserScore} 擊敗 ${loser}`
+          : `${away} ${score} ${home} 比賽結束`;
 
     const descParts = [];
 

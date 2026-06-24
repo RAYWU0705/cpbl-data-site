@@ -1,4 +1,17 @@
 <!DOCTYPE html>
+
+<!--
+=========================================================
+CPBL Data Site Page Metadata
+Page Type: PUBLIC
+Page Name: 球員異動
+Route: /team-transactions.html
+Deploy: YES
+Navigation: CONTEXT
+Maintainer: Ray
+Status: ACTIVE
+=========================================================
+-->
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
@@ -10,8 +23,23 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="apple-touch-icon" href="assets/logo/cpbl.png">
   <title>CPBL 球員異動｜Ray's CPBL Data Site</title>
-  <link rel="stylesheet" href="css/style.css">
+    <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem("cpbl-theme");
+        const dark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+        const theme = saved === "dark" || saved === "light" ? saved : (dark ? "dark" : "light");
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch {
+        document.documentElement.dataset.theme = "light";
+      }
+    })();
+  </script>
+<link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/team-transactions.css">
+  <link rel="stylesheet" href="css/theme.css?v=560c">
+  <link rel="stylesheet" href="css/teams-theme.css?v=560c">
 </head>
 
 <body data-page="team-transactions">
@@ -148,8 +176,10 @@
   明叡 × ChatGPT
 </footer>
 
+<script src="js/site-root.js?v=561d"></script>
 <script src="js/team-transactions.js"></script>
 <script src="js/version.js"></script>
 
+<script src="js/theme.js?v=560c"></script>
 </body>
 </html>
