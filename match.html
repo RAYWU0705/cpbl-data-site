@@ -41,6 +41,7 @@ Status: ACTIVE
   </script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/theme.css?v=560a">
+  <link rel="stylesheet" href="css/match.css?v=560-polished">
 </head>
 
 <body data-page="match">
@@ -82,7 +83,21 @@ Status: ACTIVE
   </div>
 </header>
 
-<main class="container">
+<main class="container match-vnext-container">
+
+  <div class="match-tabs-wrap" aria-label="比賽中心快速導覽">
+    <div class="match-tabs">
+      <button class="match-tab-btn active" type="button" data-match-tab="overview">總覽</button>
+      <button class="match-tab-btn" type="button" data-match-tab="live">LIVE</button>
+      <button class="match-tab-btn" type="button" data-match-tab="rhe">RHE</button>
+      <button class="match-tab-btn" type="button" data-match-tab="innings">逐局</button>
+      <button class="match-tab-btn" type="button" data-match-tab="decision">勝敗投</button>
+      <button class="match-tab-btn" type="button" data-match-tab="plays">逐球</button>
+      <button class="match-tab-btn" type="button" data-match-tab="batters">打者</button>
+      <button class="match-tab-btn" type="button" data-match-tab="pitchers">投手</button>
+    </div>
+  </div>
+
 
   <!-- 比賽主視覺 -->
   <!-- 總覽 -->
@@ -104,8 +119,8 @@ Status: ACTIVE
       <div id="matchTime" class="hero-meta"></div>
       <div id="matchType" class="hero-meta"></div>
 
-      <div class="game-countdown-panel" id="gameCountdownPanel" hidden>
-        <span class="game-countdown-label">開賽倒數</span>
+      <div class="game-countdown-panel digital-clock-panel" id="gameCountdownPanel" hidden>
+        <span class="game-countdown-label">Digital Countdown</span>
         <strong id="gameCountdownClock">--:--:--</strong>
       </div>
     </div>
@@ -176,7 +191,7 @@ Status: ACTIVE
 
 </section>
   <!-- 即時狀態面板 -->
-  <section class="card live-status-panel" id="liveStatusPanel">
+  <section class="card live-status-panel match-tab-section" data-tab-section="live" id="liveStatusPanel">
     <div class="live-status-head">
       <div>
         <span class="live-pill" id="liveStatusBadge">LIVE</span>
@@ -244,7 +259,7 @@ Status: ACTIVE
   </section>
 
   <!-- RHE -->
-  <section class="card">
+  <section class="card match-tab-section" data-tab-section="rhe">
     <h2>📊 R H E</h2>
 
     <table style="width:100%; text-align:center;">
@@ -278,7 +293,7 @@ Status: ACTIVE
   </section>
 
   <!-- 逐局 -->
-  <section class="card">
+  <section class="card match-tab-section" data-tab-section="innings">
     <h2>📋 逐局比分</h2>
 
     <table style="width:100%; text-align:center;">
@@ -300,7 +315,7 @@ Status: ACTIVE
   </section>
 
   <!-- 勝敗投 -->
-  <section class="card">
+  <section class="card match-tab-section" data-tab-section="decision">
     <h2>🏆 勝敗投 / MVP</h2>
 
     <div class="decision-grid">
@@ -327,7 +342,7 @@ Status: ACTIVE
   </section>
   <!-- Play By Play -->
 
-  <section class="match-section">
+  <section class="match-section match-tab-section" data-tab-section="plays">
 
     <div class="section-head">
       <h2>📡 LIVE 逐球事件</h2>
@@ -350,7 +365,7 @@ Status: ACTIVE
 
   </section>
   <!-- 打者 -->
-  <section class="card">
+  <section class="card match-tab-section" data-tab-section="batters">
     <div class="section-title-row">
       <h2>🔥 打者成績</h2>
 
@@ -364,7 +379,7 @@ Status: ACTIVE
   </section>
 
   <!-- 投手 -->
-  <section class="card">
+  <section class="card match-tab-section" data-tab-section="pitchers">
     <div class="section-title-row">
       <h2>🔥 投手成績</h2>
 
@@ -384,7 +399,7 @@ Status: ACTIVE
 </footer>
 
 <script src="js/site-root.js?v=561d"></script>
-<script src="js/pages/match.js?v=552-countdown-sync"></script>
+<script src="js/pages/match.js?v=562-digital-clock"></script>
 <script src="js/theme.js?v=560a"></script>
 <script src="js/version.js"></script>
 <script src="js/pwa-register.js"></script>

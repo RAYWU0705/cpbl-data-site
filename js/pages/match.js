@@ -1,8 +1,8 @@
-console.log("✅ match.js v5.5.2-FRONTEND-STATUS-GUARD-FIX 已載入");
+console.log("✅ match.js v5.6.2-DIGITAL-CLOCK 已載入");
 
 /* =========================================================
    Ray's CPBL Data Site
-   Match Center v5.5.2-FRONTEND-STATUS-GUARD-FIX
+   Match Center v5.6.2-DIGITAL-CLOCK
    覆蓋位置：js/pages/match.js
 
    重點：
@@ -29,6 +29,7 @@ let CURRENT_MATCH_DATA = null;
 let CURRENT_GAME_SNO = null;
 let CURRENT_QUERY = null;
 let LIVE_REFRESH_TIMER = null;
+let HERO_COUNTDOWN_TIMER = null;
 let PROBABLE_PITCHERS_MAP = {};
 
 const MATCH_TAB_STATE = {
@@ -971,6 +972,7 @@ function renderAll(data) {
   renderScore(data);
   renderStarterDuel(data);
   renderPregameUX(data);
+  renderHeroCountdown(data);
   renderMatchProgress(data);
   renderDataQuality(data);
   renderLiveStatus(data);
@@ -2596,6 +2598,144 @@ function bindMatchTabs() {
     });
   });
 }
+
+
+/* =========================================================
+   Hero 開賽倒數 / 狀態同步
+========================================================= */
+
+function renderHeroCountdown(data) {
+  stopHeroCountdownTicker();
+  updateHeroCountdownDisplay(data);
+
+  const status = data?.meta?.status || "scheduled";
+  const start = parseGameStartDate(data?.meta?.date, data?.meta?.time);
+
+  if (!["scheduled", "pregame"].includes(status) || !start) return;
+
+  // 逐秒更新 hero 開賽倒數；原本 renderAll 只會 render 一次，所以畫面會停住。
+  HERO_COUNTDOWN_TIMER = setInterval(() => {
+    const latestData = CURRENT_MATCH_DATA || data;
+    updateHeroCountdownDisplay(latestData);
+
+    const latestStatus = latestData?.meta?.status || "scheduled";
+    const latestStart = parseGameStartDate(latestData?.meta?.date, latestData?.meta?.time);
+
+    if (!["scheduled", "pregame"].includes(latestStatus)) {
+      stopHeroCountdownTicker();
+      return;
+    }
+
+    // 開賽時間到後停在 00:00:00，等 live refresh 把資料切到 LIVE。
+    if (latestStart && latestStart.getTime() - Date.now() <= 0) {
+      stopHeroCountdownTicker();
+    }
+  }, 1000);
+}
+
+function stopHeroCountdownTicker() {
+  if (!HERO_COUNTDOWN_TIMER) return;
+  clearInterval(HERO_COUNTDOWN_TIMER);
+  HERO_COUNTDOWN_TIMER = null;
+}
+
+function updateHeroCountdownDisplay(data) {
+  const panel = document.getElementById("gameCountdownPanel");
+  const clock = document.getElementById("gameCountdownClock");
+  const label = panel?.querySelector(".game-countdown-label");
+
+  if (!panel || !clock) return;
+
+  const status = data?.meta?.status || "scheduled";
+
+  panel.classList.remove("is-soon", "is-started", "is-final");
+
+  if (status === "final") {
+    panel.hidden = false;
+    panel.classList.add("is-final");
+    if (label) label.textContent = "比賽狀態";
+    renderDigitalClock(clock, "FINAL", { status: true });
+    return;
+  }
+
+  if (status === "live") {
+    panel.hidden = false;
+    panel.classList.add("is-started");
+    if (label) label.textContent = "比賽狀態";
+    renderDigitalClock(clock, "LIVE", { status: true });
+    return;
+  }
+
+  if (["postponed", "suspended", "cancelled"].includes(status)) {
+    panel.hidden = false;
+    panel.classList.add("is-started");
+    if (label) label.textContent = "比賽狀態";
+    renderDigitalClock(clock, getStatusText(status).replace(/[⏳🔴✅🌧⏸❌]\s*/g, ""), { status: true });
+    return;
+  }
+
+  const start = parseGameStartDate(data?.meta?.date, data?.meta?.time);
+
+  if (!start) {
+    panel.hidden = true;
+    return;
+  }
+
+  const diffMs = start.getTime() - Date.now();
+
+  panel.hidden = false;
+  if (label) label.textContent = diffMs > 0 ? "開賽倒數" : "等待資料同步";
+
+  if (diffMs <= 0) {
+    panel.classList.add("is-started");
+    renderDigitalClock(clock, "00:00:00");
+    return;
+  }
+
+  const totalSeconds = Math.floor(diffMs / 1000);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  if (totalSeconds <= 3600) {
+    panel.classList.add("is-soon");
+  }
+
+  renderDigitalClock(clock, [
+    String(hours).padStart(2, "0"),
+    String(minutes).padStart(2, "0"),
+    String(seconds).padStart(2, "0")
+  ].join(":"));
+}
+
+
+function renderDigitalClock(clockEl, value, options = {}) {
+  if (!clockEl) return;
+
+  const text = String(value ?? "").trim() || "--:--:--";
+  const isStatus = Boolean(options.status) || !/^\d{2}:\d{2}:\d{2}$/.test(text);
+
+  clockEl.classList.toggle("is-status-text", isStatus);
+
+  if (isStatus) {
+    clockEl.textContent = text;
+    return;
+  }
+
+  clockEl.innerHTML = text
+    .split("")
+    .map(char => {
+      if (char === ":") {
+        return `<span class="digital-colon">:</span>`;
+      }
+
+      return `<span class="digital-digit">${escapeHtml(char)}</span>`;
+    })
+    .join("");
+}
+
+window.addEventListener("beforeunload", stopHeroCountdownTicker);
+
 
 /* =========================================================
    小工具

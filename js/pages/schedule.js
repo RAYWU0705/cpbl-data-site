@@ -1,4 +1,4 @@
-console.log("✅ schedule.js v6.0.0-SCHEDULE-BALANCED 已載入");
+console.log("✅ schedule.js v6.2.0-SCHEDULE-POLISHED 已載入");
 
 /* =========================================================
    Ray's CPBL Data Site
@@ -12,7 +12,7 @@ console.log("✅ schedule.js v6.0.0-SCHEDULE-BALANCED 已載入");
    - 支援列表 / 月曆 / 月份 / 日期 / 球隊 / 場地 / 狀態 / 搜尋
 ========================================================= */
 
-const VERSION = "v6.0.0-SCHEDULE-BALANCED";
+const VERSION = "v6.2.0-SCHEDULE-POLISHED";
 const LIVE_BOXSCORE_URL = "data/live/live-boxscore.json";
 
 const TEAM_ID_MAP = {
@@ -159,7 +159,26 @@ function normalizeGame(raw) {
   const home = normalizeTeamName(homeRaw);
   const away = normalizeTeamName(awayRaw);
 
-  const status = normalizeStatus(meta.status || meta.statusText || raw.status || raw.gameStatus);
+  let status = normalizeStatus(meta.status || meta.statusText || raw.status || raw.gameStatus);
+
+  const finalLock =
+    raw.finalLock?.locked === true ||
+    raw.finalLock === true ||
+    meta.finalLock === true ||
+    dq.finalLock === "confirmed";
+
+  const hasConfirmedScore =
+    dq.score === "confirmed" ||
+    dq.rhe === "confirmed" ||
+    (
+      Number.isFinite(Number(totals.away?.R)) &&
+      Number.isFinite(Number(totals.home?.R)) &&
+      finalLock
+    );
+
+  if (status === "scheduled" && finalLock && hasConfirmedScore) {
+    status = "final";
+  }
 
   return {
     raw,
@@ -181,7 +200,24 @@ function normalizeGame(raw) {
     awayE: toNumberOrNull(totals.away?.E),
     homeE: toNumberOrNull(totals.home?.E),
     dataQuality: dq,
-    finalLock: raw.finalLock
+    finalLock: raw.finalLock || meta.finalLock || false,
+    awayStarter: cleanText(
+      raw.pregame?.starters?.away ??
+      meta.probablePitchers?.away ??
+      raw.probablePitchers?.away ??
+      raw.probable?.away ??
+      ""
+    ),
+    homeStarter: cleanText(
+      raw.pregame?.starters?.home ??
+      meta.probablePitchers?.home ??
+      raw.probablePitchers?.home ??
+      raw.probable?.home ??
+      ""
+    ),
+    finalVueEnhanced: Boolean(meta.finalVueEnhanced || raw.finalVueEnhanced),
+    finalVueForceMerged: Boolean(meta.finalVueForceMerged || raw.finalVueForceMerged),
+    manualStarterFix: Boolean(raw.debug?.manualProbablePitcherFix || raw.pregame?.manualProbablePitcherFix)
   };
 }
 
@@ -553,19 +589,35 @@ function renderTodayFocus() {
 }
 
 function renderFocusCard(game) {
+  const awayLogo = getTeamLogo(game.awayId);
+  const homeLogo = getTeamLogo(game.homeId);
+  const scoreText = hasScore(game)
+    ? `${formatScore(game.awayR)} : ${formatScore(game.homeR)}`
+    : "VS";
+
   return `
-    <article class="schedule-focus-card">
-      <div class="schedule-focus-date">${escapeHtml(game.date)}｜${escapeHtml(game.time || "時間未定")}</div>
-      <div class="schedule-focus-match">
-        <strong>${escapeHtml(game.away || "客隊")}</strong>
-        <span>vs</span>
-        <strong>${escapeHtml(game.home || "主隊")}</strong>
+    <article class="schedule-focus-card status-${escapeHtml(game.status)}">
+      <div class="schedule-focus-date">
+        <span>${escapeHtml(game.date)}｜${escapeHtml(game.time || "時間未定")}</span>
+        <b>${escapeHtml(getStatusText(game.status))}</b>
+      </div>
+      <div class="schedule-focus-match schedule-focus-match-polished">
+        <span class="schedule-focus-team ${getWinnerClass(game, "away")}">
+          <img src="${awayLogo}" alt="${escapeHtml(game.away)}">
+          <strong>${escapeHtml(game.away || "客隊")}</strong>
+        </span>
+        <span class="schedule-focus-score">${escapeHtml(scoreText)}</span>
+        <span class="schedule-focus-team ${getWinnerClass(game, "home")}">
+          <img src="${homeLogo}" alt="${escapeHtml(game.home)}">
+          <strong>${escapeHtml(game.home || "主隊")}</strong>
+        </span>
       </div>
       <div class="schedule-focus-meta">
         <span>🏟 ${escapeHtml(game.venue || "球場待定")}</span>
         <span>🏷 ${escapeHtml(getTypeText(game.type))}</span>
-        <span>📌 ${escapeHtml(getStatusText(game.status))}</span>
       </div>
+      ${renderProbablePitcherRow(game)}
+      ${renderDataTrustBadges(game)}
       <div class="schedule-focus-actions">
         <a class="card-link" href="${buildMatchUrl(game)}">比賽中心</a>
       </div>
@@ -666,14 +718,14 @@ function renderGameCard(game) {
     : "VS";
 
   return `
-    <article class="schedule-game-card status-${escapeHtml(game.status)}">
+    <article class="schedule-game-card status-${escapeHtml(game.status)} ${hasScore(game) ? "has-score" : "is-pregame"}">
       <div class="schedule-game-top">
         <span class="schedule-game-no">G${escapeHtml(game.gameSno || "—")}</span>
         <span class="schedule-game-status">${escapeHtml(getStatusText(game.status))}</span>
       </div>
 
       <div class="schedule-game-main">
-        <div class="schedule-team away">
+        <div class="schedule-team away ${getWinnerClass(game, "away")}">
           <img src="${awayLogo}" alt="${escapeHtml(game.away)}">
           <strong>${escapeHtml(game.away || "客隊")}</strong>
         </div>
@@ -683,21 +735,89 @@ function renderGameCard(game) {
           <small>${escapeHtml(game.time || "時間未定")}</small>
         </div>
 
-        <div class="schedule-team home">
+        <div class="schedule-team home ${getWinnerClass(game, "home")}">
           <img src="${homeLogo}" alt="${escapeHtml(game.home)}">
           <strong>${escapeHtml(game.home || "主隊")}</strong>
         </div>
       </div>
+
+      ${renderRheRow(game)}
 
       <div class="schedule-game-meta">
         <span>🏟 ${escapeHtml(game.venue || "球場待定")}</span>
         <span>🏷 ${escapeHtml(getTypeText(game.type))}</span>
       </div>
 
+      ${renderProbablePitcherRow(game)}
+      ${renderDataTrustBadges(game)}
+
       <div class="schedule-game-actions">
         <a class="card-link" href="${buildMatchUrl(game)}">比賽中心</a>
       </div>
     </article>
+  `;
+}
+
+function getWinnerClass(game, side) {
+  if (!hasScore(game)) return "";
+  if (!Number.isFinite(Number(game.awayR)) || !Number.isFinite(Number(game.homeR))) return "";
+  if (Number(game.awayR) === Number(game.homeR)) return "";
+  const winner = Number(game.awayR) > Number(game.homeR) ? "away" : "home";
+  return winner === side ? "is-winner" : "is-loser";
+}
+
+function renderRheRow(game) {
+  if (!hasScore(game)) return "";
+
+  const hasAnyRhe = [game.awayH, game.homeH, game.awayE, game.homeE]
+    .some(v => v !== null && v !== undefined && v !== "");
+
+  if (!hasAnyRhe) return "";
+
+  return `
+    <div class="schedule-rhe-row" aria-label="R H E">
+      <span></span><b>R</b><b>H</b><b>E</b>
+      <strong>${escapeHtml(shortTeamName(game.away || "客"))}</strong>
+      <span>${formatScore(game.awayR)}</span>
+      <span>${formatScore(game.awayH)}</span>
+      <span>${formatScore(game.awayE)}</span>
+      <strong>${escapeHtml(shortTeamName(game.home || "主"))}</strong>
+      <span>${formatScore(game.homeR)}</span>
+      <span>${formatScore(game.homeH)}</span>
+      <span>${formatScore(game.homeE)}</span>
+    </div>
+  `;
+}
+
+function renderDataTrustBadges(game) {
+  const badges = [];
+  const q = game.dataQuality || {};
+
+  if (game.finalVueEnhanced) badges.push("Vue 補強");
+  if (game.finalVueForceMerged) badges.push("補賽轉完賽");
+  if (game.manualStarterFix) badges.push("先發人工確認");
+  if (q.score === "confirmed" || q.rhe === "confirmed") badges.push("比分確認");
+
+  if (!badges.length) return "";
+
+  return `
+    <div class="schedule-trust-badges">
+      ${badges.slice(0, 3).map(badge => `<span>${escapeHtml(badge)}</span>`).join("")}
+    </div>
+  `;
+}
+
+function renderProbablePitcherRow(game) {
+  const away = cleanText(game.awayStarter);
+  const home = cleanText(game.homeStarter);
+
+  if (!away && !home) return "";
+
+  return `
+    <div class="schedule-starter-row">
+      <span>客場先發 <b>${escapeHtml(away || "—")}</b></span>
+      <span>主場先發 <b>${escapeHtml(home || "—")}</b></span>
+    </div>
   `;
 }
 
@@ -1002,6 +1122,17 @@ function getStatusText(status) {
   return STATUS_TEXT[status] || status || "未開賽";
 }
 
+function shortTeamName(team) {
+  const s = cleanText(team);
+  if (s.includes("中信")) return "中信";
+  if (s.includes("統一")) return "統一";
+  if (s.includes("樂天")) return "樂天";
+  if (s.includes("富邦")) return "富邦";
+  if (s.includes("味全")) return "味全";
+  if (s.includes("台鋼")) return "台鋼";
+  return s.slice(0, 4) || "—";
+}
+
 function getTeamLogo(teamId) {
   return TEAM_NAME_MAP[teamId]
     ? `assets/logo/${teamId}.png`
@@ -1017,7 +1148,21 @@ function buildMatchUrl(game) {
 }
 
 function hasScore(game) {
-  return game.awayR !== null || game.homeR !== null;
+  if (!game) return false;
+
+  const hasRuns = game.awayR !== null && game.homeR !== null;
+
+  if (!hasRuns) return false;
+
+  if (game.status === "live" || game.status === "final") return true;
+
+  const q = game.dataQuality || {};
+  const finalLocked =
+    game.finalLock?.locked === true ||
+    game.finalLock === true ||
+    q.finalLock === "confirmed";
+
+  return finalLocked && (q.score === "confirmed" || q.rhe === "confirmed");
 }
 
 function formatScore(v) {

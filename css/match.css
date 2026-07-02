@@ -1851,3 +1851,649 @@
     font-size: 34px;
   }
 }
+
+
+/* =========================================================
+   Match Center v5.6.0 POLISHED UI
+   - 補上 match.html 專屬樣式入口
+   - 黏性導覽、卡片間距、表格可讀性、資料品質晶片
+   - 對齊 schedule v6.2 的資料信任風格
+========================================================= */
+
+body[data-page="match"] {
+  background:
+    radial-gradient(circle at 10% 0%, rgba(250,204,21,0.08), transparent 28%),
+    radial-gradient(circle at 95% 6%, rgba(85,180,232,0.08), transparent 30%),
+    var(--bg);
+}
+
+body[data-page="match"] .hero {
+  position: relative;
+  overflow: hidden;
+  padding-top: 44px;
+  padding-bottom: 42px;
+}
+
+body[data-page="match"] .hero::after {
+  content: "MATCH CENTER";
+  position: absolute;
+  right: max(20px, 6vw);
+  bottom: -10px;
+  color: rgba(255,255,255,0.055);
+  font-size: clamp(58px, 9vw, 140px);
+  line-height: .9;
+  font-weight: 950;
+  letter-spacing: -0.07em;
+  pointer-events: none;
+}
+
+body[data-page="match"] .match-vnext-container {
+  width: min(92vw, 1440px);
+  display: grid;
+  gap: 18px;
+}
+
+body[data-page="match"] .home-card,
+body[data-page="match"] .card,
+body[data-page="match"] .match-section {
+  border-radius: 28px;
+  border: 1px solid rgba(15,23,42,0.085);
+  box-shadow: 0 18px 44px rgba(15,23,42,0.075);
+}
+
+body[data-page="match"] .match-tab-section {
+  scroll-margin-top: 132px;
+}
+
+body[data-page="match"] .match-tabs-wrap {
+  top: 82px;
+}
+
+body[data-page="match"] .match-tabs {
+  width: 100%;
+  align-items: center;
+}
+
+body[data-page="match"] .match-tab-btn {
+  cursor: pointer;
+}
+
+body[data-page="match"] .match-hero {
+  margin-top: 12px;
+  border-radius: 34px;
+  isolation: isolate;
+}
+
+body[data-page="match"] .hero-status {
+  text-transform: uppercase;
+}
+
+body[data-page="match"] #gameIdDisplay {
+  display: inline-flex;
+  min-height: 30px;
+  align-items: center;
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: rgba(15,23,42,0.06);
+  color: #475569;
+  font-size: 13px;
+  font-weight: 950;
+}
+
+body[data-page="match"] .section-title-row,
+body[data-page="match"] .section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+body[data-page="match"] .team-switch {
+  display: inline-flex;
+  gap: 7px;
+  padding: 5px;
+  border-radius: 999px;
+  background: rgba(15,23,42,0.06);
+}
+
+body[data-page="match"] .team-tab {
+  min-height: 36px;
+  padding: 8px 13px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 950;
+  cursor: pointer;
+}
+
+body[data-page="match"] .team-tab.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+body[data-page="match"] .dq-panel {
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(248,250,252,.95));
+  border: 1px solid rgba(15,23,42,.08);
+}
+
+body[data-page="match"] .dq-panel::after {
+  content: "QUALITY";
+  position: absolute;
+  right: 14px;
+  bottom: -8px;
+  color: rgba(15,23,42,.035);
+  font-size: clamp(48px, 8vw, 96px);
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: -0.06em;
+  pointer-events: none;
+}
+
+body[data-page="match"] .dq-main {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+body[data-page="match"] .dq-kicker {
+  display: inline-flex;
+  min-height: 24px;
+  align-items: center;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(11,60,93,.08);
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: .12em;
+}
+
+body[data-page="match"] .dq-main strong {
+  display: block;
+  margin-top: 8px;
+  color: #0f172a;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.1;
+  font-weight: 950;
+}
+
+body[data-page="match"] .dq-main p {
+  margin: 8px 0 0;
+  color: #64748b;
+  font-weight: 850;
+  line-height: 1.65;
+}
+
+body[data-page="match"] .dq-badge {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  min-width: 86px;
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(15,23,42,.08);
+  color: #334155;
+  font-weight: 950;
+}
+
+body[data-page="match"] .dq-good .dq-badge,
+body[data-page="match"] .dq-chip-good,
+body[data-page="match"] .dq-chip-final,
+body[data-page="match"] .dq-chip-locked {
+  background: rgba(22,163,74,.12);
+  color: #15803d;
+}
+
+body[data-page="match"] .dq-partial .dq-badge,
+body[data-page="match"] .dq-chip-warn,
+body[data-page="match"] .dq-chip-live {
+  background: rgba(245,158,11,.14);
+  color: #b45309;
+}
+
+body[data-page="match"] .dq-bad .dq-badge,
+body[data-page="match"] .dq-chip-bad {
+  background: rgba(220,38,38,.12);
+  color: #b91c1c;
+}
+
+body[data-page="match"] .dq-chip-grid {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+body[data-page="match"] .dq-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(15,23,42,.06);
+  color: #334155;
+  font-size: 12px;
+  font-weight: 950;
+}
+
+body[data-page="match"] .dq-chip-manual {
+  background: rgba(37,99,235,.1);
+  color: #1d4ed8;
+}
+
+body[data-page="match"] .dq-meta-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+body[data-page="match"] .dq-meta-grid > div {
+  min-width: 0;
+  padding: 13px 14px;
+  border-radius: 16px;
+  background: rgba(15,23,42,.045);
+}
+
+body[data-page="match"] .dq-meta-grid span {
+  display: block;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+body[data-page="match"] .dq-meta-grid strong {
+  display: block;
+  margin-top: 5px;
+  color: #0f172a;
+  font-size: 13px;
+  font-weight: 950;
+  overflow-wrap: anywhere;
+}
+
+body[data-page="match"] .dq-note-list {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 6px;
+  margin-top: 14px;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+body[data-page="match"] .batter-table-scroll,
+body[data-page="match"] .pitcher-table-scroll,
+body[data-page="match"] .match-table-scroll {
+  overflow-x: auto;
+  border-radius: 18px;
+  border: 1px solid rgba(15,23,42,.075);
+}
+
+body[data-page="match"] .batter-table-detail,
+body[data-page="match"] .pitcher-table-detail {
+  min-width: 980px;
+}
+
+body[data-page="match"] .batter-table-detail .batter-header,
+body[data-page="match"] .batter-table-detail .batter-row {
+  grid-template-columns: 58px minmax(120px,1.35fr) 88px repeat(11, minmax(54px,.55fr));
+}
+
+body[data-page="match"] .pitcher-table-detail .pitcher-header,
+body[data-page="match"] .pitcher-table-detail .pitcher-row {
+  grid-template-columns: 58px minmax(126px,1.35fr) 92px repeat(10, minmax(56px,.58fr));
+}
+
+body[data-page="match"] .batter-row,
+body[data-page="match"] .pitcher-row {
+  background: rgba(255,255,255,.74);
+}
+
+body[data-page="match"] .batter-row:nth-child(odd),
+body[data-page="match"] .pitcher-row:nth-child(odd) {
+  background: rgba(248,250,252,.92);
+}
+
+body[data-page="match"] .player-name-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #0f172a;
+  font-weight: 950;
+}
+
+body[data-page="match"] .batter-row.is-highlight {
+  background: rgba(250,204,21,.12);
+}
+
+body[data-page="match"] .starter-box,
+body[data-page="match"] .empty-box {
+  padding: 18px;
+  border-radius: 20px;
+  background: rgba(11,60,93,.06);
+  color: #0f172a;
+  font-weight: 900;
+  line-height: 1.7;
+}
+
+body[data-page="match"] .pregame-lineup-section h2 {
+  margin-top: 0;
+}
+
+body[data-page="match"] .lineup-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+body[data-page="match"] .lineup-card {
+  padding: 16px;
+  border-radius: 20px;
+  background: rgba(255,255,255,.82);
+  border: 1px solid rgba(15,23,42,.08);
+}
+
+body[data-page="match"] .lineup-card h3 {
+  margin: 0 0 10px;
+  color: #0f172a;
+}
+
+body[data-page="match"] .lineup-row {
+  display: grid;
+  grid-template-columns: 42px minmax(0,1fr) 56px;
+  gap: 8px;
+  align-items: center;
+  padding: 9px 0;
+  border-top: 1px solid rgba(15,23,42,.07);
+  font-weight: 850;
+}
+
+body[data-page="match"] .lineup-order {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: rgba(11,60,93,.08);
+  color: var(--primary);
+  font-weight: 950;
+}
+
+body[data-page="match"] .lineup-name {
+  color: #0f172a;
+  font-weight: 950;
+}
+
+body[data-page="match"] .lineup-pos {
+  color: #64748b;
+  text-align: right;
+}
+
+body[data-page="match"] .card table {
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+body[data-page="match"] .card table th,
+body[data-page="match"] .card table td {
+  padding: 13px 10px;
+  border-bottom: 1px solid rgba(15,23,42,.07);
+}
+
+body[data-page="match"] .inning-empty {
+  color: #94a3b8;
+}
+
+body[data-page="match"] .inning-zero {
+  color: #64748b;
+}
+
+body[data-page="match"] .inning-has-value {
+  color: #0f172a;
+  font-weight: 950;
+}
+
+body[data-page="match"] .inning-team-name {
+  color: var(--primary);
+  font-weight: 950;
+}
+
+html[data-theme="dark"] body[data-page="match"] .home-card,
+html[data-theme="dark"] body[data-page="match"] .card,
+html[data-theme="dark"] body[data-page="match"] .match-section,
+html[data-theme="dark"] body[data-page="match"] .starter-duel-card,
+html[data-theme="dark"] body[data-page="match"] .match-progress-card,
+html[data-theme="dark"] body[data-page="match"] .pregame-ux-card,
+html[data-theme="dark"] body[data-page="match"] .dq-panel {
+  background:
+    radial-gradient(circle at top right, rgba(85,180,232,.055), transparent 34%),
+    linear-gradient(180deg, rgba(18,32,47,.98), rgba(10,22,34,.98));
+  border-color: rgba(255,255,255,.08);
+}
+
+html[data-theme="dark"] body[data-page="match"] .dq-main strong,
+html[data-theme="dark"] body[data-page="match"] .dq-meta-grid strong,
+html[data-theme="dark"] body[data-page="match"] .starter-duel-head h2,
+html[data-theme="dark"] body[data-page="match"] .match-progress-head h2,
+html[data-theme="dark"] body[data-page="match"] .pregame-ux-head h2,
+html[data-theme="dark"] body[data-page="match"] .team-name,
+html[data-theme="dark"] body[data-page="match"] .lineup-name {
+  color: #f8fafc;
+}
+
+html[data-theme="dark"] body[data-page="match"] .starter-team,
+html[data-theme="dark"] body[data-page="match"] .progress-step,
+html[data-theme="dark"] body[data-page="match"] .pregame-ux-item,
+html[data-theme="dark"] body[data-page="match"] .lineup-card,
+html[data-theme="dark"] body[data-page="match"] .dq-meta-grid > div,
+html[data-theme="dark"] body[data-page="match"] .starter-box,
+html[data-theme="dark"] body[data-page="match"] .empty-box {
+  background: rgba(255,255,255,.055);
+  border-color: rgba(255,255,255,.08);
+}
+
+@media (max-width: 980px) {
+  body[data-page="match"] .dq-meta-grid,
+  body[data-page="match"] .lineup-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-page="match"] .match-tabs-wrap {
+    top: 70px;
+  }
+}
+
+@media (max-width: 720px) {
+  body[data-page="match"] .match-vnext-container {
+    width: 100%;
+    padding-inline: 10px;
+  }
+
+  body[data-page="match"] .dq-main {
+    flex-direction: column;
+  }
+
+  body[data-page="match"] .dq-badge {
+    width: 100%;
+  }
+
+  body[data-page="match"] .section-title-row,
+  body[data-page="match"] .section-head {
+    align-items: flex-start;
+  }
+
+  body[data-page="match"] .team-switch {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+
+/* =========================================================
+   v5.6.2 DIGITAL CLOCK
+   Hero 倒數改成電子看板式數位時鐘
+========================================================= */
+
+.game-countdown-panel.digital-clock-panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  gap: 8px;
+  min-width: 250px;
+  padding: 14px 20px 16px;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(250,204,21,.18), transparent 34%),
+    linear-gradient(180deg, rgba(2,6,23,.72), rgba(2,6,23,.50));
+  border: 1px solid rgba(250,204,21,.24);
+  box-shadow:
+    0 18px 42px rgba(0,0,0,.24),
+    inset 0 1px 0 rgba(255,255,255,.13),
+    inset 0 -22px 42px rgba(0,0,0,.20);
+}
+
+.game-countdown-panel.digital-clock-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(255,255,255,.06) 0,
+      rgba(255,255,255,.06) 1px,
+      transparent 1px,
+      transparent 7px
+    );
+  opacity: .22;
+  pointer-events: none;
+}
+
+.game-countdown-panel.digital-clock-panel::after {
+  content: "ON AIR";
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  color: rgba(250,204,21,.55);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .16em;
+}
+
+.game-countdown-panel.digital-clock-panel .game-countdown-label {
+  color: rgba(226,232,240,.74);
+  font-size: 11px;
+  letter-spacing: .20em;
+  text-transform: uppercase;
+}
+
+.game-countdown-panel.digital-clock-panel strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: #facc15;
+  font-family:
+    "Cascadia Mono",
+    "Consolas",
+    "SFMono-Regular",
+    "Courier New",
+    monospace;
+  font-size: clamp(34px, 4.4vw, 56px);
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: .02em;
+  font-variant-numeric: tabular-nums;
+  text-shadow:
+    0 0 10px rgba(250,204,21,.52),
+    0 0 24px rgba(250,204,21,.28),
+    0 8px 20px rgba(0,0,0,.34);
+}
+
+.game-countdown-panel.digital-clock-panel .digital-digit {
+  display: inline-grid;
+  place-items: center;
+  min-width: .72em;
+  padding: 0 .03em;
+  border-radius: 8px;
+  background: rgba(250,204,21,.075);
+  box-shadow: inset 0 0 0 1px rgba(250,204,21,.12);
+}
+
+.game-countdown-panel.digital-clock-panel .digital-colon {
+  display: inline-block;
+  color: #fde68a;
+  animation: digitalColonBlink 1s steps(1, end) infinite;
+}
+
+.game-countdown-panel.digital-clock-panel strong.is-status-text {
+  color: #ffffff;
+  font-size: clamp(30px, 3.5vw, 48px);
+  letter-spacing: .08em;
+}
+
+.game-countdown-panel.digital-clock-panel.is-soon {
+  background:
+    radial-gradient(circle at 12% 0%, rgba(248,113,113,.20), transparent 34%),
+    linear-gradient(180deg, rgba(69,10,10,.72), rgba(2,6,23,.50));
+  border-color: rgba(248,113,113,.34);
+}
+
+.game-countdown-panel.digital-clock-panel.is-soon strong {
+  color: #fecaca;
+  text-shadow:
+    0 0 12px rgba(248,113,113,.58),
+    0 0 28px rgba(248,113,113,.30);
+}
+
+.game-countdown-panel.digital-clock-panel.is-started strong {
+  color: #ffffff;
+  text-shadow:
+    0 0 12px rgba(248,113,113,.70),
+    0 0 30px rgba(248,113,113,.38);
+}
+
+.game-countdown-panel.digital-clock-panel.is-final strong {
+  color: #bbf7d0;
+  text-shadow:
+    0 0 12px rgba(74,222,128,.60),
+    0 0 30px rgba(74,222,128,.32);
+}
+
+@keyframes digitalColonBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: .22; }
+}
+
+@media (max-width: 720px) {
+  .game-countdown-panel.digital-clock-panel {
+    min-width: 0;
+    border-radius: 20px;
+  }
+
+  .game-countdown-panel.digital-clock-panel strong {
+    font-size: 38px;
+    gap: 4px;
+  }
+}

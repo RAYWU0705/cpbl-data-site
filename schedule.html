@@ -17,7 +17,7 @@ Status: ACTIVE
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>CPBL 賽程｜Ray's CPBL Data Site</title>
+  <title>CPBL 賽程中心｜Ray's CPBL Data Site</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0b3c5d">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -42,7 +42,7 @@ Status: ACTIVE
   </script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/theme.css?v=560a">
-  <link rel="stylesheet" href="css/schedule.css">
+  <link rel="stylesheet" href="css/schedule.css?v=620-polished">
 </head>
 
 <body data-page="schedule">
@@ -82,7 +82,7 @@ Status: ACTIVE
       <p class="schedule-vnext-kicker">Ray's Unofficial CPBL Data Site</p>
       <h1 id="scheduleTitle">賽程中心</h1>
       <p id="scheduleSub">
-        一軍賽程總覽，支援列表、月曆、球隊、場地、狀態與關鍵字篩選。
+        一軍賽程總覽，支援列表、月曆、球隊、場地、狀態與關鍵字篩選；補上比分、RHE、預告先發與資料可信標記。
       </p>
 
       <div class="schedule-vnext-actions">
@@ -193,6 +193,8 @@ Status: ACTIVE
             <option value="final">已結束</option>
             <option value="scheduled">未開賽</option>
             <option value="postponed">延賽</option>
+            <option value="suspended">保留比賽</option>
+            <option value="cancelled">取消</option>
           </select>
 
           <label for="searchInput">搜尋</label>
@@ -269,7 +271,7 @@ Status: ACTIVE
 </footer>
 
 <script src="js/site-root.js?v=561d"></script>
-<script type="module" src="js/pages/schedule.js?v=600-balanced"></script>
+<script type="module" src="js/pages/schedule.js?v=620-polished"></script>
 <script src="js/theme.js?v=560a"></script>
 <script src="js/version.js"></script>
 <script src="js/pwa-register.js"></script>
