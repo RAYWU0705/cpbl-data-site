@@ -1,4 +1,4 @@
-console.log("✅ schedule.js v5.2.4-FARM-HOME-ENTRY 已載入");
+console.log("✅ schedule.js v6.0.0-SCHEDULE-BALANCED 已載入");
 
 /* =========================================================
    Ray's CPBL Data Site
@@ -12,7 +12,7 @@ console.log("✅ schedule.js v5.2.4-FARM-HOME-ENTRY 已載入");
    - 支援列表 / 月曆 / 月份 / 日期 / 球隊 / 場地 / 狀態 / 搜尋
 ========================================================= */
 
-const VERSION = "v5.2.4-FARM-HOME-ENTRY";
+const VERSION = "v6.0.0-SCHEDULE-BALANCED";
 const LIVE_BOXSCORE_URL = "data/live/live-boxscore.json";
 
 const TEAM_ID_MAP = {
@@ -509,7 +509,20 @@ function renderAll() {
   renderTodayFocus();
   renderDownloadHint();
   renderSummary();
+  renderScheduleHeroMonitor();
   renderMode();
+}
+
+function renderScheduleHeroMonitor() {
+  setText("scheduleHeroTotal", String(filteredGames.length));
+
+  const live = filteredGames.filter(g => g.status === "live").length;
+  const final = filteredGames.filter(g => g.status === "final").length;
+  const scheduled = filteredGames.filter(g => g.status === "scheduled").length;
+
+  setText("scheduleHeroLive", `${live} LIVE`);
+  setText("scheduleHeroFinal", `${final} FINAL`);
+  setText("scheduleHeroScheduled", `${scheduled} 未開賽`);
 }
 
 function renderTodayFocus() {

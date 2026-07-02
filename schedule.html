@@ -74,23 +74,42 @@ Status: ACTIVE
   </div>
 </nav>
 
-<header class="hero">
-  <p class="muted">Ray's Unofficial CPBL Data Site</p>
-  <h1 id="scheduleTitle">賽程中心</h1>
-  <p id="scheduleSub">月曆模式、列表模式、球隊 / 場地 / 賽程別篩選，當賽程時間顯示時間未定時，即代表比賽已結束。</p>
+<header class="schedule-vnext-hero">
+  <div class="schedule-vnext-bg">SCHEDULE</div>
 
-  <div class="hero-actions">
-    <button id="btnReloadGames" type="button">重新整理資料</button>
-    <a href="farm-schedule.html" class="card-link">二軍賽程</a>
-    <a href="index.html" class="card-link">回首頁</a>
+  <div class="schedule-vnext-inner">
+    <section class="schedule-vnext-copy">
+      <p class="schedule-vnext-kicker">Ray's Unofficial CPBL Data Site</p>
+      <h1 id="scheduleTitle">賽程中心</h1>
+      <p id="scheduleSub">
+        一軍賽程總覽，支援列表、月曆、球隊、場地、狀態與關鍵字篩選。
+      </p>
+
+      <div class="schedule-vnext-actions">
+        <button id="btnReloadGames" type="button">重新整理資料</button>
+        <a href="farm-schedule.html">二軍賽程</a>
+        <a href="index.html">回首頁</a>
+      </div>
+
+      <p id="scheduleDataStatus" class="schedule-vnext-status">資料載入中…</p>
+    </section>
+
+    <aside class="schedule-vnext-monitor" aria-label="賽程頁狀態摘要">
+      <span>Schedule Monitor</span>
+      <strong id="scheduleHeroTotal">—</strong>
+      <em>目前顯示場次</em>
+      <div>
+        <b id="scheduleHeroLive">0 LIVE</b>
+        <b id="scheduleHeroFinal">0 FINAL</b>
+        <b id="scheduleHeroScheduled">0 未開賽</b>
+      </div>
+    </aside>
   </div>
-
-  <p id="scheduleDataStatus" class="muted">資料載入中…</p>
 </header>
 
-<main class="container">
+<main class="container schedule-vnext-container">
 
-  <section class="home-card" id="teamFilterBanner" style="display:none;">
+  <section class="schedule-team-filter-banner-wrap" id="teamFilterBanner" style="display:none;">
     <div class="schedule-team-filter-banner">
       <div>
         <span class="schedule-kicker">TEAM FILTER</span>
@@ -99,120 +118,146 @@ Status: ACTIVE
       </div>
       <div class="schedule-team-filter-actions">
         <a id="teamHomeLink" class="card-link" href="teams.html">球隊總覽</a>
-        <a class="card-link" href="schedule.html">清除球隊篩選</a>
+        <a class="card-link secondary" href="schedule.html">清除球隊篩選</a>
       </div>
     </div>
   </section>
 
-  <section class="home-card schedule-league-card" aria-label="賽程層級切換">
-    <div class="schedule-league-switch">
-      <div>
-        <span class="schedule-kicker">LEAGUE SWITCH</span>
-        <h2>一軍 / 二軍賽程</h2>
-        <p class="muted">
-          目前顯示一軍賽程；二軍採旁路資料流，讀取 data/farm/farm-schedule-2026.json，不混入一軍 live-boxscore.json。
-        </p>
-      </div>
+  <section class="schedule-vnext-strip" aria-label="賽程層級切換">
+    <div>
+      <span class="schedule-kicker">LEAGUE SWITCH</span>
+      <strong>一軍 / 二軍賽程</strong>
+      <p>目前顯示一軍賽程；二軍資料採獨立旁路，不混入一軍 live-boxscore 主流程。</p>
+    </div>
 
-      <div class="schedule-league-actions">
-        <a class="schedule-league-btn active" href="schedule.html">一軍賽程</a>
-        <a class="schedule-league-btn farm" href="farm-schedule.html">二軍賽程</a>
-      </div>
+    <div class="schedule-league-actions">
+      <a class="schedule-league-btn active" href="schedule.html">一軍賽程</a>
+      <a class="schedule-league-btn farm" href="farm-schedule.html">二軍賽程</a>
     </div>
   </section>
 
+  <section class="schedule-vnext-layout">
 
-  <section class="home-card">
-    <h2>🔥 今日 / 最近賽事</h2>
-    <div id="todayFocus" class="muted">載入中…</div>
-  </section>
+    <div class="schedule-vnext-maincol">
 
-  <section class="home-card">
-    <h2>🧭 顯示模式</h2>
+      <section class="schedule-panel schedule-focus-panel">
+        <div class="schedule-panel-head">
+          <div>
+            <span class="schedule-kicker">FOCUS</span>
+            <h2>今日 / 最近賽事</h2>
+          </div>
+        </div>
+        <div id="todayFocus" class="muted">載入中…</div>
+      </section>
 
-    <div class="schedule-toolbar">
-      <button id="btnListMode" type="button">列表模式</button>
-      <button id="btnCalendarMode" type="button">月曆模式</button>
+      <section class="schedule-panel schedule-filter-panel">
+        <div class="schedule-panel-head">
+          <div>
+            <span class="schedule-kicker">FILTER</span>
+            <h2>篩選賽程</h2>
+          </div>
+          <div class="schedule-mode-switch">
+            <button id="btnListMode" type="button">列表模式</button>
+            <button id="btnCalendarMode" type="button">月曆模式</button>
+          </div>
+        </div>
+
+        <div class="schedule-toolbar schedule-toolbar-balanced">
+          <label for="typeSelect">賽程別</label>
+          <select id="typeSelect">
+            <option value="ALL">全部賽程</option>
+          </select>
+
+          <label for="monthSelect">月份</label>
+          <select id="monthSelect">
+            <option value="ALL">全部月份</option>
+          </select>
+
+          <label for="dateSelect">日期</label>
+          <input id="dateSelect" type="date">
+
+          <label for="teamSelect">球隊</label>
+          <select id="teamSelect">
+            <option value="ALL">全部球隊</option>
+          </select>
+
+          <label for="venueSelect">場地</label>
+          <select id="venueSelect">
+            <option value="ALL">全部場地</option>
+          </select>
+
+          <label for="statusSelect">狀態</label>
+          <select id="statusSelect">
+            <option value="ALL">全部狀態</option>
+            <option value="live">LIVE</option>
+            <option value="final">已結束</option>
+            <option value="scheduled">未開賽</option>
+            <option value="postponed">延賽</option>
+          </select>
+
+          <label for="searchInput">搜尋</label>
+          <input id="searchInput" type="search" placeholder="球隊 / 場地 / gameSno">
+
+          <button id="btnResetFilter" type="button">清除篩選</button>
+        </div>
+      </section>
+
+      <section class="schedule-panel" id="listSection">
+        <div class="schedule-panel-head">
+          <div>
+            <span class="schedule-kicker">LIST</span>
+            <h2>列表模式</h2>
+          </div>
+        </div>
+        <div id="scheduleList"></div>
+      </section>
+
+      <section class="schedule-panel is-hidden" id="calendarSection">
+        <div class="schedule-panel-head">
+          <div>
+            <span class="schedule-kicker">CALENDAR</span>
+            <h2>月曆模式</h2>
+          </div>
+        </div>
+        <div id="calendarTitle" class="calendar-title"></div>
+        <div id="calendarGrid"></div>
+      </section>
+
     </div>
-  </section>
 
-  <section class="home-card">
-    <h2>🔎 篩選賽程</h2>
+    <aside class="schedule-vnext-sidebar">
 
-    <div class="schedule-toolbar">
+      <section class="schedule-panel schedule-summary-panel">
+        <div class="schedule-panel-head">
+          <div>
+            <span class="schedule-kicker">SUMMARY</span>
+            <h2>賽程摘要</h2>
+          </div>
+        </div>
+        <div id="scheduleSummary" class="muted">計算中…</div>
+      </section>
 
-      <label for="typeSelect">賽程別：</label>
-      <select id="typeSelect">
-        <option value="ALL">全部賽程</option>
-      </select>
+      <section class="schedule-panel schedule-download-panel">
+        <div class="schedule-panel-head">
+          <div>
+            <span class="schedule-kicker">EXPORT</span>
+            <h2>下載賽程表</h2>
+            <p class="muted" id="scheduleDownloadHint">可下載目前篩選結果。</p>
+          </div>
+        </div>
 
-      <label for="monthSelect">月份：</label>
-      <select id="monthSelect">
-        <option value="ALL">全部月份</option>
-      </select>
+        <div class="schedule-download-actions">
+          <button id="btnDownloadScheduleCsv" type="button">下載 CSV</button>
+          <button id="btnDownloadScheduleIcs" type="button">下載 ICS</button>
+        </div>
 
-      <label for="dateSelect">日期：</label>
-      <input id="dateSelect" type="date">
+        <div class="schedule-download-note">
+          CSV 可用 Excel / Google 試算表開啟；ICS 可匯入行事曆。
+        </div>
+      </section>
 
-      <label for="teamSelect">球隊：</label>
-      <select id="teamSelect">
-        <option value="ALL">全部球隊</option>
-      </select>
+    </aside>
 
-      <label for="venueSelect">場地：</label>
-      <select id="venueSelect">
-        <option value="ALL">全部場地</option>
-      </select>
-
-      <label for="statusSelect">狀態：</label>
-      <select id="statusSelect">
-        <option value="ALL">全部狀態</option>
-        <option value="live">LIVE</option>
-        <option value="final">已結束</option>
-        <option value="scheduled">未開賽</option>
-        <option value="postponed">延賽</option>
-      </select>
-
-      <input id="searchInput" type="search" placeholder="搜尋球隊 / 場地 / gameSno">
-
-      <button id="btnResetFilter" type="button">清除篩選</button>
-
-    </div>
-  </section>
-
-
-  <section class="home-card schedule-download-card">
-    <div class="schedule-download-head">
-      <div>
-        <h2>⬇️ 下載賽程表</h2>
-        <p class="muted" id="scheduleDownloadHint">可下載目前篩選結果；支援 Excel CSV 與行事曆 ICS。</p>
-      </div>
-
-      <div class="schedule-download-actions">
-        <button id="btnDownloadScheduleCsv" type="button">下載 CSV</button>
-        <button id="btnDownloadScheduleIcs" type="button">下載 ICS</button>
-      </div>
-    </div>
-
-    <div class="schedule-download-note">
-      CSV 可用 Excel / Google 試算表開啟；ICS 可匯入 Google Calendar / Apple Calendar / Outlook。
-    </div>
-  </section>
-
-  <section class="home-card">
-    <h2>📊 賽程摘要</h2>
-    <div id="scheduleSummary" class="muted">計算中…</div>
-  </section>
-
-  <section class="home-card" id="listSection">
-    <h2>📋 列表模式</h2>
-    <div id="scheduleList"></div>
-  </section>
-
-  <section class="home-card is-hidden" id="calendarSection">
-    <h2>🗓 月曆模式</h2>
-    <div id="calendarTitle" class="calendar-title"></div>
-    <div id="calendarGrid"></div>
   </section>
 
 </main>
@@ -224,7 +269,7 @@ Status: ACTIVE
 </footer>
 
 <script src="js/site-root.js?v=561d"></script>
-<script type="module" src="js/pages/schedule.js?v=524"></script>
+<script type="module" src="js/pages/schedule.js?v=600-balanced"></script>
 <script src="js/theme.js?v=560a"></script>
 <script src="js/version.js"></script>
 <script src="js/pwa-register.js"></script>

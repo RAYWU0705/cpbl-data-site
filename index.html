@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <!--
 =========================================================
 CPBL Data Site Page Metadata
@@ -10,7 +9,7 @@ Deploy: YES
 Navigation: MAIN
 Maintainer: Ray
 Status: ACTIVE
-Notes: 網站正式首頁
+Notes: 網站正式首頁｜v6 卡片式平衡版
 =========================================================
 -->
 <html lang="zh-Hant">
@@ -43,7 +42,7 @@ Notes: 網站正式首頁
   </script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/theme.css?v=560a">
-  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/home.css?v=card-balanced-v6">
 </head>
 
 <body data-page="home">
@@ -74,66 +73,75 @@ Notes: 網站正式首頁
   </div>
 </nav>
 
-<header class="hero hero-pro">
-  <div class="hero-pro-inner">
+<header class="hero hero-pro home-balanced-hero">
+  <div class="hero-pro-inner home-balanced-hero-inner">
 
     <div class="hero-pro-main">
-      <p class="muted">Ray's Unofficial CPBL Data Site</p>
+      <p class="home-kicker">Ray's Unofficial CPBL Data Site</p>
       <h1>中職非官方數據中心</h1>
-      <p class="hero-subtitle">Live Games · Match Center · Standings · Teams · Season</p>
+      <p class="hero-subtitle">今日賽事、即時比分、戰績排行、球隊資料與二軍賽程，一個首頁快速進入。</p>
 
-      <div class="hero-actions">
+      <div class="hero-actions home-balanced-actions">
         <button id="btnRefreshLive" type="button">重新整理資料</button>
-        <a href="schedule.html">查看完整賽程</a>
+        <a href="schedule.html">今日賽程</a>
+        <a href="standings.html">戰績排行</a>
+        <a href="teams.html">球隊入口</a>
         <a href="farm-schedule.html">二軍賽程</a>
-        <a href="standings.html">查看戰績</a>
-        <a href="teams.html">查看球隊</a>
       </div>
+
       <div class="home-search-box">
         <input id="homeSearchInput" type="search" placeholder="搜尋球隊、球員、日期、球場、gameSno...">
         <button id="homeSearchBtn" type="button">搜尋</button>
       </div>
+
       <p id="dataSourceText" class="muted">資料載入中…</p>
     </div>
 
-    <div class="hero-pro-panel">
-      <div class="hero-panel-label">LIVE CENTER</div>
+    <aside class="hero-pro-panel home-balanced-panel" aria-label="今日賽事監控">
+      <div class="hero-panel-label">GAME DAY MONITOR</div>
+      <div class="home-balanced-clock" id="homeHeroClock">--:--</div>
 
-      <div class="hero-panel-main">
-        <strong>今日賽事</strong>
-        <span>即時比分｜賽前資訊｜比賽中心</span>
+      <div class="home-balanced-main-stat">
+        <span>今日場次</span>
+        <strong id="heroTotalCount">0</strong>
       </div>
 
-      <div class="hero-panel-stats">
-        <div>
-          <span>資料場次</span>
-          <strong>360</strong>
-        </div>
+      <div class="hero-panel-stats home-balanced-stats">
         <div>
           <span>LIVE</span>
-          <strong>0</strong>
+          <strong id="heroLiveCount">0</strong>
         </div>
         <div>
-          <span>Match</span>
-          <strong>Center</strong>
+          <span>未開打</span>
+          <strong id="heroScheduledCount">0</strong>
+        </div>
+        <div>
+          <span>FINAL</span>
+          <strong id="heroFinalCount">0</strong>
         </div>
       </div>
 
       <div class="hero-panel-link-grid">
-        <a class="hero-panel-link" href="schedule.html">進入今日賽程</a>
-        <a class="hero-panel-link hero-panel-farm-link" href="farm-schedule.html">查看二軍賽程</a>
+        <a class="hero-panel-link" href="match.html">比賽中心</a>
+        <a class="hero-panel-link hero-panel-farm-link" href="data-quality.html">資料品質</a>
       </div>
-    </div>
+    </aside>
 
   </div>
 </header>
 
-<main class="container">
+<main class="container home-balanced-container">
 
-  
+  <section class="home-balanced-hub" aria-label="首頁快速入口">
+    <a href="schedule.html"><span>Schedule</span><strong>賽程中心</strong></a>
+    <a href="standings.html"><span>Standings</span><strong>戰績排行</strong></a>
+    <a href="teams.html"><span>Teams</span><strong>球隊資料</strong></a>
+    <a href="search.html"><span>Search</span><strong>資料搜尋</strong></a>
+    <a href="farm-schedule.html"><span>Farm</span><strong>二軍賽程</strong></a>
+    <a href="version.html"><span>Version</span><strong>版本紀錄</strong></a>
+  </section>
 
-  <!-- 官方感比分橫條 -->
-  <section class="score-strip-wrap" aria-label="比分橫條">
+  <section class="score-strip-wrap home-balanced-score" aria-label="比分橫條">
     <div class="score-strip">
       <div id="scoreTrack">
         <div class="score-loading">載入比分橫條中…</div>
@@ -141,66 +149,70 @@ Notes: 網站正式首頁
     </div>
   </section>
 
-  <!-- 首頁主要資訊 -->
-  <section class="dashboard-grid">
+  <section class="dashboard-grid home-balanced-grid" aria-label="首頁資料總覽">
 
-    <div class="home-card live-system-card">
-      <h2>⚡ LIVE 系統狀態</h2>
+    <div class="home-card live-system-card home-card-sm">
+      <div class="card-eyebrow">SYSTEM</div>
+      <h2>LIVE 系統狀態</h2>
       <div id="systemStatus" class="muted">檢查中…</div>
     </div>
 
-    <div class="home-card">
-      <h2>📊 今日數據摘要</h2>
+    <div class="home-card home-card-sm">
+      <div class="card-eyebrow">TODAY</div>
+      <h2>今日數據摘要</h2>
       <div id="todaySummary" class="muted">載入中…</div>
     </div>
 
-    <div class="home-card primary dashboard-card-tall">
-      <h2>🔥 最近賽程焦點</h2>
+    <div class="home-card primary home-card-sm">
+      <div class="card-eyebrow">RANKING</div>
+      <h2>目前排名 TOP 6</h2>
+      <ul class="top6-list" id="top6List"></ul>
+      <a href="standings.html" class="card-link">查看完整排行榜</a>
+    </div>
 
+    <div class="home-card primary home-card-md">
+      <div class="card-eyebrow">FOCUS</div>
+      <h2>最近賽程焦點</h2>
       <div class="focus-slider">
         <div id="focusTrack">
           <div class="muted">載入中…</div>
         </div>
       </div>
-
       <div class="focus-dots" id="focusDots"></div>
     </div>
 
-    <div class="home-card primary dashboard-card-tall">
-      <h2>🏆 目前排名 TOP 6</h2>
-      <ul class="top6-list" id="top6List"></ul>
-      <a href="standings.html" class="card-link">查看完整排行榜</a>
-    </div>
-    <div class="home-card home-feature-card" id="watchGuideCard">
-      <h2>🧠 今日看球指南</h2>
+    <div class="home-card home-feature-card home-card-md" id="watchGuideCard">
+      <div class="card-eyebrow">TODAY'S PICK</div>
+      <h2>今日看球指南</h2>
       <div id="watchGuideContent" class="muted">載入中…</div>
     </div>
 
-    <div class="home-card home-feature-card secondary" id="scheduleRadarCard">
-      <h2>🧾 球隊賽程雷達</h2>
-      <div id="scheduleRadarContent" class="muted">載入中…</div>
-    </div>
-    
-
-    <div class="home-card">
-      <h2>📌 重要賽事</h2>
-      <ul>
-        <li>🔥 開幕戰｜2026/03/28｜中信兄弟 VS 樂天桃猿｜台北大巨蛋</li>
-        <li>⭐ 明星賽｜2026/07/18–19｜台北大巨蛋</li>
-        <li>🏁 總冠軍賽｜2026/11/17–11/25</li>
-      </ul>
-    </div>
-
-    <div class="home-card home-feature-card" id="leagueNewsCard">
-      <h2>📰 聯盟快訊中心</h2>
+    <div class="home-card home-feature-card home-card-lg" id="leagueNewsCard">
+      <div class="card-eyebrow">LEAGUE NEWS</div>
+      <h2>聯盟快訊中心</h2>
       <div id="leagueNewsContent" class="muted">載入中…</div>
     </div>
 
+    <div class="home-card home-feature-card secondary home-card-side" id="scheduleRadarCard">
+      <div class="card-eyebrow">RADAR</div>
+      <h2>球隊賽程雷達</h2>
+      <div id="scheduleRadarContent" class="muted">載入中…</div>
+    </div>
 
-    <div class="home-card home-feature-card farm-entry-card" id="farmEntryCard">
+    <div class="home-card home-card-wide important-games-card">
+      <div class="card-eyebrow">IMPORTANT</div>
+      <h2>重要賽事</h2>
+      <ul class="important-games-list">
+        <li><strong>開幕戰</strong><span>2026/03/28｜中信兄弟 VS 樂天桃猿｜台北大巨蛋</span></li>
+        <li><strong>明星賽</strong><span>2026/07/18–19｜台北大巨蛋</span></li>
+        <li><strong>總冠軍賽</strong><span>2026/11/17–11/25</span></li>
+      </ul>
+    </div>
+
+    <div class="home-card home-feature-card farm-entry-card home-card-md" id="farmEntryCard">
       <div class="farm-entry-head">
         <span class="feature-label">FARM SIDEPATH</span>
-        <h2>🌱 二軍賽程中心</h2>
+        <h2>二軍賽程中心</h2>
       </div>
 
       <p>
@@ -214,8 +226,9 @@ Notes: 網站正式首頁
       </div>
     </div>
 
-    <div class="home-card home-feature-card" id="fanDatabaseCard">
-      <h2>📚 球迷資料庫入口</h2>
+    <div class="home-card home-feature-card home-card-md" id="fanDatabaseCard">
+      <div class="card-eyebrow">DIRECTORY</div>
+      <h2>球迷資料庫入口</h2>
       <div id="fanDatabaseContent" class="muted">載入中…</div>
     </div>
 
@@ -224,13 +237,13 @@ Notes: 網站正式首頁
 </main>
 
 <footer>
-  © 2026 CPBL Data Site ｜ 
-  <span class="site-version"></span> ｜ 
+  © 2026 CPBL Data Site ｜
+  <span class="site-version"></span> ｜
   明叡 × ChatGPT
 </footer>
 
 <script src="js/site-root.js?v=561d"></script>
-<script src="js/pages/index.js?v=529-special-status-banner" type="module"></script>
+<script src="js/pages/index.js?v=card-balanced-v6" type="module"></script>
 <script src="js/theme.js?v=560a"></script>
 <script src="js/version.js"></script>
 <script src="js/pwa-register.js"></script>

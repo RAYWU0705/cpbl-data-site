@@ -17,7 +17,7 @@
 
 import { calculateStandings } from "../standingsEngine.js";
 
-const VERSION = "v5.3.2-HOME-CARD-BALANCED";
+const VERSION = "v5.2.10-HOME-ROUTE-SAFE-SEARCH";
 
 const LIVE_JSON_URL = "data/live/live-boxscore.json";
 const PROBABLE_JSON_URL = "data/live/probable-pitchers.json";
@@ -195,7 +195,6 @@ async function initHome() {
     bindEvents();
     bindHomeSearch();
     renderAll();
-    startHomeHeroClock();
 
     setText(
       "dataSourceText",
@@ -947,7 +946,6 @@ function renderAll() {
 
   safeRender("renderLeagueNews", renderLeagueNews);
   safeRender("renderFanDatabase", renderFanDatabase);
-  safeRender("updateHomeHeroDashboard", updateHomeHeroDashboard);
 }
 
 function safeRender(name, fn) {
@@ -2237,52 +2235,65 @@ function renderSystemStatus() {
   const finals = allGames.filter(g => g.status === "final").length;
   const live = allGames.filter(g => g.status === "live").length;
   const scheduled = allGames.filter(g => g.status === "scheduled").length;
+
   const finalLocked = allGames.filter(g => g.raw?.finalLock?.locked).length;
+
+  const withRhe = allGames.filter(g =>
+    g.raw?.totals?.away?.H != null &&
+    g.raw?.totals?.home?.H != null &&
+    g.raw?.totals?.away?.E != null &&
+    g.raw?.totals?.home?.E != null
+  ).length;
+
+  const withBatters = allGames.filter(g =>
+    g.raw?.batters?.away?.length &&
+    g.raw?.batters?.home?.length
+  ).length;
+
+  const withPitchers = allGames.filter(g =>
+    g.raw?.pitchers?.away?.length &&
+    g.raw?.pitchers?.home?.length
+  ).length;
+
+  const withLiveState = allGames.filter(g => g.raw?.liveState).length;
+
+  const confirmedScore = allGames.filter(g => g.raw?.dataQuality?.score === "confirmed").length;
+  const partialScore = allGames.filter(g => g.raw?.dataQuality?.score === "partial").length;
+
   const newsItems = leagueNewsData?.items?.length || 0;
 
   box.innerHTML = `
-    <div class="system-status-compact">
-      <div class="system-status-grid">
-        <div><span>LIVE</span><strong>${live}</strong></div>
-        <div><span>未開打</span><strong>${scheduled}</strong></div>
-        <div><span>已結束</span><strong>${finals}</strong></div>
-        <div><span>總場次</span><strong>${total}</strong></div>
+    <div class="home-live-status-grid">
+      <div class="home-live-status-item live">
+        <span>LIVE</span>
+        <strong>${live}</strong>
       </div>
-
-      <div class="system-status-note">
-        <div>FINAL 鎖定：<strong>${finalLocked}</strong>｜聯盟快訊：<strong>${newsItems}</strong></div>
-        <div>首頁版本：<strong>${VERSION}</strong></div>
-        <div>最後讀取：<strong>${formatClock(lastLoadedAt)}</strong></div>
-        <div><a href="admin-live-debug.html" class="card-link">前往 LIVE Debug</a></div>
+      <div class="home-live-status-item">
+        <span>未開打</span>
+        <strong>${scheduled}</strong>
+      </div>
+      <div class="home-live-status-item">
+        <span>已結束</span>
+        <strong>${finals}</strong>
+      </div>
+      <div class="home-live-status-item warn">
+        <span>總場次</span>
+        <strong>${total}</strong>
       </div>
     </div>
+
+    <div>FINAL 鎖定：<strong>${finalLocked}</strong></div>
+    <div>R/H/E 完成：<strong>${withRhe}</strong></div>
+    <div>打者明細完成：<strong>${withBatters}</strong></div>
+    <div>投手明細完成：<strong>${withPitchers}</strong></div>
+    <div>即時戰況 liveState：<strong>${withLiveState}</strong></div>
+    <div>比分品質 confirmed / partial：<strong>${confirmedScore}</strong> / <strong>${partialScore}</strong></div>
+    <div>聯盟快訊 league-news：<strong>${newsItems}</strong></div>
+    <div>二軍旁路入口：<strong>farm-schedule.html</strong></div>
+    <div>首頁版本：<strong>${VERSION}</strong></div>
+    <div>最後讀取：<strong>${formatClock(lastLoadedAt)}</strong></div>
+    <div><a href="admin-live-debug.html" class="card-link">前往 LIVE Debug</a></div>
   `;
-}
-
-function updateHomeHeroDashboard() {
-  const today = getToday();
-  const todayGames = allGames.filter(g => g.date === today);
-  const live = todayGames.filter(g => g.status === "live").length;
-  const scheduled = todayGames.filter(g => g.status === "scheduled").length;
-  const final = todayGames.filter(g => g.status === "final").length;
-
-  setText("heroTotalCount", String(todayGames.length));
-  setText("heroLiveCount", String(live));
-  setText("heroScheduledCount", String(scheduled));
-  setText("heroFinalCount", String(final));
-  setText("homeHeroClock", formatClock(new Date()).slice(0, 5));
-}
-
-function startHomeHeroClock() {
-  updateHomeHeroDashboard();
-
-  if (window.__cpblHomeHeroClockTimer) {
-    clearInterval(window.__cpblHomeHeroClockTimer);
-  }
-
-  window.__cpblHomeHeroClockTimer = setInterval(() => {
-    setText("homeHeroClock", formatClock(new Date()).slice(0, 5));
-  }, 1000 * 30);
 }
 
 /* =========================
