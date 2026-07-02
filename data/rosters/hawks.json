@@ -3,7 +3,7 @@
   "teamName": "台鋼雄鷹",
   "clubNo": "AKP",
   "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=AKP",
-  "updatedAt": "2026-06-10T02:24:21.599Z",
+  "updatedAt": "2026-07-02T02:50:23.566Z",
   "coaches": {
     "first": {
       "title": "一軍教練團",
@@ -155,6 +155,12 @@
       "group": "投手",
       "list": [
         {
+          "number": "10",
+          "name": "謝葆錡",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
           "number": "14",
           "name": "林詩翔",
           "group": "投手",
@@ -179,20 +185,8 @@
           "position": "投手"
         },
         {
-          "number": "20",
-          "name": "江承諺",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
           "number": "30",
           "name": "艾速特",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
-          "number": "40",
-          "name": "後勁",
           "group": "投手",
           "position": "投手"
         },
@@ -203,8 +197,8 @@
           "position": "投手"
         },
         {
-          "number": "55",
-          "name": "伍祐城",
+          "number": "52",
+          "name": "韋宏亮",
           "group": "投手",
           "position": "投手"
         },
@@ -215,14 +209,14 @@
           "position": "投手"
         },
         {
-          "number": "69",
-          "name": "黃子鵬",
+          "number": "84",
+          "name": "許峻暘",
           "group": "投手",
           "position": "投手"
         },
         {
-          "number": "84",
-          "name": "許峻暘",
+          "number": "98",
+          "name": "坎南",
           "group": "投手",
           "position": "投手"
         }
@@ -259,16 +253,16 @@
       "group": "內野手",
       "list": [
         {
-          "number": "00",
-          "name": "朱盟",
-          "group": "內野手",
-          "position": "游擊手"
-        },
-        {
           "number": "1",
           "name": "曾子祐",
           "group": "內野手",
           "position": "游擊手"
+        },
+        {
+          "number": "16",
+          "name": "林家鋐",
+          "group": "內野手",
+          "position": "二壘手"
         },
         {
           "number": "39",
@@ -277,10 +271,10 @@
           "position": "三壘手"
         },
         {
-          "number": "43",
-          "name": "胡冠俞",
+          "number": "42",
+          "name": "黃劼希",
           "group": "內野手",
-          "position": "游擊手"
+          "position": "三壘手"
         },
         {
           "number": "44",
@@ -295,10 +289,10 @@
           "position": "三壘手"
         },
         {
-          "number": "64",
-          "name": "宋柏翰",
+          "number": "79",
+          "name": "陳飛霖",
           "group": "內野手",
-          "position": "一壘手"
+          "position": "游擊手"
         },
         {
           "number": "94",
@@ -342,6 +336,12 @@
           "name": "高聖恩",
           "group": "外野手",
           "position": "中外野手"
+        },
+        {
+          "number": "88",
+          "name": "藍寅倫",
+          "group": "外野手",
+          "position": "右外野手"
         }
       ]
     },
@@ -357,12 +357,6 @@
           "position": "投手"
         },
         {
-          "number": "10",
-          "name": "謝葆錡",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
           "number": "11",
           "name": "陳正毅",
           "group": "投手",
@@ -371,6 +365,12 @@
         {
           "number": "12",
           "name": "王柏傑",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "20",
+          "name": "江承諺",
           "group": "投手",
           "position": "投手"
         },
@@ -399,6 +399,12 @@
           "position": "投手"
         },
         {
+          "number": "40",
+          "name": "後勁",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
           "number": "41",
           "name": "王躍霖",
           "group": "投手",
@@ -417,14 +423,14 @@
           "position": "投手"
         },
         {
-          "number": "52",
-          "name": "韋宏亮",
+          "number": "54",
+          "name": "*曾奕翔",
           "group": "投手",
           "position": "投手"
         },
         {
-          "number": "54",
-          "name": "*曾奕翔",
+          "number": "55",
+          "name": "伍祐城",
           "group": "投手",
           "position": "投手"
         },
@@ -453,6 +459,12 @@
           "position": "投手"
         },
         {
+          "number": "69",
+          "name": "黃子鵬",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
           "number": "74",
           "name": "許育銘",
           "group": "投手",
@@ -473,12 +485,6 @@
         {
           "number": "93",
           "name": "*張誠恩",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
-          "number": "98",
-          "name": "坎南",
           "group": "投手",
           "position": "投手"
         }
@@ -527,6 +533,12 @@
       "group": "內野手",
       "list": [
         {
+          "number": "00",
+          "name": "朱盟",
+          "group": "內野手",
+          "position": "游擊手"
+        },
+        {
           "number": "5",
           "name": "顏郁軒",
           "group": "內野手",
@@ -535,12 +547,6 @@
         {
           "number": "7",
           "name": "郭永維",
-          "group": "內野手",
-          "position": "二壘手"
-        },
-        {
-          "number": "16",
-          "name": "林家鋐",
           "group": "內野手",
           "position": "二壘手"
         },
@@ -557,22 +563,22 @@
           "position": "二壘手"
         },
         {
-          "number": "42",
-          "name": "黃劼希",
+          "number": "43",
+          "name": "胡冠俞",
           "group": "內野手",
-          "position": "三壘手"
+          "position": "游擊手"
+        },
+        {
+          "number": "64",
+          "name": "宋柏翰",
+          "group": "內野手",
+          "position": "一壘手"
         },
         {
           "number": "71",
           "name": "杜家明",
           "group": "內野手",
           "position": "三壘手"
-        },
-        {
-          "number": "79",
-          "name": "陳飛霖",
-          "group": "內野手",
-          "position": "游擊手"
         }
       ]
     },
@@ -608,12 +614,6 @@
         {
           "number": "49",
           "name": "*張豈豪",
-          "group": "外野手",
-          "position": "右外野手"
-        },
-        {
-          "number": "88",
-          "name": "藍寅倫",
           "group": "外野手",
           "position": "右外野手"
         }

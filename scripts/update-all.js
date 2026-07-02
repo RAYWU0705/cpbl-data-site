@@ -1,5 +1,5 @@
 // =========================
-// CPBL Data Update All v5.2.5-BUILD-ARGS-HOTFIX
+// CPBL Data Update All v5.2.6-YESTERDAY-FINAL-CATCHUP
 // 一鍵更新：players / transactions / pregame / live-inplay / final-vue+merge / league-news
 // 穩定性重點：不中斷、備份、summary、dry-run、soft-exit
 // =========================
@@ -275,6 +275,46 @@ function resolveTasks() {
   });
 }
 
+function getYesterdayTaipei() {
+  const today = getTodayTaipeiDateText();
+  return addDaysToDateText(today, -1);
+}
+
+function getTodayTaipeiDateText() {
+  const now = new Date();
+  const parts = new Intl.DateTimeFormat("zh-TW", {
+    timeZone: "Asia/Taipei",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).formatToParts(now);
+
+  const y = parts.find(p => p.type === "year")?.value;
+  const m = parts.find(p => p.type === "month")?.value;
+  const d = parts.find(p => p.type === "day")?.value;
+
+  return `${y}-${m}-${d}`;
+}
+
+function addDaysToDateText(dateText, days) {
+  const [y, m, d] = String(dateText).split("-").map(Number);
+  const base = new Date(Date.UTC(y, m - 1, d, 16, 0, 0));
+  base.setUTCDate(base.getUTCDate() + Number(days || 0));
+
+  const parts = new Intl.DateTimeFormat("zh-TW", {
+    timeZone: "Asia/Taipei",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).formatToParts(base);
+
+  const yy = parts.find(p => p.type === "year")?.value;
+  const mm = parts.find(p => p.type === "month")?.value;
+  const dd = parts.find(p => p.type === "day")?.value;
+
+  return `${yy}-${mm}-${dd}`;
+}
+
 function buildArgsForTask(task) {
   const args = [];
   const date = getTargetDate();
@@ -283,6 +323,12 @@ function buildArgsForTask(task) {
   // LIVE 腳本目前只抓「台北今日」，傳入歷史日期只會造成日誌誤導。
   if (date && ["pregame", "final", "news"].includes(task.key)) {
     args.push(`--date=${date}`);
+  }
+
+  // v5.2.6：未指定日期時，FINAL 階段自動補昨天。
+  // 避免昨天比賽若沒被 LIVE 階段跑到 final，就永遠停在 scheduled。
+  if (!date && task.key === "final") {
+    args.push(`--date=${getYesterdayTaipei()}`);
   }
 
   if (hasFlag("tomorrow") && task.key === "pregame" && !date) {
@@ -301,6 +347,9 @@ function buildArgsForScript(task, script) {
       script.includes("merge-first-team-final-vue-boxscore.js")
     ) {
       if (!args.includes("--write")) args.unshift("--write");
+      // v5.2.6：FINAL 以日期補抓時要允許 scheduled → final。
+      // 合併腳本仍會要求 Vue parseStatus=confirmed，且 --date 會限制作用範圍。
+      if (!args.includes("--force")) args.push("--force");
     }
   }
 
@@ -940,7 +989,7 @@ function extractStats(text) {
 
 function logHeader(tasks, date, only) {
   logLine("======================================");
-  logLine("🚀 CPBL 一鍵更新開始 v5.2.5-BUILD-ARGS-HOTFIX");
+  logLine("🚀 CPBL 一鍵更新開始 v5.2.6-YESTERDAY-FINAL-CATCHUP");
   logLine(`時間：${new Date().toLocaleString("zh-TW")}`);
   logLine(`專案根目錄：${ROOT_DIR}`);
   logLine(`Log：${path.relative(ROOT_DIR, LOG_FILE)}`);
@@ -981,7 +1030,7 @@ function logSummary(tasks, results) {
 
   logLine("");
   logLine("======================================");
-  logLine("📦 一鍵更新總結 v5.2.5-BUILD-ARGS-HOTFIX");
+  logLine("📦 一鍵更新總結 v5.2.6-YESTERDAY-FINAL-CATCHUP");
   logLine("======================================");
 
   tasks.forEach(task => {
@@ -1075,7 +1124,7 @@ async function writeSummary(payload) {
   }));
 
   const summary = {
-    version: "v5.2.5-BUILD-ARGS-HOTFIX",
+    version: "v5.2.6-YESTERDAY-FINAL-CATCHUP",
     runId: RUN_ID,
     mode: payload.mode,
     rootDir: ROOT_DIR,

@@ -6,13 +6,13 @@ import puppeteer from "puppeteer";
 /* =========================================================
    Ray's CPBL Data Site
    fetch-cpbl-final-boxscore-vue.js
-   v5.4.3-FIRST-TEAM-FINAL-VUE-FORCE-GAMESNO-HOTFIX
+   v5.4.4-DATE-FORCE-FINAL-CATCHUP
 
    目標：
    - 一軍 FINAL boxscore Vue data 旁路偵查
    - 借用二軍 v5.3.4 成功經驗
    - 讀取 data/live/live-boxscore.json 當場次索引
-   - 只處理 meta.status = final 的一軍場次
+   - 預設處理 meta.status = final 的一軍場次；指定 --date 時允許補抓當日 scheduled 漏網場次
    - 開 CPBL 官方一軍 box 頁 kindCode=A
    - 從 DOM table 抓逐局 / RHE
    - 從 Vue data 抓雙隊打者 / 投手 / 戰況
@@ -22,13 +22,13 @@ import puppeteer from "puppeteer";
    - 不接 update-all
 ========================================================= */
 
-const VERSION = "v5.4.3-FIRST-TEAM-FINAL-VUE-FORCE-GAMESNO-HOTFIX";
+const VERSION = "v5.4.4-DATE-FORCE-FINAL-CATCHUP";
 
 const YEAR = Number(getArg("--year", "2026"));
 const LIMIT = Number(getArg("--limit", "0"));
 const GAME_SNO = getArg("--gameSno", "");
 const DATE = getArg("--date", "");
-const FORCE_TARGET = hasArg("--force") || Boolean(GAME_SNO && DATE);
+const FORCE_TARGET = hasArg("--force") || Boolean(DATE) || Boolean(GAME_SNO && DATE);
 const DRY_RUN = hasArg("--dry-run");
 const WRITE = hasArg("--write") || !DRY_RUN;
 const KEEP_BROWSER = hasArg("--keep-browser");
@@ -46,6 +46,9 @@ console.log(`年份：${YEAR}`);
 console.log(`指定 gameSno：${GAME_SNO || "未指定"}`);
 console.log(`指定日期：${DATE || "未指定"}`);
 console.log(`force 指定場次：${FORCE_TARGET ? "開啟" : "關閉"}`);
+if (DATE && FORCE_TARGET) {
+  console.log("🧲 date catch-up：指定日期將嘗試解析該日所有非特殊狀態場次，包含仍停在 scheduled 的漏網場次。 ");
+}
 console.log(`limit：${LIMIT || "不限"}`);
 console.log(`模式：${DRY_RUN ? "dry-run，不寫正式檔" : "write，會寫入 data/live/final-boxscore-vue"}`);
 console.log(`debug-write：${DEBUG_WRITE ? "開啟" : "關閉"}`);

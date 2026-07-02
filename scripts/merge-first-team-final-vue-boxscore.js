@@ -5,7 +5,7 @@ import path from "path";
 /* =========================================================
    Ray's CPBL Data Site
    merge-first-team-final-vue-boxscore.js
-   v5.5.1-EXACT-SPECIAL-STATUS-CATASTROPHIC-GUARD
+   v5.5.2-DATE-SCOPED-FORCE-MERGE
 
    一軍 FINAL Vue boxscore 旁路補強合併：
    - 讀 data/live/live-boxscore.json
@@ -16,11 +16,12 @@ import path from "path";
    - 不改三大主爬蟲
 ========================================================= */
 
-const VERSION = "v5.5.1-EXACT-SPECIAL-STATUS-CATASTROPHIC-GUARD";
+const VERSION = "v5.5.2-DATE-SCOPED-FORCE-MERGE";
 const YEAR = Number(getArg("--year", "2026"));
 const DRY_RUN = hasArg("--dry-run");
 const WRITE = hasArg("--write") || !DRY_RUN;
 const FORCE = hasArg("--force") || hasArg("--include-scheduled-with-vue");
+const DATE = getArg("--date", "");
 const ONLY_GAMES = new Set(
   getArg("--games", "")
     .split(",")
@@ -39,6 +40,7 @@ console.log(`🧩 CPBL 一軍 FINAL Vue Boxscore 合併 ${VERSION}`);
 console.log(`年份：${YEAR}`);
 console.log(`模式：${DRY_RUN ? "dry-run，不寫 live-boxscore.json" : "write，會補強 live-boxscore.json"}`);
 console.log(`force scheduled merge：${FORCE ? "開啟" : "關閉"}`);
+console.log(`指定日期限制：${DATE || "未指定"}`);
 console.log("資料線：final-boxscore-vue → live-boxscore 補強，不改三大主爬蟲");
 console.log("======================================");
 
@@ -58,6 +60,7 @@ async function main() {
     generatedAt: new Date().toISOString(),
     dryRun: DRY_RUN,
     force: FORCE,
+    date: DATE || null,
     source: {
       live: path.relative(ROOT, LIVE_BOXSCORE_PATH),
       vue: path.relative(ROOT, VUE_BOXSCORE_PATH)
@@ -81,6 +84,11 @@ async function main() {
 
   const mergedGames = liveGames.map(game => {
     const gameSno = String(pickGameSno(game));
+    const gameDate = game?.meta?.date || game?.date || "";
+
+    if (DATE && gameDate !== DATE) {
+      return game;
+    }
 
     if (ONLY_GAMES.size && !ONLY_GAMES.has(gameSno)) {
       return game;

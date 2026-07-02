@@ -3,7 +3,7 @@
   "teamName": "味全龍",
   "clubNo": "AAA",
   "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=AAA",
-  "updatedAt": "2026-06-10T02:24:07.964Z",
+  "updatedAt": "2026-07-02T02:50:10.532Z",
   "coaches": {
     "first": {
       "title": "一軍教練團",
@@ -146,20 +146,26 @@
           "position": "投手"
         },
         {
+          "number": "10",
+          "name": "魔神龍",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "29",
+          "name": "黃侰程",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
           "number": "33",
           "name": "蔣銲",
           "group": "投手",
           "position": "投手"
         },
         {
-          "number": "37",
-          "name": "鋼龍",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
-          "number": "39",
-          "name": "呂偉晟",
+          "number": "40",
+          "name": "李致霖",
           "group": "投手",
           "position": "投手"
         },
@@ -170,20 +176,8 @@
           "position": "投手"
         },
         {
-          "number": "52",
-          "name": "伍鐸",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
-          "number": "54",
-          "name": "王伯洋",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
-          "number": "59",
-          "name": "陳冠偉",
+          "number": "56",
+          "name": "陳暐皓",
           "group": "投手",
           "position": "投手"
         },
@@ -196,6 +190,12 @@
         {
           "number": "74",
           "name": "張鈞守",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "77",
+          "name": "林鋅杰",
           "group": "投手",
           "position": "投手"
         },
@@ -317,8 +317,8 @@
           "position": "中外野手"
         },
         {
-          "number": "58",
-          "name": "許博閎",
+          "number": "50",
+          "name": "曾聖安",
           "group": "外野手",
           "position": "中外野手"
         },
@@ -344,12 +344,6 @@
         {
           "number": "5",
           "name": "陳禹勳",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
-          "number": "10",
-          "name": "魔神龍",
           "group": "投手",
           "position": "投手"
         },
@@ -384,8 +378,14 @@
           "position": "投手"
         },
         {
-          "number": "40",
-          "name": "李致霖",
+          "number": "37",
+          "name": "鋼龍",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "39",
+          "name": "呂偉晟",
           "group": "投手",
           "position": "投手"
         },
@@ -414,14 +414,26 @@
           "position": "投手"
         },
         {
+          "number": "52",
+          "name": "伍鐸",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "54",
+          "name": "王伯洋",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
           "number": "55",
           "name": "曾仁和",
           "group": "投手",
           "position": "投手"
         },
         {
-          "number": "56",
-          "name": "陳暐皓",
+          "number": "59",
+          "name": "陳冠偉",
           "group": "投手",
           "position": "投手"
         },
@@ -450,12 +462,6 @@
           "position": "投手"
         },
         {
-          "number": "77",
-          "name": "林鋅杰",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
           "number": "78",
           "name": "吳君奕",
           "group": "投手",
@@ -464,12 +470,6 @@
         {
           "number": "90",
           "name": "王定穎",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
-          "number": "104",
-          "name": "黃侰程",
           "group": "投手",
           "position": "投手"
         },
@@ -549,7 +549,7 @@
         },
         {
           "number": "26",
-          "name": "*陽念祖",
+          "name": "陽念祖",
           "group": "內野手",
           "position": "游擊手"
         },
@@ -603,8 +603,8 @@
           "position": "右外野手"
         },
         {
-          "number": "50",
-          "name": "曾聖安",
+          "number": "58",
+          "name": "許博閎",
           "group": "外野手",
           "position": "中外野手"
         },

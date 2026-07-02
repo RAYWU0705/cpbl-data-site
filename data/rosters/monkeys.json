@@ -3,7 +3,7 @@
   "teamName": "樂天桃猿",
   "clubNo": "AJL",
   "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=AJL",
-  "updatedAt": "2026-06-10T02:23:40.234Z",
+  "updatedAt": "2026-07-02T02:49:44.345Z",
   "coaches": {
     "first": {
       "title": "一軍教練團",
@@ -152,20 +152,14 @@
           "position": "投手"
         },
         {
-          "number": "9",
-          "name": "陳柏豪",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
           "number": "17",
           "name": "陳冠宇",
           "group": "投手",
           "position": "投手"
         },
         {
-          "number": "20",
-          "name": "麥斯威尼",
+          "number": "19",
+          "name": "陳克羿",
           "group": "投手",
           "position": "投手"
         },
@@ -182,14 +176,20 @@
           "position": "投手"
         },
         {
-          "number": "44",
-          "name": "曾家輝",
+          "number": "34",
+          "name": "李柏毓",
           "group": "投手",
           "position": "投手"
         },
         {
           "number": "46",
           "name": "邱駿威",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "49",
+          "name": "威能帝",
           "group": "投手",
           "position": "投手"
         },
@@ -250,20 +250,20 @@
       "group": "內野手",
       "list": [
         {
-          "number": "8",
-          "name": "陳佳樂",
+          "number": "5",
+          "name": "梁家榮",
           "group": "內野手",
-          "position": "一壘手"
+          "position": "三壘手"
+        },
+        {
+          "number": "6",
+          "name": "林承飛",
+          "group": "內野手",
+          "position": "游擊手"
         },
         {
           "number": "15",
           "name": "林子偉",
-          "group": "內野手",
-          "position": "二壘手"
-        },
-        {
-          "number": "33",
-          "name": "張趙紘",
           "group": "內野手",
           "position": "二壘手"
         },
@@ -286,12 +286,6 @@
           "position": "三壘手"
         },
         {
-          "number": "85",
-          "name": "許賀捷",
-          "group": "內野手",
-          "position": "二壘手"
-        },
-        {
           "number": "94",
           "name": "馬傑森",
           "group": "內野手",
@@ -310,6 +304,12 @@
       "squad": "first",
       "group": "外野手",
       "list": [
+        {
+          "number": "39",
+          "name": "林立",
+          "group": "外野手",
+          "position": "右外野手"
+        },
         {
           "number": "65",
           "name": "林政華",
@@ -342,14 +342,20 @@
           "position": "投手"
         },
         {
+          "number": "9",
+          "name": "陳柏豪",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
           "number": "18",
           "name": "劉家翔",
           "group": "投手",
           "position": "投手"
         },
         {
-          "number": "19",
-          "name": "陳克羿",
+          "number": "20",
+          "name": "#麥斯威尼",
           "group": "投手",
           "position": "投手"
         },
@@ -360,26 +366,20 @@
           "position": "投手"
         },
         {
-          "number": "34",
-          "name": "*李柏毓",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
           "number": "40",
           "name": "*王宇翔",
           "group": "投手",
           "position": "投手"
         },
         {
-          "number": "48",
-          "name": "呂詠臻",
+          "number": "44",
+          "name": "曾家輝",
           "group": "投手",
           "position": "投手"
         },
         {
-          "number": "49",
-          "name": "威能帝",
+          "number": "48",
+          "name": "呂詠臻",
           "group": "投手",
           "position": "投手"
         },
@@ -397,7 +397,7 @@
         },
         {
           "number": "61",
-          "name": "◎榊原元稀",
+          "name": "榊原元稀",
           "group": "投手",
           "position": "投手"
         },
@@ -438,14 +438,20 @@
           "position": "投手"
         },
         {
+          "number": "88",
+          "name": "莊孟源",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
           "number": "92",
           "name": "*李家明",
           "group": "投手",
           "position": "投手"
         },
         {
-          "number": "555",
-          "name": "◎莊孟源",
+          "number": "158",
+          "name": "◎陳昱安",
           "group": "投手",
           "position": "投手"
         }
@@ -500,16 +506,10 @@
       "group": "內野手",
       "list": [
         {
-          "number": "5",
-          "name": "梁家榮",
+          "number": "8",
+          "name": "陳佳樂",
           "group": "內野手",
-          "position": "三壘手"
-        },
-        {
-          "number": "6",
-          "name": "林承飛",
-          "group": "內野手",
-          "position": "游擊手"
+          "position": "一壘手"
         },
         {
           "number": "12",
@@ -536,6 +536,12 @@
           "position": "二壘手"
         },
         {
+          "number": "33",
+          "name": "張趙紘",
+          "group": "內野手",
+          "position": "二壘手"
+        },
+        {
           "number": "38",
           "name": "董順傑",
           "group": "內野手",
@@ -552,6 +558,12 @@
           "name": "*廖健富",
           "group": "內野手",
           "position": "一壘手"
+        },
+        {
+          "number": "85",
+          "name": "許賀捷",
+          "group": "內野手",
+          "position": "二壘手"
         },
         {
           "number": "111",
@@ -585,12 +597,6 @@
           "position": "右外野手"
         },
         {
-          "number": "39",
-          "name": "林立",
-          "group": "外野手",
-          "position": "右外野手"
-        },
-        {
           "number": "76",
           "name": "林禹叡",
           "group": "外野手",
@@ -607,24 +613,9 @@
   },
   "transactions": [
     {
-      "date": "2026-06-06",
-      "player": "陳克羿",
-      "reason": "降二軍"
-    },
-    {
-      "date": "2026-06-06",
-      "player": "許賀捷",
+      "date": "2026-07-01",
+      "player": "林立",
       "reason": "升一軍"
-    },
-    {
-      "date": "2026-06-04",
-      "player": "陳柏豪",
-      "reason": "升一軍"
-    },
-    {
-      "date": "2026-06-04",
-      "player": "游承勳",
-      "reason": "降二軍"
     }
   ]
 }

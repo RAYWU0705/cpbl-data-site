@@ -3,7 +3,7 @@ import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 
-const VERSION = "v5.0-11-PREGAME-LOOSE-PLAYERS-PRESERVE-HOTFIX";
+const VERSION = "v5.0-12-PREGAME-STARTER-SANITIZE-HOTFIX";
 const SEASON_YEAR = 2026;
 const KIND_CODE = "A";
 
@@ -31,6 +31,24 @@ const VENUES = [
   "大巨蛋",
   "嘉義市",
   "台南"
+];
+
+
+const BAD_STARTER_WORDS = [
+  "例行賽編號",
+  "棒球場進行補賽",
+  "棒球場",
+  "進行補賽",
+  "比賽場地",
+  "賽事編號",
+  "比賽時間",
+  "比賽尚未開始",
+  "比賽結束",
+  "成績看板",
+  "售票資訊",
+  "更多資訊",
+  "previous",
+  "next"
 ];
 
 const FIELD_CODE_MAP = {
@@ -183,6 +201,42 @@ function cleanOneLine(v) {
     .replace(/[ \t]+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+
+function isBadStarterName(value) {
+  const s = cleanOneLine(value);
+
+  if (!s) return true;
+  if (BAD_STARTER_WORDS.some(word => s.includes(word))) return true;
+  if (TEAM_NAMES.some(team => s.includes(team))) return true;
+  if (VENUES.some(venue => s.includes(venue))) return true;
+  if (/^\d+$/.test(s)) return true;
+  if (/^\d{1,2}:\d{2}$/.test(s)) return true;
+  if (/^\d+\s*:\s*\d+$/.test(s)) return true;
+  if (/^\d+-\d+(-\d+)?$/.test(s)) return true;
+  if (/^\d{1,2}\/\d{1,2}$/.test(s)) return true;
+  if (/^\d{4}[\/-]\d{1,2}[\/-]\d{1,2}$/.test(s)) return true;
+  if (s.length < 2 || s.length > 16) return true;
+
+  return !/^[一-龥A-Za-z·．・\-]+$/.test(s);
+}
+
+function cleanStarterNameStrict(value) {
+  const s = cleanOneLine(value)
+    .replace(/客場先發/g, "")
+    .replace(/主場先發/g, "")
+    .replace(/客隊先發/g, "")
+    .replace(/主隊先發/g, "")
+    .replace(/預告先發/g, "")
+    .replace(/先發投手/g, "")
+    .replace(/先發/g, "")
+    .replace(/^[:：\-\s]+/, "")
+    .replace(/[，,。]+$/, "")
+    .trim();
+
+  if (isBadStarterName(s)) return "";
+  return s;
 }
 
 function fixDate(dateStr) {
@@ -1291,6 +1345,13 @@ async function discoverScoreStripPregameCards(browser, scheduleGames, targetDate
         "一軍",
         "二軍",
         "星期",
+        "例行賽編號",
+        "棒球場進行補賽",
+        "棒球場",
+        "進行補賽",
+        "比賽場地",
+        "賽事編號",
+        "比賽時間",
         "亞太主",
         "新莊",
         "天母"
@@ -1771,6 +1832,13 @@ async function discoverScoreStripPregameCards(browser, scheduleGames, targetDate
           "場次",
           "隊伍",
           "場地",
+        "例行賽編號",
+        "棒球場進行補賽",
+        "棒球場",
+        "進行補賽",
+        "比賽場地",
+        "賽事編號",
+        "比賽時間",
           "previous",
           "next",
           "一軍",
@@ -2279,7 +2347,14 @@ async function discoverHomePregameCards(browser, scheduleGames) {
         "日期",
         "場次",
         "隊伍",
-        "場地"
+        "場地",
+        "例行賽編號",
+        "棒球場進行補賽",
+        "棒球場",
+        "進行補賽",
+        "比賽場地",
+        "賽事編號",
+        "比賽時間",
       ];
 
       if (banned.some(word => s.includes(word))) return false;
@@ -3455,13 +3530,13 @@ function sanitizeDuplicateStarterPairs(cards, scheduleGames) {
 function createPregameGame(scheduleGame, homeCard = null) {
   const box = emptyBoxscore();
 
-  const awayStarter = cleanOneLine(
+  const awayStarter = cleanStarterNameStrict(
     homeCard?.awayStarter ||
     scheduleGame.awayStarter ||
     ""
   );
 
-  const homeStarter = cleanOneLine(
+  const homeStarter = cleanStarterNameStrict(
     homeCard?.homeStarter ||
     scheduleGame.homeStarter ||
     ""

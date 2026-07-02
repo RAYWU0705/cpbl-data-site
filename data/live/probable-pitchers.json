@@ -437,6 +437,17 @@
     "version": "v5.0-11-PREGAME-LOOSE-PLAYERS-PRESERVE-HOTFIX",
     "updatedAt": "2026-06-12T06:59:47.668Z"
   },
+  "165": {
+    "gameSno": 165,
+    "date": "2026-07-02",
+    "awayTeam": "樂天桃猿",
+    "homeTeam": "中信兄弟",
+    "away": "劉家翔",
+    "home": "伍立辰",
+    "source": "manual-fix-cpbl-official",
+    "version": "manual-20260702-g165-probable-fix",
+    "updatedAt": "2026-07-02T03:33:35.790Z"
+  },
   "games": [
     {
       "gameSno": 24,
