@@ -2656,3 +2656,201 @@ html[data-theme="dark"] body[data-page="home"] .system-status-note {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* =========================================================
+   HOME v6.2 CLEAN DASHBOARD
+   移除 Hero 重複按鈕，改用不可點擊的資訊列，讓首頁入口更乾淨
+========================================================= */
+
+body[data-page="home"] .home-balanced-actions {
+  display: none !important;
+}
+
+body[data-page="home"] .home-hero-insights {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 760px;
+  margin: 22px 0 0;
+}
+
+body[data-page="home"] .home-hero-insight {
+  min-width: 0;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.105);
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+body[data-page="home"] .home-hero-insight span {
+  display: block;
+  margin-bottom: 7px;
+  color: rgba(248,250,252,0.66);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+body[data-page="home"] .home-hero-insight strong {
+  display: block;
+  min-width: 0;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 1.35;
+  font-weight: 950;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body[data-page="home"] .home-search-box {
+  margin-top: 18px;
+}
+
+body[data-page="home"] #dataSourceText {
+  margin-top: 14px;
+}
+
+body[data-page="home"] .home-balanced-hub {
+  margin-top: -8px;
+}
+
+body[data-page="home"] .hero-panel-link-grid {
+  margin-top: 18px;
+}
+
+body[data-page="home"] .hero-panel-link-grid .hero-panel-link {
+  min-height: 42px;
+  border-radius: 999px;
+}
+
+@media (max-width: 900px) {
+  body[data-page="home"] .home-hero-insights {
+    grid-template-columns: 1fr;
+    max-width: none;
+  }
+
+  body[data-page="home"] .home-hero-insight strong {
+    white-space: normal;
+  }
+}
+
+/* =========================================================
+   HOME v7.0 WIDE DASHBOARD
+   目標：桌機版吃滿版面，不再中間窄長；手機版不變
+========================================================= */
+
+@media (min-width: 1200px) {
+  body[data-page="home"] .home-balanced-hero-inner,
+  body[data-page="home"] .home-balanced-container {
+    width: min(96vw, 1760px);
+    max-width: none;
+  }
+
+  body[data-page="home"] .home-balanced-hero {
+    min-height: 390px;
+    padding-block: 46px 42px;
+  }
+
+  body[data-page="home"] .home-balanced-hero-inner {
+    grid-template-columns: minmax(0, 1.75fr) minmax(340px, 0.55fr);
+    gap: clamp(34px, 4vw, 72px);
+  }
+
+  body[data-page="home"] .home-balanced-panel {
+    align-self: stretch;
+    min-height: 250px;
+  }
+
+  body[data-page="home"] .home-search-box {
+    max-width: min(760px, 100%);
+  }
+
+  body[data-page="home"] .home-balanced-hub {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  body[data-page="home"] .home-balanced-score .official-score-board {
+    padding: 28px;
+  }
+
+  body[data-page="home"] .home-balanced-score .official-score-card {
+    grid-template-columns: 64px minmax(160px, .75fr) minmax(360px, 1.55fr) minmax(160px, .75fr) 132px;
+    min-height: 152px;
+    padding: 22px 24px 78px;
+  }
+
+  body[data-page="home"] .home-balanced-score .official-team img {
+    width: 64px;
+    height: 64px;
+  }
+
+  body[data-page="home"] .home-balanced-score .official-main {
+    font-size: clamp(48px, 4.2vw, 72px);
+  }
+
+  body[data-page="home"] .home-balanced-grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  body[data-page="home"] .home-card-sm {
+    grid-column: span 4;
+  }
+
+  body[data-page="home"] .home-card-md {
+    grid-column: span 6;
+  }
+
+  body[data-page="home"] .home-card-lg {
+    grid-column: span 8;
+  }
+
+  body[data-page="home"] .home-card-side {
+    grid-column: span 4;
+  }
+
+  body[data-page="home"] .home-card-wide {
+    grid-column: 1 / -1;
+  }
+
+  body[data-page="home"] #leagueNewsCard {
+    grid-column: span 8;
+  }
+
+  body[data-page="home"] #scheduleRadarCard {
+    grid-column: span 4;
+  }
+
+  body[data-page="home"] #farmEntryCard,
+  body[data-page="home"] #fanDatabaseCard {
+    grid-column: span 6;
+  }
+
+  body[data-page="home"] .league-news-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body[data-page="home"] .fan-db-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body[data-page="home"] .important-games-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1500px) {
+  body[data-page="home"] .home-balanced-hero-inner,
+  body[data-page="home"] .home-balanced-container {
+    width: min(97vw, 1840px);
+  }
+
+  body[data-page="home"] .home-balanced-grid {
+    gap: 24px;
+  }
+}

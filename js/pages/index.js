@@ -17,7 +17,7 @@
 
 import { calculateStandings } from "../standingsEngine.js";
 
-const VERSION = "v5.3.2-HOME-CARD-BALANCED";
+const VERSION = "v6.2-HOME-CLEAN-DASHBOARD";
 
 const LIVE_JSON_URL = "data/live/live-boxscore.json";
 const PROBABLE_JSON_URL = "data/live/probable-pitchers.json";
@@ -948,6 +948,7 @@ function renderAll() {
   safeRender("renderLeagueNews", renderLeagueNews);
   safeRender("renderFanDatabase", renderFanDatabase);
   safeRender("updateHomeHeroDashboard", updateHomeHeroDashboard);
+  safeRender("renderHomeHeroInsights", renderHomeHeroInsights);
 }
 
 function safeRender(name, fn) {
@@ -2271,6 +2272,42 @@ function updateHomeHeroDashboard() {
   setText("heroScheduledCount", String(scheduled));
   setText("heroFinalCount", String(final));
   setText("homeHeroClock", formatClock(new Date()).slice(0, 5));
+}
+
+
+function renderHomeHeroInsights() {
+  const today = getToday();
+
+  const nextGame = allGames
+    .filter(g => g.date >= today && ["scheduled", "pregame", "live"].includes(g.status))
+    .sort((a, b) => a.date.localeCompare(b.date) || sortByTimeAndGameSno(a, b))[0];
+
+  const latestFinal = allGames
+    .filter(g => g.status === "final")
+    .slice()
+    .sort((a, b) => b.date.localeCompare(a.date) || Number(b.gameSno || 0) - Number(a.gameSno || 0))[0];
+
+  const finalLocked = allGames.filter(g => g.raw?.finalLock?.locked || g.finalLock?.locked).length;
+  const live = allGames.filter(g => g.status === "live").length;
+
+  setText(
+    "homeInsightNext",
+    nextGame
+      ? `${nextGame.date} ${nextGame.time || "時間待定"}｜${nextGame.away} vs ${nextGame.home}`
+      : "目前沒有待開賽賽程"
+  );
+
+  setText(
+    "homeInsightLatest",
+    latestFinal
+      ? `${latestFinal.date}｜${latestFinal.away} ${latestFinal.awayScore ?? "—"}:${latestFinal.homeScore ?? "—"} ${latestFinal.home}`
+      : "尚無完賽資料"
+  );
+
+  setText(
+    "homeInsightQuality",
+    `FINAL鎖定 ${finalLocked}｜LIVE ${live}｜${allGames.length} 場`
+  );
 }
 
 function startHomeHeroClock() {

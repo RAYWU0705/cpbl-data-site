@@ -1,15 +1,15 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!--
 =========================================================
 CPBL Data Site Page Metadata
 Page Type: PUBLIC
-Page Name: 首頁
+Page Name: 擐?
 Route: /index.html
 Deploy: YES
 Navigation: MAIN
 Maintainer: Ray
 Status: ACTIVE
-Notes: 網站正式首頁｜v6 卡片式平衡版
+Notes: 蝬脩?甇??擐?嚚6.2 Clean Dashboard嚚宏?日?銴?Hero ??
 =========================================================
 -->
 <html lang="zh-Hant">
@@ -17,7 +17,7 @@ Notes: 網站正式首頁｜v6 卡片式平衡版
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Ray's CPBL Data Site｜中華職棒數據網站</title>
+  <title>Ray's CPBL Data Site嚚葉?航璉?雯蝡?/title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0b3c5d">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -42,7 +42,7 @@ Notes: 網站正式首頁｜v6 卡片式平衡版
   </script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/theme.css?v=560a">
-  <link rel="stylesheet" href="css/home.css?v=card-balanced-v6">
+  <link rel="stylesheet" href="css/home.css?v=clean-dashboard-v62">
 </head>
 
 <body data-page="home">
@@ -52,22 +52,22 @@ Notes: 網站正式首頁｜v6 卡片式平衡版
 
     <div class="nav-left">
       <a class="brand" href="index.html">CPBL</a>
-      <a class="nav-link active" href="index.html">首頁</a>
-      <a class="nav-link" href="schedule.html">賽程</a>
-      <a class="nav-link" href="standings.html">戰績</a>
-      <a class="nav-link" href="teams.html">球隊</a>
-      <a class="nav-link" href="rules.html">棒球規則</a>
-      <a class="nav-link" href="ops/teams-dashboard.html">今日戰情</a>
-      <a class="nav-link" href="version.html">版本</a>
+      <a class="nav-link active" href="index.html">擐?</a>
+      <a class="nav-link" href="schedule.html">鞈賜?</a>
+      <a class="nav-link" href="standings.html">?啁蜀</a>
+      <a class="nav-link" href="teams.html">??</a>
+      <a class="nav-link" href="rules.html">璉?閬?</a>
+      <a class="nav-link" href="ops/teams-dashboard.html">隞?唳?</a>
+      <a class="nav-link" href="version.html">?</a>
     </div>
 
-    <div class="nav-teams" aria-label="球隊快速入口">
-      <a href="team.html?team=brothers"><img src="assets/logo/brothers.png" alt="中信兄弟"></a>
-      <a href="team.html?team=lions"><img src="assets/logo/lions.png" alt="統一7-ELEVEn獅"></a>
-      <a href="team.html?team=monkeys"><img src="assets/logo/monkeys.png" alt="樂天桃猿"></a>
-      <a href="team.html?team=dragons"><img src="assets/logo/dragons.png" alt="味全龍"></a>
-      <a href="team.html?team=guardians"><img src="assets/logo/guardians.png" alt="富邦悍將"></a>
-      <a href="team.html?team=hawks"><img src="assets/logo/hawks.png" alt="台鋼雄鷹"></a>
+    <div class="nav-teams" aria-label="??敹恍??>
+      <a href="team.html?team=brothers"><img src="assets/logo/brothers.png" alt="銝凋縑??"></a>
+      <a href="team.html?team=lions"><img src="assets/logo/lions.png" alt="蝯曹?7-ELEVEn??></a>
+      <a href="team.html?team=monkeys"><img src="assets/logo/monkeys.png" alt="璅予獢"></a>
+      <a href="team.html?team=dragons"><img src="assets/logo/dragons.png" alt="?喳樴?></a>
+      <a href="team.html?team=guardians"><img src="assets/logo/guardians.png" alt="撖??"></a>
+      <a href="team.html?team=hawks"><img src="assets/logo/hawks.png" alt="?圈?溯"></a>
     </div>
 
   </div>
@@ -78,31 +78,38 @@ Notes: 網站正式首頁｜v6 卡片式平衡版
 
     <div class="hero-pro-main">
       <p class="home-kicker">Ray's Unofficial CPBL Data Site</p>
-      <h1>中職非官方數據中心</h1>
-      <p class="hero-subtitle">今日賽事、即時比分、戰績排行、球隊資料與二軍賽程，一個首頁快速進入。</p>
+      <h1>銝剛???寞?葉敹?/h1>
+      <p class="hero-subtitle">隞鞈賭?????蝮暹?銵?????鈭?鞈賜?嚗????翰?脣??/p>
 
-      <div class="hero-actions home-balanced-actions">
-        <button id="btnRefreshLive" type="button">重新整理資料</button>
-        <a href="schedule.html">今日賽程</a>
-        <a href="standings.html">戰績排行</a>
-        <a href="teams.html">球隊入口</a>
-        <a href="farm-schedule.html">二軍賽程</a>
+      <div class="home-hero-insights" aria-label="擐???鞈?">
+        <div class="home-hero-insight">
+          <span>銝???/span>
+          <strong id="homeInsightNext">頛銝?/strong>
+        </div>
+        <div class="home-hero-insight">
+          <span>??啗魚??/span>
+          <strong id="homeInsightLatest">頛銝?/strong>
+        </div>
+        <div class="home-hero-insight">
+          <span>鞈????/span>
+          <strong id="homeInsightQuality">?郊銝?/strong>
+        </div>
       </div>
 
       <div class="home-search-box">
-        <input id="homeSearchInput" type="search" placeholder="搜尋球隊、球員、日期、球場、gameSno...">
-        <button id="homeSearchBtn" type="button">搜尋</button>
+        <input id="homeSearchInput" type="search" placeholder="???????～???氬ameSno...">
+        <button id="homeSearchBtn" type="button">??</button>
       </div>
 
-      <p id="dataSourceText" class="muted">資料載入中…</p>
+      <p id="dataSourceText" class="muted">鞈?頛銝凌?/p>
     </div>
 
-    <aside class="hero-pro-panel home-balanced-panel" aria-label="今日賽事監控">
+    <aside class="hero-pro-panel home-balanced-panel" aria-label="隞鞈賭???">
       <div class="hero-panel-label">GAME DAY MONITOR</div>
       <div class="home-balanced-clock" id="homeHeroClock">--:--</div>
 
       <div class="home-balanced-main-stat">
-        <span>今日場次</span>
+        <span>隞?湔活</span>
         <strong id="heroTotalCount">0</strong>
       </div>
 
@@ -112,7 +119,7 @@ Notes: 網站正式首頁｜v6 卡片式平衡版
           <strong id="heroLiveCount">0</strong>
         </div>
         <div>
-          <span>未開打</span>
+          <span>?芷???/span>
           <strong id="heroScheduledCount">0</strong>
         </div>
         <div>
@@ -122,8 +129,8 @@ Notes: 網站正式首頁｜v6 卡片式平衡版
       </div>
 
       <div class="hero-panel-link-grid">
-        <a class="hero-panel-link" href="match.html">比賽中心</a>
-        <a class="hero-panel-link hero-panel-farm-link" href="data-quality.html">資料品質</a>
+        <a class="hero-panel-link" href="match.html">瘥魚銝剖?</a>
+        <a class="hero-panel-link hero-panel-farm-link" href="data-quality.html">鞈??釭</a>
       </div>
     </aside>
 
@@ -132,50 +139,50 @@ Notes: 網站正式首頁｜v6 卡片式平衡版
 
 <main class="container home-balanced-container">
 
-  <section class="home-balanced-hub" aria-label="首頁快速入口">
-    <a href="schedule.html"><span>Schedule</span><strong>賽程中心</strong></a>
-    <a href="standings.html"><span>Standings</span><strong>戰績排行</strong></a>
-    <a href="teams.html"><span>Teams</span><strong>球隊資料</strong></a>
-    <a href="search.html"><span>Search</span><strong>資料搜尋</strong></a>
-    <a href="farm-schedule.html"><span>Farm</span><strong>二軍賽程</strong></a>
-    <a href="version.html"><span>Version</span><strong>版本紀錄</strong></a>
+  <section class="home-balanced-hub" aria-label="擐?敹恍??>
+    <a href="schedule.html"><span>Schedule</span><strong>鞈賜?銝剖?</strong></a>
+    <a href="standings.html"><span>Standings</span><strong>?啁蜀??</strong></a>
+    <a href="teams.html"><span>Teams</span><strong>??鞈?</strong></a>
+    <a href="search.html"><span>Search</span><strong>鞈???</strong></a>
+    <a href="farm-schedule.html"><span>Farm</span><strong>鈭?鞈賜?</strong></a>
+    <a href="version.html"><span>Version</span><strong>?蝝??/strong></a>
   </section>
 
-  <section class="score-strip-wrap home-balanced-score" aria-label="比分橫條">
+  <section class="score-strip-wrap home-balanced-score" aria-label="瘥?璈急?">
     <div class="score-strip">
       <div id="scoreTrack">
-        <div class="score-loading">載入比分橫條中…</div>
+        <div class="score-loading">頛瘥?璈急?銝凌?/div>
       </div>
     </div>
   </section>
 
-  <section class="dashboard-grid home-balanced-grid" aria-label="首頁資料總覽">
+  <section class="dashboard-grid home-balanced-grid" aria-label="擐?鞈?蝮質汗">
 
     <div class="home-card live-system-card home-card-sm">
       <div class="card-eyebrow">SYSTEM</div>
-      <h2>LIVE 系統狀態</h2>
-      <div id="systemStatus" class="muted">檢查中…</div>
+      <h2>LIVE 蝟餌絞???/h2>
+      <div id="systemStatus" class="muted">瑼Ｘ銝凌?/div>
     </div>
 
     <div class="home-card home-card-sm">
       <div class="card-eyebrow">TODAY</div>
-      <h2>今日數據摘要</h2>
-      <div id="todaySummary" class="muted">載入中…</div>
+      <h2>隞?豢???</h2>
+      <div id="todaySummary" class="muted">頛銝凌?/div>
     </div>
 
     <div class="home-card primary home-card-sm">
       <div class="card-eyebrow">RANKING</div>
-      <h2>目前排名 TOP 6</h2>
+      <h2>?桀??? TOP 6</h2>
       <ul class="top6-list" id="top6List"></ul>
-      <a href="standings.html" class="card-link">查看完整排行榜</a>
+      <a href="standings.html" class="card-link">?亦?摰??璁?/a>
     </div>
 
     <div class="home-card primary home-card-md">
       <div class="card-eyebrow">FOCUS</div>
-      <h2>最近賽程焦點</h2>
+      <h2>?餈魚蝔暺?/h2>
       <div class="focus-slider">
         <div id="focusTrack">
-          <div class="muted">載入中…</div>
+          <div class="muted">頛銝凌?/div>
         </div>
       </div>
       <div class="focus-dots" id="focusDots"></div>
@@ -183,52 +190,51 @@ Notes: 網站正式首頁｜v6 卡片式平衡版
 
     <div class="home-card home-feature-card home-card-md" id="watchGuideCard">
       <div class="card-eyebrow">TODAY'S PICK</div>
-      <h2>今日看球指南</h2>
-      <div id="watchGuideContent" class="muted">載入中…</div>
+      <h2>隞????</h2>
+      <div id="watchGuideContent" class="muted">頛銝凌?/div>
     </div>
 
     <div class="home-card home-feature-card home-card-lg" id="leagueNewsCard">
       <div class="card-eyebrow">LEAGUE NEWS</div>
-      <h2>聯盟快訊中心</h2>
-      <div id="leagueNewsContent" class="muted">載入中…</div>
+      <h2>?舐?敹怨?銝剖?</h2>
+      <div id="leagueNewsContent" class="muted">頛銝凌?/div>
     </div>
 
     <div class="home-card home-feature-card secondary home-card-side" id="scheduleRadarCard">
       <div class="card-eyebrow">RADAR</div>
-      <h2>球隊賽程雷達</h2>
-      <div id="scheduleRadarContent" class="muted">載入中…</div>
+      <h2>??鞈賜??琿?</h2>
+      <div id="scheduleRadarContent" class="muted">頛銝凌?/div>
     </div>
 
     <div class="home-card home-card-wide important-games-card">
       <div class="card-eyebrow">IMPORTANT</div>
-      <h2>重要賽事</h2>
+      <h2>??鞈賭?</h2>
       <ul class="important-games-list">
-        <li><strong>明星賽</strong><span>2026/07/18–19｜台北大巨蛋</span></li>
-        <li><strong>總冠軍賽</strong><span>2026/11/17–11/25</span></li>
+        <li><strong>??鞈?/strong><span>2026/07/18??9嚚?之撌刻?</span></li>
+        <li><strong>蝮賢?頠魚</strong><span>2026/11/17??1/25</span></li>
       </ul>
     </div>
 
     <div class="home-card home-feature-card farm-entry-card home-card-md" id="farmEntryCard">
       <div class="farm-entry-head">
         <span class="feature-label">FARM SIDEPATH</span>
-        <h2>二軍賽程中心</h2>
+        <h2>鈭?鞈賜?銝剖?</h2>
       </div>
 
       <p>
-        查看中職二軍全年賽程、比賽狀態與二軍比賽中心。二軍資料採旁路讀取，
-        不混入一軍 live-boxscore 主流程。
-      </p>
+        ?亦?銝剛鈭??典僑鞈賜???鞈賜???鈭?瘥魚銝剖???頠???楝霈??
+        銝毽?乩?頠?live-boxscore 銝餅?蝔?      </p>
 
       <div class="farm-entry-actions">
-        <a class="card-link" href="farm-schedule.html">進入二軍賽程</a>
-        <a class="card-link secondary" href="schedule.html">回一軍賽程</a>
+        <a class="card-link" href="farm-schedule.html">?脣鈭?鞈賜?</a>
+        <a class="card-link secondary" href="schedule.html">??頠魚蝔?/a>
       </div>
     </div>
 
     <div class="home-card home-feature-card home-card-md" id="fanDatabaseCard">
       <div class="card-eyebrow">DIRECTORY</div>
-      <h2>球迷資料庫入口</h2>
-      <div id="fanDatabaseContent" class="muted">載入中…</div>
+      <h2>?蕙鞈?摨怠??/h2>
+      <div id="fanDatabaseContent" class="muted">頛銝凌?/div>
     </div>
 
   </section>
@@ -236,15 +242,14 @@ Notes: 網站正式首頁｜v6 卡片式平衡版
 </main>
 
 <footer>
-  © 2026 CPBL Data Site ｜
-  <span class="site-version"></span> ｜
-  明叡 × ChatGPT
+  穢 2026 CPBL Data Site 嚚?  <span class="site-version"></span> 嚚?  ? ? ChatGPT
 </footer>
 
 <script src="js/site-root.js?v=561d"></script>
-<script src="js/pages/index.js?v=card-balanced-v6" type="module"></script>
+<script src="js/pages/index.js?v=clean-dashboard-v62" type="module"></script>
 <script src="js/theme.js?v=560a"></script>
 <script src="js/version.js"></script>
 <script src="js/pwa-register.js"></script>
 </body>
 </html>
+

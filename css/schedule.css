@@ -1509,3 +1509,45 @@ html[data-theme="dark"] .schedule-trust-badges span {
     width: 100%;
   }
 }
+
+/* =========================================================
+   SCHEDULE v7.0 WIDE DASHBOARD
+   桌機版擴成寬版賽程牆；手機版沿用原本斷點
+========================================================= */
+
+@media (min-width: 1200px) {
+  body[data-page="schedule"] .schedule-vnext-inner,
+  body[data-page="schedule"] .schedule-vnext-container,
+  body[data-page="schedule"] .container {
+    width: min(96vw, 1760px);
+    max-width: none;
+  }
+
+  body[data-page="schedule"] .schedule-vnext-inner {
+    grid-template-columns: minmax(0, 1.7fr) minmax(340px, 0.5fr);
+  }
+
+  body[data-page="schedule"] .schedule-summary-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  body[data-page="schedule"] .schedule-focus-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  body[data-page="schedule"] .schedule-game-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  body[data-page="schedule"] .schedule-toolbar {
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 1500px) {
+  body[data-page="schedule"] .schedule-vnext-inner,
+  body[data-page="schedule"] .schedule-vnext-container,
+  body[data-page="schedule"] .container {
+    width: min(97vw, 1840px);
+  }
+}

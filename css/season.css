@@ -1,0 +1,923 @@
+/* =========================================================
+   Ray's CPBL Data Site
+   season.css
+   v3.0.0-YEARBOOK-DASHBOARD
+
+   season.html 定位：
+   - 賽季年鑑 / 球季儀表板
+   - 不覆蓋全站背景
+   - 不跟 standings.html 搶「即時戰績查表」角色
+========================================================= */
+
+body[data-page="season"] {
+  min-height: 100vh;
+}
+
+/* =========================
+   Hero
+========================= */
+
+.season-hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(58px, 7vw, 92px) 0 clamp(42px, 5vw, 70px);
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 10% 12%, rgba(246,196,0,.24), transparent 28%),
+    radial-gradient(circle at 86% 18%, rgba(85,180,232,.22), transparent 32%),
+    linear-gradient(135deg, #061827 0%, #0b3c5d 50%, #071827 100%);
+  border-bottom: 1px solid rgba(255,255,255,.12);
+}
+
+.season-hero::after {
+  content: "2026";
+  position: absolute;
+  right: -28px;
+  bottom: -58px;
+  color: rgba(255,255,255,.055);
+  font-size: clamp(96px, 18vw, 260px);
+  line-height: .8;
+  font-weight: 950;
+  letter-spacing: -.08em;
+  pointer-events: none;
+}
+
+.season-hero-inner {
+  position: relative;
+  z-index: 1;
+  width: min(96vw, 1760px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(340px, .65fr);
+  align-items: end;
+  gap: clamp(28px, 5vw, 72px);
+}
+
+.season-kicker,
+.season-section-kicker {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(250,204,21,.16);
+  color: #facc15;
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.season-hero h1 {
+  margin: 16px 0 14px;
+  color: #ffffff;
+  font-size: clamp(52px, 8vw, 116px);
+  line-height: .92;
+  font-weight: 950;
+  letter-spacing: -.075em;
+  text-shadow: 0 18px 42px rgba(0,0,0,.32);
+}
+
+.season-hero p {
+  max-width: 860px;
+  margin: 0;
+  color: rgba(248,250,252,.84);
+  font-size: clamp(16px, 1.25vw, 21px);
+  line-height: 1.8;
+  font-weight: 850;
+}
+
+.season-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.season-hero-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 11px 17px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.13);
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 950;
+  border: 1px solid rgba(255,255,255,.16);
+  box-shadow: 0 14px 30px rgba(0,0,0,.18);
+  transition: transform .18s ease, background .18s ease;
+}
+
+.season-hero-actions a:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,.22);
+}
+
+.season-hero-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 260px;
+  padding: 28px;
+  border-radius: 34px;
+  background: linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.08));
+  border: 1px solid rgba(255,255,255,.20);
+  box-shadow: 0 28px 70px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.15);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.season-hero-card::after {
+  content: "";
+  position: absolute;
+  right: -54px;
+  top: -54px;
+  width: 172px;
+  height: 172px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.12);
+}
+
+.season-hero-card span,
+.season-hero-card em {
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+
+.season-hero-card span {
+  color: rgba(255,255,255,.72);
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: .12em;
+}
+
+.season-hero-card strong {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-top: 20px;
+  color: #ffffff;
+  font-size: clamp(54px, 6vw, 92px);
+  line-height: .9;
+  font-weight: 950;
+}
+
+.season-hero-card em {
+  margin-top: 12px;
+  color: rgba(255,255,255,.76);
+  font-style: normal;
+  font-size: 14px;
+  line-height: 1.7;
+  font-weight: 850;
+}
+
+.season-hero-meter {
+  position: relative;
+  z-index: 1;
+  height: 12px;
+  margin-top: 24px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255,255,255,.14);
+}
+
+.season-hero-meter div {
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #facc15, #22c55e, #38bdf8);
+  transition: width .35s ease;
+}
+
+/* =========================
+   Shell
+========================= */
+
+.season-shell {
+  display: grid;
+  gap: 24px;
+}
+
+.season-dashboard-grid,
+.season-two-column {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(340px, .65fr);
+  gap: 24px;
+}
+
+.season-section-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.season-section-head h2 {
+  margin: 6px 0 0;
+  color: #0f172a;
+  font-size: clamp(26px, 3vw, 40px);
+  line-height: 1.12;
+  font-weight: 950;
+  letter-spacing: -.04em;
+}
+
+.season-section-head small {
+  color: var(--muted);
+  font-weight: 850;
+}
+
+.season-section-kicker {
+  background: rgba(11,60,93,.08);
+  color: var(--primary);
+}
+
+.season-soft-btn {
+  min-height: 38px;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(11,60,93,.08);
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 950;
+  cursor: pointer;
+  transition: transform .18s ease, background .18s ease, color .18s ease;
+}
+
+.season-soft-btn:hover {
+  transform: translateY(-2px);
+  background: var(--primary);
+  color: #ffffff;
+}
+
+/* =========================
+   Progress
+========================= */
+
+.season-progress-main {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.season-progress-main strong {
+  color: var(--primary);
+  font-size: clamp(54px, 7vw, 94px);
+  line-height: .92;
+  font-weight: 950;
+  letter-spacing: -.06em;
+}
+
+.season-progress-main span {
+  color: #334155;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.season-progress-bar {
+  height: 36px;
+  margin: 20px 0;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(15,23,42,.07);
+}
+
+.season-progress-fill {
+  height: 100%;
+  min-width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 14px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--primary), #0f766e, #facc15);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 950;
+  transition: width .35s ease;
+}
+
+.season-progress-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.season-progress-grid div,
+.season-phase-split div,
+.season-overview-item {
+  min-width: 0;
+  padding: 16px;
+  border-radius: 20px;
+  background: rgba(11,60,93,.055);
+  border: 1px solid rgba(11,60,93,.08);
+}
+
+.season-progress-grid span,
+.season-phase-split span,
+.season-overview-item span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.season-progress-grid strong,
+.season-phase-split strong,
+.season-overview-item strong {
+  display: block;
+  margin-top: 7px;
+  color: #0f172a;
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 950;
+}
+
+/* =========================
+   Phase / Overview
+========================= */
+
+.season-phase-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  font-size: 18px;
+  font-weight: 950;
+}
+
+.season-phase-badge.middle {
+  background: linear-gradient(135deg, #f59e0b, #0b3c5d);
+}
+
+.season-phase-badge.late {
+  background: linear-gradient(135deg, #dc2626, #0f172a);
+}
+
+.season-phase-card p {
+  margin: 16px 0 18px;
+  color: #475569;
+  line-height: 1.85;
+  font-weight: 850;
+}
+
+.season-phase-split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.season-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.season-overview-item em {
+  display: block;
+  margin-top: 8px;
+  color: #64748b;
+  font-style: normal;
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 850;
+}
+
+/* =========================
+   Month Timeline
+========================= */
+
+.season-month-timeline {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.season-month-item {
+  min-height: 170px;
+  padding: 18px;
+  border-radius: 24px;
+  background: rgba(15,23,42,.045);
+  border: 1px solid rgba(15,23,42,.07);
+}
+
+.season-month-item.has-games {
+  background:
+    radial-gradient(circle at top right, rgba(11,60,93,.08), transparent 36%),
+    rgba(255,255,255,.82);
+}
+
+.season-month-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.season-month-head strong {
+  color: #0f172a;
+  font-size: 22px;
+  font-weight: 950;
+}
+
+.season-month-head span {
+  color: var(--primary);
+  font-weight: 950;
+}
+
+.season-month-line {
+  height: 10px;
+  margin: 18px 0 14px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(15,23,42,.08);
+}
+
+.season-month-line i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--primary), #22c55e);
+}
+
+.season-month-item p {
+  margin: 0;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.6;
+  font-weight: 850;
+}
+
+/* =========================
+   Team Cards
+========================= */
+
+.season-team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.season-team-card {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: 16px;
+  min-height: 300px;
+  padding: 22px;
+  border-radius: 28px;
+  color: inherit;
+  text-decoration: none;
+  background:
+    radial-gradient(circle at top right, rgba(11,60,93,.08), transparent 36%),
+    linear-gradient(180deg, rgba(255,255,255,.98), rgba(248,250,252,.95));
+  border: 1px solid rgba(15,23,42,.08);
+  box-shadow: 0 18px 44px rgba(15,23,42,.08);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.season-team-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(11,60,93,.18);
+  box-shadow: 0 28px 64px rgba(15,23,42,.14);
+}
+
+.season-team-rank {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  display: grid;
+  place-items: center;
+  min-width: 46px;
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: rgba(15,23,42,.07);
+  color: #334155;
+  font-weight: 950;
+}
+
+.my-team-card {
+  border-color: rgba(246,196,0,.42);
+  box-shadow: 0 20px 52px rgba(246,196,0,.16);
+}
+
+.season-team-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-right: 54px;
+}
+
+.season-team-head img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.season-team-head strong {
+  display: block;
+  color: #0f172a;
+  font-size: 22px;
+  line-height: 1.22;
+  font-weight: 950;
+}
+
+.season-team-head span {
+  display: block;
+  margin-top: 5px;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.season-team-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.season-team-metrics div {
+  min-width: 0;
+  padding: 12px 10px;
+  border-radius: 16px;
+  background: rgba(11,60,93,.055);
+  text-align: center;
+}
+
+.season-team-metrics span {
+  display: block;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.season-team-metrics strong {
+  display: block;
+  margin-top: 5px;
+  color: #0f172a;
+  font-size: 16px;
+  font-weight: 950;
+}
+
+.season-team-footer {
+  display: grid;
+  gap: 10px;
+}
+
+.season-team-status {
+  width: fit-content;
+  display: inline-flex;
+  min-height: 30px;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(11,60,93,.08);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.season-team-status.hot {
+  background: rgba(34,197,94,.13);
+  color: #15803d;
+}
+
+.season-team-status.warn {
+  background: rgba(239,68,68,.12);
+  color: #b91c1c;
+}
+
+.season-team-status.idle {
+  background: rgba(100,116,139,.12);
+  color: #475569;
+}
+
+.season-team-footer em {
+  color: #64748b;
+  font-style: normal;
+  font-size: 13px;
+  line-height: 1.6;
+  font-weight: 850;
+}
+
+/* =========================
+   H2H
+========================= */
+
+.h2h-table {
+  min-width: 620px;
+  display: grid;
+  gap: 7px;
+  overflow: auto;
+}
+
+.h2h-row {
+  display: grid;
+  grid-template-columns: 88px repeat(6, minmax(72px, 1fr));
+  gap: 7px;
+}
+
+.h2h-cell {
+  display: grid;
+  place-items: center;
+  min-height: 42px;
+  padding: 8px;
+  border: 1px solid rgba(15,23,42,.08);
+  border-radius: 14px;
+  background: rgba(15,23,42,.045);
+  color: #334155;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 900;
+  user-select: none;
+}
+
+button.h2h-cell {
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform .16s ease, background .16s ease, color .16s ease;
+}
+
+button.h2h-cell:hover {
+  transform: translateY(-2px);
+}
+
+.h2h-head .h2h-cell {
+  background: var(--primary);
+  color: #ffffff;
+  font-weight: 950;
+}
+
+.h2h-team {
+  background: rgba(255,255,255,.86);
+  color: #0f172a;
+  font-weight: 950;
+}
+
+.h2h-self {
+  color: #94a3b8;
+}
+
+.h2h-click.good {
+  background: rgba(34,197,94,.12);
+  color: #15803d;
+}
+
+.h2h-click.bad {
+  background: rgba(239,68,68,.11);
+  color: #b91c1c;
+}
+
+.h2h-click.even {
+  background: rgba(245,158,11,.11);
+  color: #92400e;
+}
+
+.h2h-row-mine .h2h-team {
+  border-color: rgba(246,196,0,.46);
+  box-shadow: inset 4px 0 0 #facc15;
+}
+
+.h2h-selected {
+  background: var(--primary) !important;
+  color: #ffffff !important;
+  border-color: var(--primary) !important;
+}
+
+/* =========================
+   Detail / Today / Story
+========================= */
+
+.season-detail-list,
+.today-content,
+.season-story-list {
+  display: grid;
+  gap: 12px;
+}
+
+.h2h-game-item,
+.today-game-link,
+.season-story-list article,
+.season-empty-note {
+  display: grid;
+  gap: 6px;
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: rgba(15,23,42,.045);
+  border: 1px solid rgba(15,23,42,.07);
+  color: inherit;
+  text-decoration: none;
+}
+
+.h2h-game-item:hover,
+.today-game-link:hover {
+  border-color: rgba(11,60,93,.22);
+  background: rgba(11,60,93,.065);
+}
+
+.h2h-game-item strong,
+.today-game-link strong,
+.season-story-list strong,
+.season-empty-note strong {
+  color: #0f172a;
+  font-size: 17px;
+  font-weight: 950;
+}
+
+.h2h-game-item span,
+.today-game-link span,
+.season-story-list span,
+.season-empty-note span {
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.65;
+  font-weight: 850;
+}
+
+.season-milestone-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.season-milestone-grid article {
+  position: relative;
+  overflow: hidden;
+  min-height: 160px;
+  padding: 22px;
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at top right, rgba(250,204,21,.12), transparent 34%),
+    rgba(15,23,42,.045);
+  border: 1px solid rgba(15,23,42,.08);
+}
+
+.season-milestone-grid span {
+  display: inline-flex;
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: .12em;
+}
+
+.season-milestone-grid strong {
+  display: block;
+  margin-top: 14px;
+  color: #0f172a;
+  font-size: 30px;
+  line-height: 1.12;
+  font-weight: 950;
+}
+
+.season-milestone-grid em {
+  display: block;
+  margin-top: 8px;
+  color: #64748b;
+  font-style: normal;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+/* =========================
+   Dark Theme
+========================= */
+
+html[data-theme="dark"] body[data-page="season"] .season-section-head h2,
+html[data-theme="dark"] body[data-page="season"] .season-progress-grid strong,
+html[data-theme="dark"] body[data-page="season"] .season-phase-split strong,
+html[data-theme="dark"] body[data-page="season"] .season-overview-item strong,
+html[data-theme="dark"] body[data-page="season"] .season-month-head strong,
+html[data-theme="dark"] body[data-page="season"] .season-team-head strong,
+html[data-theme="dark"] body[data-page="season"] .season-team-metrics strong,
+html[data-theme="dark"] body[data-page="season"] .h2h-team,
+html[data-theme="dark"] body[data-page="season"] .h2h-game-item strong,
+html[data-theme="dark"] body[data-page="season"] .today-game-link strong,
+html[data-theme="dark"] body[data-page="season"] .season-story-list strong,
+html[data-theme="dark"] body[data-page="season"] .season-empty-note strong,
+html[data-theme="dark"] body[data-page="season"] .season-milestone-grid strong,
+html[data-theme="dark"] body[data-page="season"] .season-progress-main span {
+  color: #f8fafc;
+}
+
+html[data-theme="dark"] body[data-page="season"] .season-progress-grid div,
+html[data-theme="dark"] body[data-page="season"] .season-phase-split div,
+html[data-theme="dark"] body[data-page="season"] .season-overview-item,
+html[data-theme="dark"] body[data-page="season"] .season-month-item,
+html[data-theme="dark"] body[data-page="season"] .season-team-card,
+html[data-theme="dark"] body[data-page="season"] .h2h-cell,
+html[data-theme="dark"] body[data-page="season"] .h2h-game-item,
+html[data-theme="dark"] body[data-page="season"] .today-game-link,
+html[data-theme="dark"] body[data-page="season"] .season-story-list article,
+html[data-theme="dark"] body[data-page="season"] .season-empty-note,
+html[data-theme="dark"] body[data-page="season"] .season-milestone-grid article {
+  background:
+    radial-gradient(circle at top right, rgba(85,180,232,.07), transparent 34%),
+    linear-gradient(180deg, rgba(18,32,47,.97), rgba(11,23,35,.97));
+  border-color: rgba(255,255,255,.08);
+}
+
+html[data-theme="dark"] body[data-page="season"] .season-team-head span,
+html[data-theme="dark"] body[data-page="season"] .season-team-footer em,
+html[data-theme="dark"] body[data-page="season"] .season-month-item p,
+html[data-theme="dark"] body[data-page="season"] .season-overview-item em,
+html[data-theme="dark"] body[data-page="season"] .h2h-game-item span,
+html[data-theme="dark"] body[data-page="season"] .today-game-link span,
+html[data-theme="dark"] body[data-page="season"] .season-story-list span,
+html[data-theme="dark"] body[data-page="season"] .season-empty-note span,
+html[data-theme="dark"] body[data-page="season"] .season-milestone-grid em,
+html[data-theme="dark"] body[data-page="season"] .season-phase-card p {
+  color: #a9b7c7;
+}
+
+/* =========================
+   RWD
+========================= */
+
+@media (max-width: 1280px) {
+  .season-overview-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .season-month-timeline {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .season-team-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .season-progress-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 980px) {
+  .season-hero-inner,
+  .season-dashboard-grid,
+  .season-two-column {
+    grid-template-columns: 1fr;
+  }
+
+  .season-hero-copy {
+    text-align: center;
+  }
+
+  .season-hero-actions {
+    justify-content: center;
+  }
+
+  .season-hero-card {
+    max-width: 680px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .season-month-timeline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .season-hero {
+    padding: 48px 16px 42px;
+  }
+
+  .season-shell {
+    gap: 18px;
+  }
+
+  .season-overview-grid,
+  .season-team-grid,
+  .season-milestone-grid,
+  .season-progress-grid,
+  .season-phase-split {
+    grid-template-columns: 1fr;
+  }
+
+  .season-month-timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .season-team-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .h2h-table {
+    overflow-x: auto;
+  }
+
+  .h2h-row {
+    grid-template-columns: 76px repeat(6, 76px);
+  }
+}

@@ -1,258 +1,603 @@
 /* =========================================================
    Ray's CPBL Data Site
    standings.css
-   戰績頁樣式
-   v4.6.6-RC CSS Split
+   v7.1-OFFICIAL-WIDE-SINGLE-TAB
+   目標：保留本站原本背景，模仿 CPBL 官網戰績頁的頁首、查詢列與寬表格
 ========================================================= */
 
-/* =========================
-   1. 戰績頁外層
-========================= */
 
-.standings-card {
-  background: #ffffff;
-  border-radius: var(--radius-lg);
-  padding: 22px;
-  box-shadow: var(--shadow-soft);
-  border: 1px solid var(--border);
+.standings-official-shell {
+  width: min(96vw, 1840px);
+  margin: 0 auto;
+  padding: clamp(26px, 3vw, 46px) 0 72px;
+  display: grid;
+  gap: 28px;
 }
 
-.standings-card h2 {
-  margin: 0 0 16px;
-  color: var(--primary);
-  font-size: 26px;
+.standings-official-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 12px 0 24px;
+  border-bottom: 1px solid rgba(15,23,42,.12);
+}
+
+.standings-official-head h1 {
+  margin: 0;
+  color: #2e3338;
+  font-size: clamp(34px, 3.2vw, 54px);
+  line-height: 1.05;
   font-weight: 950;
+  letter-spacing: -.055em;
 }
 
-/* =========================
-   2. 戰績表格
-========================= */
-
-.standings-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: center;
+.standings-official-head h1 span {
+  display: inline-block;
+  margin-left: 18px;
+  color: #68717a;
+  font-size: clamp(15px, 1.2vw, 22px);
+  letter-spacing: .14em;
+  vertical-align: middle;
 }
 
-.standings-table th,
-.standings-table td {
-  padding: 16px 12px;
-  border-bottom: 1px solid var(--border);
-}
-
-.standings-table th {
-  background: rgba(11, 60, 93, 0.08);
-  color: var(--primary);
-  font-weight: 950;
+.standings-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #94a3b8;
+  font-size: 15px;
+  font-weight: 850;
   white-space: nowrap;
 }
 
-.standings-table td {
-  font-weight: 800;
+.standings-breadcrumb a,
+.standings-breadcrumb strong {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 950;
 }
 
-.standings-table tbody tr {
-  transition:
-    background 0.16s ease,
-    transform 0.16s ease;
+
+.standings-query-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 28px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(15,23,42,.09);
 }
 
-.standings-table tbody tr:hover {
-  background: rgba(11, 60, 93, 0.045);
+.standings-season-kicker {
+  margin: 0 0 8px;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: .16em;
 }
 
-/* =========================
-   3. 排名欄位
-========================= */
+.standings-query-row h2 {
+  margin: 0;
+  color: #2d3339;
+  font-size: clamp(32px, 3vw, 48px);
+  line-height: 1.05;
+  font-weight: 950;
+  letter-spacing: .04em;
+}
+
+.standings-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.standings-toolbar select,
+.standings-toolbar input,
+.standings-toolbar button {
+  min-height: 50px;
+  border-radius: 0;
+  border: 1px solid rgba(15,23,42,.16);
+  padding: 0 16px;
+  background: #ffffff;
+  color: #334155;
+  font-size: 15px;
+  font-weight: 850;
+}
+
+.standings-toolbar input {
+  min-width: min(300px, 24vw);
+}
+
+.standings-toolbar button {
+  min-width: 76px;
+  border-color: #292929;
+  background: #242424;
+  color: #ffffff;
+  font-weight: 950;
+}
+
+.standings-toolbar button:hover {
+  transform: translateY(-1px);
+  background: #000;
+}
+
+.standings-board-section {
+  display: grid;
+  gap: 20px;
+}
+
+.standings-section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.standings-section-title h2 {
+  margin: 0 0 6px;
+  color: #111827;
+  font-size: clamp(26px, 2.2vw, 36px);
+  font-weight: 950;
+}
+
+.standings-section-title p {
+  margin: 0;
+  color: #64748b;
+  font-size: 15px;
+  font-weight: 850;
+}
+
+.standings-board-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.status-text {
+  margin-right: 10px;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.standings-board-actions button {
+  width: 44px;
+  height: 42px;
+  border: 0;
+  border-radius: 8px;
+  background: #333;
+  color: #fff;
+  font-size: 32px;
+  line-height: 1;
+  font-weight: 950;
+}
+
+.standings-summary-grid.official {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.standings-summary-item {
+  position: relative;
+  overflow: hidden;
+  min-height: 112px;
+  padding: 20px;
+  border-radius: 0;
+  background: #f4f4f4;
+  border: 1px solid rgba(15,23,42,.08);
+  box-shadow: none;
+}
+
+.standings-summary-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: #333;
+}
+
+.standings-summary-item.primary::before { background: #f6c400; }
+.standings-summary-item.hot::before { background: #c8102e; }
+
+.standings-summary-item span {
+  display: block;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 950;
+  letter-spacing: .08em;
+}
+
+.standings-summary-item strong {
+  display: block;
+  margin-top: 8px;
+  color: #111827;
+  font-size: clamp(24px, 2vw, 34px);
+  line-height: 1.12;
+  font-weight: 950;
+}
+
+.standings-summary-item small {
+  display: block;
+  margin-top: 8px;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.standings-official-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid rgba(15,23,42,.08);
+  background: #ffffff;
+  box-shadow: 0 16px 36px rgba(15,23,42,.08);
+  scrollbar-color: #b8b8b8 #ededed;
+  scrollbar-width: thin;
+}
+
+.standings-official-table-wrap::-webkit-scrollbar {
+  height: 12px;
+}
+
+.standings-official-table-wrap::-webkit-scrollbar-thumb {
+  background: #b8b8b8;
+  border-radius: 999px;
+}
+
+.standings-table.official-style {
+  min-width: 1640px;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  background: #ffffff;
+}
+
+.standings-table.official-style th,
+.standings-table.official-style td {
+  min-height: 50px;
+  padding: 13px 14px;
+  border-bottom: 1px solid rgba(15,23,42,.08);
+  border-right: 1px solid rgba(15,23,42,.08);
+  white-space: nowrap;
+  font-size: 15px;
+}
+
+.standings-table.official-style th {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: #3f3f3f;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 950;
+}
+
+.standings-table.official-style tbody tr:nth-child(even) td {
+  background: #f4f4f4;
+}
+
+.standings-table.official-style tbody tr:hover td {
+  background: #eef5fb;
+}
+
+.standings-table.official-style .sticky-col {
+  position: sticky;
+  z-index: 4;
+}
+
+.standings-table.official-style th.sticky-col {
+  z-index: 6;
+}
+
+.standings-table.official-style .rank-col {
+  left: 0;
+  width: 76px;
+  min-width: 76px;
+}
+
+.standings-table.official-style .team-col {
+  left: 76px;
+  width: 220px;
+  min-width: 220px;
+  box-shadow: 1px 0 0 rgba(15,23,42,.14);
+}
+
+.standings-table.official-style td.sticky-col {
+  background: #ffffff;
+}
+
+.standings-table.official-style tbody tr:nth-child(even) td.sticky-col {
+  background: #f4f4f4;
+}
+
+.standings-table.official-style tbody tr:hover td.sticky-col {
+  background: #eef5fb;
+}
 
 .standings-rank {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  min-width: 36px;
-  height: 32px;
-  padding: 0 11px;
-
+  min-width: 34px;
+  height: 34px;
   border-radius: 999px;
-  background: rgba(11, 60, 93, 0.1);
-  color: var(--primary);
-
+  background: transparent;
+  color: #111827;
   font-weight: 950;
 }
 
-.standings-table tbody tr:nth-child(1) .standings-rank {
-  background: rgba(255, 215, 0, 0.22);
-  color: #9a7200;
-}
-
-.standings-table tbody tr:nth-child(2) .standings-rank {
-  background: rgba(192, 192, 192, 0.22);
-  color: #555555;
-}
-
-.standings-table tbody tr:nth-child(3) .standings-rank {
-  background: rgba(205, 127, 50, 0.18);
-  color: #8a4f18;
-}
-
-/* =========================
-   4. 球隊欄位
-========================= */
-
-.standings-team {
-  display: inline-flex;
+.standings-team.official-team-cell {
+  display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   justify-content: flex-start;
-
-  min-width: 150px;
   text-align: left;
 }
 
-.standings-team img {
-  width: 28px;
-  height: 28px;
+.standings-team.official-team-cell img {
+  width: 34px;
+  height: 34px;
   object-fit: contain;
+  flex: 0 0 auto;
 }
 
-.standings-team strong {
+.standings-team.official-team-cell strong {
+  color: #334155;
+  font-size: 15px;
   font-weight: 950;
 }
 
-/* =========================
-   5. 勝率與勝差
-========================= */
+.team-opponent-head {
+  min-width: 128px;
+}
 
-.win-pct {
-  color: var(--primary);
+.h2h-self {
+  background:
+    repeating-linear-gradient(135deg, rgba(15,23,42,.04), rgba(15,23,42,.04) 8px, rgba(15,23,42,.075) 8px, rgba(15,23,42,.075) 16px) !important;
+}
+
+.win-pct,
+.pct-high,
+.pct-mid,
+.pct-low {
   font-weight: 950;
 }
 
-.games-back {
-  color: var(--muted);
-  font-weight: 900;
-}
-
-.games-back.leader {
-  color: var(--success);
-}
-
-/* =========================
-   6. 近期狀態
-========================= */
+.pct-high { color: #15803d; }
+.pct-mid { color: #b45309; }
+.pct-low { color: #b91c1c; }
 
 .streak {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  min-width: 42px;
-  padding: 8px 12px;
-
+  min-width: 52px;
+  min-height: 30px;
+  padding: 6px 11px;
   border-radius: 999px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 950;
 }
 
-.streak.win {
-  background: rgba(10, 143, 42, 0.1);
-  color: var(--success);
-}
+.streak.win { background: rgba(22,163,74,.12); color: #15803d; }
+.streak.loss { background: rgba(220,38,38,.12); color: #b91c1c; }
+.streak.tie { background: rgba(100,116,139,.13); color: #475569; }
 
-.streak.loss {
-  background: rgba(214, 0, 0, 0.1);
-  color: var(--danger);
-}
-
-.streak.tie {
-  background: rgba(11, 60, 93, 0.08);
-  color: var(--primary);
-}
-
-/* =========================
-   7. 戰績摘要卡
-========================= */
-
-.standings-summary-grid {
+.last10-wrap {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
-
-  margin-bottom: 20px;
+  gap: 4px;
+  justify-items: center;
 }
 
-.standings-summary-item {
-  padding: 16px;
-  border-radius: 18px;
-  background: rgba(11, 60, 93, 0.045);
-  border: 1px solid rgba(11, 60, 93, 0.09);
-}
-
-.standings-summary-item span {
-  display: block;
-  margin-bottom: 6px;
-
-  color: var(--muted);
-  font-size: 14px;
-  font-weight: 800;
-}
-
-.standings-summary-item strong {
-  font-size: 24px;
+.last10-summary {
+  color: #111827;
   font-weight: 950;
-  color: var(--primary);
 }
 
-/* =========================
-   8. 戰績備註
-========================= */
+.last10-seq {
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: .08em;
+}
 
-.standings-note {
-  margin-top: 16px;
-  padding: 14px 16px;
+.sortable {
+  cursor: pointer;
+}
 
-  border-radius: 16px;
-  background: rgba(11, 60, 93, 0.045);
-  color: var(--muted);
+.sortable:hover {
+  background: #000 !important;
+}
 
+.official-note {
+  margin-top: 14px;
+  color: #64748b;
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 850;
+}
+
+.official-note code {
+  padding: 2px 7px;
+  border-radius: 8px;
+  background: rgba(15,23,42,.07);
+  color: #334155;
 }
 
 /* =========================
-   9. 手機版戰績頁
+   Dark theme
 ========================= */
 
-@media (max-width: 820px) {
-  .standings-summary-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+html[data-theme="dark"] body[data-page="standings"] {
+  background:
+    radial-gradient(circle at 12% 6%, rgba(250,204,21,.12), transparent 28%),
+    radial-gradient(circle at 88% 8%, rgba(56,189,248,.10), transparent 28%),
+    linear-gradient(135deg, #071827, #081b2e 48%, #062f35);
+}
+
+html[data-theme="dark"] .standings-official-head {
+  border-bottom-color: rgba(255,255,255,.12);
+}
+
+html[data-theme="dark"] .standings-official-head h1,
+html[data-theme="dark"] .standings-query-row h2,
+html[data-theme="dark"] .standings-section-title h2 {
+  color: #f8fafc;
+}
+
+html[data-theme="dark"] .standings-breadcrumb,
+html[data-theme="dark"] .standings-section-title p,
+html[data-theme="dark"] .status-text,
+html[data-theme="dark"] .official-note {
+  color: #a9b7c7;
+}
+
+html[data-theme="dark"] .standings-query-row {
+  border-bottom-color: rgba(255,255,255,.09);
+}
+
+html[data-theme="dark"] .standings-toolbar select,
+html[data-theme="dark"] .standings-toolbar input {
+  background: #101c2a;
+  border-color: rgba(255,255,255,.12);
+  color: #f8fafc;
+}
+
+html[data-theme="dark"] .standings-summary-item,
+html[data-theme="dark"] .standings-official-table-wrap {
+  background: #101c2a;
+  border-color: rgba(255,255,255,.10);
+  box-shadow: 0 24px 64px rgba(0,0,0,.34);
+}
+
+html[data-theme="dark"] .standings-summary-item strong,
+html[data-theme="dark"] .last10-summary,
+html[data-theme="dark"] .standings-rank,
+html[data-theme="dark"] .standings-team.official-team-cell strong {
+  color: #f8fafc;
+}
+
+html[data-theme="dark"] .standings-summary-item span,
+html[data-theme="dark"] .standings-summary-item small,
+html[data-theme="dark"] .last10-seq {
+  color: #a9b7c7;
+}
+
+html[data-theme="dark"] .standings-table.official-style,
+html[data-theme="dark"] .standings-table.official-style td.sticky-col {
+  background: #101c2a;
+}
+
+html[data-theme="dark"] .standings-table.official-style th {
+  background: #263647;
+  border-color: rgba(255,255,255,.10);
+}
+
+html[data-theme="dark"] .standings-table.official-style td {
+  color: #e7eef6;
+  border-color: rgba(255,255,255,.08);
+}
+
+html[data-theme="dark"] .standings-table.official-style tbody tr:nth-child(even) td,
+html[data-theme="dark"] .standings-table.official-style tbody tr:nth-child(even) td.sticky-col {
+  background: #142232;
+}
+
+html[data-theme="dark"] .standings-table.official-style tbody tr:hover td,
+html[data-theme="dark"] .standings-table.official-style tbody tr:hover td.sticky-col {
+  background: rgba(85,180,232,.10);
+}
+
+html[data-theme="dark"] .h2h-self {
+  background:
+    repeating-linear-gradient(135deg, rgba(255,255,255,.03), rgba(255,255,255,.03) 8px, rgba(255,255,255,.06) 8px, rgba(255,255,255,.06) 16px) !important;
+}
+
+/* =========================
+   RWD
+========================= */
+
+@media (max-width: 1100px) {
+  .standings-official-head,
+  .standings-query-row,
+  .standings-section-title {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
-  .standings-card {
-    padding: 18px;
+  .standings-toolbar {
+    width: 100%;
+    justify-content: flex-start;
   }
 
-  .standings-table {
-    min-width: 760px;
+  .standings-summary-grid.official {
+    grid-template-columns: repeat(2, minmax(0,1fr));
   }
 }
 
-@media (max-width: 520px) {
-  .standings-summary-grid {
+@media (max-width: 720px) {
+  .standings-official-shell {
+    width: min(100%, 100vw);
+    padding: 22px 12px 54px;
+    gap: 24px;
+  }
+
+  .standings-official-head h1 span {
+    display: block;
+    margin: 8px 0 0;
+  }
+
+  .standings-breadcrumb {
+    flex-wrap: wrap;
+    white-space: normal;
+  }
+
+  .standings-official-tabs {
     grid-template-columns: 1fr;
   }
 
-  .standings-card h2 {
-    font-size: 22px;
+  .standings-official-tabs button.active::after {
+    display: none;
   }
 
-  .standings-team {
-    min-width: 130px;
+  .standings-toolbar select,
+  .standings-toolbar input,
+  .standings-toolbar button {
+    width: 100%;
   }
 
-  .standings-team img {
-    width: 28px;
-    height: 28px;
+  .standings-summary-grid.official {
+    grid-template-columns: 1fr;
+  }
+
+  .standings-board-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .standings-table.official-style {
+    min-width: 1560px;
+  }
+
+  .standings-table.official-style th,
+  .standings-table.official-style td {
+    font-size: 14px;
+    padding: 11px 12px;
+  }
+
+  .standings-table.official-style .rank-col {
+    width: 60px;
+    min-width: 60px;
+  }
+
+  .standings-table.official-style .team-col {
+    left: 60px;
+    width: 180px;
+    min-width: 180px;
   }
 }

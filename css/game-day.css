@@ -448,3 +448,23 @@ body[data-page="game-day"] {
     margin: 0 auto;
   }
 }
+
+/* =========================================================
+   GAME DAY v7.0 WIDE DASHBOARD
+========================================================= */
+
+@media (min-width: 1200px) {
+  body[data-page="game-day"] .game-day-container,
+  body[data-page="game-day"] .container {
+    width: min(96vw, 1760px);
+    max-width: none;
+  }
+
+  body[data-page="game-day"] .game-day-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body[data-page="game-day"] .game-day-topline {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

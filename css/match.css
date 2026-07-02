@@ -2497,3 +2497,25 @@ html[data-theme="dark"] body[data-page="match"] .empty-box {
     gap: 4px;
   }
 }
+
+/* =========================================================
+   MATCH v7.0 WIDE DASHBOARD
+========================================================= */
+
+@media (min-width: 1200px) {
+  body[data-page="match"] .container,
+  body[data-page="farm-match"] .container {
+    width: min(96vw, 1760px);
+    max-width: none;
+  }
+
+  body[data-page="match"] .match-hero,
+  body[data-page="farm-match"] .match-hero {
+    grid-template-columns: minmax(220px, 0.85fr) minmax(420px, 1.3fr) minmax(220px, 0.85fr);
+  }
+
+  body[data-page="match"] .live-detail-grid,
+  body[data-page="farm-match"] .live-detail-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}

@@ -1,6 +1,7 @@
 // =========================
-// Standings Engine v4
+// Standings Engine v5
 // for data/live/live-boxscore.json
+// CPBL official-style standings support
 // =========================
 
 export function calculateStandings(games) {
@@ -21,6 +22,9 @@ export function calculateStandings(games) {
 
     if (!table[home]) table[home] = createTeam(home);
     if (!table[away]) table[away] = createTeam(away);
+
+    ensureH2H(table[home], away);
+    ensureH2H(table[away], home);
   });
 
   // 只計算 final
@@ -38,6 +42,9 @@ export function calculateStandings(games) {
 
     if (Number.isNaN(homeScore) || Number.isNaN(awayScore)) return;
 
+    ensureH2H(home, awayName);
+    ensureH2H(away, homeName);
+
     home.games++;
     away.games++;
 
@@ -54,6 +61,9 @@ export function calculateStandings(games) {
       away.losses++;
       away.awayLosses++;
 
+      home.h2h[awayName].wins++;
+      away.h2h[homeName].losses++;
+
       home.last10.push("W");
       away.last10.push("L");
 
@@ -67,6 +77,9 @@ export function calculateStandings(games) {
       home.losses++;
       home.homeLosses++;
 
+      away.h2h[homeName].wins++;
+      home.h2h[awayName].losses++;
+
       away.last10.push("W");
       home.last10.push("L");
 
@@ -76,6 +89,12 @@ export function calculateStandings(games) {
     } else {
       home.ties++;
       away.ties++;
+
+      home.homeTies++;
+      away.awayTies++;
+
+      home.h2h[awayName].ties++;
+      away.h2h[homeName].ties++;
 
       home.last10.push("T");
       away.last10.push("T");
@@ -130,9 +149,11 @@ export function calculateStandings(games) {
 
     if (i === 0) {
       t.gb = "-";
+      t.elimination = "-";
     } else {
       const gb = ((leader.wins - t.wins) + (t.losses - leader.losses)) / 2;
-      t.gb = gb.toFixed(1);
+      t.gb = Number.isInteger(gb) ? String(gb) : gb.toFixed(1);
+      t.elimination = "E";
     }
   });
 
@@ -153,12 +174,16 @@ function createTeam(name) {
 
     homeWins: 0,
     homeLosses: 0,
+    homeTies: 0,
     awayWins: 0,
     awayLosses: 0,
+    awayTies: 0,
 
     runsFor: 0,
     runsAgainst: 0,
     runDiff: 0,
+
+    h2h: {},
 
     streakType: null,
     streakCount: 0,
@@ -171,8 +196,16 @@ function createTeam(name) {
 
     winPct: 0,
     gb: "-",
+    elimination: "-",
     trend: "flat"
   };
+}
+
+function ensureH2H(team, opponentName) {
+  if (!team || !opponentName) return;
+  if (!team.h2h[opponentName]) {
+    team.h2h[opponentName] = { wins: 0, losses: 0, ties: 0 };
+  }
 }
 
 function updateStreak(team, result) {

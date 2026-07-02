@@ -452,3 +452,20 @@
     height: 22px;
   }
 }
+
+/* =========================================================
+   v7.0 WIDE DESKTOP SHELL - NAV
+========================================================= */
+
+@media (min-width: 1200px) {
+  .nav-inner {
+    width: min(96vw, 1760px);
+    max-width: none;
+  }
+}
+
+@media (min-width: 1500px) {
+  .nav-inner {
+    width: min(97vw, 1840px);
+  }
+}

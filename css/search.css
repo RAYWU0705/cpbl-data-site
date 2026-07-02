@@ -77,3 +77,19 @@
     width: 100%;
   }
 }
+
+/* =========================================================
+   SEARCH v7.0 WIDE DASHBOARD
+========================================================= */
+
+@media (min-width: 1200px) {
+  body[data-page="search"] .container {
+    width: min(96vw, 1760px);
+    max-width: none;
+  }
+
+  body[data-page="search"] .search-results {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}

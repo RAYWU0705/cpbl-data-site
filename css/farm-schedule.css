@@ -455,3 +455,29 @@ body[data-page="farm-schedule"] .nav {
     order: -1;
   }
 }
+
+/* =========================================================
+   FARM SCHEDULE v7.0 WIDE DASHBOARD
+========================================================= */
+
+@media (min-width: 1200px) {
+  body[data-page="farm-schedule"] .farm-hero,
+  body[data-page="farm-schedule"] .farm-shell {
+    width: min(96vw, 1760px);
+    max-width: none;
+  }
+
+  body[data-page="farm-schedule"] .farm-hero {
+    grid-template-columns: minmax(0, 1.65fr) minmax(340px, 0.55fr);
+  }
+
+  body[data-page="farm-schedule"] .farm-game-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1500px) {
+  body[data-page="farm-schedule"] .farm-game-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

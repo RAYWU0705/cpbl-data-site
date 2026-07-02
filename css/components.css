@@ -485,3 +485,17 @@ button.btn:hover {
     grid-column: auto;
   }
 }
+
+/* =========================================================
+   v7.0 WIDE DESKTOP SHELL - COMPONENTS
+   寬版下卡片微收斂，避免滿版後卡片過胖
+========================================================= */
+
+@media (min-width: 1200px) {
+  .home-card,
+  .card,
+  .team-detail-card,
+  .season-card {
+    padding: clamp(24px, 1.7vw, 34px);
+  }
+}

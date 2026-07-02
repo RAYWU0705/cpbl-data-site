@@ -660,3 +660,35 @@
     bottom: -16px;
   }
 }
+
+/* =========================================================
+   v7.0 WIDE DESKTOP SHELL - HERO
+========================================================= */
+
+@media (min-width: 1200px) {
+  .hero-pro-inner {
+    width: min(96vw, 1760px);
+    max-width: none;
+  }
+
+  .hero:not(.hero-pro) > *:not(.hero-actions) {
+    max-width: min(96vw, 1760px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero:not(.hero-pro) .hero-actions {
+    max-width: min(96vw, 1760px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (min-width: 1500px) {
+  .hero-pro-inner,
+  .hero:not(.hero-pro) > *:not(.hero-actions),
+  .hero:not(.hero-pro) .hero-actions {
+    width: min(97vw, 1840px);
+    max-width: none;
+  }
+}

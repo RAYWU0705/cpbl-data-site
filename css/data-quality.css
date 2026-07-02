@@ -294,3 +294,19 @@ body[data-page="data-quality"] {
     flex-direction: column;
   }
 }
+
+/* =========================================================
+   DATA QUALITY v7.0 WIDE DASHBOARD
+========================================================= */
+
+@media (min-width: 1200px) {
+  body[data-page="data-quality"] .container,
+  body[data-page="data-quality"] .data-quality-main {
+    width: min(96vw, 1760px);
+    max-width: none;
+  }
+
+  body[data-page="data-quality"] .dq-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

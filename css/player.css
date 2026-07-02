@@ -274,3 +274,19 @@
     font-size: 22px;
   }
 }
+
+/* =========================================================
+   PLAYER v7.0 WIDE DASHBOARD
+========================================================= */
+
+@media (min-width: 1200px) {
+  body[data-page="player"] .player-container,
+  body[data-page="player"] .container {
+    width: min(96vw, 1760px);
+    max-width: none;
+  }
+
+  body[data-page="player"] .player-stat-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}

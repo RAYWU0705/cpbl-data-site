@@ -476,3 +476,48 @@ body[data-page="index"] main.container {
       rgba(255, 255, 255, 0.66);
   }
 }
+
+/* =========================================================
+   v7.0 WIDE DESKTOP SHELL
+   全站桌機寬版基礎：只負責版面容器，不塞單頁細節
+   - 桌機充分利用左右空間
+   - 平板以下維持原本安全寬度
+========================================================= */
+
+:root {
+  --site-wide-max: 1760px;
+  --site-wide-width: 96vw;
+  --site-wide-gutter: clamp(18px, 2vw, 34px);
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: min(var(--site-wide-width), var(--site-wide-max));
+    max-width: none;
+    padding-top: 30px;
+    padding-bottom: 64px;
+  }
+
+  main > .container {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .grid-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1500px) {
+  .container {
+    width: min(97vw, 1840px);
+  }
+}

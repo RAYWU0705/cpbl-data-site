@@ -18,13 +18,33 @@ Status: ACTIVE
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>2026 CPBL 賽季中心｜Ray's CPBL Data Site</title>
+  <script>
+    (() => {
+      try {
+        const saved = localStorage.getItem("cpbl-theme");
+        const systemDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+        const theme = saved === "dark" || saved === "light"
+          ? saved
+          : (systemDark ? "dark" : "light");
+
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      } catch {
+        document.documentElement.dataset.theme = "light";
+      }
+    })();
+  </script>
+
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0b3c5d">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="CPBL Data">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="apple-touch-icon" href="assets/logo/cpbl.png">
+
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/theme.css?v=560a">
+  <link rel="stylesheet" href="css/season.css?v=300-yearbook">
 </head>
 
 <body data-page="season">
@@ -56,66 +76,167 @@ Status: ACTIVE
   </div>
 </nav>
 
-<header class="hero">
-  <p class="muted">Ray's Unofficial CPBL Data Site</p>
-  <h1>🏟️ 2026 CPBL 賽季中心</h1>
-  <p>Season Center · League Overview · Matchups</p>
+<header class="season-hero">
+  <div class="season-hero-inner">
+    <div class="season-hero-copy">
+      <span class="season-kicker">SEASON YEARBOOK</span>
+      <h1>2026 CPBL<br>賽季中心</h1>
+      <p>
+        這裡不是單純排名表，而是把整個球季整理成「年鑑式儀表板」：
+        進度、月份節奏、各隊狀態、對戰格局、今日賽事與重要里程碑。
+      </p>
 
-  <div class="hero-actions">
-    <a href="schedule.html">查看賽程</a>
-    <a href="standings.html">查看戰績</a>
-    <a href="teams.html">查看球隊</a>
-    <a href="index.html">回首頁</a>
+      <div class="season-hero-actions">
+        <a href="standings.html">查看即時戰績</a>
+        <a href="schedule.html">查看完整賽程</a>
+        <a href="teams.html">查看球隊資料</a>
+      </div>
+    </div>
+
+    <aside class="season-hero-card" aria-label="賽季狀態摘要">
+      <span>2026 REGULAR SEASON</span>
+      <strong id="seasonHeroMain">讀取中</strong>
+      <em id="seasonHeroSub">正在整理賽季資料…</em>
+      <div class="season-hero-meter">
+        <div id="seasonHeroMeterFill"></div>
+      </div>
+    </aside>
   </div>
-
-  <p class="muted">從賽季視角掌握全聯盟狀態。</p>
 </header>
 
-<main class="container">
+<main class="container season-shell">
 
-  <!-- 賽季進度 -->
-  <section class="home-card">
-    <h2>📊 賽季進度</h2>
-    <div id="seasonProgress">計算中…</div>
+  <section class="season-dashboard-grid">
+
+    <article class="home-card season-progress-card">
+      <div class="season-section-head">
+        <div>
+          <span class="season-section-kicker">PROGRESS</span>
+          <h2>賽季進度</h2>
+        </div>
+        <button id="seasonReloadBtn" class="season-soft-btn" type="button">重新讀取</button>
+      </div>
+      <div id="seasonProgress">計算中…</div>
+    </article>
+
+    <article class="home-card season-phase-card">
+      <div class="season-section-head">
+        <div>
+          <span class="season-section-kicker">PHASE</span>
+          <h2>目前球季階段</h2>
+        </div>
+      </div>
+      <div id="seasonPhase">判斷中…</div>
+    </article>
+
   </section>
 
-  <!-- 各隊狀態 -->
-  <section class="home-card">
-    <h2>🔥 各隊目前狀態</h2>
-    <div id="teamStatusGrid" class="home-grid"></div>
-  </section>
-
-  <!-- 對戰戰績 -->
-  <section class="home-card">
-    <h2>🧾 對戰戰績</h2>
-    <div class="muted" style="margin-bottom:10px;">※ 只統計已結束（final）的比賽</div>
-    <div id="h2hTableWrap"></div>
-  </section>
-
-  <!-- 對戰明細 -->
-  <section class="home-card">
-    <h2>📌 對戰明細</h2>
-    <div id="h2hDetailHint" class="muted" style="margin-bottom:10px;">
-      點上方「對戰戰績」任一格，這裡會顯示該兩隊的所有比賽
+  <section class="home-card season-overview-card">
+    <div class="season-section-head">
+      <div>
+        <span class="season-section-kicker">LEAGUE OVERVIEW</span>
+        <h2>2026 賽季總覽</h2>
+      </div>
+      <a class="card-link secondary" href="standings.html">排行榜查表</a>
     </div>
-    <div id="h2hDetailList"></div>
+    <div id="seasonOverviewStats" class="season-overview-grid"></div>
   </section>
 
-  <!-- 今日賽事 -->
-  <section class="home-card season-card" id="todayGamesCard">
-    <h2>📅 今日賽事</h2>
-    <p class="today-hint muted">👉 點擊比賽可查看當日完整賽程</p>
-    <div class="today-content">讀取中…</div>
+  <section class="home-card season-month-card">
+    <div class="season-section-head">
+      <div>
+        <span class="season-section-kicker">MONTHLY FLOW</span>
+        <h2>月份節奏</h2>
+      </div>
+    </div>
+    <div id="monthlyTimeline" class="season-month-timeline"></div>
   </section>
 
-  <!-- 賽季里程碑 -->
-  <section class="home-card">
-    <h2>🗓️ 賽季里程碑</h2>
-    <ul>
-      <li>🔥 開幕戰｜2026/03/28</li>
-      <li>⭐ 明星賽｜2026/07/18–19</li>
-      <li>🏁 總冠軍賽｜2026/11/17–11/25</li>
-    </ul>
+  <section class="home-card season-team-section">
+    <div class="season-section-head">
+      <div>
+        <span class="season-section-kicker">TEAM SNAPSHOT</span>
+        <h2>各隊賽季摘要</h2>
+      </div>
+      <small>這裡看的是賽季故事，不取代戰績頁。</small>
+    </div>
+    <div id="teamStatusGrid" class="season-team-grid"></div>
+  </section>
+
+  <section class="season-two-column">
+    <article class="home-card">
+      <div class="season-section-head">
+        <div>
+          <span class="season-section-kicker">HEAD TO HEAD</span>
+          <h2>對戰格局</h2>
+        </div>
+      </div>
+      <p class="muted">只統計已結束 final 的例行賽。點任一格可看兩隊對戰明細。</p>
+      <div id="h2hTableWrap"></div>
+    </article>
+
+    <article class="home-card">
+      <div class="season-section-head">
+        <div>
+          <span class="season-section-kicker">MATCHUP DETAIL</span>
+          <h2>對戰明細</h2>
+        </div>
+      </div>
+      <div id="h2hDetailHint" class="muted">
+        點左側「對戰格局」任一格，這裡會列出該兩隊所有比賽。
+      </div>
+      <div id="h2hDetailList" class="season-detail-list"></div>
+    </article>
+  </section>
+
+  <section class="season-two-column">
+    <article class="home-card season-card" id="todayGamesCard">
+      <div class="season-section-head">
+        <div>
+          <span class="season-section-kicker">TODAY</span>
+          <h2>今日賽事</h2>
+        </div>
+      </div>
+      <p class="today-hint muted">點擊比賽可進入比賽中心。</p>
+      <div class="today-content">讀取中…</div>
+    </article>
+
+    <article class="home-card season-story-card">
+      <div class="season-section-head">
+        <div>
+          <span class="season-section-kicker">STORYLINE</span>
+          <h2>賽季看點</h2>
+        </div>
+      </div>
+      <div id="seasonStoryList" class="season-story-list"></div>
+    </article>
+  </section>
+
+  <section class="home-card season-milestone-card">
+    <div class="season-section-head">
+      <div>
+        <span class="season-section-kicker">MILESTONES</span>
+        <h2>賽季里程碑</h2>
+      </div>
+    </div>
+
+    <div id="seasonMilestones" class="season-milestone-grid">
+      <article>
+        <span>OPENING</span>
+        <strong>開幕戰</strong>
+        <em>2026/03/28</em>
+      </article>
+      <article>
+        <span>ALL-STAR</span>
+        <strong>明星賽</strong>
+        <em>2026/07/18–19</em>
+      </article>
+      <article>
+        <span>POSTSEASON</span>
+        <strong>總冠軍賽</strong>
+        <em>2026/11/17–11/25</em>
+      </article>
+    </div>
   </section>
 
 </main>
@@ -127,7 +248,8 @@ Status: ACTIVE
 </footer>
 
 <script src="js/site-root.js?v=561d"></script>
-<script src="js/season.js"></script>
+<script src="js/season.js?v=300-yearbook"></script>
+<script src="js/theme.js?v=560a"></script>
 <script src="js/version.js"></script>
 <script src="js/pwa-register.js"></script>
 </body>

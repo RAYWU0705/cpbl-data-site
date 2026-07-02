@@ -381,3 +381,24 @@ body[data-page="rules"] .nav::after {
     min-height: 460px;
   }
 }
+
+/* =========================================================
+   RULES v7.0 WIDE DASHBOARD
+========================================================= */
+
+@media (min-width: 1200px) {
+  body[data-page="rules"] .rules-hero,
+  body[data-page="rules"] .rules-shell {
+    width: min(96vw, 1760px);
+    max-width: none;
+  }
+
+  body[data-page="rules"] .rules-hero {
+    grid-template-columns: minmax(0, 1.65fr) minmax(340px, 0.55fr);
+  }
+
+  body[data-page="rules"] .rules-grid,
+  body[data-page="rules"] .rules-term-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

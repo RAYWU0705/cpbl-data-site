@@ -10,6 +10,7 @@ Deploy: YES
 Navigation: MAIN
 Maintainer: Ray
 Status: ACTIVE
+Version: v7.1-OFFICIAL-WIDE-SINGLE-TAB
 =========================================================
 -->
 <html lang="zh-Hant">
@@ -36,320 +37,6 @@ Status: ACTIVE
   </script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/theme.css?v=560a">
-
-  <style>
-    .standings-toolbar {
-      margin-bottom: 16px;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .standings-toolbar input,
-    .standings-toolbar select,
-    .standings-toolbar button {
-      padding: 8px 12px;
-      border-radius: 10px;
-      border: 1px solid #d7dce3;
-      font-size: 14px;
-    }
-
-    .standings-toolbar button {
-      background: #0b4a6f;
-      color: #fff;
-      border: none;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    .standings-toolbar button:hover {
-      opacity: 0.92;
-      transform: translateY(-1px);
-    }
-
-    .status-text {
-      color: #666;
-      font-weight: 600;
-    }
-
-    .standings-card {
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
-      overflow: hidden;
-    }
-
-    .standings-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #fff;
-    }
-
-    .standings-table th,
-    .standings-table td {
-      padding: 14px 12px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-      text-align: center;
-      vertical-align: middle;
-    }
-
-    .standings-table th {
-      background: #f7f9fb;
-      font-weight: 800;
-      white-space: nowrap;
-      position: sticky;
-      top: 0;
-      z-index: 1;
-    }
-
-    .standings-table tbody tr {
-      transition:
-        background 0.18s ease,
-        transform 0.28s ease,
-        opacity 0.28s ease,
-        box-shadow 0.28s ease;
-      animation: rowFadeIn 0.35s ease;
-    }
-
-    .standings-table tbody tr:hover {
-      background: #f9fcff;
-    }
-
-    .standings-table tbody tr.rank-up {
-      animation: rankUpFlash 0.55s ease;
-    }
-
-    .standings-table tbody tr.rank-down {
-      animation: rankDownFlash 0.55s ease;
-    }
-
-    .standings-row {
-      cursor: pointer;
-    }
-
-    .team-wrap {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      justify-content: flex-start;
-      min-width: 180px;
-    }
-
-    .team-wrap img {
-      width: 34px;
-      height: 34px;
-      object-fit: contain;
-      flex: 0 0 34px;
-    }
-
-    .team-name {
-      font-weight: 800;
-      text-align: left;
-    }
-
-    .rank-cell {
-      font-weight: 800;
-      width: 78px;
-    }
-
-    .rank-main {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      justify-content: center;
-    }
-
-    .rank-number {
-      font-size: 18px;
-      font-weight: 900;
-      color: #162938;
-    }
-
-    .rank-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 24px;
-      height: 24px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 800;
-      padding: 0 7px;
-    }
-
-    .rank-badge.up {
-      background: #e8f8ec;
-      color: #14853b;
-    }
-
-    .rank-badge.down {
-      background: #fdecec;
-      color: #c33434;
-    }
-
-    .rank-badge.flat {
-      background: #eef2f6;
-      color: #667;
-    }
-
-    .pct-high {
-      color: #14853b;
-      font-weight: 900;
-    }
-
-    .pct-mid {
-      color: #b57900;
-      font-weight: 900;
-    }
-
-    .pct-low {
-      color: #c33434;
-      font-weight: 900;
-    }
-
-    .trend-up {
-      color: #14853b;
-      font-weight: 900;
-    }
-
-    .trend-down {
-      color: #c33434;
-      font-weight: 900;
-    }
-
-    .trend-flat {
-      color: #667;
-      font-weight: 900;
-    }
-
-    .last10-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .last10-summary {
-      font-weight: 900;
-    }
-
-    .last10-seq {
-      font-size: 12px;
-      color: #667;
-      letter-spacing: 1px;
-      line-height: 1.2;
-    }
-
-    .sortable {
-      cursor: pointer;
-      transition: background 0.18s ease;
-    }
-
-    .sortable:hover {
-      background: #eef4fa;
-    }
-
-    .hint-box {
-      margin-top: 18px;
-      color: #556;
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    .empty-box {
-      background: #fff;
-      border-radius: 14px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-      padding: 28px;
-      text-align: center;
-      color: #667;
-      font-weight: 700;
-    }
-
-    @keyframes rowFadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes rankUpFlash {
-      0% {
-        background: #eefaf1;
-        transform: translateY(-4px);
-      }
-
-      100% {
-        background: transparent;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes rankDownFlash {
-      0% {
-        background: #fff1f1;
-        transform: translateY(4px);
-      }
-
-      100% {
-        background: transparent;
-        transform: translateY(0);
-      }
-    }
-
-    @media (max-width: 980px) {
-      .standings-table {
-        font-size: 14px;
-      }
-
-      .standings-table th,
-      .standings-table td {
-        padding: 10px 8px;
-      }
-
-      .team-wrap {
-        min-width: 150px;
-      }
-
-      .team-wrap img {
-        width: 28px;
-        height: 28px;
-      }
-
-      .last10-seq {
-        letter-spacing: 0;
-      }
-    }
-
-    @media (max-width: 760px) {
-      .standings-toolbar {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .standings-toolbar input,
-      .standings-toolbar select,
-      .standings-toolbar button {
-        width: 100%;
-        box-sizing: border-box;
-      }
-
-      .standings-card {
-        overflow: auto;
-      }
-
-      .standings-table {
-        min-width: 980px;
-      }
-    }
-  </style>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0b3c5d">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -387,52 +74,59 @@ Status: ACTIVE
   </div>
 </nav>
 
-<header class="hero">
-  <p class="muted">Ray's Unofficial CPBL Data Site</p>
-  <h1>戰績</h1>
-  <p>Standings · Team Records · Win Percentage</p>
+<main class="standings-official-shell">
+  <section class="standings-official-head" aria-labelledby="standingsTitle">
+    <div>
+      <h1 id="standingsTitle">球隊戰績 <span>STANDINGS</span></h1>
+    </div>
+    <div class="standings-breadcrumb">
+      <a href="index.html">首頁</a>
+      <span>/</span>
+      <span>球隊戰績</span>
+      <span>/</span>
+      <strong>本季球隊戰績</strong>
+    </div>
+  </section>
 
-  <div class="hero-actions">
-    <button id="reloadBtn" type="button">重新讀取</button>
-    <a href="schedule.html">查看賽程</a>
-    <a href="teams.html">查看球隊</a>
-    <a href="index.html">回首頁</a>
-  </div>
 
-  <p class="muted">自動由賽程比分計算，熱身賽不納入戰績。</p>
-</header>
+  <section class="standings-query-row">
+    <div>
+      <p class="standings-season-kicker">REGULAR SEASON</p>
+      <h2 id="seasonHeading">2026年 全年</h2>
+    </div>
 
-<main class="container">
-
-  <section class="home-card">
-    <h2>🏆 聯盟戰績</h2>
-
-    <div class="standings-toolbar">
-      <label for="seasonSelect">賽季：</label>
-      <select id="seasonSelect">
+    <div class="standings-toolbar" aria-label="戰績查詢工具列">
+      <select id="seasonSelect" aria-label="選擇賽季">
         <option value="2026">2026</option>
       </select>
 
-      <label for="splitSelect">區段：</label>
-      <select id="splitSelect">
+      <select id="splitSelect" aria-label="選擇區段">
         <option value="full">全年</option>
         <option value="first">上半季</option>
         <option value="second">下半季</option>
       </select>
 
-      <label for="teamSearch">搜尋球隊：</label>
-      <input id="teamSearch" type="text" placeholder="例如：中信 / 兄弟 / 猿 / brothers">
-
-      <span id="statusText" class="status-text"></span>
-    </div>
-
-    <div id="standingsWrap"></div>
-
-    <div class="hint-box">
-      排名變動會以「同賽季、同區段」上一次載入結果為基準顯示。第一次開啟或清除瀏覽器資料後，會先顯示持平。
+      <input id="teamSearch" type="search" placeholder="搜尋球隊 / brothers / 猿" aria-label="搜尋球隊">
+      <button id="reloadBtn" type="button">查詢</button>
     </div>
   </section>
 
+  <section class="standings-board-section">
+    <div class="standings-section-title">
+      <div>
+        <h2>球隊對戰戰績</h2>
+        <p>在表格區域可左右滑動查看對戰、主客場、近況與最近十場。</p>
+      </div>
+      <div class="standings-board-actions">
+        <span id="statusText" class="status-text">準備讀取…</span>
+        <button id="scrollLeftBtn" type="button" aria-label="表格向左">‹</button>
+        <button id="scrollRightBtn" type="button" aria-label="表格向右">›</button>
+      </div>
+    </div>
+
+    <div id="standingsSummary" class="standings-summary-grid official"></div>
+    <div id="standingsWrap"></div>
+  </section>
 </main>
 
 <footer>
@@ -449,17 +143,22 @@ const LIVE_BOXSCORE_URL = "data/live/live-boxscore.json";
 
 /* ========= DOM ========= */
 const standingsWrap = document.getElementById("standingsWrap");
+const standingsSummary = document.getElementById("standingsSummary");
+const seasonHeading = document.getElementById("seasonHeading");
 const seasonSelect  = document.getElementById("seasonSelect");
 const splitSelect   = document.getElementById("splitSelect");
 const reloadBtn     = document.getElementById("reloadBtn");
 const statusText    = document.getElementById("statusText");
 const teamSearch    = document.getElementById("teamSearch");
+const scrollLeftBtn = document.getElementById("scrollLeftBtn");
+const scrollRightBtn = document.getElementById("scrollRightBtn");
 
 /* ========= 狀態 ========= */
 let currentSeason = "2026";
 let currentSplit  = "full";
 let allGames      = [];
 let rawStandings  = [];
+let validGamesForCurrentView = [];
 
 let sortState = {
   key: "rank",
@@ -476,6 +175,24 @@ const SEASON_MONTHS = {
     "2026-08",
     "2026-09"
   ]
+};
+
+const TEAM_ORDER = [
+  "味全龍",
+  "富邦悍將",
+  "台鋼雄鷹",
+  "統一7-ELEVEn獅",
+  "樂天桃猿",
+  "中信兄弟"
+];
+
+const TEAM_IDS = {
+  "中信兄弟": "brothers",
+  "統一7-ELEVEn獅": "lions",
+  "樂天桃猿": "monkeys",
+  "味全龍": "dragons",
+  "富邦悍將": "guardians",
+  "台鋼雄鷹": "hawks"
 };
 
 /* ========= 工具 ========= */
@@ -527,30 +244,24 @@ function getCanonicalTeamName(name) {
   return id ? map[id] : String(name || "");
 }
 
+function getSplitName(split) {
+  if (split === "first") return "上半季";
+  if (split === "second") return "下半季";
+  return "全年";
+}
+
 function getWinPctClass(pct) {
   if (pct >= 0.6) return "pct-high";
   if (pct >= 0.5) return "pct-mid";
   return "pct-low";
 }
 
-function getTrendText(trend) {
-  if (trend === "up") return "🔺";
-  if (trend === "down") return "🔻";
-  return "➖";
-}
-
-function getTrendClass(trend) {
-  if (trend === "up") return "trend-up";
-  if (trend === "down") return "trend-down";
-  return "trend-flat";
-}
-
 function getStreakText(team) {
   if (!team.streakType || !team.streakCount) return "-";
 
-  if (team.streakType === "W") return `W${team.streakCount}`;
-  if (team.streakType === "L") return `L${team.streakCount}`;
-  if (team.streakType === "T") return `T${team.streakCount}`;
+  if (team.streakType === "W") return `勝${team.streakCount}`;
+  if (team.streakType === "L") return `敗${team.streakCount}`;
+  if (team.streakType === "T") return `和${team.streakCount}`;
 
   return "-";
 }
@@ -569,54 +280,18 @@ function getSplitMonths(season, split) {
   return months;
 }
 
-function getStorageKey() {
-  return `cpbl-standings-ranks-${currentSeason}-${currentSplit}`;
+function formatRecord(wins = 0, losses = 0, ties = 0) {
+  if (ties) return `${wins}-${ties}-${losses}`;
+  return `${wins}-${losses}`;
 }
 
-function buildRankMap(rows) {
-  const map = {};
-
-  rows.forEach(row => {
-    const id = resolveTeamId(row.team);
-    if (id) map[id] = row.rank;
-  });
-
-  return map;
+function formatPct(pct) {
+  return Number(pct || 0).toFixed(3).replace(/^0/, "");
 }
 
-function getPreviousRankMap() {
-  try {
-    return JSON.parse(localStorage.getItem(getStorageKey()) || "{}");
-  } catch {
-    return {};
-  }
-}
-
-function saveCurrentRankMap(rows) {
-  localStorage.setItem(
-    getStorageKey(),
-    JSON.stringify(buildRankMap(rows))
-  );
-}
-
-function getRankChange(teamName, currentRank) {
-  const teamId = resolveTeamId(teamName);
-  if (!teamId) return { type: "flat", text: "—" };
-
-  const prevMap = getPreviousRankMap();
-  const prevRank = prevMap[teamId];
-
-  if (!prevRank) return { type: "flat", text: "—" };
-
-  if (currentRank < prevRank) {
-    return { type: "up", text: `↑${prevRank - currentRank}` };
-  }
-
-  if (currentRank > prevRank) {
-    return { type: "down", text: `↓${currentRank - prevRank}` };
-  }
-
-  return { type: "flat", text: "—" };
+function getSortIndicator(key) {
+  if (sortState.key !== key) return "";
+  return sortState.dir === "asc" ? " ▲" : " ▼";
 }
 
 function trendScore(trend) {
@@ -632,11 +307,6 @@ function streakScore(team) {
   return 0;
 }
 
-function getSortIndicator(key) {
-  if (sortState.key !== key) return "";
-  return sortState.dir === "asc" ? " ▲" : " ▼";
-}
-
 function sortRows(rows) {
   const sorted = rows.slice();
 
@@ -645,89 +315,18 @@ function sortRows(rows) {
     let bv;
 
     switch (sortState.key) {
-      case "rank":
-        av = a.rank;
-        bv = b.rank;
-        break;
-
-      case "team":
-        av = a.team;
-        bv = b.team;
-        break;
-
-      case "games":
-        av = a.games;
-        bv = b.games;
-        break;
-
-      case "wins":
-        av = a.wins;
-        bv = b.wins;
-        break;
-
-      case "losses":
-        av = a.losses;
-        bv = b.losses;
-        break;
-
-      case "ties":
-        av = a.ties;
-        bv = b.ties;
-        break;
-
-      case "home":
-        av = a.homeWins / (a.homeWins + a.homeLosses || 1);
-        bv = b.homeWins / (b.homeWins + b.homeLosses || 1);
-        break;
-
-      case "away":
-        av = a.awayWins / (a.awayWins + a.awayLosses || 1);
-        bv = b.awayWins / (b.awayWins + b.awayLosses || 1);
-        break;
-
-      case "winPct":
-        av = a.winPct;
-        bv = b.winPct;
-        break;
-
-      case "gb":
-        av = a.gb === "-" ? -999 : Number(a.gb);
-        bv = b.gb === "-" ? -999 : Number(b.gb);
-        break;
-
-      case "rf":
-        av = a.runsFor;
-        bv = b.runsFor;
-        break;
-
-      case "ra":
-        av = a.runsAgainst;
-        bv = b.runsAgainst;
-        break;
-
-      case "rd":
-        av = a.runDiff;
-        bv = b.runDiff;
-        break;
-
-      case "trend":
-        av = trendScore(a.trend);
-        bv = trendScore(b.trend);
-        break;
-
-      case "last10":
-        av = a.last10Wins - a.last10Losses;
-        bv = b.last10Wins - b.last10Losses;
-        break;
-
-      case "streak":
-        av = streakScore(a);
-        bv = streakScore(b);
-        break;
-
-      default:
-        av = a.rank;
-        bv = b.rank;
+      case "rank": av = a.rank; bv = b.rank; break;
+      case "team": av = a.team; bv = b.team; break;
+      case "games": av = a.games; bv = b.games; break;
+      case "record": av = a.wins - a.losses; bv = b.wins - b.losses; break;
+      case "winPct": av = a.winPct; bv = b.winPct; break;
+      case "gb": av = a.gb === "-" ? -999 : Number(a.gb); bv = b.gb === "-" ? -999 : Number(b.gb); break;
+      case "home": av = a.homeWins / (a.homeWins + a.homeLosses || 1); bv = b.homeWins / (b.homeWins + b.homeLosses || 1); break;
+      case "away": av = a.awayWins / (a.awayWins + a.awayLosses || 1); bv = b.awayWins / (b.awayWins + b.awayLosses || 1); break;
+      case "last10": av = a.last10Wins - a.last10Losses; bv = b.last10Wins - b.last10Losses; break;
+      case "streak": av = streakScore(a); bv = streakScore(b); break;
+      case "trend": av = trendScore(a.trend); bv = trendScore(b.trend); break;
+      default: av = a.rank; bv = b.rank;
     }
 
     if (typeof av === "string" && typeof bv === "string") {
@@ -771,13 +370,14 @@ async function updateStandings() {
     currentSeason = seasonSelect.value;
     currentSplit = splitSelect.value;
 
+    seasonHeading.textContent = `${currentSeason}年 ${getSplitName(currentSplit)}`;
     setStatus("計算中…");
 
     allGames = await loadLiveBoxscoreGames();
 
     const splitMonths = getSplitMonths(currentSeason, currentSplit);
 
-    const validGames = allGames.filter(g => {
+    validGamesForCurrentView = allGames.filter(g => {
       const meta = g.meta || {};
       const month = (meta.date || "").slice(0, 7);
       const homeId = resolveTeamId(meta.home);
@@ -791,22 +391,51 @@ async function updateStandings() {
       );
     });
 
-    rawStandings = calculateStandings(validGames).map(row => ({
+    rawStandings = calculateStandings(validGamesForCurrentView).map(row => ({
       ...row,
       team: getCanonicalTeamName(row.team)
     }));
 
+    renderSummary(rawStandings, validGamesForCurrentView);
     renderWithSearch();
-    saveCurrentRankMap(rawStandings);
 
-    const finals = validGames.filter(g => g.meta?.status === "final").length;
-
-    setStatus(`✅ 已計算（${rawStandings.length} 隊｜已結束 ${finals} 場）`);
+    const finals = validGamesForCurrentView.filter(g => g.meta?.status === "final").length;
+    setStatus(`已結束 ${finals} 場｜最後讀取 ${new Date().toLocaleTimeString("zh-TW", { hour12: false })}`);
   } catch (err) {
     console.error(err);
     standingsWrap.innerHTML = `<div class="empty-box">戰績載入失敗</div>`;
-    setStatus("❌ 戰績載入失敗");
+    setStatus("戰績載入失敗");
   }
+}
+
+function renderSummary(rows, games) {
+  const leader = rows[0];
+  const hot = rows.slice().sort((a, b) => (b.last10Wins - b.last10Losses) - (a.last10Wins - a.last10Losses))[0];
+  const finalCount = games.filter(g => g.meta?.status === "final").length;
+  const scheduledCount = games.filter(g => g.meta?.status === "scheduled").length;
+
+  standingsSummary.innerHTML = `
+    <div class="standings-summary-item primary">
+      <span>目前龍頭</span>
+      <strong>${leader ? escapeHtml(leader.team) : "-"}</strong>
+      <small>${leader ? `${leader.wins}-${leader.ties}-${leader.losses}｜${formatPct(leader.winPct)}` : "尚無資料"}</small>
+    </div>
+    <div class="standings-summary-item">
+      <span>已完成賽事</span>
+      <strong>${finalCount}</strong>
+      <small>納入戰績計算</small>
+    </div>
+    <div class="standings-summary-item">
+      <span>未賽事</span>
+      <strong>${scheduledCount}</strong>
+      <small>不納入戰績</small>
+    </div>
+    <div class="standings-summary-item hot">
+      <span>近期最熱</span>
+      <strong>${hot ? escapeHtml(hot.team) : "-"}</strong>
+      <small>${hot ? `近十場 ${hot.last10Wins}-${hot.last10Losses}${hot.last10Ties ? `-${hot.last10Ties}` : ""}` : "尚無資料"}</small>
+    </div>
+  `;
 }
 
 function renderWithSearch() {
@@ -833,77 +462,36 @@ function renderStandings(rows) {
     return;
   }
 
+  const opponentHeads = TEAM_ORDER.map(team => `
+    <th class="team-opponent-head">${escapeHtml(team)}</th>
+  `).join("");
+
   standingsWrap.innerHTML = `
-    <div class="standings-card">
-      <table class="standings-table">
+    <div class="standings-official-table-wrap" id="standingsTableWrap">
+      <table class="standings-table official-style">
         <thead>
           <tr>
-            <th class="sortable" data-sort="rank">#${getSortIndicator("rank")}</th>
-            <th class="sortable" data-sort="team">球隊${getSortIndicator("team")}</th>
-            <th class="sortable" data-sort="games">出賽${getSortIndicator("games")}</th>
-            <th class="sortable" data-sort="wins">勝${getSortIndicator("wins")}</th>
-            <th class="sortable" data-sort="losses">敗${getSortIndicator("losses")}</th>
-            <th class="sortable" data-sort="ties">和${getSortIndicator("ties")}</th>
-            <th class="sortable" data-sort="home">主場${getSortIndicator("home")}</th>
-            <th class="sortable" data-sort="away">客場${getSortIndicator("away")}</th>
+            <th class="sortable sticky-col rank-col" data-sort="rank">排名${getSortIndicator("rank")}</th>
+            <th class="sortable sticky-col team-col" data-sort="team">球隊${getSortIndicator("team")}</th>
+            <th class="sortable" data-sort="games">出賽數${getSortIndicator("games")}</th>
+            <th class="sortable" data-sort="record">勝-和-敗${getSortIndicator("record")}</th>
             <th class="sortable" data-sort="winPct">勝率${getSortIndicator("winPct")}</th>
             <th class="sortable" data-sort="gb">勝差${getSortIndicator("gb")}</th>
-            <th class="sortable" data-sort="rf">得分${getSortIndicator("rf")}</th>
-            <th class="sortable" data-sort="ra">失分${getSortIndicator("ra")}</th>
-            <th class="sortable" data-sort="rd">得失分差${getSortIndicator("rd")}</th>
-            <th class="sortable" data-sort="trend">趨勢${getSortIndicator("trend")}</th>
-            <th class="sortable" data-sort="last10">最近10場${getSortIndicator("last10")}</th>
-            <th class="sortable" data-sort="streak">近況${getSortIndicator("streak")}</th>
+            <th>淘汰指數</th>
+            ${opponentHeads}
+            <th class="sortable" data-sort="home">主場戰績${getSortIndicator("home")}</th>
+            <th class="sortable" data-sort="away">客場戰績${getSortIndicator("away")}</th>
+            <th class="sortable" data-sort="streak">連勝/連敗${getSortIndicator("streak")}</th>
+            <th class="sortable" data-sort="last10">近十場${getSortIndicator("last10")}</th>
           </tr>
         </thead>
         <tbody>
-          ${rows.map(t => {
-            const teamId = resolveTeamId(t.team);
-            const rankChange = getRankChange(t.team, t.rank);
-
-            return `
-              <tr class="standings-row ${rankChange.type === "up" ? "rank-up" : ""} ${rankChange.type === "down" ? "rank-down" : ""}"
-                  data-team="${escapeHtml(teamId || "")}">
-                <td class="rank-cell">
-                  <span class="rank-main">
-                    <span class="rank-number">${t.rank}</span>
-                    <span class="rank-badge ${rankChange.type}">
-                      ${rankChange.text}
-                    </span>
-                  </span>
-                </td>
-
-                <td>
-                  <div class="team-wrap">
-                    <img src="assets/logo/${escapeHtml(teamId)}.png" alt="${escapeHtml(t.team)}">
-                    <span class="team-name">${escapeHtml(t.team)}</span>
-                  </div>
-                </td>
-
-                <td>${t.games}</td>
-                <td>${t.wins}</td>
-                <td>${t.losses}</td>
-                <td>${t.ties}</td>
-                <td>${t.homeWins}-${t.homeLosses}</td>
-                <td>${t.awayWins}-${t.awayLosses}</td>
-                <td class="${getWinPctClass(t.winPct)}">${t.winPct.toFixed(3)}</td>
-                <td>${t.gb}</td>
-                <td>${t.runsFor}</td>
-                <td>${t.runsAgainst}</td>
-                <td>${t.runDiff > 0 ? "+" : ""}${t.runDiff}</td>
-                <td class="${getTrendClass(t.trend)}">${getTrendText(t.trend)}</td>
-                <td>
-                  <div class="last10-wrap">
-                    <span class="last10-summary">${t.last10Wins}-${t.last10Losses}${t.last10Ties ? `-${t.last10Ties}` : ""}</span>
-                    <span class="last10-seq">${escapeHtml(t.last10Display)}</span>
-                  </div>
-                </td>
-                <td>${escapeHtml(getStreakText(t))}</td>
-              </tr>
-            `;
-          }).join("")}
+          ${rows.map(t => renderRow(t)).join("")}
         </tbody>
       </table>
+    </div>
+    <div class="standings-note official-note">
+      提示：資料由本站 <code>live-boxscore.json</code> 自動換算；點擊球隊列可進入球隊頁。對戰欄位格式為「勝-和-敗」。
     </div>
   `;
 
@@ -924,7 +512,7 @@ function renderStandings(rows) {
         sortState.dir = sortState.dir === "asc" ? "desc" : "asc";
       } else {
         sortState.key = key;
-        sortState.dir = key === "team" ? "asc" : "desc";
+        sortState.dir = key === "team" || key === "rank" ? "asc" : "desc";
       }
 
       renderWithSearch();
@@ -932,11 +520,62 @@ function renderStandings(rows) {
   });
 }
 
+function renderRow(t) {
+  const teamId = resolveTeamId(t.team);
+  const logo = teamId ? `assets/logo/${teamId}.png` : "assets/logo/cpbl.png";
+
+  const h2hCells = TEAM_ORDER.map(opponent => {
+    if (opponent === t.team) return `<td class="h2h-self"></td>`;
+    const record = t.h2h?.[opponent] || { wins: 0, losses: 0, ties: 0 };
+    return `<td>${formatRecord(record.wins, record.losses, record.ties)}</td>`;
+  }).join("");
+
+  const streak = getStreakText(t);
+  const streakClass = t.streakType === "W" ? "win" : t.streakType === "L" ? "loss" : "tie";
+
+  return `
+    <tr class="standings-row" data-team="${escapeHtml(teamId || "")}">
+      <td class="sticky-col rank-col"><span class="standings-rank">${t.rank}</span></td>
+      <td class="sticky-col team-col">
+        <div class="standings-team official-team-cell">
+          <img src="${escapeHtml(logo)}" alt="${escapeHtml(t.team)}">
+          <strong>${escapeHtml(t.team)}</strong>
+        </div>
+      </td>
+      <td>${t.games}</td>
+      <td>${formatRecord(t.wins, t.losses, t.ties)}</td>
+      <td class="${getWinPctClass(t.winPct)}">${formatPct(t.winPct)}</td>
+      <td>${escapeHtml(t.gb)}</td>
+      <td>${escapeHtml(t.elimination || (t.rank === 1 ? "-" : "E"))}</td>
+      ${h2hCells}
+      <td>${formatRecord(t.homeWins, t.homeLosses, t.homeTies)}</td>
+      <td>${formatRecord(t.awayWins, t.awayLosses, t.awayTies)}</td>
+      <td><span class="streak ${streakClass}">${escapeHtml(streak)}</span></td>
+      <td>
+        <div class="last10-wrap">
+          <span class="last10-summary">${t.last10Wins}-${t.last10Losses}${t.last10Ties ? `-${t.last10Ties}` : ""}</span>
+          <span class="last10-seq">${escapeHtml(t.last10Display)}</span>
+        </div>
+      </td>
+    </tr>
+  `;
+}
+
 /* ========= 事件 ========= */
 reloadBtn.addEventListener("click", updateStandings);
 seasonSelect.addEventListener("change", updateStandings);
 splitSelect.addEventListener("change", updateStandings);
 teamSearch.addEventListener("input", renderWithSearch);
+
+scrollLeftBtn.addEventListener("click", () => {
+  const wrap = document.getElementById("standingsTableWrap");
+  wrap?.scrollBy({ left: -420, behavior: "smooth" });
+});
+
+scrollRightBtn.addEventListener("click", () => {
+  const wrap = document.getElementById("standingsTableWrap");
+  wrap?.scrollBy({ left: 420, behavior: "smooth" });
+});
 
 /* ========= 啟動 ========= */
 updateStandings();
