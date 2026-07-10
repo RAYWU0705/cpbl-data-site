@@ -1,5 +1,5 @@
 // =========================
-// CPBL Data Update All v5.2.6-YESTERDAY-FINAL-CATCHUP
+// CPBL Data Update All v5.3.1-SMART-BACKUP-HEALTH
 // 一鍵更新：players / transactions / pregame / live-inplay / final-vue+merge / league-news
 // 穩定性重點：不中斷、備份、summary、dry-run、soft-exit
 // =========================
@@ -60,6 +60,8 @@ const DASHBOARD_DATA_FILES = [
   "data/farm/farm-boxscore-2026.json",
   "data/manual/manual-boxscore-overrides.json"
 ];
+const UPDATE_VERSION = "v5.3.1-SMART-BACKUP-HEALTH";
+
 const STAGES = [
   {
     key: "players",
@@ -132,6 +134,17 @@ const PIPELINES = {
   all: ["players", "pregame", "live", "final", "news"],
   core: ["players", "pregame", "live", "final", "news"],
   data: ["players", "pregame", "live", "final", "news"],
+
+  // v5.3.0：日常快速模式。比賽日常更新不跑 players / final，先把今日頁面變快。
+  fast: ["pregame", "live", "news"],
+  quick: ["pregame", "live", "news"],
+  daily: ["pregame", "live", "news"],
+
+  // 賽後補強模式。建議比賽結束後指定 --date 再跑。
+  postgame: ["final", "news"],
+
+  // 維護模式。比 fast 完整，但仍避免把 LIVE 高頻流程跟球員資料混在一起濫跑。
+  maintenance: ["players", "pregame", "final", "news"],
 
   game: ["pregame", "live", "final", "news"],
   safe: ["players", "transactions", "pregame", "final", "news"],
@@ -519,7 +532,9 @@ async function runHealthCheck(tasks) {
   items.push(await checkDirectory(ROOT_DIR, "專案根目錄"));
   items.push(await checkDirectory(LOG_DIR, "Log 目錄", true));
   for (const dir of MAINTENANCE_DIRECTORIES) {
-    items.push(await checkDirectory(path.join(ROOT_DIR, dir), dir));
+    // 備份分類目錄是維護工具自行管理的結構；不存在時直接建立，
+    // 不應讓 fast / postgame 的 strict health 因空目錄而誤判失敗。
+    items.push(await checkDirectory(path.join(ROOT_DIR, dir), dir, true));
   }
   for (const task of tasks) {
     if (isCandidateOnlyTask(task)) {
@@ -857,7 +872,8 @@ function runNodeScript(script, args, startedAtMs) {
         windowsHide: true,
         env: {
           ...process.env,
-          CPBL_UPDATE_ALL_RUN_ID: RUN_ID
+          CPBL_UPDATE_ALL_RUN_ID: RUN_ID,
+          CPBL_PARENT_BACKUP_DONE: shouldSkipBackup() ? "false" : "true"
         }
       }
     );
@@ -989,7 +1005,7 @@ function extractStats(text) {
 
 function logHeader(tasks, date, only) {
   logLine("======================================");
-  logLine("🚀 CPBL 一鍵更新開始 v5.2.6-YESTERDAY-FINAL-CATCHUP");
+  logLine(`🚀 CPBL 一鍵更新開始 ${UPDATE_VERSION}`);
   logLine(`時間：${new Date().toLocaleString("zh-TW")}`);
   logLine(`專案根目錄：${ROOT_DIR}`);
   logLine(`Log：${path.relative(ROOT_DIR, LOG_FILE)}`);
@@ -1030,7 +1046,7 @@ function logSummary(tasks, results) {
 
   logLine("");
   logLine("======================================");
-  logLine("📦 一鍵更新總結 v5.2.6-YESTERDAY-FINAL-CATCHUP");
+  logLine(`📦 一鍵更新總結 ${UPDATE_VERSION}`);
   logLine("======================================");
 
   tasks.forEach(task => {
@@ -1124,7 +1140,7 @@ async function writeSummary(payload) {
   }));
 
   const summary = {
-    version: "v5.2.6-YESTERDAY-FINAL-CATCHUP",
+    version: UPDATE_VERSION,
     runId: RUN_ID,
     mode: payload.mode,
     rootDir: ROOT_DIR,

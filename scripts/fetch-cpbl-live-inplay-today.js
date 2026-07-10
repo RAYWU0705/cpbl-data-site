@@ -10,7 +10,12 @@ import {
 
 
 
-const VERSION = "v5.0-25-4-LIVE-LINESCORE-ZERO-GAME-SAFE-REPAIR";
+const VERSION = "v5.0-27-SMART-LIVE-PROBE";
+const DEBUG_WRITE = process.argv.includes("--debug-write") || process.argv.includes("--write-debug");
+const SKIP_BACKUP =
+  process.argv.includes("--no-backup") ||
+  String(process.env.CI || "").toLowerCase() === "true" ||
+  String(process.env.CPBL_PARENT_BACKUP_DONE || "").toLowerCase() === "true";
 const SEASON_YEAR = 2026;
 const KIND_CODE = "A";
 
@@ -1170,21 +1175,25 @@ async function writeJsonFileWithBackup(filepath, data, label = "json") {
     recursive: true
   });
 
-  await fs.mkdir(BACKUP_DIR, {
-    recursive: true
-  });
+  if (SKIP_BACKUP) {
+    console.log("⚡ CI / parent backup 模式：略過 LIVE 重複備份。");
+  } else {
+    await fs.mkdir(BACKUP_DIR, {
+      recursive: true
+    });
 
-  const stamp = getTimestampForFile();
-  const basename = path.basename(filepath, ".json");
-  const backupFile = path.join(BACKUP_DIR, `${basename}-${label}-${stamp}.json`);
+    const stamp = getTimestampForFile();
+    const basename = path.basename(filepath, ".json");
+    const backupFile = path.join(BACKUP_DIR, `${basename}-${label}-${stamp}.json`);
 
-  try {
-    const oldText = await fs.readFile(filepath, "utf-8");
-    await fs.writeFile(backupFile, oldText, "utf-8");
+    try {
+      const oldText = await fs.readFile(filepath, "utf-8");
+      await fs.writeFile(backupFile, oldText, "utf-8");
 
-    console.log(`🛡️ 已備份舊資料：${path.relative(path.join(__dirname, ".."), backupFile)}`);
-  } catch {
-    console.log("🛡️ 尚無舊資料可備份，略過備份。");
+      console.log(`🛡️ 已備份舊資料：${path.relative(path.join(__dirname, ".."), backupFile)}`);
+    } catch {
+      console.log("🛡️ 尚無舊資料可備份，略過備份。");
+    }
   }
 
   await fs.writeFile(filepath, JSON.stringify(data, null, 2), "utf-8");
@@ -1217,6 +1226,20 @@ async function getChromeExecutablePath() {
 
 async function setupPage(browser) {
   const page = await browser.newPage();
+
+  // LIVE 爬蟲只需要 DOM / XHR / JS。圖片、字型與影音不影響解析，
+  // 在本機與 GitHub Actions 都可減少下載量與 networkidle 等待時間。
+  await page.setRequestInterception(true);
+  page.on("request", request => {
+    const type = request.resourceType();
+
+    if (["image", "font", "media"].includes(type)) {
+      request.abort().catch(() => {});
+      return;
+    }
+
+    request.continue().catch(() => {});
+  });
 
   await page.setViewport({
     width: 1500,
@@ -1431,7 +1454,8 @@ async function discoverTodayGamesFromScheduleApi(browser, today) {
     timeout: 60000
   });
 
-  await sleep(3500);
+  // networkidle2 後通常已取得 API；只有未攔到 response 時才多等一下。
+  await sleep(captured.length ? 250 : 1800);
   await safeClosePage(page);
 
   const rawGames = [];
@@ -1653,24 +1677,26 @@ async function discoverHomeLiveCards(browser, scheduleGames) {
     };
   }, scheduleGames);
 
-  try {
-    await fs.mkdir(DEBUG_DIR, {
-      recursive: true
-    });
+  if (DEBUG_WRITE) {
+    try {
+      await fs.mkdir(DEBUG_DIR, {
+        recursive: true
+      });
 
-    await fs.writeFile(
-      path.join(DEBUG_DIR, "live-inplay-home-after-load.html"),
-      await page.content(),
-      "utf-8"
-    );
+      await fs.writeFile(
+        path.join(DEBUG_DIR, "live-inplay-home-after-load.html"),
+        await page.content(),
+        "utf-8"
+      );
 
-    await fs.writeFile(
-      path.join(DEBUG_DIR, "live-inplay-home-after-load.txt"),
-      await page.evaluate(() => document.body?.innerText || ""),
-      "utf-8"
-    );
-  } catch (err) {
-    console.log(`⚠️ 首頁 debug 寫入失敗：${err.message}`);
+      await fs.writeFile(
+        path.join(DEBUG_DIR, "live-inplay-home-after-load.txt"),
+        await page.evaluate(() => document.body?.innerText || ""),
+        "utf-8"
+      );
+    } catch (err) {
+      console.log(`⚠️ 首頁 debug 寫入失敗：${err.message}`);
+    }
   }
 
   await safeClosePage(page);
@@ -1783,29 +1809,31 @@ async function parseBoxscorePage(page, entry, gameSno, expectedGame = null) {
     console.log(`⚠️ ${gameSno} ${entry.mode} 隊伍頁籤點擊略過：${err.message}`);
   }
 
-  try {
-    const pageDebugDir =
-      typeof DEBUG_PAGES_DIR !== "undefined"
-        ? DEBUG_PAGES_DIR
-        : DEBUG_DIR;
+  if (DEBUG_WRITE) {
+    try {
+      const pageDebugDir =
+        typeof DEBUG_PAGES_DIR !== "undefined"
+          ? DEBUG_PAGES_DIR
+          : DEBUG_DIR;
 
-    await fs.mkdir(pageDebugDir, {
-      recursive: true
-    });
+      await fs.mkdir(pageDebugDir, {
+        recursive: true
+      });
 
-    await fs.writeFile(
-      path.join(pageDebugDir, `boxscore-${gameSno}-${entry.mode}.html`),
-      await page.content(),
-      "utf-8"
-    );
+      await fs.writeFile(
+        path.join(pageDebugDir, `boxscore-${gameSno}-${entry.mode}.html`),
+        await page.content(),
+        "utf-8"
+      );
 
-    await fs.writeFile(
-      path.join(pageDebugDir, `boxscore-${gameSno}-${entry.mode}.txt`),
-      await page.evaluate(() => document.body?.innerText || ""),
-      "utf-8"
-    );
-  } catch {
-    // debug 寫入失敗不影響主流程
+      await fs.writeFile(
+        path.join(pageDebugDir, `boxscore-${gameSno}-${entry.mode}.txt`),
+        await page.evaluate(() => document.body?.innerText || ""),
+        "utf-8"
+      );
+    } catch {
+      // debug 寫入失敗不影響主流程
+    }
   }
 
   return await page.evaluate((TEAM_NAMES_IN_PAGE, targetGameSno, entryMode, entryUrl, sideHintInPage, expectedGameInPage) => {
@@ -3603,24 +3631,26 @@ async function fetchStatsFallback(page, scheduleGame) {
 
     await sleep(1800);
 
-    try {
-      await fs.mkdir(DEBUG_DIR, {
-        recursive: true
-      });
+    if (DEBUG_WRITE) {
+      try {
+        await fs.mkdir(DEBUG_DIR, {
+          recursive: true
+        });
 
-      await fs.writeFile(
-        path.join(DEBUG_DIR, `stats-${gameSno}.html`),
-        await page.content(),
-        "utf-8"
-      );
+        await fs.writeFile(
+          path.join(DEBUG_DIR, `stats-${gameSno}.html`),
+          await page.content(),
+          "utf-8"
+        );
 
-      await fs.writeFile(
-        path.join(DEBUG_DIR, `stats-${gameSno}.txt`),
-        await page.evaluate(() => document.body?.innerText || ""),
-        "utf-8"
-      );
-    } catch {
-      // debug 寫入失敗不影響主流程
+        await fs.writeFile(
+          path.join(DEBUG_DIR, `stats-${gameSno}.txt`),
+          await page.evaluate(() => document.body?.innerText || ""),
+          "utf-8"
+        );
+      } catch {
+        // debug 寫入失敗不影響主流程
+      }
     }
 
     const parsed = await page.evaluate((awayNameInPage, homeNameInPage) => {
@@ -4261,6 +4291,23 @@ function isInplayCandidate(game, liveCard) {
   return shouldEnterLiveMode(game, liveCard, null);
 }
 
+function shouldProbeHomeFallback(scheduleGames = []) {
+  const now = Date.now();
+  const beforeStartMs = 15 * 60 * 1000;
+  const afterStartMs = 7 * 60 * 60 * 1000;
+
+  return scheduleGames.some(game => {
+    if (!game || game.status !== "scheduled") return false;
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(String(game.date || ""))) return false;
+    if (!/^\d{1,2}:\d{2}$/.test(String(game.time || ""))) return false;
+
+    const start = new Date(`${game.date}T${game.time}:00+08:00`).getTime();
+    if (!Number.isFinite(start)) return false;
+
+    return now >= start - beforeStartMs && now <= start + afterStartMs;
+  });
+}
+
 /* =========================
    主程式
 ========================= */
@@ -4270,6 +4317,8 @@ async function main() {
 
   console.log(`📡 CPBL 比賽中 LIVE 更新 ${VERSION}...`);
   console.log("今天：", today);
+  console.log(`debug-write：${DEBUG_WRITE ? "開啟" : "關閉，HTML/TXT 大型 debug 略過"}`);
+  console.log(`backup：${SKIP_BACKUP ? "略過重複備份" : "本機安全備份"}`);
 
   const executablePath = await getChromeExecutablePath();
 
@@ -4293,7 +4342,27 @@ async function main() {
     await ensureManualOverrideFileV2(path.join(__dirname, ".."));
     const manualOverrides = await readManualOverridesV2(path.join(__dirname, ".."));
     const scheduleGames = await discoverTodayGamesFromScheduleApi(browser, today);
-    const liveCards = await discoverHomeLiveCards(browser, scheduleGames);
+    const apiInplayGames = scheduleGames.filter(game =>
+      isInplayCandidate(game, null)
+    );
+
+    // schedule API 已明確回報 LIVE 時，直接進 boxscore，不再多開首頁。
+    // 只有 API 仍顯示 scheduled、且已接近開賽時間時，才啟用首頁備援。
+    const useHomeFallback =
+      apiInplayGames.length === 0 &&
+      shouldProbeHomeFallback(scheduleGames);
+
+    const liveCards = useHomeFallback
+      ? await discoverHomeLiveCards(browser, scheduleGames)
+      : [];
+
+    console.log(
+      useHomeFallback
+        ? "🟠 schedule API 尚無 LIVE 訊號，已啟用首頁備援。"
+        : apiInplayGames.length
+          ? "⚡ schedule API 已確認 LIVE，略過首頁備援。"
+          : "💤 尚未進入比賽時間窗，略過首頁備援。"
+    );
 
     const liveCardMap = new Map(
       liveCards.map(card => [

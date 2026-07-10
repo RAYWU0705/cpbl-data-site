@@ -301,7 +301,7 @@ function renderList(rows) {
       <img src="assets/logo/${escapeHtml(t.id)}.png"
            class="team-logo-lg"
            alt="${escapeHtml(t.name)}"
-           onerror="this.src='assets/logo/default.png'">
+           onerror="this.onerror=null;this.src='assets/logo/cpbl.png'">
 
       <h3>${escapeHtml(t.name)}</h3>
       <p>主場：${escapeHtml(t.home || "資料待補")}</p>

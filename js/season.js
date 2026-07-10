@@ -233,8 +233,10 @@ function renderPhase(finals, regularGames) {
     tone = "early";
   }
 
-  const firstHalf = regularGames.filter(g => (g.date || "").slice(0, 7) <= "2026-06");
-  const secondHalf = regularGames.filter(g => (g.date || "").slice(0, 7) >= "2026-07");
+  // 2026 年上下半季以 7/3 為分界；7/2 仍屬上半季。
+  // 與 standings.html 的 SEASON_SPLIT_RANGES 保持一致。
+  const firstHalf = regularGames.filter(g => (g.date || "") <= "2026-07-02");
+  const secondHalf = regularGames.filter(g => (g.date || "") >= "2026-07-03");
 
   phaseBox.innerHTML = `
     <div class="season-phase-badge ${tone}">${phase}</div>

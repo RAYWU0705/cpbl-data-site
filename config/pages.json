@@ -1,6 +1,6 @@
 {
-  "version": "v5.6.1-C3",
-  "description": "CPBL Data Site registry with existing legacy redirects only.",
+  "version": "v5.6.1-RELEASE-GATE",
+  "description": "CPBL Data Site active page registry. Archived and removed pages are not registered as active routes.",
   "rules": {
     "rootHtmlPolicy": "Stage A keeps current files in root. Future stages may move OPS/ADMIN/LOCAL_TOOL pages.",
     "generatedIgnore": [
@@ -174,15 +174,6 @@
       "status": "ACTIVE"
     },
     {
-      "file": "report.html",
-      "name": "報告模式",
-      "type": "PUBLIC",
-      "deploy": true,
-      "navigation": "CONTEXT",
-      "status": "ACTIVE",
-      "notes": "成果展示與簡報頁"
-    },
-    {
       "file": "game-day.html",
       "name": "今日戰情中心",
       "type": "OPS_PUBLIC",
@@ -199,15 +190,6 @@
       "navigation": "OPS_ONLY",
       "status": "ACTIVE",
       "legacyRoute": "data-quality.html"
-    },
-    {
-      "file": "ops/teams-dashboard.html",
-      "name": "球隊資料 Dashboard",
-      "type": "OPS",
-      "deploy": true,
-      "navigation": "OPS_ONLY",
-      "status": "ACTIVE",
-      "legacyRoute": "teams-dashboard.html"
     },
     {
       "file": "ops/live-logger.html",
@@ -242,13 +224,6 @@
     {
       "file": "data-quality.html",
       "target": "ops/data-quality.html",
-      "type": "LEGACY_REDIRECT",
-      "deploy": true,
-      "status": "ACTIVE"
-    },
-    {
-      "file": "teams-dashboard.html",
-      "target": "ops/teams-dashboard.html",
       "type": "LEGACY_REDIRECT",
       "deploy": true,
       "status": "ACTIVE"
