@@ -54,6 +54,7 @@ jobs:
 
       - name: Reconcile today's completed games
         if: steps.preflight.outputs.should_run == 'true'
+        continue-on-error: true
         run: npm run reconcile:final -- --include-today
         env:
           CI: true
