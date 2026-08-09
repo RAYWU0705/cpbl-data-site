@@ -241,7 +241,11 @@ async function checkPageRegistry() {
   const missing = [];
 
   for (const item of [...pages, ...redirects]) {
-    if (!item?.file || !(await exists(item.file))) missing.push(item?.file || "(未命名)");
+  if (item?.deploy === false) continue;
+
+  if (!item?.file || !(await exists(item.file))) {
+    missing.push(item?.file || "(未命名)");
+  }
   }
 
   const mainRegistered = pages
