@@ -1,4 +1,4 @@
-console.log("✅ match.js v5.6.2-DIGITAL-CLOCK 已載入");
+console.log("✅ match.js v6.6.4-SEASON-RATES-DARK-FIX 已載入");
 
 /* =========================================================
    Ray's CPBL Data Site
@@ -17,20 +17,156 @@ console.log("✅ match.js v5.6.2-DIGITAL-CLOCK 已載入");
    - 支援官方逐球事件資料；沒有就明確顯示尚無資料
 ========================================================= */
 
+
+/* =========================================================
+   Match Center 內建智慧分析 fallback
+   - 核心頁面不再依賴 ES Module import
+   - 即使 file:// 直接開啟，也不會因 module CORS 讓整頁失效
+   - 智慧分析只使用目前已載入的比賽資料
+========================================================= */
+function intelligenceNumber(value) {
+  const n = Number(value);
+  return Number.isFinite(n) ? n : 0;
+}
+
+function intelligenceText(value) {
+  return String(value ?? "").trim();
+}
+
+function buildIntelligenceScoreTimeline(game = {}) {
+  const away = Array.isArray(game.lineScore?.away) ? game.lineScore.away : [];
+  const home = Array.isArray(game.lineScore?.home) ? game.lineScore.home : [];
+  const count = Math.max(away.length, home.length);
+  const timeline = [];
+  let awayScore = 0;
+  let homeScore = 0;
+
+  for (let i = 0; i < count; i += 1) {
+    const beforeAway = awayScore;
+    const beforeHome = homeScore;
+    const awayRuns = String(away[i]).toUpperCase() === "X" ? 0 : intelligenceNumber(away[i]);
+    const homeRuns = String(home[i]).toUpperCase() === "X" ? 0 : intelligenceNumber(home[i]);
+
+    awayScore += awayRuns;
+    if (awayRuns > 0) {
+      timeline.push({
+        inning: i + 1, half: "TOP", runs: awayRuns,
+        before: { away: beforeAway, home: beforeHome },
+        after: { away: awayScore, home: homeScore }
+      });
+    }
+
+    const beforeHomeHalf = { away: awayScore, home: homeScore };
+    homeScore += homeRuns;
+    if (homeRuns > 0) {
+      timeline.push({
+        inning: i + 1, half: "BOTTOM", runs: homeRuns,
+        before: beforeHomeHalf,
+        after: { away: awayScore, home: homeScore }
+      });
+    }
+  }
+
+  return timeline;
+}
+
+function intelligenceLeader(score) {
+  if (score.away === score.home) return "TIE";
+  return score.away > score.home ? "AWAY" : "HOME";
+}
+
+function findIntelligenceTurningPoint(game = {}) {
+  const timeline = buildIntelligenceScoreTimeline(game);
+  if (!timeline.length) return null;
+
+  return timeline
+    .map(event => {
+      const beforeLeader = intelligenceLeader(event.before);
+      const afterLeader = intelligenceLeader(event.after);
+      const leadChange = beforeLeader !== afterLeader;
+      const lateBonus = Math.max(0, event.inning - 5) * 4;
+      const importance = Math.min(100, event.runs * 12 + lateBonus + (leadChange ? 35 : 0) + (afterLeader === "TIE" ? 20 : 0));
+      return { ...event, importance };
+    })
+    .sort((a, b) => b.importance - a.importance || b.inning - a.inning)[0];
+}
+
+function rankIntelligenceCandidates(game = {}, limit = 3) {
+  const candidates = [];
+  for (const side of ["away", "home"]) {
+    for (const player of game.batters?.[side] || []) {
+      const name = intelligenceText(player.name);
+      if (!name) continue;
+      const score = 5 + intelligenceNumber(player.H) * 0.75 + intelligenceNumber(player.HR) * 1.5 + intelligenceNumber(player.RBI) * 0.55;
+      candidates.push({
+        name, side, type: "BATTER", score: Math.max(0, Math.min(10, score)),
+        reasons: [
+          intelligenceNumber(player.H) ? `${intelligenceNumber(player.H)} 安打` : "",
+          intelligenceNumber(player.RBI) ? `${intelligenceNumber(player.RBI)} 打點` : "",
+          intelligenceNumber(player.HR) ? `${intelligenceNumber(player.HR)} 全壘打` : ""
+        ].filter(Boolean)
+      });
+    }
+    for (const player of game.pitchers?.[side] || []) {
+      const name = intelligenceText(player.name);
+      if (!name) continue;
+      const ip = intelligenceNumber(player.IP ?? player.InningsPitched ?? player.inningsPitched);
+      const er = intelligenceNumber(player.ER ?? player.EarnedRun ?? player.earnedRuns);
+      const so = intelligenceNumber(player.SO ?? player.StrikeOut ?? player.strikeouts);
+      const score = 5 + ip * 0.45 + so * 0.18 - er * 0.75;
+      candidates.push({
+        name, side, type: "PITCHER", score: Math.max(0, Math.min(10, score)),
+        reasons: [ip ? `${ip} 局` : "", `${er} 自責分`, so ? `${so} 三振` : ""].filter(Boolean)
+      });
+    }
+  }
+  return candidates.sort((a, b) => b.score - a.score).slice(0, limit).map(item => ({ ...item, score: Number(item.score.toFixed(1)) }));
+}
+
+function analyzeGame(game = {}) {
+  const away = intelligenceText(game.meta?.away) || "客隊";
+  const home = intelligenceText(game.meta?.home) || "主隊";
+  const awayR = intelligenceNumber(game.totals?.away?.R);
+  const homeR = intelligenceNumber(game.totals?.home?.R);
+  const status = intelligenceText(game.meta?.status || game.status).toLowerCase();
+  const turningPoint = findIntelligenceTurningPoint(game);
+  const winner = awayR === homeR ? "雙方" : awayR > homeR ? away : home;
+  const loser = awayR === homeR ? "" : awayR > homeR ? home : away;
+  const headline = status === "final"
+    ? (awayR === homeR ? `${away}與${home}戰成平手` : `${winner}以${Math.max(awayR, homeR)}：${Math.min(awayR, homeR)}擊敗${loser}`)
+    : `${away} 對 ${home}`;
+  let summary = status === "final"
+    ? (awayR === homeR ? `${away}與${home}戰成平手。` : `${winner}以 ${Math.max(awayR, homeR)}：${Math.min(awayR, homeR)} 擊敗${loser}。`)
+    : `目前比分 ${away} ${awayR}：${homeR} ${home}。`;
+  if (turningPoint) summary += ` ${turningPoint.inning} 局${turningPoint.half === "TOP" ? "上" : "下"}攻下 ${turningPoint.runs} 分，是本場重要轉折。`;
+
+  return {
+    version: "6.4.1-standalone",
+    gameSno: game.gameSno ?? null,
+    status, headline, summary, turningPoint,
+    mvpCandidates: rankIntelligenceCandidates(game),
+    tags: [status === "final" ? "比賽結束" : status === "live" ? "比賽進行中" : ""].filter(Boolean),
+    dataConfidence: (game.lineScore?.away?.length || game.lineScore?.home?.length) ? "HIGH" : "LIMITED"
+  };
+}
+
 const LOCAL_BOX_KEY = "cpbl_boxscore";
 
 const API_URL = "http://127.0.0.1:3002/api/live";
 const STATIC_URL = "data/live/live-boxscore.json";
 const PROBABLE_URL = "data/live/probable-pitchers.json";
+const FINAL_VUE_URL = "data/live/final-boxscore-vue-2026.json";
 
 const LIVE_REFRESH_MS = 30000;
 
 let CURRENT_MATCH_DATA = null;
+let ALL_MATCH_GAMES = [];
 let CURRENT_GAME_SNO = null;
 let CURRENT_QUERY = null;
 let LIVE_REFRESH_TIMER = null;
 let HERO_COUNTDOWN_TIMER = null;
 let PROBABLE_PITCHERS_MAP = {};
+let FINAL_VUE_MAP = {};
 
 const MATCH_TAB_STATE = {
   batters: "away",
@@ -94,9 +230,13 @@ async function initMatch() {
       return;
     }
 
-    PROBABLE_PITCHERS_MAP = await loadProbablePitchers();
+    [PROBABLE_PITCHERS_MAP, FINAL_VUE_MAP] = await Promise.all([
+      loadProbablePitchers(),
+      loadFinalVueBoxscores()
+    ]);
 
     const games = await loadAllGames();
+    ALL_MATCH_GAMES = Array.isArray(games) ? games : [];
     const box = findTargetGame(games, CURRENT_QUERY);
 
     if (!box) {
@@ -107,7 +247,7 @@ async function initMatch() {
 
     CURRENT_GAME_SNO = box.gameSno;
 
-    const mergedBox = mergeGameProbablePitchers(box);
+    const mergedBox = enrichFinalDisplayData(mergeGameProbablePitchers(box));
 
     syncToLocalStorage(
       games.map(g =>
@@ -265,6 +405,86 @@ function normalizeProbablePitchersMap(input = {}) {
   }
 
   return map;
+}
+
+
+async function loadFinalVueBoxscores() {
+  try {
+    const res = await fetchWithTimeout(`${FINAL_VUE_URL}?ts=${Date.now()}`, 2500);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    const rows = toGameArray(await res.json());
+    const map = {};
+
+    for (const row of rows) {
+      if (!row || row.gameSno == null) continue;
+      map[String(row.gameSno)] = row;
+    }
+
+    console.log(`🧩 Match Center FINAL Vue fallback：${Object.keys(map).length} 場`);
+    return map;
+  } catch (err) {
+    console.warn("⚠️ FINAL Vue fallback 讀取失敗：", err.message);
+    return {};
+  }
+}
+
+function hasCompleteSideTotals(totals, side) {
+  const t = totals?.[side];
+  return t && [t.R, t.H, t.E].every(v => v !== null && v !== undefined && v !== "");
+}
+
+function hasAnyInning(row) {
+  return Array.isArray(row) && row.some(v => hasInningValue(v));
+}
+
+function enrichFinalDisplayData(game) {
+  if (!game || game.gameSno == null) return game;
+
+  const fallback = FINAL_VUE_MAP?.[String(game.gameSno)];
+  if (!fallback) return game;
+
+  const fallbackConfirmed =
+    String(fallback.parseStatus || "").toLowerCase() === "confirmed" ||
+    String(fallback.dataQuality?.status || "").toLowerCase() === "confirmed" ||
+    String(fallback.dataQuality?.rhe || "").toLowerCase() === "confirmed";
+
+  if (!fallbackConfirmed) return game;
+
+  const currentTotals = game.totals || {};
+  const fallbackTotals = fallback.totals || {};
+  const currentLine = game.lineScore || {};
+  const fallbackLine = fallback.lineScore || {};
+
+  const awayTotalsMissing = !hasCompleteSideTotals(currentTotals, "away");
+  const homeTotalsMissing = !hasCompleteSideTotals(currentTotals, "home");
+  const awayLineMissing = !hasAnyInning(currentLine.away);
+  const homeLineMissing = !hasAnyInning(currentLine.home);
+
+  if (!awayTotalsMissing && !homeTotalsMissing && !awayLineMissing && !homeLineMissing) {
+    return game;
+  }
+
+  console.warn(`🛟 #${game.gameSno} 比賽中心資料不完整，使用 FINAL Vue 補齊：`, {
+    awayTotalsMissing, homeTotalsMissing, awayLineMissing, homeLineMissing
+  });
+
+  return normalizeGameShape({
+    ...game,
+    totals: {
+      away: awayTotalsMissing ? fallbackTotals.away : currentTotals.away,
+      home: homeTotalsMissing ? fallbackTotals.home : currentTotals.home
+    },
+    lineScore: {
+      ...currentLine,
+      away: awayLineMissing ? fallbackLine.away : currentLine.away,
+      home: homeLineMissing ? fallbackLine.home : currentLine.home
+    },
+    dataQuality: {
+      ...(game.dataQuality || {}),
+      matchCenterFallback: "final-boxscore-vue"
+    }
+  });
 }
 
 async function loadProbablePitchers() {
@@ -450,10 +670,27 @@ function normalizeStatus(status, meta = {}) {
   return "scheduled";
 }
 
+function pickSide(source = {}, side = "away") {
+  if (!source || typeof source !== "object") return undefined;
+
+  const aliases = side === "away"
+    ? ["away", "visitor", "guest", "road", "awayTeam", "visitorTeam"]
+    : ["home", "host", "homeTeam"];
+
+  for (const key of aliases) {
+    if (source[key] !== undefined && source[key] !== null) return source[key];
+  }
+
+  return undefined;
+}
+
 function normalizeLineScore(lineScore = {}) {
+  const away = pickSide(lineScore, "away");
+  const home = pickSide(lineScore, "home");
+
   return {
-    away: normalizeInningArray(lineScore.away),
-    home: normalizeInningArray(lineScore.home)
+    away: normalizeInningArray(away),
+    home: normalizeInningArray(home)
   };
 }
 
@@ -595,16 +832,21 @@ function getDisplayInningCount(lineScore = {}, data = null) {
 }
 
 function normalizeTotals(totals = {}) {
+  const away = pickSide(totals, "away") || {};
+  const home = pickSide(totals, "home") || {};
+
+  const readStat = (obj, key) => obj?.[key] ?? obj?.[key.toLowerCase()] ?? obj?.[{R:"runs",H:"hits",E:"errors"}[key]];
+
   return {
     away: {
-      R: toNullableNumber(totals.away?.R),
-      H: toNullableNumber(totals.away?.H),
-      E: toNullableNumber(totals.away?.E)
+      R: toNullableNumber(readStat(away, "R")),
+      H: toNullableNumber(readStat(away, "H")),
+      E: toNullableNumber(readStat(away, "E"))
     },
     home: {
-      R: toNullableNumber(totals.home?.R),
-      H: toNullableNumber(totals.home?.H),
-      E: toNullableNumber(totals.home?.E)
+      R: toNullableNumber(readStat(home, "R")),
+      H: toNullableNumber(readStat(home, "H")),
+      E: toNullableNumber(readStat(home, "E"))
     }
   };
 }
@@ -975,6 +1217,7 @@ function renderAll(data) {
   renderHeroCountdown(data);
   renderMatchProgress(data);
   renderDataQuality(data);
+  renderIntelligence(data);
   renderLiveStatus(data);
   renderPlayByPlay(data);
   renderTotals(data);
@@ -986,6 +1229,84 @@ function renderAll(data) {
   bindStatTabs();
   bindRefreshButton();
   bindOfficialButton(data);
+}
+
+
+const TEAM_PROFILE_IDS = {
+  "中信兄弟": "brothers",
+  "統一7-ELEVEn獅": "lions",
+  "樂天桃猿": "monkeys",
+  "味全龍": "dragons",
+  "富邦悍將": "guardians",
+  "台鋼雄鷹": "hawks"
+};
+
+function teamNameLink(name, options = {}) {
+  const teamName = cleanText(name);
+  const teamId = TEAM_PROFILE_IDS[teamName] || "";
+  if (!teamName || !teamId) return escapeHtml(teamName || "—");
+  const className = cleanText(options.className || "team-profile-link");
+  return `<a class="${escapeHtml(className)}" href="team.html?team=${encodeURIComponent(teamId)}" title="查看 ${escapeHtml(teamName)} 球隊頁">${escapeHtml(teamName)}</a>`;
+}
+
+function playerProfileUrl(name) {
+  const playerName = cleanText(name);
+  if (!playerName || playerName === "—") return "";
+  return `player.html?name=${encodeURIComponent(playerName)}`;
+}
+
+function playerNameLink(name, options = {}) {
+  const playerName = cleanText(name);
+  if (!playerName || playerName === "—") return escapeHtml(playerName || "—");
+
+  const href = playerProfileUrl(playerName);
+  const className = cleanText(options.className || "player-profile-link");
+  const title = options.title || `查看 ${playerName} 球員頁`;
+  return `<a class="${escapeHtml(className)}" href="${href}" title="${escapeHtml(title)}">${escapeHtml(playerName)}</a>`;
+}
+
+function labeledPlayerLink(label, name, emptyText = "—") {
+  const playerName = cleanText(name);
+  if (!playerName || playerName === "—") return `${escapeHtml(label)} ${escapeHtml(emptyText)}`;
+  return `${escapeHtml(label)} ${playerNameLink(playerName)}`;
+}
+
+function renderIntelligence(data) {
+  const root = document.getElementById("baseballIntelligence");
+  if (!root) return;
+
+  const insight = analyzeGame(data);
+  const point = insight.turningPoint;
+  const away = cleanText(data.meta?.away) || "客隊";
+  const home = cleanText(data.meta?.home) || "主隊";
+  const sideName = side => side === "away" ? away : home;
+
+  const turningHtml = point
+    ? `<div class="intelligence-panel">
+        <span class="intelligence-label">🔥 關鍵轉折</span>
+        <strong>${point.inning} 局${point.half === "TOP" ? "上" : "下"}・${point.runs} 分攻勢</strong>
+        <p>比分由 ${point.before.away}：${point.before.home} 改寫為 ${point.after.away}：${point.after.home}，影響指數 ${point.importance}。</p>
+      </div>`
+    : `<div class="intelligence-panel is-muted"><span class="intelligence-label">🔥 關鍵轉折</span><p>目前資料尚不足以判斷轉折點。</p></div>`;
+
+  const mvpHtml = insight.mvpCandidates.length
+    ? insight.mvpCandidates.map((player, index) => `
+      <article class="intelligence-mvp">
+        <span class="intelligence-rank">${index + 1}</span>
+        <div><strong>${escapeHtml(player.name)}</strong><small>${escapeHtml(sideName(player.side))}・${player.type === "PITCHER" ? "投手" : "打者"}</small></div>
+        <div class="intelligence-score">${player.score}</div>
+        <p>${player.reasons.map(escapeHtml).join("・") || "依本場數據綜合評估"}</p>
+      </article>`).join("")
+    : `<p class="muted">目前尚無足夠球員成績可產生候選名單。</p>`;
+
+  root.innerHTML = `
+    <div class="intelligence-head">
+      <div><span class="progress-kicker">RAY BASEBALL INTELLIGENCE</span><h2>智慧比賽分析</h2></div>
+      <span class="intelligence-confidence">資料可信度：${insight.dataConfidence}</span>
+    </div>
+    <div class="intelligence-story"><h3>${escapeHtml(insight.headline)}</h3><p>${escapeHtml(insight.summary)}</p></div>
+    <div class="intelligence-grid">${turningHtml}<div class="intelligence-panel"><span class="intelligence-label">⭐ Ray 智慧 MVP</span><div class="intelligence-mvp-list">${mvpHtml}</div></div></div>
+    <p class="intelligence-disclaimer">智慧分析由本站規則引擎依現有比賽資料產生，並非聯盟官方評選或賽果預測。</p>`;
 }
 
 /* =========================================================
@@ -1011,7 +1332,10 @@ async function refreshCurrentGame() {
   if (!CURRENT_GAME_SNO && !CURRENT_QUERY) return;
 
   try {
-    PROBABLE_PITCHERS_MAP = await loadProbablePitchers();
+    [PROBABLE_PITCHERS_MAP, FINAL_VUE_MAP] = await Promise.all([
+      loadProbablePitchers(),
+      loadFinalVueBoxscores()
+    ]);
 
     const games = await loadAllGames();
     const freshBox = findTargetGame(games, {
@@ -1185,7 +1509,7 @@ function renderPregameUX(data) {
       <div class="pregame-ux-item ${starterReady ? "is-ok" : "is-waiting"}">
         <span>先發投手</span>
         <strong>${starterReady ? "已公布" : "尚未公布"}</strong>
-        <p>${escapeHtml(meta.away || "客隊")}：${escapeHtml(starters.away || "—")}｜${escapeHtml(meta.home || "主隊")}：${escapeHtml(starters.home || "—")}</p>
+        <p>${teamNameLink(meta.away || "客隊")}：${starters.away ? playerNameLink(starters.away) : "—"}｜${teamNameLink(meta.home || "主隊")}：${starters.home ? playerNameLink(starters.home) : "—"}</p>
       </div>
 
       <div class="pregame-ux-item ${lineupReady ? "is-ok" : "is-waiting"}">
@@ -1494,8 +1818,8 @@ function renderStarterDuel(data) {
       <div class="starter-duel-main">
         <div class="starter-team away">
           <img src="${awayLogo}" alt="${escapeHtml(away)}">
-          <span>${escapeHtml(away)}</span>
-          <strong>${escapeHtml(starters.away || "尚未公布")}</strong>
+          <span>${teamNameLink(away)}</span>
+          <strong>${starters.away ? playerNameLink(starters.away) : "尚未公布"}</strong>
         </div>
 
         <div class="starter-vs">
@@ -1504,8 +1828,8 @@ function renderStarterDuel(data) {
 
         <div class="starter-team home">
           <img src="${homeLogo}" alt="${escapeHtml(home)}">
-          <span>${escapeHtml(home)}</span>
-          <strong>${escapeHtml(starters.home || "尚未公布")}</strong>
+          <span>${teamNameLink(home)}</span>
+          <strong>${starters.home ? playerNameLink(starters.home) : "尚未公布"}</strong>
         </div>
       </div>
 
@@ -1576,7 +1900,7 @@ function renderStarterDuel(data) {
     <div class="starter-duel-main">
       <div class="starter-team away">
         <img src="${awayLogo}" alt="${escapeHtml(away)}">
-        <span>${escapeHtml(away)}</span>
+        <span>${teamNameLink(away)}</span>
         <strong>—</strong>
       </div>
 
@@ -1586,7 +1910,7 @@ function renderStarterDuel(data) {
 
       <div class="starter-team home">
         <img src="${homeLogo}" alt="${escapeHtml(home)}">
-        <span>${escapeHtml(home)}</span>
+        <span>${teamNameLink(home)}</span>
         <strong>—</strong>
       </div>
     </div>
@@ -1653,8 +1977,8 @@ function renderFinalStarterSummary(box, data, away, home, awayLogo, homeLogo) {
       <div class="starter-team winner-side">
         <img src="${winnerLogo}" alt="${escapeHtml(winnerTeam)}">
         <span>勝方｜${escapeHtml(winnerTeam)}</span>
-        <strong>${escapeHtml(meta.win ? `勝投 ${meta.win}` : "勝投 —")}</strong>
-        <em>${escapeHtml(meta.save ? `救援 ${meta.save}` : "救援 —")}</em>
+        <strong>${labeledPlayerLink("勝投", meta.win)}</strong>
+        <em>${labeledPlayerLink("救援", meta.save)}</em>
       </div>
 
       <div class="starter-vs">
@@ -1664,7 +1988,7 @@ function renderFinalStarterSummary(box, data, away, home, awayLogo, homeLogo) {
       <div class="starter-team loser-side">
         <img src="${loserLogo}" alt="${escapeHtml(loserTeam)}">
         <span>敗方｜${escapeHtml(loserTeam)}</span>
-        <strong>${escapeHtml(meta.lose ? `敗投 ${meta.lose}` : "敗投 —")}</strong>
+        <strong>${labeledPlayerLink("敗投", meta.lose)}</strong>
         <em>本場敗戰投手</em>
       </div>
     </div>
@@ -1976,17 +2300,29 @@ function inferCurrentInning(awayLine = [], homeLine = []) {
 
 function renderTotals(data) {
   const meta = data.meta || {};
+  const away = meta.away || "客隊";
+  const home = meta.home || "主隊";
 
-  setText("homeTeamRHE", meta.home || "主隊");
-  setText("awayTeamRHE", meta.away || "客隊");
-
+  // v6.4.5：RHE 已改為固定 Grid，不再操作 tbody/tr。
+  setText("awayTeamRHE", away);
+  setText("homeTeamRHE", home);
+  setText("awayR", formatScore(data.totals?.away?.R));
+  setText("awayH", formatScore(data.totals?.away?.H));
+  setText("awayE", formatScore(data.totals?.away?.E));
   setText("homeR", formatScore(data.totals?.home?.R));
   setText("homeH", formatScore(data.totals?.home?.H));
   setText("homeE", formatScore(data.totals?.home?.E));
 
-  setText("awayR", formatScore(data.totals?.away?.R));
-  setText("awayH", formatScore(data.totals?.away?.H));
-  setText("awayE", formatScore(data.totals?.away?.E));
+  for (const id of ["awayRheRow", "homeRheRow"]) {
+    const row = document.getElementById(id);
+    if (row) {
+      row.hidden = false;
+      row.removeAttribute("hidden");
+      row.style.setProperty("display", "grid", "important");
+      row.style.setProperty("visibility", "visible", "important");
+      row.style.setProperty("opacity", "1", "important");
+    }
+  }
 
   const hasAnyRhe =
     data.totals?.home?.R != null ||
@@ -1994,86 +2330,90 @@ function renderTotals(data) {
     data.totals?.home?.H != null ||
     data.totals?.away?.H != null;
 
+  console.log("📊 Match RHE GRID render", {
+    away, home,
+    awayTotals: data.totals?.away,
+    homeTotals: data.totals?.home,
+    awayRow: !!document.getElementById("awayRheRow"),
+    homeRow: !!document.getElementById("homeRheRow"),
+    awayDisplay: document.getElementById("awayRheRow") ? getComputedStyle(document.getElementById("awayRheRow")).display : null,
+    homeDisplay: document.getElementById("homeRheRow") ? getComputedStyle(document.getElementById("homeRheRow")).display : null
+  });
+
   setText("rheHint", hasAnyRhe ? "" : "此場尚未開賽或官方尚未提供 R/H/E。");
 }
 
 function renderInnings(data) {
-  const lineScore = data.lineScore || {
-    away: [],
-    home: []
-  };
+  const lineScore = data.lineScore || { away: [], home: [] };
+  const away = data.meta?.away || "客隊";
+  const home = data.meta?.home || "主隊";
 
-  fillRow("awayInningsRow", data.meta?.away || "客隊", lineScore, "away", data);
-  fillRow("homeInningsRow", data.meta?.home || "主隊", lineScore, "home", data);
+  fillGridInningsRow("awayInningsRow", away, lineScore, "away", data);
+  fillGridInningsRow("homeInningsRow", home, lineScore, "home", data);
 
   const inningCount = getDisplayInningCount(lineScore, data);
   const hasInnings = inningCount > 0;
 
+  console.log("📋 Match innings GRID render", {
+    away, home,
+    awayLine: lineScore.away,
+    homeLine: lineScore.home,
+    awayRow: !!document.getElementById("awayInningsRow"),
+    homeRow: !!document.getElementById("homeInningsRow"),
+    awayDisplay: document.getElementById("awayInningsRow") ? getComputedStyle(document.getElementById("awayInningsRow")).display : null,
+    homeDisplay: document.getElementById("homeInningsRow") ? getComputedStyle(document.getElementById("homeInningsRow")).display : null
+  });
+
   if (hasInnings) {
     const quality = cleanText(data.dataQuality?.lineScore);
     const source = cleanText(data.lineScoreSource);
-
     if (quality === "partial") {
-      setText(
-        "inningsHint",
-        source
-          ? `逐局比分同步中，目前顯示前 ${inningCount} 局資料｜${source}`
-          : `逐局比分同步中，目前顯示前 ${inningCount} 局資料`
-      );
+      setText("inningsHint", source
+        ? `逐局比分同步中，目前顯示前 ${inningCount} 局資料｜${source}`
+        : `逐局比分同步中，目前顯示前 ${inningCount} 局資料`);
     } else {
       setText("inningsHint", "");
     }
-
     return;
   }
 
   const awayScore = formatScore(data.totals?.away?.R);
   const homeScore = formatScore(data.totals?.home?.R);
-
-  setText(
-    "inningsHint",
-    `官方目前尚未提供逐局比分，暫先顯示總比分：${data.meta?.away || "客隊"} ${awayScore}：${homeScore} ${data.meta?.home || "主隊"}`
-  );
+  setText("inningsHint", `官方目前尚未提供逐局比分，暫先顯示總比分：${away} ${awayScore}：${homeScore} ${home}`);
 }
 
-function fillRow(id, team, lineScore = {}, side = "away", data = null) {
+function fillGridInningsRow(id, team, lineScore = {}, side = "away", data = null) {
   const row = document.getElementById(id);
-
   if (!row) return;
 
-  row.innerHTML = "";
+  row.hidden = false;
+  row.removeAttribute("hidden");
+  row.style.setProperty("display", "grid", "important");
+  row.style.setProperty("visibility", "visible", "important");
+  row.style.setProperty("opacity", "1", "important");
 
-  const name = document.createElement("td");
-  name.textContent = team;
-  name.className = "inning-team-name";
-  row.appendChild(name);
-
-  // 固定跑 1～9 局，不用 lineScore.length 決定欄位。
-  // partial 逐局中，若第4局有分，前面空格會補0，不會看起來像錯位。
-  for (let i = 0; i < 9; i++) {
-    const td = document.createElement("td");
-    const value = getDisplayInningCell(data, lineScore, side, i);
-
-    td.textContent = value;
-    td.dataset.inning = String(i + 1);
-
-    if (value === "—") {
-      td.classList.add("inning-empty");
-    } else if (value === "0") {
-      td.classList.add("inning-zero");
-    } else {
-      td.classList.add("inning-has-value");
-    }
-
-    row.appendChild(td);
+  const values = Array.isArray(lineScore?.[side]) ? lineScore[side] : [];
+  const cells = [`<div class="match-score-grid-cell match-score-grid-team">${escapeHtml(team)}</div>`];
+  for (let i = 0; i < 9; i += 1) {
+    const raw = values[i];
+    const text = raw == null || raw === "" ? "—" : String(raw);
+    const cls = text === "—" ? "inning-empty" : Number(text) > 0 ? "inning-has-value" : "inning-zero";
+    cells.push(`<div class="match-score-grid-cell ${cls}">${escapeHtml(text)}</div>`);
   }
+  row.innerHTML = cells.join("");
 }
 
 function renderDecisions(data) {
-  setText("winPitcher", data.meta?.win || "—");
-  setText("lossPitcher", data.meta?.lose || "—");
-  setText("savePitcher", data.meta?.save || "—");
-  setText("mvpPlayer", data.meta?.mvp || "—");
+  setPlayerLink("winPitcher", data.meta?.win);
+  setPlayerLink("lossPitcher", data.meta?.lose);
+  setPlayerLink("savePitcher", data.meta?.save);
+  setPlayerLink("mvpPlayer", data.meta?.mvp);
+}
+
+function setPlayerLink(id, name) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.innerHTML = playerNameLink(name || "—");
 }
 
 /* =========================================================
@@ -2140,6 +2480,133 @@ function updateActiveTabs(target) {
       const isActive = btn.dataset.teamSide === MATCH_TAB_STATE[target];
       btn.classList.toggle("active", isActive);
     });
+}
+
+/* =========================================================
+   球季累積 Rate（截至本場，避免把單場 AVG / WHIP 當成球季成績）
+========================================================= */
+
+function statNumber(row, ...keys) {
+  for (const key of keys) {
+    const value = row?.[key];
+    if (value !== undefined && value !== null && value !== "") {
+      const num = Number(value);
+      if (Number.isFinite(num)) return num;
+    }
+  }
+  return 0;
+}
+
+function normalizePlayerStatName(value) {
+  return cleanText(value)
+    .replace(/[（(].*?[）)]/g, "")
+    .replace(/\s+/g, "")
+    .trim();
+}
+
+function isGameAtOrBeforeTarget(game, target) {
+  const gameDate = cleanText(game?.meta?.date || game?.date);
+  const targetDate = cleanText(target?.meta?.date || target?.date);
+  if (!gameDate || !targetDate) return false;
+  if (gameDate < targetDate) return true;
+  if (gameDate > targetDate) return false;
+
+  const gameSno = Number(game?.gameSno);
+  const targetSno = Number(target?.gameSno);
+  if (Number.isFinite(gameSno) && Number.isFinite(targetSno)) {
+    return gameSno <= targetSno;
+  }
+  return true;
+}
+
+function ipToOutsForSeason(value) {
+  const text = cleanText(value);
+  if (!text) return 0;
+  if (/^\d+\.\d$/.test(text)) {
+    const [whole, frac] = text.split(".").map(Number);
+    return whole * 3 + Math.min(2, frac);
+  }
+  if (/^\d+\s+\d\/3$/.test(text)) {
+    const [whole, frac] = text.split(/\s+/);
+    return Number(whole) * 3 + Number(frac.split("/")[0]);
+  }
+  if (/^\d+\/3$/.test(text)) return Number(text.split("/")[0]);
+  const num = Number(text);
+  return Number.isFinite(num) ? Math.round(num * 3) : 0;
+}
+
+function formatSeasonAvg(h, ab) {
+  if (!ab) return "—";
+  return (h / ab).toFixed(3).replace(/^0/, "");
+}
+
+function buildSeasonRatesThroughGame(targetGame) {
+  const batterMap = new Map();
+  const pitcherMap = new Map();
+  const targetYear = cleanText(targetGame?.meta?.date || targetGame?.date).slice(0, 4);
+
+  for (const game of ALL_MATCH_GAMES) {
+    const status = cleanText(game?.meta?.status || game?.status);
+    const date = cleanText(game?.meta?.date || game?.date);
+    if (status !== "final" || (targetYear && !date.startsWith(targetYear))) continue;
+    if (!isGameAtOrBeforeTarget(game, targetGame)) continue;
+
+    for (const side of ["away", "home"]) {
+      for (const row of game?.batters?.[side] || []) {
+        const name = normalizePlayerStatName(row?.name || row?.rawName);
+        if (!name) continue;
+        const acc = batterMap.get(name) || { AB: 0, H: 0, BB: 0, HBP: 0, SF: 0, TB: 0, doubles: 0, triples: 0, HR: 0 };
+        acc.AB += statNumber(row, "AB", "打數");
+        acc.H += statNumber(row, "H", "安打");
+        acc.BB += statNumber(row, "BB", "四壞", "保送");
+        acc.HBP += statNumber(row, "HBP", "觸身");
+        acc.SF += statNumber(row, "SF", "犧牲飛球");
+        acc.doubles += statNumber(row, "2B", "二安", "二壘打");
+        acc.triples += statNumber(row, "3B", "三安", "三壘打");
+        acc.HR += statNumber(row, "HR", "全壘打");
+        const explicitTB = statNumber(row, "TB", "壘打數");
+        acc.TB += explicitTB || 0;
+        batterMap.set(name, acc);
+      }
+
+      for (const row of game?.pitchers?.[side] || []) {
+        const name = normalizePlayerStatName(row?.name || row?.rawName);
+        if (!name) continue;
+        const acc = pitcherMap.get(name) || { outs: 0, H: 0, BB: 0, ER: 0 };
+        acc.outs += ipToOutsForSeason(pick(row, "IP", "投球局數"));
+        acc.H += statNumber(row, "H", "被安打");
+        acc.BB += statNumber(row, "BB", "四壞", "保送");
+        acc.ER += statNumber(row, "ER", "自責分", "責失");
+        pitcherMap.set(name, acc);
+      }
+    }
+  }
+
+  for (const acc of batterMap.values()) {
+    if (!acc.TB) acc.TB = acc.H + acc.doubles + 2 * acc.triples + 3 * acc.HR;
+    const obpDen = acc.AB + acc.BB + acc.HBP + acc.SF;
+    acc.AVG = formatSeasonAvg(acc.H, acc.AB);
+    acc.OBP = obpDen ? ((acc.H + acc.BB + acc.HBP) / obpDen).toFixed(3).replace(/^0/, "") : "—";
+    acc.SLG = acc.AB ? (acc.TB / acc.AB).toFixed(3).replace(/^0/, "") : "—";
+  }
+
+  for (const acc of pitcherMap.values()) {
+    const ip = acc.outs / 3;
+    acc.ERA = acc.outs ? ((acc.ER * 9) / ip).toFixed(2) : "—";
+    acc.WHIP = acc.outs ? ((acc.H + acc.BB) / ip).toFixed(2) : "—";
+  }
+
+  return { batterMap, pitcherMap };
+}
+
+function getSeasonBatterRate(playerName) {
+  const rates = buildSeasonRatesThroughGame(CURRENT_MATCH_DATA);
+  return rates.batterMap.get(normalizePlayerStatName(playerName));
+}
+
+function getSeasonPitcherRate(playerName) {
+  const rates = buildSeasonRatesThroughGame(CURRENT_MATCH_DATA);
+  return rates.pitcherMap.get(normalizePlayerStatName(playerName));
 }
 
 /* =========================================================
@@ -2211,7 +2678,7 @@ function renderBatterTeam(teamName, players) {
           <span>BB</span>
           <span>SO</span>
           <span>SB</span>
-          <span>AVG</span>
+          <span title="截至本場的 2026 球季累積打擊率">AVG（季）</span>
         </div>
         ${sortedPlayers.map(p => {
           const playerName = p.name || p.rawName || "—";
@@ -2223,7 +2690,7 @@ function renderBatterTeam(teamName, players) {
             <div class="batter-row ${hot ? "is-highlight" : ""}">
               <span>${escapeHtml(p.order ?? "—")}</span>
               <span class="player-name-cell">
-                ${escapeHtml(playerName)}
+                ${playerNameLink(playerName)}
                 ${hot ? `<em title="MVP／勝利打點">🔥</em>` : ""}
               </span>
               <span>${escapeHtml(position)}${roleType && roleType !== "先發" ? ` <small>${escapeHtml(roleType)}</small>` : ""}</span>
@@ -2237,7 +2704,7 @@ function renderBatterTeam(teamName, players) {
               <span>${escapeHtml(pick(p, "BB", "四壞"))}</span>
               <span>${escapeHtml(pick(p, "SO", "被三振"))}</span>
               <span>${escapeHtml(pick(p, "SB", "盜壘"))}</span>
-              <span>${escapeHtml(pick(p, "AVG", "打擊率"))}</span>
+              <span>${escapeHtml(getSeasonBatterRate(playerName)?.AVG || "—")}</span>
             </div>
           `;
         }).join("")}
@@ -2306,7 +2773,8 @@ function renderPitcherTeam(teamName, players) {
           <span>SO</span>
           <span>R</span>
           <span>ER</span>
-          <span>WHIP</span>
+          <span title="截至本場的球季累積防禦率">ERA（季）</span>
+          <span title="截至本場的球季累積 WHIP">WHIP（季）</span>
         </div>
         ${sortedPlayers.map((p, index) => {
           const pitcherName = p.name || p.rawName || "—";
@@ -2315,7 +2783,7 @@ function renderPitcherTeam(teamName, players) {
           return `
             <div class="pitcher-row">
               <span>${escapeHtml(p.order ?? p.seq ?? index + 1)}</span>
-              <span class="player-name-cell">${escapeHtml(pitcherName)}</span>
+              <span class="player-name-cell">${playerNameLink(pitcherName)}</span>
               <span>${escapeHtml(result)}</span>
               <span>${escapeHtml(pick(p, "IP", "投球局數"))}</span>
               <span>${escapeHtml(pick(p, "BF", "面對打者"))}</span>
@@ -2326,7 +2794,8 @@ function renderPitcherTeam(teamName, players) {
               <span>${escapeHtml(pick(p, "SO", "三振"))}</span>
               <span>${escapeHtml(pick(p, "R", "失分"))}</span>
               <span>${escapeHtml(pick(p, "ER", "自責分"))}</span>
-              <span>${escapeHtml(pick(p, "WHIP"))}</span>
+              <span>${escapeHtml(getSeasonPitcherRate(pitcherName)?.ERA || "—")}</span>
+              <span>${escapeHtml(getSeasonPitcherRate(pitcherName)?.WHIP || "—")}</span>
             </div>
           `;
         }).join("")}
@@ -2350,9 +2819,9 @@ function renderPregamePitchers(game) {
 
       <div class="starter-box">
         🎯 預告先發：
-        ${escapeHtml(meta.away || "客隊")} ${escapeHtml(starters.away || "—")}
+        ${escapeHtml(meta.away || "客隊")} ${starters.away ? playerNameLink(starters.away) : "—"}
         vs
-        ${escapeHtml(meta.home || "主隊")} ${escapeHtml(starters.home || "—")}
+        ${escapeHtml(meta.home || "主隊")} ${starters.home ? playerNameLink(starters.home) : "—"}
       </div>
 
       <p class="muted">
@@ -2368,9 +2837,9 @@ function renderPregamePitchers(game) {
   return `
     <div class="starter-box">
       🎯 先發投手：
-      ${escapeHtml(game.meta?.away || "客隊")} ${escapeHtml(starters.away || "—")}
+      ${escapeHtml(game.meta?.away || "客隊")} ${starters.away ? playerNameLink(starters.away) : "—"}
       vs
-      ${escapeHtml(game.meta?.home || "主隊")} ${escapeHtml(starters.home || "—")}
+      ${escapeHtml(game.meta?.home || "主隊")} ${starters.home ? playerNameLink(starters.home) : "—"}
     </div>
     <p class="muted">正式投手成績尚未提供。</p>
   `;
@@ -2398,15 +2867,15 @@ function renderPregameLineup(game) {
   ) {
     return `
       <div class="empty-box">
-        🔴 目前打者：${escapeHtml(liveState.batter || "—")}<br>
-        目前投手：${escapeHtml(liveState.pitcher || inferLiveFlow(game).currentPitcher || "—")}
+        🔴 目前打者：${playerNameLink(liveState.batter || "—")}<br>
+        目前投手：${playerNameLink(liveState.pitcher || inferLiveFlow(game).currentPitcher || "—")}
       </div>
 
       <div class="starter-box">
         🎯 預告先發：
-        ${escapeHtml(game.meta?.away || "客隊")} ${escapeHtml(starters.away || "—")}
+        ${escapeHtml(game.meta?.away || "客隊")} ${starters.away ? playerNameLink(starters.away) : "—"}
         vs
-        ${escapeHtml(game.meta?.home || "主隊")} ${escapeHtml(starters.home || "—")}
+        ${escapeHtml(game.meta?.home || "主隊")} ${starters.home ? playerNameLink(starters.home) : "—"}
       </div>
 
       <p class="muted">
@@ -2432,9 +2901,9 @@ function renderPregameLineup(game) {
           ? `
             <div class="starter-box">
               🎯 先發投手：
-              ${escapeHtml(game.meta?.away || "客隊")} ${escapeHtml(starters.away || "—")}
+              ${escapeHtml(game.meta?.away || "客隊")} ${starters.away ? playerNameLink(starters.away) : "—"}
               vs
-              ${escapeHtml(game.meta?.home || "主隊")} ${escapeHtml(starters.home || "—")}
+              ${escapeHtml(game.meta?.home || "主隊")} ${starters.home ? playerNameLink(starters.home) : "—"}
             </div>
           `
           : ""
@@ -2442,13 +2911,13 @@ function renderPregameLineup(game) {
 
       <div class="lineup-grid-2">
         <div class="lineup-card">
-          <h3>${escapeHtml(game.meta?.away || "客隊")} 先發打序</h3>
+          <h3>${teamNameLink(game.meta?.away || "客隊")} 先發打序</h3>
           ${
             awayLineup.length
               ? awayLineup.map(p => `
                 <div class="lineup-row">
                   <span class="lineup-order">${escapeHtml(p.order ?? "—")}</span>
-                  <span class="lineup-name">${escapeHtml(p.name || "—")}</span>
+                  <span class="lineup-name">${playerNameLink(p.name || "—")}</span>
                   <span class="lineup-pos">${escapeHtml(p.position || "")}</span>
                 </div>
               `).join("")
@@ -2457,13 +2926,13 @@ function renderPregameLineup(game) {
         </div>
 
         <div class="lineup-card">
-          <h3>${escapeHtml(game.meta?.home || "主隊")} 先發打序</h3>
+          <h3>${teamNameLink(game.meta?.home || "主隊")} 先發打序</h3>
           ${
             homeLineup.length
               ? homeLineup.map(p => `
                 <div class="lineup-row">
                   <span class="lineup-order">${escapeHtml(p.order ?? "—")}</span>
-                  <span class="lineup-name">${escapeHtml(p.name || "—")}</span>
+                  <span class="lineup-name">${playerNameLink(p.name || "—")}</span>
                   <span class="lineup-pos">${escapeHtml(p.position || "")}</span>
                 </div>
               `).join("")

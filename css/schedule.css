@@ -1551,3 +1551,19 @@ html[data-theme="dark"] .schedule-trust-badges span {
     width: min(97vw, 1840px);
   }
 }
+
+/* v6.5.2 entity links */
+.team-profile-link, .player-profile-link, .entity-link {
+  color: inherit;
+  text-decoration: none;
+  font-weight: inherit;
+}
+.team-profile-link:hover, .player-profile-link:hover, .entity-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.team-profile-link:focus-visible, .player-profile-link:focus-visible, .entity-link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 4px;
+}

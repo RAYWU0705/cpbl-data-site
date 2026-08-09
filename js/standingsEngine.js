@@ -1,5 +1,5 @@
 // =========================
-// Standings Engine v5
+// Standings Engine v5.2-CARD-EMBED-ELIMINATION-SPLIT-START-FIX
 // for data/live/live-boxscore.json
 // CPBL official-style standings support
 // =========================
@@ -15,13 +15,18 @@ export function calculateStandings(games) {
       return ad.localeCompare(bd);
     });
 
-  // 初始化球隊
+  // 初始化球隊，並統計本視圖內每隊總賽程數。
+  // 淘汰指數需要知道「這個 split 裡最多還能打幾場」，
+  // 因此不能只看已完成 final 場次。
   seasonGames.forEach(g => {
     const home = g.meta.home;
     const away = g.meta.away;
 
     if (!table[home]) table[home] = createTeam(home);
     if (!table[away]) table[away] = createTeam(away);
+
+    table[home].totalGames++;
+    table[away].totalGames++;
 
     ensureH2H(table[home], away);
     ensureH2H(table[away], home);
@@ -111,6 +116,7 @@ export function calculateStandings(games) {
 
     t.winPct = decisionGames ? t.wins / decisionGames : 0;
     t.runDiff = t.runsFor - t.runsAgainst;
+    t.remainingGames = Math.max(0, t.totalGames - t.games);
 
     const last10 = t.last10.slice(-10);
 
@@ -134,26 +140,47 @@ export function calculateStandings(games) {
     }
   });
 
-  // 排名：勝率 > 勝場 > 得失分差 > 隊名
+  // 排名：勝率為唯一名次依據；勝率相同即同名。
+  // 顯示順序仍用勝場 / 得失分差 / 隊名當輔助排序，但不影響 rank。
   arr.sort((a, b) => {
-    if (b.winPct !== a.winPct) return b.winPct - a.winPct;
+    if (!sameWinPct(a.winPct, b.winPct)) return b.winPct - a.winPct;
     if (b.wins !== a.wins) return b.wins - a.wins;
     if (b.runDiff !== a.runDiff) return b.runDiff - a.runDiff;
     return a.team.localeCompare(b.team, "zh-Hant");
   });
 
   const leader = arr[0];
+  const targetGames = Math.max(...arr.map(t => Number(t.totalGames || 0)), 0);
 
   arr.forEach((t, i) => {
-    t.rank = i + 1;
-
     if (i === 0) {
+      t.rank = 1;
+    } else {
+      const prev = arr[i - 1];
+      t.rank = sameWinPct(t.winPct, prev.winPct) ? prev.rank : i + 1;
+    }
+
+    if (t.rank === 1) {
       t.gb = "-";
       t.elimination = "-";
     } else {
       const gb = ((leader.wins - t.wins) + (t.losses - leader.losses)) / 2;
       t.gb = Number.isInteger(gb) ? String(gb) : gb.toFixed(1);
-      t.elimination = "E";
+
+      // 淘汰指數 / Tragic Number：
+      // 代表「領先隊再贏 + 本隊再輸」合計還差幾次，本隊就無法追上第一名。
+      // 使用本視圖內的總賽程數，讓全年 / 上半季 / 下半季各自獨立計算。
+      const tragicNumber = targetGames > 0
+        ? targetGames + 1 - leader.wins - t.losses
+        : null;
+
+      if (tragicNumber === null) {
+        t.elimination = "-";
+      } else if (tragicNumber <= 0) {
+        t.elimination = "淘汰";
+      } else {
+        t.elimination = String(tragicNumber);
+      }
     }
   });
 
@@ -168,6 +195,8 @@ function createTeam(name) {
     rank: 0,
 
     games: 0,
+    totalGames: 0,
+    remainingGames: 0,
     wins: 0,
     losses: 0,
     ties: 0,
@@ -199,6 +228,10 @@ function createTeam(name) {
     elimination: "-",
     trend: "flat"
   };
+}
+
+function sameWinPct(a, b) {
+  return Math.abs(Number(a || 0) - Number(b || 0)) < 0.000001;
 }
 
 function ensureH2H(team, opponentName) {

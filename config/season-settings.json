@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "defaultSeason": "2026",
+  "seasons": {
+    "2026": {
+      "regularSeason": {
+        "start": "2026-03-28",
+        "end": "2026-09-28"
+      },
+      "splits": {
+        "full": {
+          "label": "全年",
+          "start": "2026-03-28",
+          "end": "2026-09-28"
+        },
+        "first": {
+          "label": "上半季",
+          "start": "2026-03-28",
+          "end": "2026-07-02"
+        },
+        "second": {
+          "label": "下半季",
+          "start": "2026-07-03",
+          "end": "2026-09-28"
+        }
+      }
+    }
+  }
+}

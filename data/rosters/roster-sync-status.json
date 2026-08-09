@@ -1,0 +1,97 @@
+{
+  "updatedAt": "2026-08-08T14:20:53.732Z",
+  "source": "cpbl-official-team",
+  "dataStatus": {
+    "status": "ok",
+    "isCached": false,
+    "failedTeams": 0,
+    "successfulTeams": 6,
+    "lastSuccessfulAt": "2026-08-08T14:20:53.732Z"
+  },
+  "teams": {
+    "brothers": {
+      "teamName": "中信兄弟",
+      "status": "ok",
+      "isCached": false,
+      "lastAttemptAt": "2026-08-08T14:19:02.445Z",
+      "lastSuccessfulAt": "2026-08-08T14:19:02.445Z",
+      "rosterCounts": {
+        "firstPlayers": 28,
+        "secondPlayers": 51,
+        "firstCoaches": 12,
+        "secondCoaches": 13
+      },
+      "transactionCount": 17
+    },
+    "lions": {
+      "teamName": "統一7-ELEVEn獅",
+      "status": "ok",
+      "isCached": false,
+      "lastAttemptAt": "2026-08-08T14:19:32.516Z",
+      "lastSuccessfulAt": "2026-08-08T14:19:32.516Z",
+      "rosterCounts": {
+        "firstPlayers": 26,
+        "secondPlayers": 46,
+        "firstCoaches": 13,
+        "secondCoaches": 10
+      },
+      "transactionCount": 47
+    },
+    "monkeys": {
+      "teamName": "樂天桃猿",
+      "status": "ok",
+      "isCached": false,
+      "lastAttemptAt": "2026-08-08T14:19:47.437Z",
+      "lastSuccessfulAt": "2026-08-08T14:19:47.437Z",
+      "rosterCounts": {
+        "firstPlayers": 28,
+        "secondPlayers": 47,
+        "firstCoaches": 11,
+        "secondCoaches": 13
+      },
+      "transactionCount": 36
+    },
+    "guardians": {
+      "teamName": "富邦悍將",
+      "status": "ok",
+      "isCached": false,
+      "lastAttemptAt": "2026-08-08T14:20:03.370Z",
+      "lastSuccessfulAt": "2026-08-08T14:20:03.370Z",
+      "rosterCounts": {
+        "firstPlayers": 27,
+        "secondPlayers": 59,
+        "firstCoaches": 11,
+        "secondCoaches": 12
+      },
+      "transactionCount": 44
+    },
+    "dragons": {
+      "teamName": "味全龍",
+      "status": "ok",
+      "isCached": false,
+      "lastAttemptAt": "2026-08-08T14:20:18.504Z",
+      "lastSuccessfulAt": "2026-08-08T14:20:18.504Z",
+      "rosterCounts": {
+        "firstPlayers": 28,
+        "secondPlayers": 44,
+        "firstCoaches": 13,
+        "secondCoaches": 10
+      },
+      "transactionCount": 28
+    },
+    "hawks": {
+      "teamName": "台鋼雄鷹",
+      "status": "ok",
+      "isCached": false,
+      "lastAttemptAt": "2026-08-08T14:20:33.166Z",
+      "lastSuccessfulAt": "2026-08-08T14:20:33.166Z",
+      "rosterCounts": {
+        "firstPlayers": 27,
+        "secondPlayers": 42,
+        "firstCoaches": 13,
+        "secondCoaches": 11
+      },
+      "transactionCount": 23
+    }
+  }
+}

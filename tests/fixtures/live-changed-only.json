@@ -1,0 +1,46 @@
+{
+  "now": "2026-07-10T11:00:00.000Z",
+  "minRefreshMs": 120000,
+  "existingGames": [
+    {
+      "gameSno": 201,
+      "meta": { "status": "live" },
+      "totals": { "away": { "R": 1 }, "home": { "R": 2 } },
+      "lineScore": { "away": [0, 1], "home": [1, 1] },
+      "batters": { "away": [{ "name": "A" }], "home": [{ "name": "B" }] },
+      "pitchers": { "away": [{ "name": "P1" }], "home": [{ "name": "P2" }] },
+      "dataQuality": { "score": "confirmed", "updatedAt": "2026-07-10T10:59:30.000Z" }
+    },
+    {
+      "gameSno": 202,
+      "meta": { "status": "live" },
+      "totals": { "away": { "R": 0 }, "home": { "R": 0 } },
+      "lineScore": { "away": [], "home": [] },
+      "batters": { "away": [], "home": [] },
+      "pitchers": { "away": [], "home": [] },
+      "dataQuality": { "score": "debug", "updatedAt": "2026-07-10T10:59:30.000Z" }
+    },
+    {
+      "gameSno": 203,
+      "meta": { "status": "live" },
+      "totals": { "away": { "R": 2 }, "home": { "R": 2 } },
+      "lineScore": { "away": [1, 1], "home": [2, 0] },
+      "batters": { "away": [{ "name": "A" }], "home": [{ "name": "B" }] },
+      "pitchers": { "away": [{ "name": "P1" }], "home": [{ "name": "P2" }] },
+      "dataQuality": { "score": "confirmed", "updatedAt": "2026-07-10T10:55:00.000Z" }
+    },
+    {
+      "gameSno": 204,
+      "meta": { "status": "final" },
+      "totals": { "away": { "R": 3 }, "home": { "R": 2 } },
+      "dataQuality": { "score": "confirmed", "updatedAt": "2026-07-10T10:59:30.000Z" }
+    }
+  ],
+  "candidates": [
+    { "gameSno": 201, "status": "live", "awayScore": 1, "homeScore": 2 },
+    { "gameSno": 202, "status": "live", "awayScore": 0, "homeScore": 0 },
+    { "gameSno": 203, "status": "live", "awayScore": 2, "homeScore": 2 },
+    { "gameSno": 204, "status": "live", "awayScore": 3, "homeScore": 2 },
+    { "gameSno": 205, "status": "live", "awayScore": 0, "homeScore": 0 }
+  ]
+}

@@ -1,5 +1,5 @@
 // =========================
-// CPBL Data Update All v5.3.1-SMART-BACKUP-HEALTH
+// CPBL Data Update All v6.0.0-UNIFIED-MAINTENANCE
 // 一鍵更新：players / transactions / pregame / live-inplay / final-vue+merge / league-news
 // 穩定性重點：不中斷、備份、summary、dry-run、soft-exit
 // =========================
@@ -60,7 +60,7 @@ const DASHBOARD_DATA_FILES = [
   "data/farm/farm-boxscore-2026.json",
   "data/manual/manual-boxscore-overrides.json"
 ];
-const UPDATE_VERSION = "v5.3.1-SMART-BACKUP-HEALTH";
+const UPDATE_VERSION = "v6.0.0-UNIFIED-MAINTENANCE";
 
 const STAGES = [
   {
@@ -120,6 +120,25 @@ const STAGES = [
     risk: "important"
   },
   {
+    key: "standings",
+    aliases: ["standing", "table", "戰績"],
+    name: "戰績 STANDINGS：由 live-boxscore 自動重建全年 / 上半季 / 下半季與球員累積",
+    script: "scripts/build-standings.js",
+    required: true,
+    risk: "safe"
+  },
+  {
+    key: "farm",
+    aliases: ["minor", "farm-schedule", "farm-final"],
+    name: "二軍 FARM：賽程 / 賽後 boxscore",
+    scripts: [
+      "scripts/fetch-cpbl-farm-schedule-static.js",
+      "scripts/fetch-cpbl-farm-final-boxscore.js"
+    ],
+    required: false,
+    risk: "safe"
+  },
+  {
     key: "news",
     aliases: ["league-news", "headline", "headlines"],
     name: "聯盟快訊 NEWS：首頁快訊中心資料化",
@@ -131,25 +150,25 @@ const STAGES = [
 
 const PIPELINES = {
   // 球員異動已由 fetch-cpbl-rosters.js 一併處理，預設流程不再重複跑空的 transactions 階段。
-  all: ["players", "pregame", "live", "final", "news"],
-  core: ["players", "pregame", "live", "final", "news"],
-  data: ["players", "pregame", "live", "final", "news"],
+  all: ["players", "pregame", "live", "final", "standings", "farm", "news"],
+  core: ["players", "pregame", "live", "final", "standings", "farm", "news"],
+  data: ["players", "pregame", "live", "final", "standings", "farm", "news"],
 
   // v5.3.0：日常快速模式。比賽日常更新不跑 players / final，先把今日頁面變快。
-  fast: ["pregame", "live", "news"],
-  quick: ["pregame", "live", "news"],
-  daily: ["pregame", "live", "news"],
+  fast: ["pregame", "live", "standings", "news"],
+  quick: ["pregame", "live", "standings", "news"],
+  daily: ["pregame", "live", "standings", "news"],
 
   // 賽後補強模式。建議比賽結束後指定 --date 再跑。
-  postgame: ["final", "news"],
+  postgame: ["final", "standings", "news"],
 
   // 維護模式。比 fast 完整，但仍避免把 LIVE 高頻流程跟球員資料混在一起濫跑。
-  maintenance: ["players", "pregame", "final", "news"],
+  maintenance: ["players", "pregame", "final", "standings", "farm", "news"],
 
-  game: ["pregame", "live", "final", "news"],
-  safe: ["players", "transactions", "pregame", "final", "news"],
-  report: ["players", "transactions", "pregame", "final", "news"],
-  demo: ["pregame", "final", "news"],
+  game: ["pregame", "live", "final", "standings", "news"],
+  safe: ["players", "transactions", "pregame", "final", "standings", "news"],
+  report: ["players", "transactions", "pregame", "final", "standings", "news"],
+  demo: ["pregame", "final", "standings", "news"],
 
   players: ["players"],
   player: ["players"],
@@ -169,9 +188,16 @@ const PIPELINES = {
   "live-inplay": ["live"],
 
   final: ["final"],
-  postgame: ["final"],
   result: ["final"],
   "final-vue": ["final"],
+
+  standings: ["standings"],
+  standing: ["standings"],
+
+  farm: ["farm"],
+  minor: ["farm"],
+  "farm-schedule": ["farm"],
+  "farm-final": ["farm"],
 
   news: ["news"],
   "league-news": ["news"]
@@ -409,10 +435,26 @@ function isCandidateOnlyTask(task) {
    主程式
 ========================= */
 
+async function checkRuntimeDependencies(tasks) {
+  const needsBrowser = tasks.some(task => ["players", "pregame", "live", "final"].includes(task.key));
+  if (!needsBrowser) return;
+
+  try {
+    await import("puppeteer");
+    console.log("✅ Runtime：Puppeteer 可正常載入");
+  } catch (error) {
+    throw new Error(
+      "Puppeteer 尚未正確安裝。請先執行 npm install，若仍失敗請刪除 node_modules 後再執行 npm ci。\n" +
+      `原始錯誤：${error.message}`
+    );
+  }
+}
+
 async function main() {
   await fs.mkdir(LOG_DIR, { recursive: true });
 
   const tasks = resolveTasks();
+  await checkRuntimeDependencies(tasks);
   const date = getTargetDate();
   const only = getOnlyStage() || "core";
 

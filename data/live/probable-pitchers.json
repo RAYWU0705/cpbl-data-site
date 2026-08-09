@@ -448,6 +448,83 @@
     "version": "manual-20260702-g165-probable-fix",
     "updatedAt": "2026-07-02T03:33:35.790Z"
   },
+  "195": {
+    "gameSno": 195,
+    "date": "2026-07-09",
+    "awayTeam": "台鋼雄鷹",
+    "homeTeam": "味全龍",
+    "away": "艾速特",
+    "home": "鋼龍",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-12-PREGAME-STARTER-SANITIZE-HOTFIX",
+    "updatedAt": "2026-07-09T09:32:18.417Z"
+  },
+  "217": {
+    "gameSno": 217,
+    "date": "2026-07-24",
+    "awayTeam": "統一7-ELEVEn獅",
+    "homeTeam": "中信兄弟",
+    "away": "銳力獅",
+    "home": "菲力士",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-12-PREGAME-STARTER-SANITIZE-HOTFIX",
+    "updatedAt": "2026-07-23T16:29:01.307Z"
+  },
+  "218": {
+    "gameSno": 218,
+    "date": "2026-07-24",
+    "awayTeam": "味全龍",
+    "homeTeam": "台鋼雄鷹",
+    "away": "鋼龍",
+    "home": "坎南",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-12-PREGAME-STARTER-SANITIZE-HOTFIX",
+    "updatedAt": "2026-07-23T16:29:01.307Z"
+  },
+  "219": {
+    "gameSno": 219,
+    "date": "2026-07-24",
+    "awayTeam": "富邦悍將",
+    "homeTeam": "樂天桃猿",
+    "away": "李東洺",
+    "home": "艾菩樂",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-12-PREGAME-STARTER-SANITIZE-HOTFIX",
+    "updatedAt": "2026-07-23T16:29:01.307Z"
+  },
+  "253": {
+    "gameSno": 253,
+    "date": "2026-08-09",
+    "awayTeam": "中信兄弟",
+    "homeTeam": "台鋼雄鷹",
+    "away": "羅戈",
+    "home": "坎南",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-12-PREGAME-STARTER-SANITIZE-HOTFIX",
+    "updatedAt": "2026-08-08T14:10:11.288Z"
+  },
+  "254": {
+    "gameSno": 254,
+    "date": "2026-08-09",
+    "awayTeam": "味全龍",
+    "homeTeam": "樂天桃猿",
+    "away": "梅賽鍶",
+    "home": "曾家輝",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-12-PREGAME-STARTER-SANITIZE-HOTFIX",
+    "updatedAt": "2026-08-08T14:10:11.288Z"
+  },
+  "255": {
+    "gameSno": 255,
+    "date": "2026-08-09",
+    "awayTeam": "統一7-ELEVEn獅",
+    "homeTeam": "富邦悍將",
+    "away": "銳力獅",
+    "home": "瑪帝斯",
+    "source": "fetch-cpbl-pregame-today",
+    "version": "v5.0-12-PREGAME-STARTER-SANITIZE-HOTFIX",
+    "updatedAt": "2026-08-08T14:10:11.288Z"
+  },
   "games": [
     {
       "gameSno": 24,

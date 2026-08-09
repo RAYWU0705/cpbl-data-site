@@ -2,6 +2,7 @@ import puppeteer from "puppeteer";
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
+import { mergeTransactions, validateRoster } from "./lib/roster-sync-utils.js";
 
 const HEADLESS = true;
 
@@ -37,19 +38,26 @@ async function fileExists(filepath) {
 }
 
 async function getChromeExecutablePath() {
-  for (const chromePath of CHROME_PATHS) {
-    if (await fileExists(chromePath)) {
-      return chromePath;
-    }
+  const envPaths = [process.env.PUPPETEER_EXECUTABLE_PATH, process.env.CHROME_PATH].filter(Boolean);
+  const linuxPaths = [
+    "/usr/bin/google-chrome",
+    "/usr/bin/google-chrome-stable",
+    "/usr/bin/chromium",
+    "/usr/bin/chromium-browser"
+  ];
+
+  for (const chromePath of [...envPaths, ...linuxPaths, ...CHROME_PATHS]) {
+    if (await fileExists(chromePath)) return chromePath;
   }
 
-  return null;
+  return null; // 交由 Puppeteer 使用 managed Chrome
 }
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const OUTPUT_DIR = path.join(__dirname, "../data/rosters");
 const OUTPUT_ALL = path.join(OUTPUT_DIR, "team-rosters.json");
+const STATUS_FILE = path.join(OUTPUT_DIR, "roster-sync-status.json");
 
 /* =========================
    v5.5.4-ROSTER-TRANSACTIONS-PRESERVE
@@ -91,8 +99,9 @@ function pickTransactions(newTransactions, oldRoster, teamName) {
   const previous = Array.isArray(oldRoster?.transactions) ? oldRoster.transactions : [];
 
   if (fresh.length > 0) {
-    console.log(`🆕 ${teamName} 使用官方最新異動：${fresh.length} 筆`);
-    return fresh;
+    const merged = mergeTransactions(fresh, previous);
+    console.log(`🆕 ${teamName} 官方最新異動 ${fresh.length} 筆；合併歷史後 ${merged.length} 筆`);
+    return merged;
   }
 
   if (previous.length > 0) {
@@ -475,57 +484,107 @@ async function fetchTeamTransactions(browser, club) {
 async function main() {
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
 
+  const oldStatus = await readJsonIfExists(STATUS_FILE, {});
   const executablePath = await getChromeExecutablePath();
-
   const launchOptions = {
     headless: true,
-    args: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox"
-    ]
+    args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage"]
   };
+  if (executablePath) launchOptions.executablePath = executablePath;
 
-  if (executablePath) {
-    launchOptions.executablePath = executablePath;
-  }
-
-  console.log("Chrome:", executablePath || "puppeteer default");
-
+  console.log("Chrome:", executablePath || "puppeteer managed Chrome");
   const browser = await puppeteer.launch(launchOptions);
-
   const all = {};
+  const teamStatus = {};
+  let failedCount = 0;
 
   for (const [teamId, club] of Object.entries(CPBL_CLUBS)) {
+    const teamOutput = path.join(OUTPUT_DIR, `${teamId}.json`);
+    const oldRoster = await readJsonIfExists(teamOutput, null);
+    const attemptAt = new Date().toISOString();
+
     try {
-      const teamOutput = path.join(OUTPUT_DIR, `${teamId}.json`);
-      const oldRoster = await readJsonIfExists(teamOutput, null);
-
       const roster = await fetchTeamRoster(browser, teamId, club);
-      const transactions = await fetchTeamTransactions(browser, club);
+      const validation = validateRoster(roster);
+      if (!validation.ok) {
+        throw new Error(`roster 解析疑似不完整：${validation.reasons.join('；')}`);
+      }
 
+      const transactions = await fetchTeamTransactions(browser, club);
       roster.transactions = pickTransactions(transactions, oldRoster, club.name);
+      roster.source = "cpbl-official-team";
+      roster.dataStatus = {
+        status: "ok",
+        isCached: false,
+        lastSuccessfulAt: attemptAt,
+        lastAttemptAt: attemptAt,
+        rosterCounts: validation.counts,
+        freshTransactionCount: transactions.length,
+        transactionCount: roster.transactions.length
+      };
 
       const finalRoster = preserveRosterLocalFields(roster, oldRoster);
       all[teamId] = finalRoster;
-
       await fs.writeFile(teamOutput, JSON.stringify(finalRoster, null, 2), "utf-8");
 
+      teamStatus[teamId] = {
+        teamName: club.name, status: "ok", isCached: false,
+        lastAttemptAt: attemptAt, lastSuccessfulAt: attemptAt,
+        rosterCounts: validation.counts, transactionCount: finalRoster.transactions.length
+      };
       console.log(`💾 已輸出：data/rosters/${teamId}.json`);
-      console.log("--------------------------------------------------");
-
     } catch (err) {
+      failedCount++;
       console.error(`❌ ${club.name} 失敗：`, err.message);
+      if (oldRoster) {
+        const cached = {
+          ...oldRoster,
+          source: oldRoster.source || "cpbl-official-team",
+          dataStatus: {
+            ...(oldRoster.dataStatus || {}),
+            status: "cached", isCached: true, lastAttemptAt: attemptAt,
+            lastSuccessfulAt: oldRoster.dataStatus?.lastSuccessfulAt || oldRoster.updatedAt || null,
+            message: err.message
+          }
+        };
+        all[teamId] = cached;
+        await fs.writeFile(teamOutput, JSON.stringify(cached, null, 2), "utf-8");
+        console.log(`🛡️ ${club.name} 保留最近一次成功名單/異動快取`);
+      }
+      teamStatus[teamId] = {
+        teamName: club.name, status: oldRoster ? "cached" : "error", isCached: !!oldRoster,
+        lastAttemptAt: attemptAt,
+        lastSuccessfulAt: oldRoster?.dataStatus?.lastSuccessfulAt || oldRoster?.updatedAt || oldStatus?.teams?.[teamId]?.lastSuccessfulAt || null,
+        message: err.message
+      };
     }
+    console.log("--------------------------------------------------");
   }
 
   await fs.writeFile(OUTPUT_ALL, JSON.stringify(all, null, 2), "utf-8");
-
+  const now = new Date().toISOString();
+  const statusPayload = {
+    updatedAt: now,
+    source: "cpbl-official-team",
+    dataStatus: {
+      status: failedCount === 0 ? "ok" : (failedCount < Object.keys(CPBL_CLUBS).length ? "degraded" : "error"),
+      isCached: failedCount > 0,
+      failedTeams: failedCount,
+      successfulTeams: Object.keys(CPBL_CLUBS).length - failedCount,
+      lastSuccessfulAt: failedCount === 0 ? now : (oldStatus?.dataStatus?.lastSuccessfulAt || null)
+    },
+    teams: teamStatus
+  };
+  await fs.writeFile(STATUS_FILE, JSON.stringify(statusPayload, null, 2), "utf-8");
   await browser.close();
 
   console.log("==============");
-  console.log("📦 全部球隊名單完成");
-  console.log("💾 已輸出：data/rosters/team-rosters.json");
-  console.log("🛡️ transactions preserve guard 已啟用");
+  console.log(`📦 球隊名單 / 球員異動同步完成：成功 ${6 - failedCount}，失敗 ${failedCount}`);
+  console.log("💾 data/rosters/team-rosters.json");
+  console.log("🩺 data/rosters/roster-sync-status.json");
+  console.log("🛡️ 空名單 / 來源失敗不會洗掉上次成功資料");
+
+  if (failedCount > 0) process.exitCode = 1;
 }
 
 main().catch(err => {

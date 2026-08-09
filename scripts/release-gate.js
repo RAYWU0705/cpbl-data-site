@@ -1,6 +1,6 @@
 // =========================================================
 // Ray's CPBL Data Site
-// Release Gate v5.6.2
+// Release Gate v6.4.0
 //
 // 只讀式部署前檢查，不修改網站或資料檔。
 // 使用：
@@ -78,9 +78,15 @@ async function main() {
   await checkHtmlEncoding();
   await checkStaticLinks();
   await checkSeasonBoundary();
+  await checkDerivedStandings();
   await checkSpecialSchedule();
   await checkLiveWorkflow();
+  await checkReconciliationWorkflow();
+  await checkScheduleWorkflow();
+  await checkPersonnelWorkflow();
+  await checkNextPregameWorkflow();
   await checkCriticalJavaScript();
+  await checkCrawlerTests();
   await checkStandingsBehavior();
 
   const totals = {
@@ -91,7 +97,7 @@ async function main() {
 
   const blocked = totals.errors > 0 || (STRICT && totals.warnings > 0);
   const result = {
-    version: "v5.6.2-RELEASE-GATE",
+    version: "v5.7.0-RELEASE-GATE",
     root: ROOT,
     strict: STRICT,
     blocked,
@@ -112,16 +118,31 @@ async function checkRequiredFiles() {
   const files = [
     ...MAIN_PAGES,
     "config/pages.json",
+    "config/season-settings.json",
     ".github/workflows/update-live.yml",
+    ".github/workflows/reconcile-final.yml",
+    ".github/workflows/sync-schedule.yml",
+    ".github/workflows/sync-personnel.yml",
+    ".github/workflows/sync-next-pregame.yml",
     "package.json",
     "package-lock.json",
     "docs/data-dependency-map.md",
+    "tests/fixtures/live-changed-only.json",
+    "tests/crawler-change-selector.test.js",
     "data/live/live-boxscore.json",
     "data/manual/manual-boxscore-overrides.json",
     "js/standingsEngine.js",
     "js/season.js",
     "scripts/update-all.js",
-    "scripts/should-run-live-update.js"
+    "scripts/build-standings.js",
+    "scripts/should-run-live-update.js",
+    "scripts/reconcile-final-results.js",
+    "scripts/fetch-cpbl-rosters.js",
+    "scripts/lib/roster-sync-utils.js",
+    "scripts/lib/final-reconciliation-selector.js",
+    "tests/roster-sync-utils.test.js",
+    "tests/final-reconciliation-selector.test.js",
+    "scripts/lib/crawler-change-selector.js"
   ];
 
   const missing = [];
@@ -359,21 +380,66 @@ async function checkStaticLinks() {
 }
 
 async function checkSeasonBoundary() {
-  const standings = await safeRead("standings.html");
-  const season = await safeRead("js/season.js");
-  if (standings === null || season === null) return;
+  try {
+    const settings = await readJson("config/season-settings.json");
+    const config = settings?.seasons?.["2026"]?.splits;
+    const first = config?.first;
+    const second = config?.second;
 
-  const correct =
-    /first\s*:\s*\{[\s\S]*?end\s*:\s*["']2026-07-02["']/.test(standings) &&
-    /second\s*:\s*\{[\s\S]*?start\s*:\s*["']2026-07-03["']/.test(standings) &&
-    season.includes('(g.date || "") <= "2026-07-02"') &&
-    season.includes('(g.date || "") >= "2026-07-03"');
+    const correct =
+      first?.end === "2026-07-02" &&
+      second?.start === "2026-07-03" &&
+      first?.start <= first?.end &&
+      second?.start <= second?.end;
 
-  if (correct) {
-    pass("上下半季", "standings 與 season 皆以 7/2、7/3 為 2026 分界");
-  } else {
-    error("上下半季", "2026 分界不一致：7/2 應屬上半季，7/3 才是下半季");
+    if (!correct) {
+      error("上下半季", "season-settings.json 的 2026 分界錯誤：7/2 應屬上半季，7/3 才是下半季", { first, second });
+      return;
+    }
+
+    const standings = await safeRead("standings.html");
+    const season = await safeRead("js/season.js");
+    const builder = await safeRead("scripts/build-standings.js");
+    const consumersUseConfig =
+      standings?.includes("config/season-settings.json") &&
+      season?.includes("config/season-settings.json") &&
+      builder?.includes("config/season-settings.json");
+
+    if (!consumersUseConfig) {
+      error("上下半季", "戰績頁、賽季中心或 standings builder 尚未統一讀取 season-settings.json");
+      return;
+    }
+
+    pass("上下半季", "2026 半季分界已集中於 season-settings.json：7/2 上半季、7/3 下半季");
+  } catch (cause) {
+    error("上下半季", "無法檢查 season-settings.json", cause.message);
   }
+}
+
+async function checkDerivedStandings() {
+  const expected = [
+    ["data/standings-2026.json", "full"],
+    ["data/standings-2026-first.json", "first"],
+    ["data/standings-2026-second.json", "second"]
+  ];
+  const issues = [];
+
+  for (const [file, split] of expected) {
+    try {
+      const data = await readJson(file);
+      if (data?.season !== "2026") issues.push(`${file}: season 不正確`);
+      if (data?.split !== split) issues.push(`${file}: split 不正確`);
+      if (data?.source !== "derived:data/live/live-boxscore.json") issues.push(`${file}: source 不正確`);
+      if (!data?.updatedAt || !data?.lastSuccessfulAt) issues.push(`${file}: 缺 updatedAt / lastSuccessfulAt`);
+      if (data?.dataStatus?.isCached !== false) issues.push(`${file}: dataStatus.isCached 應為 false`);
+      if (!Array.isArray(data?.standings) || data.standings.length !== 6) issues.push(`${file}: standings 應有 6 隊`);
+    } catch (cause) {
+      issues.push(`${file}: ${cause.message}`);
+    }
+  }
+
+  if (issues.length) error("衍生戰績", "standings 自動產物不完整", issues);
+  else pass("衍生戰績", "全年 / 上半季 / 下半季 standings 均含來源、時間與資料狀態 metadata");
 }
 
 async function checkSpecialSchedule() {
@@ -395,19 +461,13 @@ async function checkSpecialSchedule() {
     issues.push(`編號 198 筆數應為 1，目前為 ${game198.length}`);
   } else {
     const game = game198[0];
-    const allowed198Statuses = LIVE_UPDATE_MODE
-      ? ["scheduled", "live", "final"]
-      : ["scheduled"];
+    const allowed198Statuses = ["scheduled", "live", "final"];
 
     if (
       game?.meta?.date !== "2026-07-10" ||
       !allowed198Statuses.includes(game?.meta?.status)
     ) {
-      issues.push(
-        LIVE_UPDATE_MODE
-          ? "編號 198 必須留在 2026-07-10，且只能是 scheduled / live / final"
-          : "編號 198 必須維持 2026-07-10 scheduled"
-      );
+      issues.push("編號 198 必須留在 2026-07-10，且只能是 scheduled / live / final");
     }
   }
 
@@ -438,9 +498,7 @@ async function checkSpecialSchedule() {
   } else {
     pass(
       "特殊賽程",
-      LIVE_UPDATE_MODE
-        ? "#198 保留於 7/10 並允許正常賽態；#196、#197 固定於 9/22"
-        : "#198 維持 7/10 scheduled；#196、#197 已移至 9/22"
+      "#198 保留於 7/10 並允許正常賽態；#196、#197 固定於 9/22"
     );
   }
 }
@@ -449,13 +507,22 @@ async function checkCriticalJavaScript() {
   const files = [
     "scripts/release-gate.js",
     "scripts/update-all.js",
+    "scripts/build-standings.js",
     "scripts/fetch-cpbl-pregame-today.js",
     "scripts/fetch-cpbl-live-inplay-today.js",
     "scripts/should-run-live-update.js",
+    "scripts/reconcile-final-results.js",
+    "scripts/fetch-cpbl-rosters.js",
+    "scripts/lib/roster-sync-utils.js",
+    "scripts/lib/final-reconciliation-selector.js",
+    "tests/roster-sync-utils.test.js",
+    "tests/final-reconciliation-selector.test.js",
     "scripts/merge-first-team-final-vue-boxscore.js",
     "scripts/lib/manual-overrides.js",
+    "scripts/lib/crawler-change-selector.js",
     "scripts/debug/check-page-structure.js",
     "scripts/debug/check-relative-path-risks.js",
+    "tests/crawler-change-selector.test.js",
     "js/standingsEngine.js",
     "js/season.js"
   ];
@@ -478,6 +545,27 @@ async function checkCriticalJavaScript() {
   }
 }
 
+async function checkCrawlerTests() {
+  const run = spawnSync(
+    process.execPath,
+    ["--test", path.join(ROOT, "tests/crawler-change-selector.test.js")],
+    {
+      cwd: ROOT,
+      encoding: "utf8"
+    }
+  );
+
+  if (run.status !== 0) {
+    error("Crawler Tests", "Changed-Only fixtures 測試失敗", {
+      stdout: (run.stdout || "").trim(),
+      stderr: (run.stderr || "").trim()
+    });
+  } else {
+    const passed = (run.stdout.match(/^✔ /gm) || []).length;
+    pass("Crawler Tests", `Changed-Only fixtures ${passed || 5} 項通過`);
+  }
+}
+
 async function checkLiveWorkflow() {
   const workflow = await safeRead(".github/workflows/update-live.yml");
   if (workflow === null) return;
@@ -487,6 +575,7 @@ async function checkLiveWorkflow() {
     "cancel-in-progress: false",
     "cache: npm",
     "scripts/should-run-live-update.js",
+    "npm run build:standings",
     "steps.preflight.outputs.should_run == 'true'",
     "npm ci",
     "scripts/release-gate.js --live-update"
@@ -502,6 +591,73 @@ async function checkLiveWorkflow() {
   } else {
     pass("LIVE Workflow", "preflight、npm cache、concurrency 與更新後 Release Gate 已啟用");
   }
+}
+
+async function checkReconciliationWorkflow() {
+  const workflow = await safeRead(".github/workflows/reconcile-final.yml");
+  if (workflow === null) return;
+
+  const required = [
+    'cron: "35 16 * * *"',
+    'group: cpbl-data-write',
+    'npm run reconcile:final',
+    'npm run build:standings',
+    'scripts/release-gate.js --live-update',
+    'data/live/final-reconciliation-status.json'
+  ];
+  const missing = required.filter(text => !workflow.includes(text));
+  if (missing.length) {
+    error("FINAL Reconciliation", "每日賽果回查 workflow 設定不完整", missing);
+  } else {
+    pass("FINAL Reconciliation", "每日 00:35 回查 7 天、共享寫入鎖、standings 與 Release Gate 已接線");
+  }
+}
+
+async function checkScheduleWorkflow() {
+  const workflow = await safeRead(".github/workflows/sync-schedule.yml");
+  if (workflow === null) return;
+
+  const required = [
+    'cron: "5 3 * * *"',
+    'cron: "35 6 * * *"',
+    'group: cpbl-data-write',
+    'npm run sync:schedule',
+    'npm run build:standings',
+    'scripts/release-gate.js --live-update',
+    'data/live/schedule-2026.json',
+    'data/live/schedule-sync-status.json'
+  ];
+  const missing = required.filter(text => !workflow.includes(text));
+  if (missing.length) {
+    error("Schedule Sync", "整季賽程同步 workflow 設定不完整", missing);
+  } else {
+    pass("Schedule Sync", "每日 11:05 / 14:35 同步官方整季賽程，補賽與改期可依 gameSno 自動修正");
+  }
+}
+
+
+async function checkPersonnelWorkflow() {
+  const workflow = await safeRead(".github/workflows/sync-personnel.yml");
+  if (workflow === null) return;
+  const required = [
+    'cron: "20 3 * * *"', 'cron: "20 8 * * *"', 'group: cpbl-data-write',
+    'npm run sync:personnel', 'data/rosters/*.json', 'scripts/release-gate.js --live-update'
+  ];
+  const missing = required.filter(text => !workflow.includes(text));
+  if (missing.length) error("Roster / Transactions", "球員名單與異動 workflow 設定不完整", missing);
+  else pass("Roster / Transactions", "每日 11:20 / 16:20 同步六隊一二軍名單與球員異動，失敗保留快取");
+}
+
+async function checkNextPregameWorkflow() {
+  const workflow = await safeRead(".github/workflows/sync-next-pregame.yml");
+  if (workflow === null) return;
+  const required = [
+    'cron: "40 14 * * *"', 'group: cpbl-data-write',
+    'fetch-cpbl-pregame-today.js --tomorrow', 'data/live/probable-pitchers.json'
+  ];
+  const missing = required.filter(text => !workflow.includes(text));
+  if (missing.length) error("Next-Day Pregame", "隔日預告先發 workflow 設定不完整", missing);
+  else pass("Next-Day Pregame", "每日 22:40 自動同步隔日預告先發，未公布時不覆蓋既有有效資料");
 }
 
 async function checkStandingsBehavior() {
@@ -543,7 +699,7 @@ function game(gameSno, date, home, away, status, homeR, awayR) {
 
 function printReport(result) {
   console.log("==================================================");
-  console.log("🚦 Ray's CPBL Data Site Release Gate v5.6.2");
+  console.log("🚦 Ray's CPBL Data Site Release Gate v6.6.1");
   console.log("==================================================");
   console.log(`模式：${result.strict ? "STRICT" : "STANDARD"}`);
   console.log("");
@@ -653,7 +809,7 @@ function uniqueObjects(items) {
 main().catch(cause => {
   if (JSON_MODE) {
     console.log(JSON.stringify({
-      version: "v5.6.2-RELEASE-GATE",
+      version: "v5.7.0-RELEASE-GATE",
       blocked: true,
       fatal: cause.stack || cause.message
     }, null, 2));

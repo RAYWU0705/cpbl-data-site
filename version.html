@@ -23,7 +23,9 @@ Status: ACTIVE
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="apple-touch-icon" href="assets/logo/cpbl.png">
   <title>更新日誌｜Ray's CPBL Data Site</title>
+  <script src="js/theme-bootstrap.js?v=612-theme-fix"></script>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/v6-ui.css?v=612-theme-fix">
 </head>
 
 <body data-page="version">
@@ -72,19 +74,19 @@ Status: ACTIVE
 
   <section class="card version-current-card">
     <p class="muted">目前版本</p>
-    <h2>v5.6.2-SMART-CRAWLER-PIPELINE｜Faster LIVE & CI Preflight</h2>
+    <h2>v5.7.0-CHANGED-ONLY-CRAWLER｜Meaningful Updates Only</h2>
 
     <p>
-      Ray's CPBL Data Site 在 Release Gate 基礎上完成 LIVE 爬蟲與 GitHub Actions 的智慧啟動優化。
-      LIVE 腳本會封鎖不影響解析的圖片、字型與影音資源；schedule API 已確認 LIVE 時直接進入 boxscore，
-      不再重複載入官方首頁。GitHub Actions 會先依台北時間、當日賽程與比賽窗口執行 preflight，
-      不需要更新時便略過 npm ci 與 Puppeteer。同時加入 concurrency 防重疊、npm cache、CI 備份去重與更新後 Release Gate。
+      LIVE 爬蟲正式進入 Changed-Only 階段。候選場次會先依官方狀態、比分訊號、資料完整度與刷新時間判斷是否需要抓取 detail；
+      抓取完成後再排除 updatedAt、debug 等非實質差異。只有比分、局數、投打資料、liveState 或公開狀態真正改變時，
+      才備份並寫入 live-boxscore.json。每輪執行另產生效能 metrics，Release Gate 也會執行固定 fixtures 測試，
+      降低無效 I/O、無意義 commit 與 parser 改版回歸風險。
     </p>
 
     <div class="version-status-grid">
       <div class="version-status-item good">
         <span>爬蟲流程</span>
-        <strong>Smart Probe</strong>
+        <strong>Changed Only</strong>
       </div>
 
       <div class="version-status-item good">
@@ -234,6 +236,26 @@ Status: ACTIVE
     <h2>📌 更新紀錄</h2>
 
     <div class="version-timeline">
+      <article class="version-entry">
+        <div class="version-dot"></div>
+        <div class="version-content">
+          <div class="version-head">
+            <h3>v5.7.0-CHANGED-ONLY-CRAWLER</h3>
+            <span>有效差異更新</span>
+          </div>
+
+          <ul>
+            <li>新增 scripts/lib/crawler-change-selector.js，以純函式判斷 new game、官方訊號變化、資料不完整、refresh window 與 FINAL guard。</li>
+            <li>LIVE detail 合併後執行 meaningful diff，忽略 updatedAt、debug、raw 等非公開差異；有效資料未變時不寫 JSON。</li>
+            <li>支援 --min-refresh-seconds、--gameSno、--force 與 --no-changed-only，方便維護與回退。</li>
+            <li>新增 logs/crawler-metrics 執行指標，記錄 Chrome、schedule、首頁備援、detail、write 耗時與每場變動路徑。</li>
+            <li>新增 fixtures 與 node:test 測試，涵蓋 recent skip、data incomplete、refresh、FINAL guard、force、時間戳忽略與比分變動。</li>
+            <li>Release Gate v5.7.0 將 crawler fixtures 納入發布阻擋條件，目前共 15 項檢查。</li>
+            <li>schedule API debug 額外記錄 request method 與 payload，為後續 HTTP API-first 升級建立依據。</li>
+          </ul>
+        </div>
+      </article>
+
       <article class="version-entry">
         <div class="version-dot"></div>
         <div class="version-content">
@@ -999,5 +1021,6 @@ Status: ACTIVE
 <script src="js/site-root.js?v=561d"></script>
 <script src="js/version.js"></script>
 <script src="js/pwa-register.js"></script>
+  <script src="js/v6-shell.js?v=612-theme-fix"></script>
 </body>
 </html>

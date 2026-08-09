@@ -12,6 +12,8 @@ let allSeasonGames = [];
 const MY_TEAM = "中信兄弟";
 const TOTAL_GAMES = 360;
 const LIVE_BOXSCORE_URL = "data/live/live-boxscore.json";
+const SEASON_SETTINGS_URL = "config/season-settings.json";
+let seasonSettings = null;
 
 const TEAM_ID_MAP = {
   "中信兄弟": "brothers",
@@ -65,7 +67,10 @@ async function initSeason() {
   try {
     setLoading();
 
-    allSeasonGames = await loadLiveBoxscoreGames();
+    [seasonSettings, allSeasonGames] = await Promise.all([
+      loadSeasonSettings(),
+      loadLiveBoxscoreGames()
+    ]);
 
     const regularGames = allSeasonGames.filter(g =>
       g.type === "regular" &&
@@ -122,6 +127,17 @@ function setLoading() {
   if (heroSub) heroSub.textContent = "正在整理賽季資料…";
   if (progressBox) progressBox.innerHTML = `<div class="muted">計算中…</div>`;
   if (teamGrid) teamGrid.innerHTML = `<div class="season-empty-note">資料讀取中…</div>`;
+}
+
+
+async function loadSeasonSettings() {
+  const res = await fetch(`${SEASON_SETTINGS_URL}?ts=${Date.now()}`, { cache: "no-store" });
+  if (!res.ok) throw new Error(`讀取 season-settings.json 失敗：HTTP ${res.status}`);
+  return res.json();
+}
+
+function getSeasonSplitRange(split) {
+  return seasonSettings?.seasons?.["2026"]?.splits?.[split] || null;
 }
 
 async function loadLiveBoxscoreGames() {
@@ -233,10 +249,11 @@ function renderPhase(finals, regularGames) {
     tone = "early";
   }
 
-  // 2026 年上下半季以 7/3 為分界；7/2 仍屬上半季。
-  // 與 standings.html 的 SEASON_SPLIT_RANGES 保持一致。
-  const firstHalf = regularGames.filter(g => (g.date || "") <= "2026-07-02");
-  const secondHalf = regularGames.filter(g => (g.date || "") >= "2026-07-03");
+  // 2026 半季規則統一由 config/season-settings.json 管理。
+  const firstRange = getSeasonSplitRange("first");
+  const secondRange = getSeasonSplitRange("second");
+  const firstHalf = regularGames.filter(g => firstRange && (g.date || "") >= firstRange.start && (g.date || "") <= firstRange.end);
+  const secondHalf = regularGames.filter(g => secondRange && (g.date || "") >= secondRange.start && (g.date || "") <= secondRange.end);
 
   phaseBox.innerHTML = `
     <div class="season-phase-badge ${tone}">${phase}</div>

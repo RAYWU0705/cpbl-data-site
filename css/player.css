@@ -290,3 +290,72 @@
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 }
+
+/* =========================================================
+   PLAYER v6.5 SEASON STATS
+========================================================= */
+.player-coverage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 18px;
+}
+.player-coverage .coverage-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 850;
+  border: 1px solid rgba(148,163,184,.22);
+  background: rgba(148,163,184,.12);
+}
+.player-coverage .coverage-pill.ok { border-color: rgba(34,197,94,.35); background: rgba(34,197,94,.10); }
+.player-coverage .coverage-pill.partial { border-color: rgba(245,158,11,.38); background: rgba(245,158,11,.11); }
+.player-table { min-width: 1180px; }
+.player-stat-card small { display:block; margin-top:6px; color:var(--muted,#94a3b8); font-size:11px; }
+
+
+/* =========================================================
+   PLAYER v6.5.5 CURRENT SEASON SUMMARY + TABLE VISIBILITY
+========================================================= */
+body[data-page="player"] .player-stat-card {
+  background: color-mix(in srgb, var(--ui-surface-muted, #eef2f7) 92%, transparent) !important;
+}
+body[data-page="player"] .player-stat-card strong {
+  color: var(--ui-text, #0f172a) !important;
+}
+body[data-page="player"] .player-stat-card span,
+body[data-page="player"] .player-stat-card small {
+  color: var(--ui-muted, #64748b) !important;
+}
+
+/* v6-ui 的全站 sticky th 不適合球員累積單列表，避免表頭壓住資料列。 */
+body[data-page="player"] .player-table th {
+  position: static !important;
+  top: auto !important;
+}
+body[data-page="player"] .player-table tbody,
+body[data-page="player"] .player-table tbody tr {
+  display: table-row-group !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+body[data-page="player"] .player-table tbody tr {
+  display: table-row !important;
+}
+body[data-page="player"] .player-table tbody td {
+  display: table-cell !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: var(--ui-text, #0f172a) !important;
+  background: var(--ui-surface, #fff) !important;
+}
+html[data-theme="dark"] body[data-page="player"] .player-stat-card {
+  background: rgba(15, 23, 42, .72) !important;
+}
+html[data-theme="dark"] body[data-page="player"] .player-stat-card strong,
+html[data-theme="dark"] body[data-page="player"] .player-table tbody td {
+  color: #f8fafc !important;
+}

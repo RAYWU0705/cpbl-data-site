@@ -177,7 +177,7 @@ function renderTeamRosterHero(data, squadKey) {
 
       <div class="team-roster-hero-info">
         <span class="team-roster-kicker">${escapeHtml(squadText)} TEAM ROSTER</span>
-        <h2>${escapeHtml(teamName)}</h2>
+        <h2><a class="team-profile-link" href="team.html?team=${encodeURIComponent(teamId)}">${escapeHtml(teamName)}</a></h2>
         <p>${escapeHtml(squadText)}名單・教練團・球員分類</p>
 
         <div class="team-roster-hero-actions">
@@ -439,7 +439,7 @@ function renderTransactions(transactions = []) {
             ${recent.map(t => `
               <div class="transaction-item transaction-item-pro">
                 <strong>${escapeHtml(t.date || "—")}</strong>
-                <span>${escapeHtml(t.player || "—")}</span>
+                <span>${t.player && t.player !== "—" ? `<a class="player-profile-link" href="${makePlayerProfileUrl(t.player)}">${escapeHtml(t.player)}</a>` : "—"}</span>
                 <em>${escapeHtml(t.reason || "異動")}</em>
               </div>
             `).join("")}

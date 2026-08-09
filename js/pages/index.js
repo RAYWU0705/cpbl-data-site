@@ -41,6 +41,16 @@ const TEAM_ID_MAP = {
   "台鋼雄鷹": "hawks"
 };
 
+const TEAM_COLORS = {
+  brothers: "#f6c400",
+  lions: "#f26b21",
+  monkeys: "#8a1538",
+  dragons: "#c8102e",
+  guardians: "#0057b8",
+  hawks: "#0b7d63"
+};
+
+
 let allGames = [];
 let selectedDate = new Date();
 let focusIndex = 0;
@@ -1113,7 +1123,7 @@ function renderOfficialScoreCard(g) {
   const subText = getOfficialSubText(g);
 
   return `
-    <a class="official-score-card ${statusClass} ${qualityClass}" href="${buildMatchLink(g)}">
+    <a class="official-score-card ${statusClass} ${qualityClass}" href="${buildMatchLink(g)}" style="--away-accent:${TEAM_COLORS[TEAM_ID_MAP[g.away]] || "#777b81"};--home-accent:${TEAM_COLORS[TEAM_ID_MAP[g.home]] || "#777b81"}">
       <div class="official-game-no">
         ${escapeHtml(g.gameSno ?? "—")}
       </div>

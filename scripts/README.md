@@ -1,82 +1,56 @@
-\# scripts 說明
+# CPBL Crawler Pipeline
 
+目前版本：`v5.7.0-CHANGED-ONLY-CRAWLER`
 
+## Pipeline
 
-此資料夾存放 Ray CPBL Data Site 的資料抓取、合併、修復與維護腳本。
+| 模式 | 階段 | 指令 |
+| --- | --- | --- |
+| fast | pregame → live → news | `node scripts/update-all.js --only=fast --soft-exit` |
+| postgame | final → news | `node scripts/update-all.js --only=postgame --date=YYYY-MM-DD --soft-exit` |
+| maintenance | players → pregame → final → news | `node scripts/update-all.js --only=maintenance --soft-exit` |
+| live | live only | `node scripts/fetch-cpbl-live-inplay-today.js` |
 
+## Changed-Only LIVE
 
+LIVE 預設分成兩層：
 
-\## 根目錄主線腳本
+1. Detail 前：依新場次、官方狀態／比分變化、資料完整度與 refresh window 選擇候選。
+2. 寫入前：排除 debug、raw、updatedAt 等非實質差異。
 
+只有公開資料真正變化才備份並寫入 `data/live/live-boxscore.json`。
 
+```powershell
+# 預設 120 秒 refresh window
+node scripts/fetch-cpbl-live-inplay-today.js
 
-根目錄只保留目前正式資料流程會使用，或高頻維護需要直接執行的腳本。
+# 改為 180 秒
+node scripts/fetch-cpbl-live-inplay-today.js --min-refresh-seconds=180
 
+# 強制指定場次
+node scripts/fetch-cpbl-live-inplay-today.js --gameSno=198 --force
 
+# 回退舊行為
+node scripts/fetch-cpbl-live-inplay-today.js --no-changed-only
+```
 
-目前主線包含：
+## Metrics
 
+每輪執行會輸出：
 
+```text
+logs/crawler-metrics/live-YYYYMMDD-HHMMSS.json
+```
 
-\- update-all.js：主更新流程入口
+內容包含 browser launch、schedule、首頁備援、detail、write 耗時，以及各場 outcome 與 changed paths。
 
-\- check-data-health.js：資料健康檢查
+## 驗證
 
-\- fetch-cpbl-pregame-today.js：抓取今日賽前資料
+```powershell
+node --check scripts/fetch-cpbl-live-inplay-today.js
+npm run test:crawler
+node scripts/update-all.js --only=fast --dry-run --no-backup --strict
+node scripts/release-gate.js --strict
+```
 
-\- fetch-cpbl-live-inplay-today.js：抓取即時比賽資料
-
-\- fetch-cpbl-final-boxscore-vue.js：抓取一軍 FINAL Vue boxscore
-
-\- merge-first-team-final-vue-boxscore.js：合併一軍 FINAL Vue boxscore
-
-\- build-league-news.js：產生聯盟新聞資料
-
-\- fetch-cpbl-player-detail.js：球員詳細資料抓取
-
-\- fetch-cpbl-rosters.js：球隊名單抓取
-
-\- fetch-cpbl-farm-schedule-static.js：二軍賽程抓取
-
-\- fetch-cpbl-farm-final-boxscore.js：二軍 boxscore 抓取
-
-
-
-\## 子資料夾
-
-
-
-\- lib/：共用模組
-
-\- debug/：偵錯、結構探測、頁面檢查工具
-
-\- tools/：修復、救援、補洞工具
-
-\- site-tools/：網站頁面架構、搬移、rollback 相關工具
-
-\- legacy/：舊版流程，保留備查，不作為主線
-
-\- danger/：高風險腳本，未確認前不要執行
-
-\- backup/：歷史備份檔
-
-
-
-\## 維護原則
-
-
-
-1\. 新增主線腳本前，要確認它是否真的屬於日常更新流程。
-
-2\. debug、probe、check 類腳本優先放入 debug/。
-
-3\. repair、rescue、fix 類腳本優先放入 tools/。
-
-4\. migration、rollback、page、site-root 類腳本優先放入 site-tools/。
-
-5\. 舊流程不要直接刪除，先放 legacy/。
-
-6\. 可能改壞大量正式資料的腳本放 danger/。
-
-7\. 搬移腳本後，必須跑 health check。
-
+大型 HTML / TXT debug 預設不寫；需要診斷時才加 `--debug-write`。

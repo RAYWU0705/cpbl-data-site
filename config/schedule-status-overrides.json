@@ -1,0 +1,15 @@
+{
+  "years": {
+    "2026": {
+      "254": {
+        "matchDates": ["2026-08-08", "2026-08-09"],
+        "onlyWhenStatus": "scheduled",
+        "date": "2026-08-08",
+        "status": "postponed",
+        "statusText": "延賽",
+        "source": "CPBL 官方賽程頁",
+        "reason": "2026/08/08 官方賽程頁 #254 味全龍 vs 樂天桃猿明確顯示「延賽」。當官方日後提供新的補賽日期時，因日期不再符合 matchDates，此 override 會自動停止套用。"
+      }
+    }
+  }
+}

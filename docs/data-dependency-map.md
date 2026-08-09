@@ -1,6 +1,6 @@
 # Ray's CPBL Data Site｜Data Dependency Map
 
-版本：`v5.6.2-SMART-CRAWLER-PIPELINE`
+版本：`v5.7.0-CHANGED-ONLY-CRAWLER`
 
 ## 更新管線
 
@@ -16,7 +16,7 @@
 | Script | 主要讀取 | 正式寫入 |
 | --- | --- | --- |
 | `fetch-cpbl-pregame-today.js` | CPBL schedule / home / box、既有 live-boxscore | `pregame-日期.json`、`pregame-today.json`、`probable-pitchers.json`、`live-boxscore.json` |
-| `fetch-cpbl-live-inplay-today.js` | CPBL schedule API、必要時首頁、boxscore、manual overrides | `live-boxscore.json` |
+| `fetch-cpbl-live-inplay-today.js` | CPBL schedule API、必要時首頁、boxscore、manual overrides、changed-only selector | 有效差異存在時才寫 `live-boxscore.json` |
 | `fetch-cpbl-final-boxscore-vue.js` | `live-boxscore.json`、CPBL Vue boxscore | `final-boxscore-vue-2026.json` 與 report |
 | `merge-first-team-final-vue-boxscore.js` | `live-boxscore.json`、`final-boxscore-vue-2026.json` | `live-boxscore.json` 與 merge report |
 | `build-league-news.js` | `live-boxscore.json`、`probable-pitchers.json` | `league-news.json` |
@@ -54,9 +54,25 @@ checkout
   → should-run-live-update preflight
   → npm ci（需要更新時才執行）
   → LIVE fetch
+  → Changed-Only meaningful diff
   → Release Gate --live-update
   → 精準 git add 正式 JSON
   → commit / push
 ```
 
 手動 `workflow_dispatch` 會強制通過 preflight，適合官方狀態延遲或需要立即補抓時使用。
+
+## Changed-Only LIVE 流程
+
+```text
+schedule / home LIVE 候選
+  → new game / official signal / data quality / refresh window
+  → boxscore detail
+  → manual override / lineScore rescue
+  → meaningful diff（忽略 debug / raw / timestamps）
+  → 有效差異：backup + write
+  → 無有效差異：skip write + no commit
+  → logs/crawler-metrics
+```
+
+固定測試樣本位於 `tests/fixtures/`，由 `npm run test:crawler` 與 Release Gate 執行。

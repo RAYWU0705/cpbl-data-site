@@ -12,7 +12,7 @@ console.log("✅ schedule.js v6.2.0-SCHEDULE-POLISHED 已載入");
    - 支援列表 / 月曆 / 月份 / 日期 / 球隊 / 場地 / 狀態 / 搜尋
 ========================================================= */
 
-const VERSION = "v6.2.0-SCHEDULE-POLISHED";
+const VERSION = "v6.6.0-SCHEDULE-SIX-TEAM-UI";
 const LIVE_BOXSCORE_URL = "data/live/live-boxscore.json";
 
 const TEAM_ID_MAP = {
@@ -41,6 +41,20 @@ const TEAM_COLORS = {
   guardians: "#0047ab",
   hawks: "#007f7a"
 };
+
+function teamProfileLink(name, options = {}) {
+  const teamName = cleanText(name);
+  const id = TEAM_ID_MAP[teamName] || options.teamId || "";
+  if (!teamName || !id) return escapeHtml(teamName || "—");
+  const cls = options.className ? ` class="${escapeHtml(options.className)}"` : ' class="team-profile-link"';
+  return `<a${cls} href="team.html?team=${encodeURIComponent(id)}" title="查看 ${escapeHtml(teamName)} 球隊頁">${escapeHtml(teamName)}</a>`;
+}
+
+function playerProfileLink(name) {
+  const playerName = cleanText(name);
+  if (!playerName || playerName === "—") return escapeHtml(playerName || "—");
+  return `<a class="player-profile-link" href="player.html?name=${encodeURIComponent(playerName)}" title="查看 ${escapeHtml(playerName)} 球員頁">${escapeHtml(playerName)}</a>`;
+}
 
 const TYPE_TEXT = {
   regular: "例行賽",
@@ -604,12 +618,12 @@ function renderFocusCard(game) {
       <div class="schedule-focus-match schedule-focus-match-polished">
         <span class="schedule-focus-team ${getWinnerClass(game, "away")}">
           <img src="${awayLogo}" alt="${escapeHtml(game.away)}">
-          <strong>${escapeHtml(game.away || "客隊")}</strong>
+          <strong>${teamProfileLink(game.away || "客隊", { teamId: game.awayId })}</strong>
         </span>
         <span class="schedule-focus-score">${escapeHtml(scoreText)}</span>
         <span class="schedule-focus-team ${getWinnerClass(game, "home")}">
           <img src="${homeLogo}" alt="${escapeHtml(game.home)}">
-          <strong>${escapeHtml(game.home || "主隊")}</strong>
+          <strong>${teamProfileLink(game.home || "主隊", { teamId: game.homeId })}</strong>
         </span>
       </div>
       <div class="schedule-focus-meta">
@@ -718,7 +732,7 @@ function renderGameCard(game) {
     : "VS";
 
   return `
-    <article class="schedule-game-card status-${escapeHtml(game.status)} ${hasScore(game) ? "has-score" : "is-pregame"}">
+    <article class="schedule-game-card status-${escapeHtml(game.status)} ${hasScore(game) ? "has-score" : "is-pregame"}" style="--away-accent:${TEAM_COLORS[game.awayId] || "#777b81"};--home-accent:${TEAM_COLORS[game.homeId] || "#777b81"}">
       <div class="schedule-game-top">
         <span class="schedule-game-no">G${escapeHtml(game.gameSno || "—")}</span>
         <span class="schedule-game-status">${escapeHtml(getStatusText(game.status))}</span>
@@ -727,7 +741,7 @@ function renderGameCard(game) {
       <div class="schedule-game-main">
         <div class="schedule-team away ${getWinnerClass(game, "away")}">
           <img src="${awayLogo}" alt="${escapeHtml(game.away)}">
-          <strong>${escapeHtml(game.away || "客隊")}</strong>
+          <strong>${teamProfileLink(game.away || "客隊", { teamId: game.awayId })}</strong>
         </div>
 
         <div class="schedule-score-box">
@@ -737,7 +751,7 @@ function renderGameCard(game) {
 
         <div class="schedule-team home ${getWinnerClass(game, "home")}">
           <img src="${homeLogo}" alt="${escapeHtml(game.home)}">
-          <strong>${escapeHtml(game.home || "主隊")}</strong>
+          <strong>${teamProfileLink(game.home || "主隊", { teamId: game.homeId })}</strong>
         </div>
       </div>
 
@@ -777,11 +791,11 @@ function renderRheRow(game) {
   return `
     <div class="schedule-rhe-row" aria-label="R H E">
       <span></span><b>R</b><b>H</b><b>E</b>
-      <strong>${escapeHtml(shortTeamName(game.away || "客"))}</strong>
+      <strong>${teamProfileLink(game.away || "客隊", { teamId: game.awayId })}</strong>
       <span>${formatScore(game.awayR)}</span>
       <span>${formatScore(game.awayH)}</span>
       <span>${formatScore(game.awayE)}</span>
-      <strong>${escapeHtml(shortTeamName(game.home || "主"))}</strong>
+      <strong>${teamProfileLink(game.home || "主隊", { teamId: game.homeId })}</strong>
       <span>${formatScore(game.homeR)}</span>
       <span>${formatScore(game.homeH)}</span>
       <span>${formatScore(game.homeE)}</span>
@@ -815,8 +829,8 @@ function renderProbablePitcherRow(game) {
 
   return `
     <div class="schedule-starter-row">
-      <span>客場先發 <b>${escapeHtml(away || "—")}</b></span>
-      <span>主場先發 <b>${escapeHtml(home || "—")}</b></span>
+      <span>客場先發 <b>${away ? playerProfileLink(away) : "—"}</b></span>
+      <span>主場先發 <b>${home ? playerProfileLink(home) : "—"}</b></span>
     </div>
   `;
 }

@@ -1,0 +1,70 @@
+name: Sync CPBL Schedule
+
+concurrency:
+  group: cpbl-data-write
+  cancel-in-progress: false
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 台灣時間 11:05、14:35。整季賽程 snapshot，可自動吸收補賽/改期/新增場次。
+    - cron: "5 3 * * *"
+    - cron: "35 6 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  sync-schedule:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Sync official season schedule
+        run: npm run sync:schedule
+        env:
+          CI: true
+
+      - name: Refresh today's pregame data
+        continue-on-error: true
+        run: node scripts/fetch-cpbl-pregame-today.js
+        env:
+          CI: true
+
+      - name: Rebuild standings
+        run: npm run build:standings
+
+      - name: Run release gate
+        run: node scripts/release-gate.js --live-update
+
+      - name: Commit schedule and derived data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/live/live-boxscore.json \
+            data/live/schedule-2026.json \
+            data/live/schedule-sync-status.json \
+            data/live/pregame-today.json \
+            data/live/probable-pitchers.json \
+            data/standings-2026.json \
+            data/standings-2026-first.json \
+            data/standings-2026-second.json
+          if git diff --cached --quiet; then
+            echo "No schedule changes to commit."
+          else
+            git commit -m "auto sync CPBL schedule"
+            git push
+          fi

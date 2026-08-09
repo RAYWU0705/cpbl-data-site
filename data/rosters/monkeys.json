@@ -3,7 +3,7 @@
   "teamName": "樂天桃猿",
   "clubNo": "AJL",
   "sourceUrl": "https://www.cpbl.com.tw/team?ClubNo=AJL",
-  "updatedAt": "2026-07-02T02:49:44.345Z",
+  "updatedAt": "2026-08-08T14:19:53.650Z",
   "coaches": {
     "first": {
       "title": "一軍教練團",
@@ -126,6 +126,11 @@
           "role": "二軍體能教練"
         },
         {
+          "number": "37",
+          "name": "游毓亭",
+          "role": "二軍體能教練"
+        },
+        {
           "number": "78",
           "name": "李韋慶",
           "role": "二軍體能教練"
@@ -164,12 +169,6 @@
           "position": "投手"
         },
         {
-          "number": "22",
-          "name": "朱承洋",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
           "number": "23",
           "name": "艾菩樂",
           "group": "投手",
@@ -182,8 +181,14 @@
           "position": "投手"
         },
         {
-          "number": "46",
-          "name": "邱駿威",
+          "number": "44",
+          "name": "曾家輝",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "48",
+          "name": "呂詠臻",
           "group": "投手",
           "position": "投手"
         },
@@ -200,14 +205,14 @@
           "position": "投手"
         },
         {
-          "number": "64",
-          "name": "王志煊",
+          "number": "63",
+          "name": "賴胤豪",
           "group": "投手",
           "position": "投手"
         },
         {
-          "number": "70",
-          "name": "魔爾曼",
+          "number": "64",
+          "name": "王志煊",
           "group": "投手",
           "position": "投手"
         },
@@ -256,14 +261,14 @@
           "position": "三壘手"
         },
         {
-          "number": "6",
-          "name": "林承飛",
-          "group": "內野手",
-          "position": "游擊手"
-        },
-        {
           "number": "15",
           "name": "林子偉",
+          "group": "內野手",
+          "position": "二壘手"
+        },
+        {
+          "number": "33",
+          "name": "張趙紘",
           "group": "內野手",
           "position": "二壘手"
         },
@@ -274,16 +279,16 @@
           "position": "游擊手"
         },
         {
-          "number": "56",
-          "name": "劉子杰",
-          "group": "內野手",
-          "position": "三壘手"
-        },
-        {
           "number": "79",
           "name": "林智平",
           "group": "內野手",
           "position": "三壘手"
+        },
+        {
+          "number": "85",
+          "name": "許賀捷",
+          "group": "內野手",
+          "position": "二壘手"
         },
         {
           "number": "94",
@@ -317,10 +322,10 @@
           "position": "中外野手"
         },
         {
-          "number": "66",
-          "name": "何品室融",
+          "number": "74",
+          "name": "威克",
           "group": "外野手",
-          "position": "左外野手"
+          "position": "右外野手"
         },
         {
           "number": "98",
@@ -343,7 +348,7 @@
         },
         {
           "number": "9",
-          "name": "陳柏豪",
+          "name": "#陳柏豪",
           "group": "投手",
           "position": "投手"
         },
@@ -360,6 +365,12 @@
           "position": "投手"
         },
         {
+          "number": "22",
+          "name": "#朱承洋",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
           "number": "27",
           "name": "*鍾亦恩",
           "group": "投手",
@@ -372,14 +383,8 @@
           "position": "投手"
         },
         {
-          "number": "44",
-          "name": "曾家輝",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
-          "number": "48",
-          "name": "呂詠臻",
+          "number": "46",
+          "name": "邱駿威",
           "group": "投手",
           "position": "投手"
         },
@@ -397,19 +402,19 @@
         },
         {
           "number": "61",
-          "name": "榊原元稀",
-          "group": "投手",
-          "position": "投手"
-        },
-        {
-          "number": "63",
-          "name": "賴胤豪",
+          "name": "#榊原元稀",
           "group": "投手",
           "position": "投手"
         },
         {
           "number": "69",
           "name": "邱緯綸",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "70",
+          "name": "#魔爾曼",
           "group": "投手",
           "position": "投手"
         },
@@ -433,7 +438,7 @@
         },
         {
           "number": "83",
-          "name": "*賴威誠",
+          "name": "賴威誠",
           "group": "投手",
           "position": "投手"
         },
@@ -454,6 +459,18 @@
           "name": "◎陳昱安",
           "group": "投手",
           "position": "投手"
+        },
+        {
+          "number": "161",
+          "name": "*陳趙羿勲",
+          "group": "投手",
+          "position": "投手"
+        },
+        {
+          "number": "166",
+          "name": "*吳柏霆",
+          "group": "投手",
+          "position": "投手"
         }
       ]
     },
@@ -471,12 +488,6 @@
         {
           "number": "28",
           "name": "張閔勛",
-          "group": "捕手",
-          "position": "捕手"
-        },
-        {
-          "number": "29",
-          "name": "*邱邦",
           "group": "捕手",
           "position": "捕手"
         },
@@ -506,6 +517,12 @@
       "group": "內野手",
       "list": [
         {
+          "number": "6",
+          "name": "林承飛",
+          "group": "內野手",
+          "position": "游擊手"
+        },
+        {
           "number": "8",
           "name": "陳佳樂",
           "group": "內野手",
@@ -530,14 +547,14 @@
           "position": "游擊手"
         },
         {
-          "number": "31",
-          "name": "杜禹鋒",
+          "number": "29",
+          "name": "邱邦",
           "group": "內野手",
-          "position": "二壘手"
+          "position": "三壘手"
         },
         {
-          "number": "33",
-          "name": "張趙紘",
+          "number": "31",
+          "name": "杜禹鋒",
           "group": "內野手",
           "position": "二壘手"
         },
@@ -554,22 +571,28 @@
           "position": "游擊手"
         },
         {
+          "number": "56",
+          "name": "劉子杰",
+          "group": "內野手",
+          "position": "三壘手"
+        },
+        {
           "number": "58",
           "name": "*廖健富",
           "group": "內野手",
           "position": "一壘手"
         },
         {
-          "number": "85",
-          "name": "許賀捷",
-          "group": "內野手",
-          "position": "二壘手"
-        },
-        {
           "number": "111",
           "name": "◎張家豪",
           "group": "內野手",
           "position": "二壘手"
+        },
+        {
+          "number": "162",
+          "name": "*鄭鈞澤",
+          "group": "內野手",
+          "position": "游擊手"
         }
       ]
     },
@@ -597,8 +620,20 @@
           "position": "右外野手"
         },
         {
+          "number": "66",
+          "name": "何品室融",
+          "group": "外野手",
+          "position": "左外野手"
+        },
+        {
           "number": "76",
           "name": "林禹叡",
+          "group": "外野手",
+          "position": "中外野手"
+        },
+        {
+          "number": "84",
+          "name": "道威聖",
           "group": "外野手",
           "position": "中外野手"
         },
@@ -613,9 +648,199 @@
   },
   "transactions": [
     {
+      "date": "2026-08-07",
+      "player": "#朱承洋",
+      "reason": "註冊註銷"
+    },
+    {
+      "date": "2026-08-07",
+      "player": "#陳柏豪",
+      "reason": "註冊註銷"
+    },
+    {
+      "date": "2026-08-07",
+      "player": "賴威誠",
+      "reason": "新註冊"
+    },
+    {
+      "date": "2026-08-06",
+      "player": "*吳柏霆",
+      "reason": "合約所屬"
+    },
+    {
+      "date": "2026-08-06",
+      "player": "*陳趙羿勲",
+      "reason": "合約所屬"
+    },
+    {
+      "date": "2026-08-06",
+      "player": "*鄭鈞澤",
+      "reason": "合約所屬"
+    },
+    {
+      "date": "2026-08-02",
+      "player": "邱緯綸",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-08-02",
+      "player": "張趙紘",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-07-23",
+      "player": "#魔爾曼",
+      "reason": "註冊註銷"
+    },
+    {
+      "date": "2026-07-23",
+      "player": "艾菩樂",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-07-23",
+      "player": "威克",
+      "reason": "新註冊"
+    },
+    {
+      "date": "2026-07-23",
+      "player": "道威聖",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-07-22",
+      "player": "#魔爾曼",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-07-21",
+      "player": "賴胤豪",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-07-16",
+      "player": "李柏毓",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-07-16",
+      "player": "威克",
+      "reason": "測試洋將"
+    },
+    {
+      "date": "2026-07-15",
+      "player": "邱邦",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-07-14",
+      "player": "邱邦",
+      "reason": "新註冊"
+    },
+    {
+      "date": "2026-07-14",
+      "player": "劉子杰",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-07-13",
+      "player": "林子崴",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-07-12",
+      "player": "朱承洋",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-07-12",
+      "player": "許賀捷",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-07-09",
+      "player": "何品室融",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-07-08",
+      "player": "艾菩樂",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-07-08",
+      "player": "道威聖",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-07-07",
+      "player": "#榊原元稀",
+      "reason": "註冊註銷"
+    },
+    {
+      "date": "2026-07-07",
+      "player": "呂詠臻",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-07-07",
+      "player": "道威聖",
+      "reason": "新註冊"
+    },
+    {
+      "date": "2026-07-06",
+      "player": "李柏毓",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-07-05",
+      "player": "林承飛",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-07-05",
+      "player": "曾家輝",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-07-03",
+      "player": "邱緯綸",
+      "reason": "升一軍"
+    },
+    {
+      "date": "2026-07-03",
+      "player": "劉家翔",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-07-02",
+      "player": "邱駿威",
+      "reason": "降二軍"
+    },
+    {
+      "date": "2026-07-02",
+      "player": "劉家翔",
+      "reason": "升一軍"
+    },
+    {
       "date": "2026-07-01",
       "player": "林立",
       "reason": "升一軍"
     }
-  ]
+  ],
+  "source": "cpbl-official-team",
+  "dataStatus": {
+    "status": "ok",
+    "isCached": false,
+    "lastSuccessfulAt": "2026-08-08T14:19:47.437Z",
+    "lastAttemptAt": "2026-08-08T14:19:47.437Z",
+    "rosterCounts": {
+      "firstPlayers": 28,
+      "secondPlayers": 47,
+      "firstCoaches": 11,
+      "secondCoaches": 13
+    },
+    "freshTransactionCount": 8,
+    "transactionCount": 36
+  }
 }

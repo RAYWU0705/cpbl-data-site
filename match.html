@@ -39,9 +39,108 @@ Status: ACTIVE
       }
     })();
   </script>
+  <script src="js/theme-bootstrap.js?v=612-theme-fix"></script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/theme.css?v=560a">
   <link rel="stylesheet" href="css/match.css?v=560-polished">
+  <link rel="stylesheet" href="css/v6-ui.css?v=612-theme-fix">
+
+<style id="match-score-row-guard">
+body[data-page="match"] #awayRheRow,
+body[data-page="match"] #homeRheRow,
+body[data-page="match"] #awayInningsRow,
+body[data-page="match"] #homeInningsRow {
+  display: table-row !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+body[data-page="match"] #awayRheRow > td,
+body[data-page="match"] #homeRheRow > td,
+body[data-page="match"] #awayInningsRow > td,
+body[data-page="match"] #homeInningsRow > td {
+  display: table-cell !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* v6.4.5：RHE / 逐局改用 Grid，完全避開 table row 顯示衝突 */
+.match-score-grid {
+  width: 100%;
+  border: 1px solid rgba(15,23,42,.08);
+  border-radius: 18px;
+  overflow-x: auto;
+  background: var(--ui-surface, #fff);
+  box-shadow: 0 10px 28px rgba(15,23,42,.06);
+}
+.match-score-grid-row {
+  display: grid !important;
+  align-items: center;
+  min-height: 56px;
+  border-bottom: 1px solid rgba(15,23,42,.07);
+}
+.match-score-grid-row:last-child { border-bottom: 0; }
+.match-score-grid-rhe .match-score-grid-row { grid-template-columns: minmax(150px, 2fr) repeat(3, minmax(64px, 1fr)); }
+.match-score-grid-innings { min-width: 690px; }
+.match-score-grid-innings .match-score-grid-row { grid-template-columns: minmax(150px, 1.7fr) repeat(9, minmax(52px, 1fr)); }
+.match-score-grid-cell {
+  padding: 13px 10px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 850;
+}
+.match-score-grid-head {
+  background: rgba(11,60,93,.07);
+  color: var(--primary, #0b3c5d);
+}
+.match-score-grid-head .match-score-grid-cell { font-weight: 950; }
+.match-score-grid-team { color: var(--primary, #0b3c5d); font-weight: 950; }
+.match-score-grid-away, .match-score-grid-home { display: grid !important; visibility: visible !important; opacity: 1 !important; }
+html[data-theme="dark"] .match-score-grid { background: rgba(18,32,47,.98); border-color: rgba(255,255,255,.10); }
+html[data-theme="dark"] .match-score-grid-row { border-bottom-color: rgba(255,255,255,.08); }
+
+/* v6.4.6：Match Center 深色模式可讀性修正 */
+html[data-theme="dark"] body[data-page="match"] .player-name-cell,
+html[data-theme="dark"] body[data-page="match"] .batter-team-title,
+html[data-theme="dark"] body[data-page="match"] .pitcher-team-title,
+html[data-theme="dark"] body[data-page="match"] .batter-row > span,
+html[data-theme="dark"] body[data-page="match"] .pitcher-row > span,
+html[data-theme="dark"] body[data-page="match"] .batter-header > span,
+html[data-theme="dark"] body[data-page="match"] .pitcher-header > span {
+  color: #f4f8fc !important;
+}
+html[data-theme="dark"] body[data-page="match"] .player-name-cell {
+  color: #ffffff !important;
+  font-weight: 900;
+  text-shadow: 0 1px 0 rgba(0,0,0,.25);
+}
+html[data-theme="dark"] body[data-page="match"] .batter-team-title,
+html[data-theme="dark"] body[data-page="match"] .pitcher-team-title {
+  color: #68c7ff !important;
+}
+html[data-theme="dark"] body[data-page="match"] .team-switch .team-tab {
+  color: #cbd8e5 !important;
+  background: rgba(255,255,255,.055) !important;
+  border: 1px solid rgba(255,255,255,.10) !important;
+}
+html[data-theme="dark"] body[data-page="match"] .team-switch .team-tab:hover {
+  color: #ffffff !important;
+  background: rgba(255,255,255,.10) !important;
+}
+html[data-theme="dark"] body[data-page="match"] .team-switch .team-tab.active {
+  color: #ffffff !important;
+  background: #38bdf8 !important;
+  border-color: #38bdf8 !important;
+  box-shadow: 0 6px 18px rgba(56,189,248,.20);
+}
+html[data-theme="dark"] body[data-page="match"] .batter-row small,
+html[data-theme="dark"] body[data-page="match"] .pitcher-row small,
+html[data-theme="dark"] body[data-page="match"] .muted {
+  color: #aebfd0 !important;
+}
+html[data-theme="dark"] body[data-page="match"] .batter-row.is-highlight {
+  background: rgba(250,204,21,.10) !important;
+}
+</style>
 </head>
 
 <body data-page="match">
@@ -88,6 +187,7 @@ Status: ACTIVE
   <div class="match-tabs-wrap" aria-label="比賽中心快速導覽">
     <div class="match-tabs">
       <button class="match-tab-btn active" type="button" data-match-tab="overview">總覽</button>
+      <button class="match-tab-btn" type="button" data-match-tab="intelligence">智慧分析</button>
       <button class="match-tab-btn" type="button" data-match-tab="live">LIVE</button>
       <button class="match-tab-btn" type="button" data-match-tab="rhe">RHE</button>
       <button class="match-tab-btn" type="button" data-match-tab="innings">逐局</button>
@@ -190,6 +290,11 @@ Status: ACTIVE
   </section>
 
 </section>
+
+  <section class="card match-tab-section baseball-intelligence-card" data-tab-section="intelligence" id="baseballIntelligence">
+    <div class="intelligence-loading">正在分析比賽資料…</div>
+  </section>
+
   <!-- 即時狀態面板 -->
   <section class="card live-status-panel match-tab-section" data-tab-section="live" id="liveStatusPanel">
     <div class="live-status-head">
@@ -262,32 +367,26 @@ Status: ACTIVE
   <section class="card match-tab-section" data-tab-section="rhe">
     <h2>📊 R H E</h2>
 
-    <table style="width:100%; text-align:center;">
-      <thead>
-        <tr>
-          <th>隊伍</th>
-          <th>R</th>
-          <th>H</th>
-          <th>E</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr>
-          <td id="awayTeamRHE"></td>
-          <td id="awayR"></td>
-          <td id="awayH"></td>
-          <td id="awayE"></td>
-        </tr>
-
-        <tr>
-          <td id="homeTeamRHE"></td>
-          <td id="homeR"></td>
-          <td id="homeH"></td>
-          <td id="homeE"></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="match-score-grid match-score-grid-rhe" id="rheScoreGrid">
+      <div class="match-score-grid-row match-score-grid-head">
+        <div class="match-score-grid-cell">隊伍</div>
+        <div class="match-score-grid-cell">R</div>
+        <div class="match-score-grid-cell">H</div>
+        <div class="match-score-grid-cell">E</div>
+      </div>
+      <div id="awayRheRow" class="match-score-grid-row match-score-grid-away">
+        <div id="awayTeamRHE" class="match-score-grid-cell match-score-grid-team"></div>
+        <div id="awayR" class="match-score-grid-cell"></div>
+        <div id="awayH" class="match-score-grid-cell"></div>
+        <div id="awayE" class="match-score-grid-cell"></div>
+      </div>
+      <div id="homeRheRow" class="match-score-grid-row match-score-grid-home">
+        <div id="homeTeamRHE" class="match-score-grid-cell match-score-grid-team"></div>
+        <div id="homeR" class="match-score-grid-cell"></div>
+        <div id="homeH" class="match-score-grid-cell"></div>
+        <div id="homeE" class="match-score-grid-cell"></div>
+      </div>
+    </div>
 
     <p id="rheHint" class="muted"></p>
   </section>
@@ -296,20 +395,16 @@ Status: ACTIVE
   <section class="card match-tab-section" data-tab-section="innings">
     <h2>📋 逐局比分</h2>
 
-    <table style="width:100%; text-align:center;">
-      <thead>
-        <tr>
-          <th>隊伍</th>
-          <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
-          <th>6</th><th>7</th><th>8</th><th>9</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr id="awayInningsRow"></tr>
-        <tr id="homeInningsRow"></tr>
-      </tbody>
-    </table>
+    <div class="match-score-grid match-score-grid-innings" id="inningsScoreGrid">
+      <div class="match-score-grid-row match-score-grid-head">
+        <div class="match-score-grid-cell">隊伍</div>
+        <div class="match-score-grid-cell">1</div><div class="match-score-grid-cell">2</div><div class="match-score-grid-cell">3</div>
+        <div class="match-score-grid-cell">4</div><div class="match-score-grid-cell">5</div><div class="match-score-grid-cell">6</div>
+        <div class="match-score-grid-cell">7</div><div class="match-score-grid-cell">8</div><div class="match-score-grid-cell">9</div>
+      </div>
+      <div id="awayInningsRow" class="match-score-grid-row match-score-grid-away"></div>
+      <div id="homeInningsRow" class="match-score-grid-row match-score-grid-home"></div>
+    </div>
 
     <p id="inningsHint" class="muted"></p>
   </section>
@@ -399,9 +494,10 @@ Status: ACTIVE
 </footer>
 
 <script src="js/site-root.js?v=561d"></script>
-<script src="js/pages/match.js?v=562-digital-clock"></script>
+<script src="js/pages/match.js?v=664-season-rates-dark-fix"></script>
 <script src="js/theme.js?v=560a"></script>
 <script src="js/version.js"></script>
 <script src="js/pwa-register.js"></script>
+  <script src="js/v6-shell.js?v=612-theme-fix"></script>
 </body>
 </html>

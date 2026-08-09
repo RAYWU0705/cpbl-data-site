@@ -7,11 +7,22 @@ import {
   readManualOverrides as readManualOverridesV2,
   applyManualOverrideToGame as applyManualOverrideToGameV2
 } from "./lib/manual-overrides.js";
+import {
+  diffMeaningfulGame,
+  selectChangedOnlyLiveGames
+} from "./lib/crawler-change-selector.js";
 
 
 
-const VERSION = "v5.0-27-SMART-LIVE-PROBE";
+const VERSION = "v5.0-28-CHANGED-ONLY-LIVE";
 const DEBUG_WRITE = process.argv.includes("--debug-write") || process.argv.includes("--write-debug");
+const CHANGED_ONLY = !process.argv.includes("--no-changed-only");
+const FORCE_ALL = process.argv.includes("--force");
+const MIN_DETAIL_REFRESH_MS = getNumberArg("min-refresh-seconds", 120) * 1000;
+const FORCE_GAME_SNOS = new Set([
+  ...getNumberArgs("gameSno"),
+  ...getNumberArgs("game-sno")
+]);
 const SKIP_BACKUP =
   process.argv.includes("--no-backup") ||
   String(process.env.CI || "").toLowerCase() === "true" ||
@@ -75,6 +86,7 @@ const BACKUP_DIR = path.join(__dirname, "../data/live/backups");
 const DEBUG_DIR = path.join(__dirname, "../debug/live-inplay");
 const DEBUG_SCHEDULE_FILE = path.join(DEBUG_DIR, "live-inplay-schedule-api-debug.json");
 const DEBUG_HOME_FILE = path.join(DEBUG_DIR, "live-inplay-home-cards-debug.json");
+const METRICS_DIR = path.join(__dirname, "../logs/crawler-metrics");
 
 /* =========================
    基礎工具
@@ -82,6 +94,22 @@ const DEBUG_HOME_FILE = path.join(DEBUG_DIR, "live-inplay-home-cards-debug.json"
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function getNumberArg(name, fallback) {
+  const prefix = `--${name}=`;
+  const raw = process.argv.find(arg => arg.startsWith(prefix))?.slice(prefix.length);
+  const value = Number(raw);
+  return Number.isFinite(value) && value >= 0 ? value : fallback;
+}
+
+function getNumberArgs(name) {
+  const prefix = `--${name}=`;
+  return process.argv
+    .filter(arg => arg.startsWith(prefix))
+    .flatMap(arg => arg.slice(prefix.length).split(","))
+    .map(Number)
+    .filter(value => Number.isFinite(value) && value > 0);
 }
 
 function pad2(n) {
@@ -1427,6 +1455,24 @@ async function discoverTodayGamesFromScheduleApi(browser, today) {
 
   const page = await setupPage(browser);
   const captured = [];
+  const capturedRequests = [];
+
+  page.on("request", request => {
+    const url = request.url();
+    if (!url.includes("/schedule/getgamedatas")) return;
+
+    const headers = request.headers();
+    capturedRequests.push({
+      url,
+      method: request.method(),
+      postData: request.postData() || "",
+      headers: {
+        accept: headers.accept || "",
+        contentType: headers["content-type"] || "",
+        requestedWith: headers["x-requested-with"] || ""
+      }
+    });
+  });
 
   page.on("response", async response => {
     const url = response.url();
@@ -1486,6 +1532,7 @@ async function discoverTodayGamesFromScheduleApi(browser, today) {
     uniqueCount: uniqueMap.size,
     todayCount: todayGames.length,
     todayGames,
+    requests: capturedRequests,
     captured: captured.map(item => ({
       url: item.url,
       error: item.error || null,
@@ -1501,6 +1548,14 @@ async function discoverTodayGamesFromScheduleApi(browser, today) {
       `主=${g.homeScore ?? "—"}/${g.homeH ?? "—"}/${g.homeE ?? "—"}｜raw=${g.rawStatus || "—"}`
     );
   });
+
+  if (capturedRequests.length) {
+    const request = capturedRequests[0];
+    console.log(
+      `🧭 schedule API request：${request.method}｜` +
+      `${request.postData ? `payload=${cleanOneLine(request.postData).slice(0, 180)}` : "no payload"}`
+    );
+  }
 
   return todayGames;
 }
@@ -4308,17 +4363,93 @@ function shouldProbeHomeFallback(scheduleGames = []) {
   });
 }
 
+function createLiveMetrics(today) {
+  return {
+    version: VERSION,
+    stage: "live",
+    runId: getTimestampForFile(),
+    today,
+    startedAt: new Date().toISOString(),
+    endedAt: null,
+    durationMs: 0,
+    changedOnly: CHANGED_ONLY,
+    minDetailRefreshMs: MIN_DETAIL_REFRESH_MS,
+    forceAll: FORCE_ALL,
+    forceGameSnos: [...FORCE_GAME_SNOS],
+    timings: {
+      browserLaunchMs: 0,
+      scheduleMs: 0,
+      homeFallbackMs: 0,
+      detailMs: 0,
+      writeMs: 0
+    },
+    counts: {
+      scheduleGames: 0,
+      rawCandidates: 0,
+      selectedCandidates: 0,
+      selectorSkipped: 0,
+      meaningfulChanged: 0,
+      meaningfulUnchanged: 0,
+      finalGuardSkipped: 0,
+      signalGuardSkipped: 0,
+      outputWritten: 0
+    },
+    selectorReasons: {},
+    homeFallback: false,
+    games: [],
+    error: null
+  };
+}
+
+async function writeLiveMetrics(metrics) {
+  if (!metrics) return;
+
+  metrics.endedAt = new Date().toISOString();
+  metrics.durationMs = Math.max(
+    0,
+    Date.parse(metrics.endedAt) - Date.parse(metrics.startedAt)
+  );
+
+  try {
+    await fs.mkdir(METRICS_DIR, { recursive: true });
+    const file = path.join(METRICS_DIR, `live-${metrics.runId}.json`);
+    await fs.writeFile(file, JSON.stringify(metrics, null, 2), "utf8");
+    console.log(`📈 Metrics：${path.relative(path.join(__dirname, ".."), file)}`);
+  } catch (err) {
+    console.log(`⚠️ Metrics 寫入失敗，略過：${err.message}`);
+  }
+}
+
+function logChangedOnlySelection(selection) {
+  console.log(
+    `🧠 Changed-Only：候選 ${selection.summary.candidates}｜` +
+    `抓取 ${selection.summary.selected}｜跳過 ${selection.summary.skipped}`
+  );
+
+  for (const row of selection.skipped) {
+    console.log(
+      `   ⏭️ ${row.gameSno}: ${row.reason}` +
+      `${Number.isFinite(row.ageMs) ? `｜age=${Math.round(row.ageMs / 1000)}s` : ""}`
+    );
+  }
+}
+
 /* =========================
    主程式
 ========================= */
 
 async function main() {
   const today = getTodayTaipei();
+  const metrics = createLiveMetrics(today);
 
   console.log(`📡 CPBL 比賽中 LIVE 更新 ${VERSION}...`);
   console.log("今天：", today);
   console.log(`debug-write：${DEBUG_WRITE ? "開啟" : "關閉，HTML/TXT 大型 debug 略過"}`);
   console.log(`backup：${SKIP_BACKUP ? "略過重複備份" : "本機安全備份"}`);
+  console.log(
+    `changed-only：${CHANGED_ONLY ? "開啟" : "關閉"}｜` +
+    `detail refresh=${Math.round(MIN_DETAIL_REFRESH_MS / 1000)}s`
+  );
 
   const executablePath = await getChromeExecutablePath();
 
@@ -4336,12 +4467,20 @@ async function main() {
 
   console.log("Chrome:", executablePath || "puppeteer default");
 
-  const browser = await puppeteer.launch(launchOptions);
-
+  let browser = null;
   try {
+    const browserLaunchStarted = Date.now();
+    browser = await puppeteer.launch(launchOptions);
+    metrics.timings.browserLaunchMs = Date.now() - browserLaunchStarted;
+
     await ensureManualOverrideFileV2(path.join(__dirname, ".."));
     const manualOverrides = await readManualOverridesV2(path.join(__dirname, ".."));
+
+    const scheduleStarted = Date.now();
     const scheduleGames = await discoverTodayGamesFromScheduleApi(browser, today);
+    metrics.timings.scheduleMs = Date.now() - scheduleStarted;
+    metrics.counts.scheduleGames = scheduleGames.length;
+
     const apiInplayGames = scheduleGames.filter(game =>
       isInplayCandidate(game, null)
     );
@@ -4352,9 +4491,14 @@ async function main() {
       apiInplayGames.length === 0 &&
       shouldProbeHomeFallback(scheduleGames);
 
+    const homeFallbackStarted = Date.now();
     const liveCards = useHomeFallback
       ? await discoverHomeLiveCards(browser, scheduleGames)
       : [];
+    metrics.timings.homeFallbackMs = useHomeFallback
+      ? Date.now() - homeFallbackStarted
+      : 0;
+    metrics.homeFallback = useHomeFallback;
 
     console.log(
       useHomeFallback
@@ -4380,31 +4524,78 @@ async function main() {
       existingGames.map(game => [Number(game.gameSno), game])
     );
 
-    const inplayGames = scheduleGames.filter(game =>
+    const rawInplayGames = scheduleGames.filter(game =>
       isInplayCandidate(game, liveCardMap.get(Number(game.gameSno)) || null)
     );
 
-    console.log(`今日場次：${scheduleGames.length}｜比賽中候選：${inplayGames.length}`);
+    const forcedGameSnos = FORCE_ALL
+      ? rawInplayGames.map(game => Number(game.gameSno))
+      : [...FORCE_GAME_SNOS];
+
+    const selection = selectChangedOnlyLiveGames({
+      candidates: rawInplayGames,
+      existingGames,
+      liveCardMap,
+      nowMs: Date.now(),
+      minRefreshMs: CHANGED_ONLY ? MIN_DETAIL_REFRESH_MS : 0,
+      forceGameSnos: forcedGameSnos
+    });
+
+    const inplayGames = CHANGED_ONLY
+      ? selection.selected.map(row => row.game)
+      : rawInplayGames;
+
+    metrics.counts.rawCandidates = rawInplayGames.length;
+    metrics.counts.selectedCandidates = inplayGames.length;
+    metrics.counts.selectorSkipped = CHANGED_ONLY ? selection.skipped.length : 0;
+    metrics.selectorReasons = selection.summary.reasons;
+
+    console.log(
+      `今日場次：${scheduleGames.length}｜LIVE 原始候選：${rawInplayGames.length}｜` +
+      `本次 detail：${inplayGames.length}`
+    );
+    if (CHANGED_ONLY) logChangedOnlySelection(selection);
 
     if (!inplayGames.length) {
-      console.log("⏳ 目前沒有需要 LIVE 更新的比賽。");
+      console.log(
+        rawInplayGames.length
+          ? "✅ 官方訊號近期未變，本輪略過 boxscore detail。"
+          : "⏳ 目前沒有需要 LIVE 更新的比賽。"
+      );
       await safeCloseBrowser(browser);
+      await writeLiveMetrics(metrics);
       return;
     }
 
     const page = await setupPage(browser);
 
     let updatedCount = 0;
+    let unchangedCount = 0;
     let skippedFinalCount = 0;
 
     for (const game of inplayGames) {
       const gameSno = Number(game.gameSno);
       const liveCard = liveCardMap.get(gameSno) || null;
+      const gameMetric = {
+        gameSno,
+        away: game.away || "",
+        home: game.home || "",
+        detailMs: 0,
+        detailOk: false,
+        parserMode: null,
+        outcome: "pending",
+        changedPaths: []
+      };
 
       console.log("");
       console.log(`更新 LIVE：${gameSno}`);
 
+      const detailStarted = Date.now();
       const detailBundle = await fetchBoxscoreDetail(page, gameSno, game);
+      gameMetric.detailMs = Date.now() - detailStarted;
+      gameMetric.detailOk = Boolean(detailBundle.ok);
+      gameMetric.parserMode = detailBundle.meta?.usedMode || null;
+      metrics.timings.detailMs += gameMetric.detailMs;
 
       if (detailBundle.ok) {
         console.log(`✅ ${gameSno}: boxscore detail 合併完成｜mode=${detailBundle.meta?.usedMode || "—"}`);
@@ -4415,12 +4606,18 @@ async function main() {
       const oldGame = updatedMap.get(gameSno) || null;
 
       if (!shouldEnterLiveMode(game, liveCard, detailBundle)) {
+        metrics.counts.signalGuardSkipped++;
+        gameMetric.outcome = "signal-guard";
+        metrics.games.push(gameMetric);
         console.log(`🛡️ ${gameSno}: 尚未取得官方 LIVE 訊號，避免把開賽時間或賽前資料寫成 LIVE。`);
         continue;
       }
 
       if (shouldSkipBecauseFinal(oldGame, game, detailBundle)) {
         skippedFinalCount++;
+        metrics.counts.finalGuardSkipped++;
+        gameMetric.outcome = "final-guard";
+        metrics.games.push(gameMetric);
         console.log(`🛡️ ${gameSno}: 偵測為 FINAL，LIVE 腳本不覆蓋，交給 final fetch。`);
         continue;
       }
@@ -4445,8 +4642,35 @@ async function main() {
         );
       }
 
+      const meaningfulDiff = diffMeaningfulGame(oldGame, merged, {
+        maxPaths: 30
+      });
+
+      gameMetric.changedPaths = meaningfulDiff.paths;
+
+      if (!meaningfulDiff.changed) {
+        unchangedCount++;
+        metrics.counts.meaningfulUnchanged++;
+
+        if (CHANGED_ONLY) {
+          gameMetric.outcome = "meaningful-unchanged";
+          metrics.games.push(gameMetric);
+          console.log(`⏭️ ${gameSno}: 只有時間戳／debug 變動，不重寫正式 JSON。`);
+          continue;
+        }
+      }
+
       updatedMap.set(gameSno, merged);
       updatedCount++;
+      if (meaningfulDiff.changed) metrics.counts.meaningfulChanged++;
+      gameMetric.outcome = meaningfulDiff.changed
+        ? "meaningful-changed"
+        : "changed-only-disabled";
+      metrics.games.push(gameMetric);
+
+      if (meaningfulDiff.paths.length) {
+        console.log(`   🧾 有效差異：${meaningfulDiff.paths.slice(0, 8).join("、")}`);
+      }
 
 
       const batterAway = merged.batters?.away?.length || 0;
@@ -4525,13 +4749,31 @@ async function main() {
         return Number(a.gameSno || 0) - Number(b.gameSno || 0);
       });
 
-    await writeJsonFileWithBackup(LIVE_BOX_FILE, result, "live-inplay");
+    if (updatedCount > 0) {
+      const writeStarted = Date.now();
+      await writeJsonFileWithBackup(LIVE_BOX_FILE, result, "live-inplay");
+      metrics.timings.writeMs = Date.now() - writeStarted;
+      metrics.counts.outputWritten = 1;
+    } else {
+      console.log("✅ 沒有有效資料差異，本輪不寫入 live-boxscore.json。");
+    }
 
     console.log("");
-    console.log("💾 LIVE 更新完成，共保留場次：", result.length);
-    console.log(`本次 LIVE 更新場次：${updatedCount}`);
+    console.log(
+      updatedCount > 0
+        ? `💾 LIVE 更新完成，共保留場次：${result.length}`
+        : `📭 LIVE 檢查完成，共保留場次：${result.length}`
+    );
+    console.log(`本次有效更新場次：${updatedCount}`);
+    console.log(
+      `${CHANGED_ONLY ? "無有效差異跳過" : "無有效差異（回退模式仍寫入）"}：${unchangedCount}`
+    );
     console.log(`FINAL 保護跳過：${skippedFinalCount}`);
-    console.log("輸出：data/live/live-boxscore.json");
+    console.log(
+      updatedCount > 0
+        ? "輸出：data/live/live-boxscore.json"
+        : "輸出：未寫入（meaningful diff = 0）"
+    );
     console.log("");
     console.log("🧪 Debug 檔案：");
     console.log("debug/live-inplay/live-inplay-schedule-api-debug.json");
@@ -4540,9 +4782,12 @@ async function main() {
     console.log("debug/live-inplay/live-inplay-home-after-load.txt");
     console.log("debug/live-inplay/boxscore-{gameSno}-{mode}.html");
     console.log("debug/live-inplay/boxscore-{gameSno}-{mode}.txt");
+    await writeLiveMetrics(metrics);
 
   } catch (err) {
     await safeCloseBrowser(browser);
+    metrics.error = err?.stack || String(err);
+    await writeLiveMetrics(metrics);
     throw err;
   }
 }

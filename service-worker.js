@@ -1,10 +1,10 @@
 /* =========================================================
    Ray's CPBL Data Site
    service-worker.js
-   v5.5.3-PWA-APP-SHELL
+   v6.1.2-PWA-APP-SHELL
 ========================================================= */
 
-const CACHE_VERSION = "v5.5.3-pwa-app-shell";
+const CACHE_VERSION = "v6.1.2-theme-readability";
 const APP_SHELL_CACHE = `cpbl-app-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `cpbl-runtime-${CACHE_VERSION}`;
 
@@ -25,12 +25,14 @@ const APP_SHELL_FILES = [
   "./about.html",
   "./rules.html",
   "./season.html",
-  "./demo.html",
   "./css/style.css",
+  "./css/v6-ui.css",
   "./css/match.css",
   "./css/player.css",
   "./css/farm-match.css",
   "./js/version.js",
+  "./js/theme-bootstrap.js",
+  "./js/v6-shell.js",
   "./js/pages/index.js",
   "./js/pages/match.js",
   "./js/pages/player.js",

@@ -1,0 +1,31 @@
+{
+  "updatedAt": "2026-08-09T05:37:22.976Z",
+  "source": "cpbl-official-schedule",
+  "dataStatus": {
+    "status": "ok",
+    "isCached": false,
+    "lastSuccessfulAt": "2026-08-09T05:37:22.976Z",
+    "officialGameCount": 360,
+    "officialCount": 360,
+    "inserted": 0,
+    "updated": 1,
+    "protected": 244,
+    "changed": 1,
+    "changes": [
+      {
+        "gameSno": 254,
+        "kind": "updated",
+        "diff": {
+          "date": {
+            "from": "2026-08-09",
+            "to": "2026-08-08"
+          },
+          "status": {
+            "from": "scheduled",
+            "to": "postponed"
+          }
+        }
+      }
+    ]
+  }
+}

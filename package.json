@@ -1,6 +1,6 @@
 {
   "name": "rays-cpbl-data-site",
-  "version": "5.6.2",
+  "version": "6.6.1",
   "private": true,
   "description": "Ray's unofficial CPBL data site and crawler pipeline",
   "type": "module",
@@ -10,15 +10,29 @@
     "release:gate:strict": "node scripts/release-gate.js --strict",
     "check:pages": "node scripts/debug/check-page-structure.js",
     "check:paths": "node scripts/debug/check-relative-path-risks.js",
-    "live:preflight": "node scripts/should-run-live-update.js"
+    "live:preflight": "node scripts/should-run-live-update.js",
+    "live:changed-only": "node scripts/fetch-cpbl-live-inplay-today.js",
+    "test": "node --test",
+    "test:crawler": "node --test tests/crawler-change-selector.test.js",
+    "update": "node scripts/update-all.js --only=fast --soft-exit",
+    "update:all": "node scripts/update-all.js --only=all --soft-exit",
+    "update:maintenance": "node scripts/update-all.js --only=maintenance --soft-exit",
+    "update:postgame": "node scripts/update-all.js --only=postgame --soft-exit",
+    "check:runtime": "node scripts/check-runtime.js",
+    "test:intelligence": "node --test tests/baseball-intelligence.test.js",
+    "test:all": "node --test tests/*.test.js",
+    "build:standings": "node scripts/build-standings.js && node scripts/build-player-season-stats.js",
+    "reconcile:final": "node scripts/reconcile-final-results.js",
+    "sync:schedule": "node scripts/sync-cpbl-schedule.js",
+    "sync:personnel": "node scripts/fetch-cpbl-rosters.js",
+    "build:players": "node scripts/build-player-season-stats.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "multer": "^1.4.5-lts.1",
-    "openai": "^4.0.0"
-  },
-  "devDependencies": {
+    "openai": "^4.0.0",
     "puppeteer": "^24.42.0"
-  }
+  },
+  "devDependencies": {}
 }

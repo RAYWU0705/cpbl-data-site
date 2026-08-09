@@ -1,7 +1,7 @@
 /* =========================================================
    Ray's CPBL Data Site
    player.js
-   v5.5.1-PLAYER-TEAM-FALLBACK
+   v6.6.0-CPBL-NEUTRAL-UI
 
    不碰 fetch：
    - 只讀 data/live/live-boxscore.json
@@ -9,6 +9,7 @@
 ========================================================= */
 
 const LIVE_BOXSCORE_URL = "data/live/live-boxscore.json";
+const SEASON_STATS_URL = "data/players/season-stats-2026.json";
 
 const TEAM_SLUGS = {
   "中信兄弟": "brothers",
@@ -18,6 +19,16 @@ const TEAM_SLUGS = {
   "富邦悍將": "guardians",
   "台鋼雄鷹": "hawks"
 };
+
+const TEAM_ACCENTS = {
+  "中信兄弟": "#f6c400",
+  "統一7-ELEVEn獅": "#f26b21",
+  "樂天桃猿": "#8a1538",
+  "味全龍": "#c8102e",
+  "富邦悍將": "#0057b8",
+  "台鋼雄鷹": "#0b7d63"
+};
+
 
 const QUICK_PLAYERS = [
   "江坤宇",
@@ -82,10 +93,22 @@ async function loadPlayer(name) {
     const normalizedGames = toArray(games).map(normalizeGame).filter(Boolean);
     const profile = buildPlayerProfile(name, normalizedGames);
 
+    try {
+      const seasonData = await fetchJson(SEASON_STATS_URL);
+      const seasonPlayer = findSeasonPlayer(seasonData, name);
+      if (seasonPlayer) {
+        profile.seasonStats = seasonPlayer;
+        profile.seasonDataStatus = seasonData.dataStatus || null;
+        profile.primaryTeam = seasonPlayer.team || profile.primaryTeam;
+      }
+    } catch (seasonErr) {
+      console.info("season stats fallback to live-boxscore", seasonErr?.message || seasonErr);
+    }
+
     setLoading(false);
 
-    if (!profile.totalAppearances) {
-      showEmpty(`找不到「${name}」的 boxscore 出賽資料。`);
+    if (!profile.totalAppearances && !profile.seasonStats) {
+      showEmpty(`找不到「${name}」的球季或 boxscore 出賽資料。`);
       updateHeader(name, "尚未找到此球員的 boxscore 資料");
       return;
     }
@@ -279,6 +302,11 @@ function aggregatePitcherStats(rows) {
 function renderProfile(profile) {
   updateHeader(profile.name, `${profile.primaryTeam || "未知球隊"}｜${profile.primaryRole}`);
 
+  const teamSlugForTheme = TEAM_SLUGS[profile.primaryTeam] || "neutral";
+  const teamAccent = TEAM_ACCENTS[profile.primaryTeam] || "#575c63";
+  document.body.dataset.team = teamSlugForTheme;
+  document.body.style.setProperty("--team-accent", teamAccent);
+
   document.getElementById("playerEmpty").hidden = true;
   document.getElementById("playerProfile").hidden = false;
 
@@ -286,11 +314,15 @@ function renderProfile(profile) {
   avatar.textContent = profile.name.slice(0, 1);
 
   document.getElementById("playerName").textContent = profile.name;
-  document.getElementById("playerMetaLine").textContent = `${profile.primaryTeam || "未知球隊"}｜${profile.primaryRole}`;
+  const metaLine = document.getElementById("playerMetaLine");
+  if (metaLine) {
+    const teamLink = makeTeamLink(profile.primaryTeam || "未知球隊");
+    metaLine.innerHTML = `${teamLink}｜${escapeHtml(profile.primaryRole)}`;
+  }
 
   const teamSlug = TEAM_SLUGS[profile.primaryTeam] || "";
   const tags = [
-    profile.primaryTeam ? `<span class="player-tag">${escapeHtml(profile.primaryTeam)}</span>` : "",
+    profile.primaryTeam ? `<span class="player-tag">${makeTeamLink(profile.primaryTeam, "entity-link")}</span>` : "",
     `<span class="player-tag">${escapeHtml(profile.primaryRole)}</span>`,
     `<span class="player-tag">出賽 ${profile.totalAppearances}</span>`,
     teamSlug ? `<a class="player-tag" href="team.html?team=${teamSlug}">球隊頁</a>` : ""
@@ -300,7 +332,13 @@ function renderProfile(profile) {
 
   renderSummary(profile);
   renderStats(profile);
-  renderRecentGames(profile);
+  try {
+    renderRecentGames(profile);
+  } catch (error) {
+    console.warn("⚠️ 最近出賽渲染失敗，球季累積數據仍保留：", error);
+    const recent = document.getElementById("recentGamesList");
+    if (recent) recent.innerHTML = `<div class="player-empty">最近出賽暫時無法顯示，球季累積數據仍可正常使用。</div>`;
+  }
 }
 
 function updateHeader(name, subtitle) {
@@ -311,72 +349,107 @@ function updateHeader(name, subtitle) {
 
 function renderSummary(profile) {
   const grid = document.getElementById("playerSummaryGrid");
-  const b = profile.batterStats;
-  const p = profile.pitcherStats;
+  const ss = profile.seasonStats || {};
+  const b = ss.batting || profile.batterStats || {};
+  const p = ss.pitching || profile.pitcherStats || {};
+  const hasB = Number(b.G ?? b.games ?? 0) > 0;
+  const hasP = Number(p.G ?? p.games ?? 0) > 0;
 
+  // 球員頁摘要一律顯示「截至目前的 2026 球季累積」，不是單場成績。
+  // 累積值優先來自 season-stats-2026.json；沒有快照才使用 live-boxscore 即時計算 fallback。
   const items = [
-    ["出賽場次", profile.totalAppearances],
-    ["主要球隊", profile.primaryTeam || "—"],
-    ["打者 AVG", b.games ? b.avg : "—"],
-    ["投手 ERA", p.games ? p.era : "—"]
+    ["球季", "2026", "目前球季累積"],
+    ["主要球隊", profile.primaryTeam || "—", "本季主要出賽球隊"]
   ];
 
-  grid.innerHTML = items.map(([label, value]) => {
-    return `
-      <div class="player-stat-card">
-        <span>${escapeHtml(label)}</span>
-        <strong>${escapeHtml(String(value))}</strong>
-      </div>
-    `;
-  }).join("");
+  if (hasB) {
+    items.push(
+      ["本季 AVG", b.AVG ?? b.avg ?? "—", `${vText(b.G ?? b.games)} G / ${vText(b.PA ?? b.pa)} PA`],
+      ["本季 OBP", b.OBP ?? "—", `H ${vText(b.H ?? b.h)} / BB ${vText(b.BB ?? b.bb)}`],
+      ["本季 SLG", b.SLG ?? "—", `HR ${vText(b.HR ?? b.hr)} / TB ${vText(b.TB)}`],
+      ["本季 OPS", b.OPS ?? "—", `RBI ${vText(b.RBI ?? b.rbi)} / SB ${vText(b.SB)}`]
+    );
+  }
+
+  if (hasP) {
+    items.push(
+      ["本季 ERA", p.ERA ?? p.era ?? "—", `${vText(p.G ?? p.games)} G / ${vText(p.IP ?? p.ipText)} IP`],
+      ["本季 WHIP", p.WHIP ?? "—", `H ${vText(p.H ?? p.h)} / BB ${vText(p.BB ?? p.bb)}`],
+      ["本季 W-L", `${vText(p.W)}-${vText(p.L)}`, `SV ${vText(p.SV)} / GS ${vText(p.GS)}`],
+      ["本季 K/9", p.K9 ?? "—", `SO ${vText(p.SO ?? p.so)} / BB/9 ${vText(p.BB9)}`]
+    );
+  }
+
+  grid.innerHTML = items.map(([label, value, note]) => `
+    <div class="player-stat-card">
+      <span>${escapeHtml(label)}</span>
+      <strong>${escapeHtml(String(value))}</strong>
+      ${note ? `<small>${escapeHtml(note)}</small>` : ""}
+    </div>
+  `).join("");
+
+  renderCoverage(profile.seasonDataStatus);
+}
+
+function vText(value) {
+  return value === undefined || value === null || value === "" ? "—" : String(value);
 }
 
 function renderStats(profile) {
   const bBlock = document.getElementById("batterStatsBlock");
   const pBlock = document.getElementById("pitcherStatsBlock");
   const noBlock = document.getElementById("noStatsBlock");
+  const ss = profile.seasonStats || {};
+  const b = ss.batting || profile.batterStats || {};
+  const p = ss.pitching || profile.pitcherStats || {};
+  const hasB = Number(b.G ?? b.games ?? 0) > 0;
+  const hasP = Number(p.G ?? p.games ?? 0) > 0;
 
-  bBlock.hidden = !profile.batterStats.games;
-  pBlock.hidden = !profile.pitcherStats.games;
-  noBlock.hidden = !!(profile.batterStats.games || profile.pitcherStats.games);
+  bBlock.hidden = !hasB;
+  pBlock.hidden = !hasP;
+  noBlock.hidden = hasB || hasP;
 
-  if (profile.batterStats.games) {
-    const b = profile.batterStats;
-    document.getElementById("batterStatsBody").innerHTML = `
-      <tr>
-        <td>${b.games}</td>
-        <td>${b.pa}</td>
-        <td>${b.ab}</td>
-        <td>${b.r}</td>
-        <td>${b.h}</td>
-        <td>${b.double}</td>
-        <td>${b.triple}</td>
-        <td>${b.hr}</td>
-        <td>${b.rbi}</td>
-        <td>${b.bb}</td>
-        <td>${b.so}</td>
-        <td>${b.avg}</td>
-      </tr>
-    `;
+  if (hasB) {
+    document.getElementById("batterStatsBody").innerHTML = `<tr>
+      <td>${v(b.G ?? b.games)}</td><td>${v(b.PA ?? b.pa)}</td><td>${v(b.AB ?? b.ab)}</td><td>${v(b.R ?? b.r)}</td><td>${v(b.H ?? b.h)}</td>
+      <td>${v(b["2B"] ?? b.double)}</td><td>${v(b["3B"] ?? b.triple)}</td><td>${v(b.HR ?? b.hr)}</td><td>${v(b.TB)}</td><td>${v(b.RBI ?? b.rbi)}</td>
+      <td>${v(b.BB ?? b.bb)}</td><td>${v(b.HBP)}</td><td>${v(b.SO ?? b.so)}</td><td>${v(b.SB)}</td><td>${v(b.CS)}</td>
+      <td><strong>${v(b.AVG ?? b.avg)}</strong></td><td><strong>${v(b.OBP)}</strong></td><td><strong>${v(b.SLG)}</strong></td><td><strong>${v(b.OPS)}</strong></td>
+    </tr>`;
   }
 
-  if (profile.pitcherStats.games) {
-    const p = profile.pitcherStats;
-    document.getElementById("pitcherStatsBody").innerHTML = `
-      <tr>
-        <td>${p.games}</td>
-        <td>${p.ipText}</td>
-        <td>${p.h}</td>
-        <td>${p.r}</td>
-        <td>${p.er}</td>
-        <td>${p.bb}</td>
-        <td>${p.so}</td>
-        <td>${p.hr}</td>
-        <td>${p.np}</td>
-        <td>${p.era}</td>
-      </tr>
-    `;
+  if (hasP) {
+    document.getElementById("pitcherStatsBody").innerHTML = `<tr>
+      <td>${v(p.G ?? p.games)}</td><td>${v(p.GS)}</td><td>${v(p.W)}</td><td>${v(p.L)}</td><td>${v(p.SV)}</td><td>${v(p.IP ?? p.ipText)}</td>
+      <td>${v(p.BF)}</td><td>${v(p.NP ?? p.np)}</td><td>${v(p.H ?? p.h)}</td><td>${v(p.HR ?? p.hr)}</td><td>${v(p.BB ?? p.bb)}</td><td>${v(p.HBP)}</td><td>${v(p.SO ?? p.so)}</td>
+      <td>${v(p.R ?? p.r)}</td><td>${v(p.ER ?? p.er)}</td><td><strong>${v(p.ERA ?? p.era)}</strong></td><td><strong>${v(p.WHIP)}</strong></td>
+      <td>${v(p.K9)}</td><td>${v(p.BB9)}</td><td>${v(p.KBB)}</td><td>${p.maxSpeed ? `${v(p.maxSpeed)} km/h` : "—"}</td>
+    </tr>`;
   }
+}
+
+function v(value) {
+  return value === undefined || value === null || value === "" ? "—" : escapeHtml(String(value));
+}
+
+function findSeasonPlayer(data, name) {
+  const target = normalizeName(name);
+  return (data?.players || []).find(p => normalizeName(p?.name) === target) || null;
+}
+
+function renderCoverage(status) {
+  const el = document.getElementById("playerCoverage");
+  if (!el) return;
+  if (!status) {
+    el.innerHTML = `<span class="coverage-pill partial">⚠️ 尚未建立球季快照，使用即時計算 fallback</span>`;
+    return;
+  }
+  const ok = status.status === "ok";
+  el.innerHTML = `
+    <span class="coverage-pill ${ok ? "ok" : "partial"}">${ok ? "✅" : "⚠️"} Boxscore 明細涵蓋率 ${escapeHtml(String(status.coveragePct ?? "—"))}%</span>
+    <span class="coverage-pill">已完賽 ${escapeHtml(String(status.finalGames ?? "—"))}</span>
+    <span class="coverage-pill">含球員明細 ${escapeHtml(String(status.detailedFinalGames ?? "—"))}</span>
+  `;
 }
 
 function renderRecentGames(profile) {
@@ -399,7 +472,7 @@ function renderRecentGames(profile) {
       <article class="player-game-card">
         <div class="player-game-head">
           <div>
-            <div class="player-game-title">${escapeHtml(g.away)} vs ${escapeHtml(g.home)}｜${escapeHtml(score)}</div>
+            <div class="player-game-title">${makeTeamLink(g.away)} vs ${makeTeamLink(g.home)}｜${escapeHtml(score)}</div>
             <div class="player-game-date">${escapeHtml(g.date)}｜#${escapeHtml(String(g.gameSno))}｜${escapeHtml(g.status || "")}</div>
           </div>
           <a class="player-game-pill" href="${matchUrl}">比賽中心</a>
@@ -415,8 +488,12 @@ function renderRecentGames(profile) {
 }
 
 function renderRowPills(rows, label) {
-  return rows.map(({ row }) => {
-    const teamText = row.team ? `${row.team}｜` : "";
+  const safeRows = Array.isArray(rows) ? rows : [];
+  return safeRows.map(item => {
+    // 歷史 Boxscore 有兩種形狀：{ row: {...} } 與直接 {...}。兩者都要相容。
+    const row = item?.row && typeof item.row === "object" ? item.row : (item && typeof item === "object" ? item : {});
+    const teamName = cleanName(row.team || row.teamName || row.club || "");
+    const teamText = teamName ? `${makeTeamLink(teamName)}｜` : "";
     const useful = label === "打者"
       ? [
           `AB ${display(pick(row, ["AB", "ab", "打數"]))}`,
@@ -433,6 +510,13 @@ function renderRowPills(rows, label) {
 
     return `<span class="player-game-pill">${teamText}${label}｜${useful.join("｜")}</span>`;
   }).join("");
+}
+
+function makeTeamLink(name, className = "team-profile-link") {
+  const teamName = cleanName(name);
+  const slug = TEAM_SLUGS[teamName] || "";
+  if (!teamName || teamName === "未知球隊" || !slug) return escapeHtml(teamName || "—");
+  return `<a class="${escapeHtml(className)}" href="team.html?team=${encodeURIComponent(slug)}" title="查看 ${escapeHtml(teamName)} 球隊頁">${escapeHtml(teamName)}</a>`;
 }
 
 function makeMatchUrl(g) {

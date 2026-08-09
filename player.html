@@ -24,8 +24,10 @@ Status: ACTIVE
   <meta name="apple-mobile-web-app-title" content="CPBL Data">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="apple-touch-icon" href="assets/logo/cpbl.png">
+  <script src="js/theme-bootstrap.js?v=612-theme-fix"></script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/player.css">
+  <link rel="stylesheet" href="css/v6-ui.css?v=612-theme-fix">
 </head>
 
 <body data-page="player">
@@ -110,8 +112,9 @@ Status: ACTIVE
   </section>
 
   <section class="card">
-    <h2>📊 本季 Boxscore 累計</h2>
-    <p class="muted" id="playerStatsHint">依 live-boxscore.json 中已存在的打者 / 投手表統計，不額外呼叫 fetch。</p>
+    <h2>📊 2026 球季累積成績</h2>
+    <p class="muted" id="playerStatsHint">顯示截至目前的 2026 球季累積數據；優先讀取 season-stats-2026.json，若尚未建立則由 live-boxscore.json 即時計算。</p>
+    <div id="playerCoverage" class="player-coverage"></div>
 
     <div id="batterStatsBlock" class="player-stat-block" hidden>
       <h3>打者累計</h3>
@@ -119,18 +122,8 @@ Status: ACTIVE
         <table class="player-table">
           <thead>
             <tr>
-              <th>出賽</th>
-              <th>PA</th>
-              <th>AB</th>
-              <th>R</th>
-              <th>H</th>
-              <th>2B</th>
-              <th>3B</th>
-              <th>HR</th>
-              <th>RBI</th>
-              <th>BB</th>
-              <th>SO</th>
-              <th>AVG</th>
+              <th>G</th><th>PA</th><th>AB</th><th>R</th><th>H</th><th>2B</th><th>3B</th><th>HR</th><th>TB</th><th>RBI</th>
+              <th>BB</th><th>HBP</th><th>SO</th><th>SB</th><th>CS</th><th>AVG</th><th>OBP</th><th>SLG</th><th>OPS</th>
             </tr>
           </thead>
           <tbody id="batterStatsBody"></tbody>
@@ -144,16 +137,8 @@ Status: ACTIVE
         <table class="player-table">
           <thead>
             <tr>
-              <th>出賽</th>
-              <th>IP</th>
-              <th>H</th>
-              <th>R</th>
-              <th>ER</th>
-              <th>BB</th>
-              <th>SO</th>
-              <th>HR</th>
-              <th>NP</th>
-              <th>ERA</th>
+              <th>G</th><th>GS</th><th>W</th><th>L</th><th>SV</th><th>IP</th><th>BF</th><th>NP</th>
+              <th>H</th><th>HR</th><th>BB</th><th>HBP</th><th>SO</th><th>R</th><th>ER</th><th>ERA</th><th>WHIP</th><th>K/9</th><th>BB/9</th><th>K/BB</th><th>MAX</th>
             </tr>
           </thead>
           <tbody id="pitcherStatsBody"></tbody>
@@ -174,12 +159,12 @@ Status: ACTIVE
   </section>
 
   <section class="card">
-    <h2>🧩 資料來源與限制</h2>
+    <h2>🧩 資料來源與品質</h2>
     <ul class="player-notes">
-      <li>本頁第一版不新增 fetch，不抓官方球員頁。</li>
-      <li>資料來源以 <code>data/live/live-boxscore.json</code> 既有 boxscore 為主。</li>
-      <li>若球員尚未出現在已補齊的 boxscore 內，可能暫時查不到。</li>
-      <li>打者 / 投手欄位名稱會依現有 JSON 自動容錯，若不同場次欄位不一致，會盡量轉換。</li>
+      <li>累積成績由已確認完賽 Boxscore 自動衍生，不人工輸入。</li>
+      <li>頁面會顯示 Boxscore 明細涵蓋率；不是 100% 時會明確標示「部分資料」。</li>
+      <li>打擊進階指標：OBP、SLG、OPS 依累積 H / BB / HBP / SF / TB 等欄位計算。</li>
+      <li>投球進階指標：ERA、WHIP、K/9、BB/9、K/BB 依累積投球內容計算。</li>
     </ul>
   </section>
 
@@ -191,7 +176,8 @@ Status: ACTIVE
 
 <script src="js/site-root.js?v=561d"></script>
 <script src="js/version.js"></script>
-<script src="js/pages/player.js"></script>
+<script src="js/pages/player.js?v=655-current-season-summary"></script>
 <script src="js/pwa-register.js"></script>
+  <script src="js/v6-shell.js?v=612-theme-fix"></script>
 </body>
 </html>

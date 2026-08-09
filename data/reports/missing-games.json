@@ -1,0 +1,59 @@
+{
+  "generatedAt": "2026-08-01T14:06:20.656Z",
+  "year": 2026,
+  "summary": {
+    "firstTeam": 4,
+    "farm": 0
+  },
+  "firstTeam": [
+    {
+      "gameSno": "14",
+      "date": "2026-06-27",
+      "away": "統一7-ELEVEn獅",
+      "home": "中信兄弟",
+      "missing": [
+        "confirmed",
+        "lineScore",
+        "batters",
+        "pitchers"
+      ]
+    },
+    {
+      "gameSno": "199",
+      "date": "2026-07-11",
+      "away": "味全龍",
+      "home": "統一7-ELEVEn獅",
+      "missing": [
+        "confirmed",
+        "lineScore",
+        "batters",
+        "pitchers"
+      ]
+    },
+    {
+      "gameSno": "200",
+      "date": "2026-07-11",
+      "away": "中信兄弟",
+      "home": "富邦悍將",
+      "missing": [
+        "confirmed",
+        "lineScore",
+        "batters",
+        "pitchers"
+      ]
+    },
+    {
+      "gameSno": "201",
+      "date": "2026-07-11",
+      "away": "台鋼雄鷹",
+      "home": "樂天桃猿",
+      "missing": [
+        "confirmed",
+        "lineScore",
+        "batters",
+        "pitchers"
+      ]
+    }
+  ],
+  "farm": []
+}

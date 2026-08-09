@@ -10,7 +10,7 @@ Deploy: YES
 Navigation: MAIN
 Maintainer: Ray
 Status: ACTIVE
-Version: v7.1-OFFICIAL-WIDE-SINGLE-TAB
+Version: v7.3-GLASS-CARD-EMBED-STANDINGS
 =========================================================
 -->
 <html lang="zh-Hant">
@@ -35,14 +35,17 @@ Version: v7.1-OFFICIAL-WIDE-SINGLE-TAB
       }
     })();
   </script>
+  <script src="js/theme-bootstrap.js?v=612-theme-fix"></script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/theme.css?v=560a">
+  <link rel="stylesheet" href="css/standings.css?v=glass-card-embed-v2">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0b3c5d">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="CPBL Data">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="apple-touch-icon" href="assets/logo/cpbl.png">
+  <link rel="stylesheet" href="css/v6-ui.css?v=612-theme-fix">
 </head>
 
 <body data-page="standings">
@@ -140,6 +143,7 @@ import { calculateStandings } from "./js/standingsEngine.js";
 
 /* ========= 資料來源 ========= */
 const LIVE_BOXSCORE_URL = "data/live/live-boxscore.json";
+const SEASON_SETTINGS_URL = "config/season-settings.json";
 
 /* ========= DOM ========= */
 const standingsWrap = document.getElementById("standingsWrap");
@@ -193,6 +197,15 @@ const TEAM_IDS = {
   "味全龍": "dragons",
   "富邦悍將": "guardians",
   "台鋼雄鷹": "hawks"
+};
+
+const TEAM_COLORS = {
+  brothers: "#f6c400",
+  lions: "#f26b21",
+  monkeys: "#8a1538",
+  dragons: "#c8102e",
+  guardians: "#0057b8",
+  hawks: "#0b7d63"
 };
 
 /* ========= 工具 ========= */
@@ -266,18 +279,28 @@ function getStreakText(team) {
   return "-";
 }
 
-function getSplitMonths(season, split) {
-  const months = SEASON_MONTHS[season] || [];
+let seasonSettings = null;
 
-  if (split === "first") {
-    return months.filter(m => Number(m.slice(5, 7)) <= 6);
-  }
+async function loadSeasonSettings() {
+  if (seasonSettings) return seasonSettings;
 
-  if (split === "second") {
-    return months.filter(m => Number(m.slice(5, 7)) >= 7);
-  }
+  const res = await fetch(`${SEASON_SETTINGS_URL}?ts=${Date.now()}`, { cache: "no-store" });
+  if (!res.ok) throw new Error(`讀取 season-settings.json 失敗：HTTP ${res.status}`);
 
-  return months;
+  seasonSettings = await res.json();
+  return seasonSettings;
+}
+
+function getSplitRange(season, split) {
+  const seasonConfig = seasonSettings?.seasons?.[season];
+  return seasonConfig?.splits?.[split] || seasonConfig?.splits?.full || null;
+}
+
+function isDateInRange(dateText, range) {
+  if (!range) return true;
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(dateText || ""))) return false;
+
+  return dateText >= range.start && dateText <= range.end;
 }
 
 function formatRecord(wins = 0, losses = 0, ties = 0) {
@@ -373,18 +396,20 @@ async function updateStandings() {
     seasonHeading.textContent = `${currentSeason}年 ${getSplitName(currentSplit)}`;
     setStatus("計算中…");
 
+    await loadSeasonSettings();
     allGames = await loadLiveBoxscoreGames();
 
-    const splitMonths = getSplitMonths(currentSeason, currentSplit);
+    const splitRange = getSplitRange(currentSeason, currentSplit);
+    if (!splitRange) throw new Error(`找不到 ${currentSeason}/${currentSplit} 半季設定`);
 
     validGamesForCurrentView = allGames.filter(g => {
       const meta = g.meta || {};
-      const month = (meta.date || "").slice(0, 7);
+      const date = meta.date || "";
       const homeId = resolveTeamId(meta.home);
       const awayId = resolveTeamId(meta.away);
 
       return (
-        splitMonths.includes(month) &&
+        isDateInRange(date, splitRange) &&
         meta.type === "regular" &&
         homeId &&
         awayId
@@ -467,32 +492,43 @@ function renderStandings(rows) {
   `).join("");
 
   standingsWrap.innerHTML = `
-    <div class="standings-official-table-wrap" id="standingsTableWrap">
-      <table class="standings-table official-style">
-        <thead>
-          <tr>
-            <th class="sortable sticky-col rank-col" data-sort="rank">排名${getSortIndicator("rank")}</th>
-            <th class="sortable sticky-col team-col" data-sort="team">球隊${getSortIndicator("team")}</th>
-            <th class="sortable" data-sort="games">出賽數${getSortIndicator("games")}</th>
-            <th class="sortable" data-sort="record">勝-和-敗${getSortIndicator("record")}</th>
-            <th class="sortable" data-sort="winPct">勝率${getSortIndicator("winPct")}</th>
-            <th class="sortable" data-sort="gb">勝差${getSortIndicator("gb")}</th>
-            <th>淘汰指數</th>
-            ${opponentHeads}
-            <th class="sortable" data-sort="home">主場戰績${getSortIndicator("home")}</th>
-            <th class="sortable" data-sort="away">客場戰績${getSortIndicator("away")}</th>
-            <th class="sortable" data-sort="streak">連勝/連敗${getSortIndicator("streak")}</th>
-            <th class="sortable" data-sort="last10">近十場${getSortIndicator("last10")}</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${rows.map(t => renderRow(t)).join("")}
-        </tbody>
-      </table>
-    </div>
-    <div class="standings-note official-note">
-      提示：資料由本站 <code>live-boxscore.json</code> 自動換算；點擊球隊列可進入球隊頁。對戰欄位格式為「勝-和-敗」。
-    </div>
+    <section class="standings-card-embed" aria-label="球隊戰績表">
+      <div class="standings-card-head">
+        <div>
+          <p class="standings-card-kicker">STANDINGS TABLE</p>
+          <h3>${currentSeason} ${getSplitName(currentSplit)}球隊戰績</h3>
+        </div>
+        <p>表格內容維持原欄位，外觀改為卡片內嵌式；橫向欄位可左右滑動。</p>
+      </div>
+
+      <div class="standings-official-table-wrap" id="standingsTableWrap">
+        <table class="standings-table official-style">
+          <thead>
+            <tr>
+              <th class="sortable sticky-col rank-col" data-sort="rank">排名${getSortIndicator("rank")}</th>
+              <th class="sortable sticky-col team-col" data-sort="team">球隊${getSortIndicator("team")}</th>
+              <th class="sortable" data-sort="games">出賽數${getSortIndicator("games")}</th>
+              <th class="sortable" data-sort="record">勝-和-敗${getSortIndicator("record")}</th>
+              <th class="sortable" data-sort="winPct">勝率${getSortIndicator("winPct")}</th>
+              <th class="sortable" data-sort="gb">勝差${getSortIndicator("gb")}</th>
+              <th>淘汰指數</th>
+              ${opponentHeads}
+              <th class="sortable" data-sort="home">主場戰績${getSortIndicator("home")}</th>
+              <th class="sortable" data-sort="away">客場戰績${getSortIndicator("away")}</th>
+              <th class="sortable" data-sort="streak">連勝/連敗${getSortIndicator("streak")}</th>
+              <th class="sortable" data-sort="last10">近十場${getSortIndicator("last10")}</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows.map(t => renderRow(t)).join("")}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="standings-note official-note">
+        提示：資料由本站 <code>live-boxscore.json</code> 自動換算；點擊球隊列可進入球隊頁。對戰欄位格式為「勝-和-敗」。
+      </div>
+    </section>
   `;
 
   standingsWrap.querySelectorAll(".standings-row").forEach(row => {
@@ -534,19 +570,19 @@ function renderRow(t) {
   const streakClass = t.streakType === "W" ? "win" : t.streakType === "L" ? "loss" : "tie";
 
   return `
-    <tr class="standings-row" data-team="${escapeHtml(teamId || "")}">
+    <tr class="standings-row" data-team="${escapeHtml(teamId || "")}" style="--team-accent:${TEAM_COLORS[teamId] || "#777b81"}">
       <td class="sticky-col rank-col"><span class="standings-rank">${t.rank}</span></td>
       <td class="sticky-col team-col">
         <div class="standings-team official-team-cell">
           <img src="${escapeHtml(logo)}" alt="${escapeHtml(t.team)}">
-          <strong>${escapeHtml(t.team)}</strong>
+          <strong><a class="team-profile-link" href="team.html?team=${encodeURIComponent(teamId || "")}" onclick="event.stopPropagation()">${escapeHtml(t.team)}</a></strong>
         </div>
       </td>
       <td>${t.games}</td>
       <td>${formatRecord(t.wins, t.losses, t.ties)}</td>
       <td class="${getWinPctClass(t.winPct)}">${formatPct(t.winPct)}</td>
       <td>${escapeHtml(t.gb)}</td>
-      <td>${escapeHtml(t.elimination || (t.rank === 1 ? "-" : "E"))}</td>
+      <td class="elimination-cell">${escapeHtml(t.elimination || "-")}</td>
       ${h2hCells}
       <td>${formatRecord(t.homeWins, t.homeLosses, t.homeTies)}</td>
       <td>${formatRecord(t.awayWins, t.awayLosses, t.awayTies)}</td>
@@ -585,5 +621,6 @@ updateStandings();
 <script src="js/theme.js?v=560a"></script>
 <script src="js/version.js"></script>
 <script src="js/pwa-register.js"></script>
+  <script src="js/v6-shell.js?v=612-theme-fix"></script>
 </body>
 </html>

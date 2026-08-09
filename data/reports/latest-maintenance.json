@@ -1,0 +1,10 @@
+{
+  "generatedAt": "2026-08-01T06:50:21.673Z",
+  "counts": {
+    "schedule": 360,
+    "firstTeamConfirmed": 209,
+    "farmConfirmed": 150,
+    "missingFirstTeam": 23,
+    "missingFarm": 0
+  }
+}

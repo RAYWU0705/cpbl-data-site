@@ -1,0 +1,82 @@
+[
+  {
+    "path": "data/live/backups",
+    "sizeBytes": 317837907,
+    "sizeMB": "303.11",
+    "suggestion": "保留最近 10 份，其餘封存/刪除",
+    "risk": "中",
+    "reason": "大量逐次備份，正式資料不在此"
+  },
+  {
+    "path": "data/live/backup",
+    "sizeBytes": 155083318,
+    "sizeMB": "147.90",
+    "suggestion": "與 backups 整併；保留 latest-checkpoints 與人工救援點",
+    "risk": "中",
+    "reason": "兩套備份結構重疊"
+  },
+  {
+    "path": "data/farm/backup",
+    "sizeBytes": 679748,
+    "sizeMB": "0.65",
+    "suggestion": "每類保留最近 5 份",
+    "risk": "低",
+    "reason": "二軍正式 JSON 可重抓"
+  },
+  {
+    "path": "debug/pregame",
+    "sizeBytes": 329768,
+    "sizeMB": "0.31",
+    "suggestion": "完成問題排查後可清空",
+    "risk": "低",
+    "reason": "單次 HTML/TXT/JSON 除錯輸出"
+  },
+  {
+    "path": "debug/live-inplay",
+    "sizeBytes": 108248,
+    "sizeMB": "0.10",
+    "suggestion": "完成問題排查後可清空",
+    "risk": "低",
+    "reason": "單次即時爬蟲除錯輸出"
+  },
+  {
+    "path": "data/farm/farm-boxscore-2026.debug.json",
+    "sizeBytes": 6164142,
+    "sizeMB": "5.88",
+    "suggestion": "可刪，除錯時再產生",
+    "risk": "低",
+    "reason": "非前端正式資料"
+  },
+  {
+    "path": "data/farm/farm-boxscore-2026.snapshot.json",
+    "sizeBytes": 129388,
+    "sizeMB": "0.12",
+    "suggestion": "保留最新一份或刪除",
+    "risk": "低",
+    "reason": "可由正式資料重建"
+  },
+  {
+    "path": "scripts/legacy",
+    "sizeBytes": 152484,
+    "sizeMB": "0.15",
+    "suggestion": "先封存，不直接刪",
+    "risk": "中",
+    "reason": "可能用於人工救援"
+  },
+  {
+    "path": "scripts/danger",
+    "sizeBytes": 19551,
+    "sizeMB": "0.02",
+    "suggestion": "保留但禁止主流程引用",
+    "risk": "高",
+    "reason": "高風險舊爬蟲"
+  },
+  {
+    "path": "archive",
+    "sizeBytes": 42097,
+    "sizeMB": "0.04",
+    "suggestion": "確認無舊頁面需求後可刪",
+    "risk": "中",
+    "reason": "歷史頁面封存"
+  }
+]

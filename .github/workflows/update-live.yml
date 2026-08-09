@@ -1,7 +1,7 @@
 name: Update CPBL Live Data
 
 concurrency:
-  group: cpbl-live-update
+  group: cpbl-data-write
   cancel-in-progress: false
 
 on:
@@ -52,6 +52,10 @@ jobs:
         env:
           CI: true
 
+      - name: Rebuild derived standings
+        if: steps.preflight.outputs.should_run == 'true'
+        run: npm run build:standings
+
       - name: Run release gate
         if: steps.preflight.outputs.should_run == 'true'
         run: node scripts/release-gate.js --live-update
@@ -62,7 +66,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add data/live/live-boxscore.json
+          git add data/live/live-boxscore.json \
+            data/standings-2026.json \
+            data/standings-2026-first.json \
+            data/standings-2026-second.json
 
           if git diff --cached --quiet; then
             echo "No live data changes to commit."

@@ -6,7 +6,7 @@ import puppeteer from "puppeteer";
 /* =========================================================
    Ray's CPBL Data Site
    fetch-cpbl-final-boxscore-vue.js
-   v5.4.4-DATE-FORCE-FINAL-CATCHUP
+   v5.4.5-SKIP-CONFIRMED-FAST
 
    目標：
    - 一軍 FINAL boxscore Vue data 旁路偵查
@@ -22,7 +22,7 @@ import puppeteer from "puppeteer";
    - 不接 update-all
 ========================================================= */
 
-const VERSION = "v5.4.4-DATE-FORCE-FINAL-CATCHUP";
+const VERSION = "v5.4.5-SKIP-CONFIRMED-FAST";
 
 const YEAR = Number(getArg("--year", "2026"));
 const LIMIT = Number(getArg("--limit", "0"));
@@ -33,6 +33,7 @@ const DRY_RUN = hasArg("--dry-run");
 const WRITE = hasArg("--write") || !DRY_RUN;
 const KEEP_BROWSER = hasArg("--keep-browser");
 const DEBUG_WRITE = hasArg("--debug-write") || hasArg("--write-debug");
+const SKIP_CONFIRMED = !hasArg("--refresh-confirmed") && !hasArg("--no-skip-confirmed");
 
 const ROOT = process.cwd();
 
@@ -52,6 +53,7 @@ if (DATE && FORCE_TARGET) {
 console.log(`limit：${LIMIT || "不限"}`);
 console.log(`模式：${DRY_RUN ? "dry-run，不寫正式檔" : "write，會寫入 data/live/final-boxscore-vue"}`);
 console.log(`debug-write：${DEBUG_WRITE ? "開啟" : "關閉"}`);
+console.log(`skip confirmed：${SKIP_CONFIRMED ? "開啟" : "關閉，可用 --refresh-confirmed 強制重抓"}`);
 console.log("資料線：first-team final boxscore vue sidepath，不覆蓋 live-boxscore.json");
 console.log("======================================");
 
@@ -65,6 +67,9 @@ async function main() {
   const normalizedGames = liveGames
     .map(normalizeLiveGame)
     .filter(Boolean);
+
+  const existingVueGames = await loadExistingVueBoxscores();
+  const existingVueMap = buildExistingVueMap(existingVueGames);
 
   let games = [];
 
@@ -101,6 +106,19 @@ async function main() {
   }
 
   games = games.sort(sortGames);
+
+  if (SKIP_CONFIRMED) {
+    const beforeSkip = games.length;
+    games = games.filter(game => {
+      const skipInfo = shouldSkipConfirmedGame(game, existingVueMap);
+      if (skipInfo.skip) {
+        console.log(`⏭️ 跳過已確認 #${game.gameSno}｜${game.meta.date}｜${skipInfo.reason}`);
+        return false;
+      }
+      return true;
+    });
+    console.log(`⚡ 已跳過 confirmed / finalVueEnhanced 場次：${beforeSkip - games.length}`);
+  }
 
   if (LIMIT > 0) {
     games = games.slice(0, LIMIT);
@@ -179,7 +197,6 @@ async function main() {
     await browser.close();
   }
 
-  const existingVueGames = DRY_RUN ? [] : await loadExistingVueBoxscores();
   const merged = mergeByGameKey([
     ...existingVueGames,
     ...parsed
@@ -257,27 +274,33 @@ async function main() {
     "utf8"
   );
 
-  await fs.writeFile(
-    DEBUG_PATH,
-    JSON.stringify({
-      meta,
-      games: debug
-    }, null, 2),
-    "utf8"
-  );
+  if (DEBUG_WRITE) {
+    await fs.writeFile(
+      DEBUG_PATH,
+      JSON.stringify({
+        meta,
+        games: debug
+      }, null, 2),
+      "utf8"
+    );
 
-  await fs.writeFile(
-    SNAPSHOT_PATH,
-    JSON.stringify({
-      meta,
-      games: merged.map(toSnapshotRow)
-    }, null, 2),
-    "utf8"
-  );
+    await fs.writeFile(
+      SNAPSHOT_PATH,
+      JSON.stringify({
+        meta,
+        games: merged.map(toSnapshotRow)
+      }, null, 2),
+      "utf8"
+    );
+  }
 
   console.log(`✅ 已寫入：${path.relative(ROOT, OUT_PATH)}`);
-  console.log(`🧪 Debug：${path.relative(ROOT, DEBUG_PATH)}`);
-  console.log(`📸 Snapshot：${path.relative(ROOT, SNAPSHOT_PATH)}`);
+  if (DEBUG_WRITE) {
+    console.log(`🧪 Debug：${path.relative(ROOT, DEBUG_PATH)}`);
+    console.log(`📸 Snapshot：${path.relative(ROOT, SNAPSHOT_PATH)}`);
+  } else {
+    console.log("🧪 Debug / Snapshot：略過（需要時加 --debug-write）");
+  }
 }
 
 async function loadLiveBoxscore() {
@@ -1198,6 +1221,78 @@ function makeMeta(total, dryRun) {
   };
 }
 
+
+function buildExistingVueMap(games) {
+  const map = new Map();
+
+  games.forEach(game => {
+    getFastGameKeys(game).forEach(key => {
+      if (key && !map.has(key)) map.set(key, game);
+    });
+  });
+
+  return map;
+}
+
+function getFastGameKeys(game) {
+  const gameSno = Number(game?.gameSno || game?.meta?.gameSno || 0);
+  const date = game?.meta?.date || game?.date || "";
+  const away = normalizeTeamKey(game?.meta?.away || game?.away || "");
+  const home = normalizeTeamKey(game?.meta?.home || game?.home || "");
+  const kindCode = game?.kindCode || game?.meta?.kindCode || "A";
+
+  return [
+    `${kindCode}|${gameSno}|${date}|${away}|${home}`,
+    `${kindCode}|${gameSno}|${date}`,
+    `${gameSno}|${date}|${away}|${home}`,
+    `${gameSno}|${date}`
+  ].filter(key => !key.includes("undefined") && !key.includes("null"));
+}
+
+function normalizeTeamKey(team) {
+  return String(team || "")
+    .replace(/\s+/g, "")
+    .replace(/統一7-ELEVEN獅/gi, "統一7-ELEVEn獅")
+    .replace(/統一獅/g, "統一7-ELEVEn獅")
+    .trim();
+}
+
+function findExistingVueGame(game, existingVueMap) {
+  for (const key of getFastGameKeys(game)) {
+    if (existingVueMap.has(key)) return existingVueMap.get(key);
+  }
+  return null;
+}
+
+function shouldSkipConfirmedGame(game, existingVueMap) {
+  const existing = findExistingVueGame(game, existingVueMap);
+  const liveQ = game?.dataQuality || {};
+  const existingQ = existing?.dataQuality || {};
+
+  const liveAlreadyEnhanced =
+    game?.meta?.finalVueEnhanced === true &&
+    liveQ.batters === "confirmed" &&
+    liveQ.pitchers === "confirmed" &&
+    (liveQ.rhe === "confirmed" || liveQ.score === "confirmed");
+
+  const existingConfirmed =
+    existing?.parseStatus === "confirmed" &&
+    (existing?.batters?.away?.length || 0) > 0 &&
+    (existing?.batters?.home?.length || 0) > 0 &&
+    (existing?.pitchers?.away?.length || 0) > 0 &&
+    (existing?.pitchers?.home?.length || 0) > 0;
+
+  if (liveAlreadyEnhanced && existingConfirmed) {
+    return { skip: true, reason: "live-boxscore 已 finalVueEnhanced，且 Vue cache confirmed" };
+  }
+
+  if (existingConfirmed && existingQ.finalVue === "confirmed") {
+    return { skip: true, reason: "Vue cache 已 confirmed" };
+  }
+
+  return { skip: false, reason: "" };
+}
+
 function mergeByGameKey(games) {
   const map = new Map();
 
@@ -1330,7 +1425,21 @@ function hasArg(name) {
 }
 
 function getBrowserExecutablePath() {
+  // GitHub Actions / Linux：優先使用 Puppeteer 自己下載與管理的瀏覽器。
+  // Windows 本機仍保留既有 Chrome / Edge fallback。
+  try {
+    const bundled = puppeteer.executablePath();
+    if (bundled && fsSync.existsSync(bundled)) return bundled;
+  } catch {}
+
+  const envPath = process.env.PUPPETEER_EXECUTABLE_PATH || process.env.CHROME_PATH || "";
+  if (envPath && fsSync.existsSync(envPath)) return envPath;
+
   const candidates = [
+    "/usr/bin/google-chrome",
+    "/usr/bin/google-chrome-stable",
+    "/usr/bin/chromium",
+    "/usr/bin/chromium-browser",
     "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
     "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
     "C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe",
@@ -1338,11 +1447,7 @@ function getBrowserExecutablePath() {
   ];
 
   return candidates.find(file => {
-    try {
-      return fsSync.existsSync(file);
-    } catch {
-      return false;
-    }
+    try { return fsSync.existsSync(file); } catch { return false; }
   });
 }
 

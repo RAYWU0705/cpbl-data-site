@@ -1,0 +1,72 @@
+name: Reconcile CPBL Final Results
+
+concurrency:
+  group: cpbl-data-write
+  cancel-in-progress: false
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 每日台灣時間 00:35 回查最近 7 天漏抓/未完成賽果。
+    - cron: "35 16 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile-final:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Reconcile unresolved final results
+        id: reconcile
+        continue-on-error: true
+        run: npm run reconcile:final
+        env:
+          CI: true
+
+      - name: Rebuild standings from final games
+        run: npm run build:standings
+
+      - name: Run live-data release gate
+        run: node scripts/release-gate.js --live-update
+
+      - name: Commit repaired results and derived data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add data/live/live-boxscore.json \
+            data/live/final-boxscore-vue-2026.json \
+            data/live/final-boxscore-vue-merge-2026.report.json \
+            data/live/final-reconciliation-status.json \
+            data/standings-2026.json \
+            data/standings-2026-first.json \
+            data/standings-2026-second.json
+
+          if git diff --cached --quiet; then
+            echo "No reconciliation changes to commit."
+          else
+            git commit -m "auto reconcile CPBL final results"
+            git push
+          fi
+
+      - name: Mark unresolved reconciliation as failed
+        if: steps.reconcile.outcome == 'failure'
+        run: |
+          echo "Reconciliation still has unresolved games or source failure. Cached data was preserved."
+          exit 1
