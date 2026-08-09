@@ -11,11 +11,11 @@
   "dataStatus": {
     "status": "ok",
     "isCached": false,
-    "completedGames": 65,
-    "scheduledGames": 108,
+    "completedGames": 66,
+    "scheduledGames": 107,
     "liveGames": 0,
     "sourceGameCount": 175,
-    "lastSuccessfulAt": "2026-08-09T07:12:03.958Z"
+    "lastSuccessfulAt": "2026-08-09T14:24:38.534Z"
   },
   "standings": [
     {
@@ -258,23 +258,104 @@
       "trend": "flat"
     },
     {
-      "team": "台鋼雄鷹",
-      "rank": 3,
-      "games": 22,
+      "team": "中信兄弟",
+      "rank": 4,
+      "games": 23,
       "totalGames": 59,
-      "remainingGames": 37,
+      "remainingGames": 36,
       "wins": 11,
-      "losses": 11,
+      "losses": 12,
+      "ties": 0,
+      "homeWins": 4,
+      "homeLosses": 8,
+      "homeTies": 0,
+      "awayWins": 7,
+      "awayLosses": 4,
+      "awayTies": 0,
+      "runsFor": 107,
+      "runsAgainst": 90,
+      "runDiff": 17,
+      "h2h": {
+        "樂天桃猿": {
+          "wins": 2,
+          "losses": 3,
+          "ties": 0
+        },
+        "統一7-ELEVEn獅": {
+          "wins": 2,
+          "losses": 3,
+          "ties": 0
+        },
+        "富邦悍將": {
+          "wins": 2,
+          "losses": 1,
+          "ties": 0
+        },
+        "味全龍": {
+          "wins": 1,
+          "losses": 4,
+          "ties": 0
+        },
+        "台鋼雄鷹": {
+          "wins": 4,
+          "losses": 1,
+          "ties": 0
+        }
+      },
+      "streakType": "W",
+      "streakCount": 3,
+      "last10": [
+        "L",
+        "W",
+        "L",
+        "L",
+        "W",
+        "W",
+        "L",
+        "L",
+        "L",
+        "W",
+        "L",
+        "L",
+        "W",
+        "L",
+        "W",
+        "L",
+        "L",
+        "W",
+        "W",
+        "L",
+        "W",
+        "W",
+        "W"
+      ],
+      "last10Wins": 6,
+      "last10Losses": 4,
+      "last10Ties": 0,
+      "last10Display": "L W L L W W L W W W",
+      "winPct": 0.4782608695652174,
+      "gb": "3",
+      "elimination": "35",
+      "trend": "up"
+    },
+    {
+      "team": "台鋼雄鷹",
+      "rank": 4,
+      "games": 23,
+      "totalGames": 59,
+      "remainingGames": 36,
+      "wins": 11,
+      "losses": 12,
       "ties": 0,
       "homeWins": 6,
-      "homeLosses": 6,
+      "homeLosses": 7,
       "homeTies": 0,
       "awayWins": 5,
       "awayLosses": 5,
       "awayTies": 0,
-      "runsFor": 93,
-      "runsAgainst": 100,
-      "runDiff": -7,
+      "runsFor": 95,
+      "runsAgainst": 110,
+      "runDiff": -15,
       "h2h": {
         "統一7-ELEVEn獅": {
           "wins": 3,
@@ -298,12 +379,12 @@
         },
         "中信兄弟": {
           "wins": 1,
-          "losses": 3,
+          "losses": 4,
           "ties": 0
         }
       },
       "streakType": "L",
-      "streakCount": 2,
+      "streakCount": 3,
       "last10": [
         "W",
         "L",
@@ -325,97 +406,18 @@
         "W",
         "L",
         "W",
+        "L",
         "L",
         "L"
       ],
-      "last10Wins": 4,
-      "last10Losses": 6,
+      "last10Wins": 3,
+      "last10Losses": 7,
       "last10Ties": 0,
-      "last10Display": "W L W L L W L W L L",
-      "winPct": 0.5,
-      "gb": "2.5",
-      "elimination": "36",
-      "trend": "down"
-    },
-    {
-      "team": "中信兄弟",
-      "rank": 5,
-      "games": 22,
-      "totalGames": 59,
-      "remainingGames": 37,
-      "wins": 10,
-      "losses": 12,
-      "ties": 0,
-      "homeWins": 4,
-      "homeLosses": 8,
-      "homeTies": 0,
-      "awayWins": 6,
-      "awayLosses": 4,
-      "awayTies": 0,
-      "runsFor": 97,
-      "runsAgainst": 88,
-      "runDiff": 9,
-      "h2h": {
-        "樂天桃猿": {
-          "wins": 2,
-          "losses": 3,
-          "ties": 0
-        },
-        "統一7-ELEVEn獅": {
-          "wins": 2,
-          "losses": 3,
-          "ties": 0
-        },
-        "富邦悍將": {
-          "wins": 2,
-          "losses": 1,
-          "ties": 0
-        },
-        "味全龍": {
-          "wins": 1,
-          "losses": 4,
-          "ties": 0
-        },
-        "台鋼雄鷹": {
-          "wins": 3,
-          "losses": 1,
-          "ties": 0
-        }
-      },
-      "streakType": "W",
-      "streakCount": 2,
-      "last10": [
-        "L",
-        "W",
-        "L",
-        "L",
-        "W",
-        "W",
-        "L",
-        "L",
-        "L",
-        "W",
-        "L",
-        "L",
-        "W",
-        "L",
-        "W",
-        "L",
-        "L",
-        "W",
-        "W",
-        "L",
-        "W",
-        "W"
-      ],
-      "last10Wins": 6,
-      "last10Losses": 4,
-      "last10Ties": 0,
-      "last10Display": "W L W L L W W L W W",
-      "winPct": 0.45454545454545453,
-      "gb": "3.5",
+      "last10Display": "L W L L W L W L L L",
+      "winPct": 0.4782608695652174,
+      "gb": "3",
       "elimination": "35",
-      "trend": "up"
+      "trend": "down"
     },
     {
       "team": "富邦悍將",
@@ -497,6 +499,6 @@
       "trend": "down"
     }
   ],
-  "updatedAt": "2026-08-09T07:12:03.958Z",
-  "lastSuccessfulAt": "2026-08-09T07:12:03.958Z"
+  "updatedAt": "2026-08-09T14:24:38.534Z",
+  "lastSuccessfulAt": "2026-08-09T14:24:38.534Z"
 }

@@ -11,11 +11,11 @@
   "dataStatus": {
     "status": "ok",
     "isCached": false,
-    "completedGames": 244,
-    "scheduledGames": 109,
+    "completedGames": 245,
+    "scheduledGames": 108,
     "liveGames": 0,
     "sourceGameCount": 355,
-    "lastSuccessfulAt": "2026-08-09T07:12:03.795Z"
+    "lastSuccessfulAt": "2026-08-09T14:24:38.396Z"
   },
   "standings": [
     {
@@ -300,21 +300,21 @@
     {
       "team": "台鋼雄鷹",
       "rank": 3,
-      "games": 82,
+      "games": 83,
       "totalGames": 119,
-      "remainingGames": 37,
+      "remainingGames": 36,
       "wins": 41,
-      "losses": 40,
+      "losses": 41,
       "ties": 1,
       "homeWins": 23,
-      "homeLosses": 18,
+      "homeLosses": 19,
       "homeTies": 1,
       "awayWins": 18,
       "awayLosses": 22,
       "awayTies": 0,
-      "runsFor": 324,
-      "runsAgainst": 308,
-      "runDiff": 16,
+      "runsFor": 326,
+      "runsAgainst": 318,
+      "runDiff": 8,
       "h2h": {
         "統一7-ELEVEn獅": {
           "wins": 7,
@@ -338,12 +338,12 @@
         },
         "中信兄弟": {
           "wins": 10,
-          "losses": 6,
+          "losses": 7,
           "ties": 0
         }
       },
       "streakType": "L",
-      "streakCount": 2,
+      "streakCount": 3,
       "last10": [
         "L",
         "W",
@@ -426,20 +426,21 @@
         "L",
         "W",
         "L",
+        "L",
         "L"
       ],
-      "last10Wins": 4,
-      "last10Losses": 6,
+      "last10Wins": 3,
+      "last10Losses": 7,
       "last10Ties": 0,
-      "last10Display": "W L W L L W L W L L",
-      "winPct": 0.5061728395061729,
-      "gb": "9.5",
-      "elimination": "29",
+      "last10Display": "L W L L W L W L L L",
+      "winPct": 0.5,
+      "gb": "10",
+      "elimination": "28",
       "trend": "down"
     },
     {
       "team": "統一7-ELEVEn獅",
-      "rank": 4,
+      "rank": 3,
       "games": 81,
       "totalGames": 118,
       "remainingGames": 37,
@@ -718,21 +719,21 @@
     {
       "team": "中信兄弟",
       "rank": 6,
-      "games": 81,
+      "games": 82,
       "totalGames": 119,
-      "remainingGames": 38,
-      "wins": 30,
+      "remainingGames": 37,
+      "wins": 31,
       "losses": 49,
       "ties": 2,
       "homeWins": 12,
       "homeLosses": 27,
       "homeTies": 2,
-      "awayWins": 18,
+      "awayWins": 19,
       "awayLosses": 22,
       "awayTies": 0,
-      "runsFor": 302,
-      "runsAgainst": 358,
-      "runDiff": -56,
+      "runsFor": 312,
+      "runsAgainst": 360,
+      "runDiff": -48,
       "h2h": {
         "樂天桃猿": {
           "wins": 5,
@@ -755,13 +756,13 @@
           "ties": 0
         },
         "台鋼雄鷹": {
-          "wins": 6,
+          "wins": 7,
           "losses": 10,
           "ties": 0
         }
       },
       "streakType": "W",
-      "streakCount": 2,
+      "streakCount": 3,
       "last10": [
         "L",
         "L",
@@ -843,18 +844,19 @@
         "W",
         "L",
         "W",
+        "W",
         "W"
       ],
       "last10Wins": 6,
       "last10Losses": 4,
       "last10Ties": 0,
-      "last10Display": "W L W L L W W L W W",
-      "winPct": 0.379746835443038,
-      "gb": "19.5",
+      "last10Display": "L W L L W W L W W W",
+      "winPct": 0.3875,
+      "gb": "19",
       "elimination": "20",
       "trend": "up"
     }
   ],
-  "updatedAt": "2026-08-09T07:12:03.795Z",
-  "lastSuccessfulAt": "2026-08-09T07:12:03.795Z"
+  "updatedAt": "2026-08-09T14:24:38.396Z",
+  "lastSuccessfulAt": "2026-08-09T14:24:38.396Z"
 }

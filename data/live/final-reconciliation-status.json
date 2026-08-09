@@ -1,16 +1,16 @@
 {
-  "updatedAt": "2026-08-09T15:17:26.688Z",
+  "updatedAt": "2026-08-09T14:24:04.058Z",
   "source": "cpbl-official-boxscore-vue",
   "dataStatus": {
-    "status": "degraded",
+    "status": "ok",
     "isCached": false,
     "lookbackDays": 7,
     "includeToday": true,
     "todayTaipei": "2026-08-09",
     "targetCount": 1,
-    "remainingCount": 1,
-    "lastSuccessfulAt": "2026-08-09T14:01:29.208Z",
-    "message": "1 unresolved games remain"
+    "remainingCount": 0,
+    "lastSuccessfulAt": "2026-08-09T14:24:04.058Z",
+    "message": "1 games reconciled"
   },
   "targets": [
     {
@@ -18,10 +18,5 @@
       "gameSno": 253
     }
   ],
-  "remaining": [
-    {
-      "date": "2026-08-09",
-      "gameSno": 253
-    }
-  ]
+  "remaining": []
 }
