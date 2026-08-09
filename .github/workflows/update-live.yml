@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
 
   schedule:
-  # 每 5 分鐘觸發；preflight 會在非比賽窗口略過重型步驟。
-  - cron: "*/5 * * * *"
+    # 每 5 分鐘觸發；preflight 會在非比賽窗口略過重型步驟。
+    - cron: "*/5 * * * *"
 
 permissions:
   contents: write
@@ -52,6 +52,12 @@ jobs:
         env:
           CI: true
 
+      - name: Reconcile today's completed games
+        if: steps.preflight.outputs.should_run == 'true'
+        run: npm run reconcile:final -- --include-today
+        env:
+          CI: true
+
       - name: Rebuild derived standings
         if: steps.preflight.outputs.should_run == 'true'
         run: npm run build:standings
@@ -67,9 +73,12 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           git add data/live/live-boxscore.json \
+            data/live/final-reconciliation-status.json \
+            data/live/final-boxscore-vue-merge-2026.report.json \
             data/standings-2026.json \
             data/standings-2026-first.json \
-            data/standings-2026-second.json
+            data/standings-2026-second.json \
+            data/players/season-stats-2026.json
 
           if git diff --cached --quiet; then
             echo "No live data changes to commit."
