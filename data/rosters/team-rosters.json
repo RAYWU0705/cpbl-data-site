@@ -765,10 +765,10 @@
     ],
     "source": "cpbl-official-team",
     "dataStatus": {
-      "status": "ok",
-      "isCached": false,
+      "status": "cached",
+      "isCached": true,
       "lastSuccessfulAt": "2026-08-08T14:19:02.445Z",
-      "lastAttemptAt": "2026-08-08T14:19:02.445Z",
+      "lastAttemptAt": "2026-08-10T04:54:50.242Z",
       "rosterCounts": {
         "firstPlayers": 28,
         "secondPlayers": 51,
@@ -776,7 +776,8 @@
         "secondCoaches": 13
       },
       "freshTransactionCount": 5,
-      "transactionCount": 17
+      "transactionCount": 17,
+      "message": "roster 解析疑似不完整：一軍球員僅 0；二軍球員僅 0；一軍教練為 0；二軍教練為 0"
     }
   },
   "lions": {
@@ -1643,10 +1644,10 @@
     ],
     "source": "cpbl-official-team",
     "dataStatus": {
-      "status": "ok",
-      "isCached": false,
+      "status": "cached",
+      "isCached": true,
       "lastSuccessfulAt": "2026-08-08T14:19:32.516Z",
-      "lastAttemptAt": "2026-08-08T14:19:32.516Z",
+      "lastAttemptAt": "2026-08-10T04:54:58.503Z",
       "rosterCounts": {
         "firstPlayers": 26,
         "secondPlayers": 46,
@@ -1654,7 +1655,8 @@
         "secondCoaches": 10
       },
       "freshTransactionCount": 14,
-      "transactionCount": 47
+      "transactionCount": 47,
+      "message": "roster 解析疑似不完整：一軍球員僅 0；二軍球員僅 0；一軍教練為 0；二軍教練為 0"
     }
   },
   "monkeys": {
@@ -2489,10 +2491,10 @@
     ],
     "source": "cpbl-official-team",
     "dataStatus": {
-      "status": "ok",
-      "isCached": false,
+      "status": "cached",
+      "isCached": true,
       "lastSuccessfulAt": "2026-08-08T14:19:47.437Z",
-      "lastAttemptAt": "2026-08-08T14:19:47.437Z",
+      "lastAttemptAt": "2026-08-10T04:55:05.176Z",
       "rosterCounts": {
         "firstPlayers": 28,
         "secondPlayers": 47,
@@ -2500,7 +2502,8 @@
         "secondCoaches": 13
       },
       "freshTransactionCount": 8,
-      "transactionCount": 36
+      "transactionCount": 36,
+      "message": "roster 解析疑似不完整：一軍球員僅 0；二軍球員僅 0；一軍教練為 0；二軍教練為 0"
     }
   },
   "guardians": {
@@ -3436,10 +3439,10 @@
     ],
     "source": "cpbl-official-team",
     "dataStatus": {
-      "status": "ok",
-      "isCached": false,
+      "status": "cached",
+      "isCached": true,
       "lastSuccessfulAt": "2026-08-08T14:20:03.370Z",
-      "lastAttemptAt": "2026-08-08T14:20:03.370Z",
+      "lastAttemptAt": "2026-08-10T04:55:11.856Z",
       "rosterCounts": {
         "firstPlayers": 27,
         "secondPlayers": 59,
@@ -3447,7 +3450,8 @@
         "secondCoaches": 12
       },
       "freshTransactionCount": 21,
-      "transactionCount": 44
+      "transactionCount": 44,
+      "message": "roster 解析疑似不完整：一軍球員僅 0；二軍球員僅 0；一軍教練為 0；二軍教練為 0"
     }
   },
   "dragons": {
@@ -4219,10 +4223,10 @@
     ],
     "source": "cpbl-official-team",
     "dataStatus": {
-      "status": "ok",
-      "isCached": false,
+      "status": "cached",
+      "isCached": true,
       "lastSuccessfulAt": "2026-08-08T14:20:18.504Z",
-      "lastAttemptAt": "2026-08-08T14:20:18.504Z",
+      "lastAttemptAt": "2026-08-10T04:55:18.515Z",
       "rosterCounts": {
         "firstPlayers": 28,
         "secondPlayers": 44,
@@ -4230,7 +4234,8 @@
         "secondCoaches": 10
       },
       "freshTransactionCount": 10,
-      "transactionCount": 28
+      "transactionCount": 28,
+      "message": "roster 解析疑似不完整：一軍球員僅 0；二軍球員僅 0；一軍教練為 0；二軍教練為 0"
     }
   },
   "hawks": {
@@ -4964,10 +4969,10 @@
     ],
     "source": "cpbl-official-team",
     "dataStatus": {
-      "status": "ok",
-      "isCached": false,
+      "status": "cached",
+      "isCached": true,
       "lastSuccessfulAt": "2026-08-08T14:20:33.166Z",
-      "lastAttemptAt": "2026-08-08T14:20:33.166Z",
+      "lastAttemptAt": "2026-08-10T04:55:25.173Z",
       "rosterCounts": {
         "firstPlayers": 27,
         "secondPlayers": 42,
@@ -4975,7 +4980,8 @@
         "secondCoaches": 11
       },
       "freshTransactionCount": 9,
-      "transactionCount": 23
+      "transactionCount": 23,
+      "message": "roster 解析疑似不完整：一軍球員僅 0；二軍球員僅 0；一軍教練為 0；二軍教練為 0"
     }
   }
 }

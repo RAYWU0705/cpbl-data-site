@@ -931,10 +931,10 @@
   ],
   "source": "cpbl-official-team",
   "dataStatus": {
-    "status": "ok",
-    "isCached": false,
+    "status": "cached",
+    "isCached": true,
     "lastSuccessfulAt": "2026-08-08T14:20:03.370Z",
-    "lastAttemptAt": "2026-08-08T14:20:03.370Z",
+    "lastAttemptAt": "2026-08-10T04:55:11.856Z",
     "rosterCounts": {
       "firstPlayers": 27,
       "secondPlayers": 59,
@@ -942,6 +942,7 @@
       "secondCoaches": 12
     },
     "freshTransactionCount": 21,
-    "transactionCount": 44
+    "transactionCount": 44,
+    "message": "roster 解析疑似不完整：一軍球員僅 0；二軍球員僅 0；一軍教練為 0；二軍教練為 0"
   }
 }
