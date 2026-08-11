@@ -1,114 +1,43 @@
 {
   "version": "v5.5.2-DATE-SCOPED-FORCE-MERGE",
   "year": 2026,
-  "generatedAt": "2026-08-09T14:23:45.269Z",
+  "generatedAt": "2026-08-11T14:45:58.371Z",
   "dryRun": false,
   "force": true,
-  "date": "2026-08-09",
+  "date": "2026-08-11",
   "source": {
-    "live": "data\\live\\live-boxscore.json",
-    "vue": "data\\live\\final-boxscore-vue-2026.json"
+    "live": "data/live/live-boxscore.json",
+    "vue": "data/live/final-boxscore-vue-2026.json"
   },
   "counts": {
     "liveTotal": 360,
-    "vueTotal": 249,
+    "vueTotal": 250,
     "liveFinal": 0,
-    "matched": 1,
-    "merged": 1,
+    "matched": 2,
+    "merged": 0,
     "skippedNotFinal": 0,
-    "skippedProtectedStatus": 1,
-    "forcedScheduledToFinal": 1,
+    "skippedProtectedStatus": 0,
+    "forcedScheduledToFinal": 2,
     "skippedNoVue": 0,
-    "skippedVueNotConfirmed": 0
+    "skippedVueNotConfirmed": 2
   },
-  "mergedGames": [
-    {
-      "gameSno": 253,
-      "date": "2026-08-09",
-      "away": "中信兄弟",
-      "home": "台鋼雄鷹",
-      "before": {
-        "status": "scheduled",
-        "finalLock": null,
-        "finalVueEnhanced": false,
-        "totals": {
-          "away": {
-            "R": 0,
-            "H": null,
-            "E": null
-          },
-          "home": {
-            "R": 0,
-            "H": null,
-            "E": null
-          }
-        },
-        "lineScore": {
-          "away": 0,
-          "home": 0
-        },
-        "batters": {
-          "away": 0,
-          "home": 0
-        },
-        "pitchers": {
-          "away": 0,
-          "home": 0
-        },
-        "decision": {
-          "win": "",
-          "lose": "",
-          "save": "",
-          "mvp": ""
-        }
-      },
-      "after": {
-        "status": "final",
-        "finalLock": true,
-        "finalVueEnhanced": true,
-        "totals": {
-          "away": {
-            "R": 10,
-            "H": 18,
-            "E": 2
-          },
-          "home": {
-            "R": 2,
-            "H": 8,
-            "E": 2
-          }
-        },
-        "lineScore": {
-          "away": 9,
-          "home": 9
-        },
-        "batters": {
-          "away": 11,
-          "home": 13
-        },
-        "pitchers": {
-          "away": 2,
-          "home": 4
-        },
-        "decision": {
-          "win": "羅戈",
-          "lose": "坎南",
-          "save": "",
-          "mvp": "羅戈"
-        }
-      },
-      "vueStatus": "confirmed",
-      "vueCrawler": "v5.4.5-SKIP-CONFIRMED-FAST"
-    }
-  ],
+  "mergedGames": [],
   "skippedGames": [
     {
-      "gameSno": 255,
-      "date": "2026-08-09",
-      "away": "統一7-ELEVEn獅",
-      "home": "富邦悍將",
-      "status": "postponed",
-      "reason": "protected-status-postponed"
+      "gameSno": 256,
+      "date": "2026-08-11",
+      "away": "樂天桃猿",
+      "home": "統一7-ELEVEn獅",
+      "status": "scheduled",
+      "reason": "vue-parseStatus-schedule-only"
+    },
+    {
+      "gameSno": 257,
+      "date": "2026-08-11",
+      "away": "味全龍",
+      "home": "台鋼雄鷹",
+      "status": "scheduled",
+      "reason": "vue-parseStatus-schedule-only"
     }
   ],
   "warnings": []
