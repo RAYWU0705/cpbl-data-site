@@ -1,11 +1,11 @@
 {
   "season": 2026,
-  "updatedAt": "2026-08-19T10:48:04.328Z",
+  "updatedAt": "2026-08-19T11:12:59.013Z",
   "source": "derived:data/live/live-boxscore.json",
   "dataStatus": {
     "status": "ok",
     "isCached": false,
-    "lastSuccessfulAt": "2026-08-19T10:48:04.328Z",
+    "lastSuccessfulAt": "2026-08-19T11:12:59.013Z",
     "finalGames": 245,
     "detailedFinalGames": 245,
     "missingDetailGames": 0,
