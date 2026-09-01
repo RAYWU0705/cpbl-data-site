@@ -1,49 +1,41 @@
 {
   "version": "v5.5.2-DATE-SCOPED-FORCE-MERGE",
   "year": 2026,
-  "generatedAt": "2026-09-01T13:45:00.147Z",
+  "generatedAt": "2026-09-01T19:32:26.936Z",
   "dryRun": false,
   "force": true,
-  "date": "2026-08-30",
+  "date": "2026-09-01",
   "source": {
     "live": "data/live/live-boxscore.json",
     "vue": "data/live/final-boxscore-vue-2026.json"
   },
   "counts": {
     "liveTotal": 360,
-    "vueTotal": 293,
+    "vueTotal": 295,
     "liveFinal": 0,
-    "matched": 3,
+    "matched": 2,
     "merged": 0,
     "skippedNotFinal": 0,
     "skippedProtectedStatus": 0,
-    "forcedScheduledToFinal": 3,
+    "forcedScheduledToFinal": 2,
     "skippedNoVue": 0,
-    "skippedVueNotConfirmed": 3
+    "skippedVueNotConfirmed": 2
   },
   "mergedGames": [],
   "skippedGames": [
     {
-      "gameSno": 298,
-      "date": "2026-08-30",
-      "away": "台鋼雄鷹",
-      "home": "味全龍",
-      "status": "scheduled",
-      "reason": "vue-parseStatus-schedule-only"
-    },
-    {
-      "gameSno": 299,
-      "date": "2026-08-30",
-      "away": "富邦悍將",
-      "home": "中信兄弟",
-      "status": "scheduled",
-      "reason": "vue-parseStatus-schedule-only"
-    },
-    {
-      "gameSno": 300,
-      "date": "2026-08-30",
+      "gameSno": 301,
+      "date": "2026-09-01",
       "away": "統一7-ELEVEn獅",
-      "home": "樂天桃猿",
+      "home": "富邦悍將",
+      "status": "scheduled",
+      "reason": "vue-parseStatus-schedule-only"
+    },
+    {
+      "gameSno": 302,
+      "date": "2026-09-01",
+      "away": "中信兄弟",
+      "home": "台鋼雄鷹",
       "status": "scheduled",
       "reason": "vue-parseStatus-schedule-only"
     }
