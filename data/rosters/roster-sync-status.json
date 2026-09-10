@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-09T13:00:12.083Z",
+  "updatedAt": "2026-09-10T08:09:53.262Z",
   "source": "cpbl-official-team",
   "dataStatus": {
     "status": "error",
@@ -13,7 +13,7 @@
       "teamName": "中信兄弟",
       "status": "cached",
       "isCached": true,
-      "lastAttemptAt": "2026-09-09T12:59:31.268Z",
+      "lastAttemptAt": "2026-09-10T08:09:12.506Z",
       "lastSuccessfulAt": "2026-08-08T14:19:02.445Z",
       "message": "roster 解析疑似不完整：一軍球員僅 0；二軍球員僅 0；一軍教練為 0；二軍教練為 0"
     },
@@ -21,7 +21,7 @@
       "teamName": "統一7-ELEVEn獅",
       "status": "cached",
       "isCached": true,
-      "lastAttemptAt": "2026-09-09T12:59:39.032Z",
+      "lastAttemptAt": "2026-09-10T08:09:20.239Z",
       "lastSuccessfulAt": "2026-08-08T14:19:32.516Z",
       "message": "roster 解析疑似不完整：一軍球員僅 0；二軍球員僅 0；一軍教練為 0；二軍教練為 0"
     },
@@ -29,7 +29,7 @@
       "teamName": "樂天桃猿",
       "status": "cached",
       "isCached": true,
-      "lastAttemptAt": "2026-09-09T12:59:45.645Z",
+      "lastAttemptAt": "2026-09-10T08:09:26.851Z",
       "lastSuccessfulAt": "2026-08-08T14:19:47.437Z",
       "message": "roster 解析疑似不完整：一軍球員僅 0；二軍球員僅 0；一軍教練為 0；二軍教練為 0"
     },
@@ -37,7 +37,7 @@
       "teamName": "富邦悍將",
       "status": "cached",
       "isCached": true,
-      "lastAttemptAt": "2026-09-09T12:59:52.244Z",
+      "lastAttemptAt": "2026-09-10T08:09:33.457Z",
       "lastSuccessfulAt": "2026-08-08T14:20:03.370Z",
       "message": "roster 解析疑似不完整：一軍球員僅 0；二軍球員僅 0；一軍教練為 0；二軍教練為 0"
     },
@@ -45,7 +45,7 @@
       "teamName": "味全龍",
       "status": "cached",
       "isCached": true,
-      "lastAttemptAt": "2026-09-09T12:59:58.844Z",
+      "lastAttemptAt": "2026-09-10T08:09:40.057Z",
       "lastSuccessfulAt": "2026-08-08T14:20:18.504Z",
       "message": "roster 解析疑似不完整：一軍球員僅 0；二軍球員僅 0；一軍教練為 0；二軍教練為 0"
     },
@@ -53,7 +53,7 @@
       "teamName": "台鋼雄鷹",
       "status": "cached",
       "isCached": true,
-      "lastAttemptAt": "2026-09-09T13:00:05.446Z",
+      "lastAttemptAt": "2026-09-10T08:09:46.658Z",
       "lastSuccessfulAt": "2026-08-08T14:20:33.166Z",
       "message": "roster 解析疑似不完整：一軍球員僅 0；二軍球員僅 0；一軍教練為 0；二軍教練為 0"
     }
