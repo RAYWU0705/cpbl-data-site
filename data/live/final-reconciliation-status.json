@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-09-23T19:47:37.682Z",
+  "updatedAt": "2026-09-24T09:33:15.810Z",
   "source": "cpbl-official-boxscore-vue",
   "dataStatus": {
     "status": "degraded",
     "isCached": false,
     "lookbackDays": 7,
-    "includeToday": false,
+    "includeToday": true,
     "todayTaipei": "2026-09-24",
     "targetCount": 11,
     "remainingCount": 11,
@@ -14,204 +14,94 @@
   },
   "targets": [
     {
-      "gameSno": 337,
       "date": "2026-09-18",
-      "status": "scheduled",
-      "away": "統一7-ELEVEn獅",
-      "home": "中信兄弟",
-      "awayR": null,
-      "homeR": null
+      "gameSno": 337
     },
     {
-      "gameSno": 338,
       "date": "2026-09-18",
-      "status": "scheduled",
-      "away": "樂天桃猿",
-      "home": "富邦悍將",
-      "awayR": null,
-      "homeR": null
+      "gameSno": 338
     },
     {
-      "gameSno": 339,
       "date": "2026-09-18",
-      "status": "scheduled",
-      "away": "台鋼雄鷹",
-      "home": "味全龍",
-      "awayR": null,
-      "homeR": null
+      "gameSno": 339
     },
     {
-      "gameSno": 340,
       "date": "2026-09-19",
-      "status": "scheduled",
-      "away": "富邦悍將",
-      "home": "統一7-ELEVEn獅",
-      "awayR": null,
-      "homeR": null
+      "gameSno": 340
     },
     {
-      "gameSno": 341,
       "date": "2026-09-19",
-      "status": "scheduled",
-      "away": "味全龍",
-      "home": "中信兄弟",
-      "awayR": null,
-      "homeR": null
+      "gameSno": 341
     },
     {
-      "gameSno": 342,
       "date": "2026-09-19",
-      "status": "scheduled",
-      "away": "台鋼雄鷹",
-      "home": "樂天桃猿",
-      "awayR": null,
-      "homeR": null
+      "gameSno": 342
     },
     {
-      "gameSno": 343,
       "date": "2026-09-20",
-      "status": "scheduled",
-      "away": "味全龍",
-      "home": "中信兄弟",
-      "awayR": null,
-      "homeR": null
+      "gameSno": 343
     },
     {
-      "gameSno": 344,
       "date": "2026-09-20",
-      "status": "scheduled",
-      "away": "富邦悍將",
-      "home": "統一7-ELEVEn獅",
-      "awayR": null,
-      "homeR": null
+      "gameSno": 344
     },
     {
-      "gameSno": 345,
       "date": "2026-09-20",
-      "status": "scheduled",
-      "away": "台鋼雄鷹",
-      "home": "樂天桃猿",
-      "awayR": null,
-      "homeR": null
+      "gameSno": 345
     },
     {
-      "gameSno": 196,
       "date": "2026-09-22",
-      "status": "scheduled",
-      "away": "中信兄弟",
-      "home": "富邦悍將",
-      "awayR": null,
-      "homeR": null
+      "gameSno": 196
     },
     {
-      "gameSno": 197,
       "date": "2026-09-22",
-      "status": "scheduled",
-      "away": "台鋼雄鷹",
-      "home": "樂天桃猿",
-      "awayR": null,
-      "homeR": null
+      "gameSno": 197
     }
   ],
   "remaining": [
     {
-      "gameSno": 337,
       "date": "2026-09-18",
-      "status": "scheduled",
-      "away": "統一7-ELEVEn獅",
-      "home": "中信兄弟",
-      "awayR": null,
-      "homeR": null
+      "gameSno": 337
     },
     {
-      "gameSno": 338,
       "date": "2026-09-18",
-      "status": "scheduled",
-      "away": "樂天桃猿",
-      "home": "富邦悍將",
-      "awayR": null,
-      "homeR": null
+      "gameSno": 338
     },
     {
-      "gameSno": 339,
       "date": "2026-09-18",
-      "status": "scheduled",
-      "away": "台鋼雄鷹",
-      "home": "味全龍",
-      "awayR": null,
-      "homeR": null
+      "gameSno": 339
     },
     {
-      "gameSno": 340,
       "date": "2026-09-19",
-      "status": "scheduled",
-      "away": "富邦悍將",
-      "home": "統一7-ELEVEn獅",
-      "awayR": null,
-      "homeR": null
+      "gameSno": 340
     },
     {
-      "gameSno": 341,
       "date": "2026-09-19",
-      "status": "scheduled",
-      "away": "味全龍",
-      "home": "中信兄弟",
-      "awayR": null,
-      "homeR": null
+      "gameSno": 341
     },
     {
-      "gameSno": 342,
       "date": "2026-09-19",
-      "status": "scheduled",
-      "away": "台鋼雄鷹",
-      "home": "樂天桃猿",
-      "awayR": null,
-      "homeR": null
+      "gameSno": 342
     },
     {
-      "gameSno": 343,
       "date": "2026-09-20",
-      "status": "scheduled",
-      "away": "味全龍",
-      "home": "中信兄弟",
-      "awayR": null,
-      "homeR": null
+      "gameSno": 343
     },
     {
-      "gameSno": 344,
       "date": "2026-09-20",
-      "status": "scheduled",
-      "away": "富邦悍將",
-      "home": "統一7-ELEVEn獅",
-      "awayR": null,
-      "homeR": null
+      "gameSno": 344
     },
     {
-      "gameSno": 345,
       "date": "2026-09-20",
-      "status": "scheduled",
-      "away": "台鋼雄鷹",
-      "home": "樂天桃猿",
-      "awayR": null,
-      "homeR": null
+      "gameSno": 345
     },
     {
-      "gameSno": 196,
       "date": "2026-09-22",
-      "status": "scheduled",
-      "away": "中信兄弟",
-      "home": "富邦悍將",
-      "awayR": null,
-      "homeR": null
+      "gameSno": 196
     },
     {
-      "gameSno": 197,
       "date": "2026-09-22",
-      "status": "scheduled",
-      "away": "台鋼雄鷹",
-      "home": "樂天桃猿",
-      "awayR": null,
-      "homeR": null
+      "gameSno": 197
     }
   ]
 }
