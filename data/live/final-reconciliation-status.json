@@ -1,12 +1,12 @@
 {
-  "updatedAt": "2026-10-04T19:46:57.285Z",
+  "updatedAt": "2026-10-05T22:53:02.795Z",
   "source": "cpbl-official-boxscore-vue",
   "dataStatus": {
     "status": "degraded",
     "isCached": false,
     "lookbackDays": 7,
     "includeToday": false,
-    "todayTaipei": "2026-10-05",
+    "todayTaipei": "2026-10-06",
     "targetCount": 5,
     "remainingCount": 5,
     "lastSuccessfulAt": "2026-08-11T13:44:57.764Z",
