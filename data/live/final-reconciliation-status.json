@@ -1,45 +1,18 @@
 {
-  "updatedAt": "2026-10-08T21:27:52.819Z",
+  "updatedAt": "2026-10-09T21:11:05.400Z",
   "source": "cpbl-official-boxscore-vue",
   "dataStatus": {
     "status": "degraded",
     "isCached": false,
     "lookbackDays": 7,
     "includeToday": false,
-    "todayTaipei": "2026-10-09",
-    "targetCount": 5,
-    "remainingCount": 5,
+    "todayTaipei": "2026-10-10",
+    "targetCount": 2,
+    "remainingCount": 2,
     "lastSuccessfulAt": "2026-08-11T13:44:57.764Z",
-    "message": "5 unresolved games remain"
+    "message": "2 unresolved games remain"
   },
   "targets": [
-    {
-      "gameSno": 199,
-      "date": "2026-10-03",
-      "status": "scheduled",
-      "away": "味全龍",
-      "home": "統一7-ELEVEn獅",
-      "awayR": null,
-      "homeR": null
-    },
-    {
-      "gameSno": 200,
-      "date": "2026-10-03",
-      "status": "scheduled",
-      "away": "中信兄弟",
-      "home": "富邦悍將",
-      "awayR": null,
-      "homeR": null
-    },
-    {
-      "gameSno": 201,
-      "date": "2026-10-03",
-      "status": "scheduled",
-      "away": "台鋼雄鷹",
-      "home": "樂天桃猿",
-      "awayR": null,
-      "homeR": null
-    },
     {
       "gameSno": 251,
       "date": "2026-10-04",
@@ -60,33 +33,6 @@
     }
   ],
   "remaining": [
-    {
-      "gameSno": 199,
-      "date": "2026-10-03",
-      "status": "scheduled",
-      "away": "味全龍",
-      "home": "統一7-ELEVEn獅",
-      "awayR": null,
-      "homeR": null
-    },
-    {
-      "gameSno": 200,
-      "date": "2026-10-03",
-      "status": "scheduled",
-      "away": "中信兄弟",
-      "home": "富邦悍將",
-      "awayR": null,
-      "homeR": null
-    },
-    {
-      "gameSno": 201,
-      "date": "2026-10-03",
-      "status": "scheduled",
-      "away": "台鋼雄鷹",
-      "home": "樂天桃猿",
-      "awayR": null,
-      "homeR": null
-    },
     {
       "gameSno": 251,
       "date": "2026-10-04",
