@@ -1,15 +1,15 @@
 {
-  "updatedAt": "2026-10-29T21:22:13.140Z",
+  "updatedAt": "2026-10-30T20:59:57.428Z",
   "source": "cpbl-official-boxscore-vue",
   "dataStatus": {
     "status": "ok",
     "isCached": false,
     "lookbackDays": 7,
     "includeToday": false,
-    "todayTaipei": "2026-10-30",
+    "todayTaipei": "2026-10-31",
     "targetCount": 0,
     "remainingCount": 0,
-    "lastSuccessfulAt": "2026-10-29T21:22:13.140Z",
+    "lastSuccessfulAt": "2026-10-30T20:59:57.428Z",
     "message": "no unresolved past games"
   },
   "targets": [],
